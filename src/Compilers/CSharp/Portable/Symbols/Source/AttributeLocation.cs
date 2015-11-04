@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Text;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
     [Flags]
-    internal enum AttributeLocation : short
+    public enum AttributeLocation : short
     {
         None = 0,
 
@@ -30,9 +30,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         Unknown = 1 << 10,
     }
 
-    internal static class AttributeLocationExtensions
+    public static class AttributeLocationExtensions
     {
-        internal static string ToDisplayString(this AttributeLocation locations)
+        public static string ToDisplayString(this AttributeLocation locations)
         {
             StringBuilder result = new StringBuilder();
             for (int i = 1; i < (int)AttributeLocation.Unknown; i <<= 1)
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result.ToString();
         }
 
-        internal static AttributeLocation ToAttributeLocation(this SyntaxToken token)
+        public static AttributeLocation ToAttributeLocation(this SyntaxToken token)
         {
             // NOTE: to match dev10, we're using the value text, rather
             // than the actual text.  For example, "@return" is equivalent
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ToAttributeLocation(token.ValueText);
         }
 
-        internal static AttributeLocation ToAttributeLocation(this Syntax.InternalSyntax.SyntaxToken token)
+        public static AttributeLocation ToAttributeLocation(this Syntax.InternalSyntax.SyntaxToken token)
         {
             // NOTE: to match dev10, we're using the value text, rather
             // than the actual text.  For example, "@return" is equivalent

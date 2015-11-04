@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Roslyn.Utilities;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a compiler generated field of given type and name.
     /// </summary>
-    internal class SynthesizedFieldSymbol : SynthesizedFieldSymbolBase
+    public class SynthesizedFieldSymbol : SynthesizedFieldSymbolBase
     {
         private readonly TypeSymbol _type;
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _type = type;
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             return _type;
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Linq;
@@ -10,45 +10,45 @@ using System.Diagnostics;
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal abstract class CSharpSyntaxNode : GreenNode
+    public abstract class CSharpSyntaxNode : GreenNode
     {
-        internal CSharpSyntaxNode(SyntaxKind kind)
+        public CSharpSyntaxNode(SyntaxKind kind)
             : base((ushort)kind)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(SyntaxKind kind, int fullWidth)
+        public CSharpSyntaxNode(SyntaxKind kind, int fullWidth)
             : base((ushort)kind, fullWidth)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics)
+        public CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics)
             : base((ushort)kind, diagnostics)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, int fullWidth)
+        public CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, int fullWidth)
             : base((ushort)kind, diagnostics, fullWidth)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
+        public CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
             : base((ushort)kind, diagnostics, annotations)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations, int fullWidth)
+        public CSharpSyntaxNode(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations, int fullWidth)
             : base((ushort)kind, diagnostics, annotations, fullWidth)
         {
             GreenStats.NoteGreen(this);
         }
 
-        internal CSharpSyntaxNode(ObjectReader reader)
+        public CSharpSyntaxNode(ObjectReader reader)
             : base(reader)
         {
         }
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return offset;
         }
 
-        internal ChildSyntaxList ChildNodesAndTokens()
+        public ChildSyntaxList ChildNodesAndTokens()
         {
             return new ChildSyntaxList(this);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// <summary>
         /// Enumerates all nodes of the tree rooted by this node (including this node).
         /// </summary>
-        internal IEnumerable<GreenNode> EnumerateNodes()
+        public IEnumerable<GreenNode> EnumerateNodes()
         {
             yield return this;
 
@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
         public abstract void Accept(CSharpSyntaxVisitor visitor);
 
-        internal virtual DirectiveStack ApplyDirectives(DirectiveStack stack)
+        public virtual DirectiveStack ApplyDirectives(DirectiveStack stack)
         {
             if (this.ContainsDirectives)
             {
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return stack;
         }
 
-        internal virtual IList<DirectiveTriviaSyntax> GetDirectives()
+        public virtual IList<DirectiveTriviaSyntax> GetDirectives()
         {
             if ((this.flags & NodeFlags.ContainsDirectives) != 0)
             {
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal static NodeFlags SetFactoryContext(NodeFlags flags, SyntaxFactoryContext context)
+        public static NodeFlags SetFactoryContext(NodeFlags flags, SyntaxFactoryContext context)
         {
             if (context.IsInAsync)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class WithLambdaParametersBinder : LocalScopeBinder
+    public class WithLambdaParametersBinder : LocalScopeBinder
     {
         protected readonly LambdaSymbol lambdaSymbol;
         protected readonly MultiDictionary<string, ParameterSymbol> parameterMap;
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return lambdaSymbol.ReturnType;
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool IsDirectlyInIterator
+        public override bool IsDirectlyInIterator
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // NOTE: Specifically not overriding IsIndirectlyInIterator.
 
-        internal override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
+        public override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
         {
             if (node != null)
             {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return CreateErrorType();
         }
 
-        internal override void LookupSymbolsInSingleBinder(
+        public override void LookupSymbolsInSingleBinder(
             LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert(result.IsClear);
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 
-        internal override bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
+        public override bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
         {
             ParameterSymbol existingDeclaration;
             var map = _definitionMap;

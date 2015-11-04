@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a local variable in a method body.
     /// </summary>
-    internal class SourceLocalSymbol : LocalSymbol
+    public class SourceLocalSymbol : LocalSymbol
     {
         protected readonly Binder binder;
 
@@ -88,27 +88,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 new LocalWithInitializer(containingSymbol, binder, typeSyntax, identifierToken, initializer, declarationKind);
         }
 
-        internal override bool IsImportedFromMetadata
+        public override bool IsImportedFromMetadata
         {
             get { return false; }
         }
 
-        internal override LocalDeclarationKind DeclarationKind
+        public override LocalDeclarationKind DeclarationKind
         {
             get { return _declarationKind; }
         }
 
-        internal override SynthesizedLocalKind SynthesizedKind
+        public override SynthesizedLocalKind SynthesizedKind
         {
             get { return SynthesizedLocalKind.UserDefined; }
         }
 
-        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
+        public override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool IsPinned
+        public override bool IsPinned
         {
             get
             {
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void SetSpecificallyNotPinned()
+        public void SetSpecificallyNotPinned()
         {
             Debug.Assert((_isSpecificallyNotPinned & 2) == 0, "Shouldn't be writing after first read.");
             Interlocked.CompareExchange(ref _isSpecificallyNotPinned, _isSpecificallyNotPinned | 1, _isSpecificallyNotPinned);
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // Get the identifier token that defined this local symbol. This is useful for robustly
         // checking if a local symbol actually matches a particular definition, even in the presence
         // of duplicates.
-        internal override SyntaxToken IdentifierToken
+        public override SyntaxToken IdentifierToken
         {
             get
             {
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal void SetTypeSymbol(TypeSymbol newType)
+        public void SetTypeSymbol(TypeSymbol newType)
         {
             TypeSymbol originalType = _type;
 
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override SyntaxNode GetDeclaratorSyntax()
+        public sealed override SyntaxNode GetDeclaratorSyntax()
         {
             return _identifierToken.Parent;
         }
@@ -290,22 +290,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsCompilerGenerated
+        public override bool IsCompilerGenerated
         {
             get { return false; }
         }
 
-        internal override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
+        public override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
         {
             return null;
         }
 
-        internal override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
+        public override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
         {
             return ImmutableArray<Diagnostic>.Empty;
         }
 
-        internal override RefKind RefKind
+        public override RefKind RefKind
         {
             get { return RefKind.None; }
         }
@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics = null)
+            public override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics = null)
             {
                 if (this.IsConst && inProgress == this)
                 {
@@ -408,7 +408,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return _constantTuple == null ? null : _constantTuple.Value;
             }
 
-            internal override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
+            public override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
             {
                 Debug.Assert(boundInitValue != null);
                 MakeConstantTuple(inProgress: null, boundInitValue: boundInitValue);

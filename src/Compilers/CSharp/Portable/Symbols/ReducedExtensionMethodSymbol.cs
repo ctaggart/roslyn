@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// An extension method with the "this" parameter removed.
     /// Used for the public binding API only, not for compilation.
     /// </summary>
-    internal sealed class ReducedExtensionMethodSymbol : MethodSymbol
+    public sealed class ReducedExtensionMethodSymbol : MethodSymbol
     {
         private readonly MethodSymbol _reducedFrom;
         private readonly TypeMap _typeMap;
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _typeArguments = _typeMap.SubstituteTypesWithoutModifiers(reducedFrom.TypeArguments);
         }
 
-        internal override MethodSymbol CallsiteReducedFromMethod
+        public override MethodSymbol CallsiteReducedFromMethod
         {
             get { return _reducedFrom.ConstructIfGeneric(_typeArguments); }
         }
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _typeArguments; }
         }
 
-        internal override Microsoft.Cci.CallingConvention CallingConvention
+        public override Microsoft.Cci.CallingConvention CallingConvention
         {
             get { return _reducedFrom.CallingConvention; }
         }
@@ -163,17 +163,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _reducedFrom.Name; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return _reducedFrom.HasSpecialName; }
         }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get { return _reducedFrom.ImplementationAttributes; }
         }
 
-        internal override bool RequiresSecurityObject
+        public override bool RequiresSecurityObject
         {
             get { return _reducedFrom.RequiresSecurityObject; }
         }
@@ -183,22 +183,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _reducedFrom.GetDllImportData();
         }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return _reducedFrom.ReturnValueMarshallingInformation; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return _reducedFrom.HasDeclarativeSecurity; }
         }
 
-        internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             return _reducedFrom.GetSecurityInformation();
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return _reducedFrom.GetAppliedConditionalSymbols();
         }
@@ -268,17 +268,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return _reducedFrom.ObsoleteAttributeData; }
         }
@@ -341,12 +341,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _typeMap.SubstituteCustomModifiers(_reducedFrom.ReturnType, _reducedFrom.ReturnTypeCustomModifiers); }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get { return _reducedFrom.ParameterCount - 1; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return _reducedFrom.GenerateDebugInfo; }
         }
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return false; }
         }
@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override bool CallsAreOmitted(SyntaxTree syntaxTree)
+        public override bool CallsAreOmitted(SyntaxTree syntaxTree)
         {
             return _reducedFrom.CallsAreOmitted(syntaxTree);
         }
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             throw ExceptionUtilities.Unreachable;
         }

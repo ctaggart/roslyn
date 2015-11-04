@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,13 +6,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxList
+    public partial class SyntaxList
     {
-        internal abstract class WithManyChildrenBase : SyntaxList
+        public abstract class WithManyChildrenBase : SyntaxList
         {
-            internal readonly ArrayElement<CSharpSyntaxNode>[] children;
+            public readonly ArrayElement<CSharpSyntaxNode>[] children;
 
-            internal WithManyChildrenBase(ArrayElement<CSharpSyntaxNode>[] children)
+            public WithManyChildrenBase(ArrayElement<CSharpSyntaxNode>[] children)
             {
                 this.children = children;
                 this.InitializeChildren();
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 }
             }
 
-            internal WithManyChildrenBase(ObjectReader reader)
+            public WithManyChildrenBase(ObjectReader reader)
                 : base(reader)
             {
                 var length = reader.ReadInt32();
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 this.InitializeChildren();
             }
 
-            internal override void WriteTo(ObjectWriter writer)
+            public override void WriteTo(ObjectWriter writer)
             {
                 base.WriteTo(writer);
 
@@ -69,17 +69,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 return children.Length;
             }
 
-            internal override GreenNode GetSlot(int index)
+            public override GreenNode GetSlot(int index)
             {
                 return this.children[index];
             }
 
-            internal override void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset)
+            public override void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset)
             {
                 Array.Copy(this.children, 0, array, offset, this.children.Length);
             }
 
-            internal override SyntaxNode CreateRed(SyntaxNode parent, int position)
+            public override SyntaxNode CreateRed(SyntaxNode parent, int position)
             {
                 var p = parent;
                 if (p != null && p is CSharp.Syntax.BlockSyntax)
@@ -127,19 +127,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal sealed class WithManyChildren : WithManyChildrenBase
+        public sealed class WithManyChildren : WithManyChildrenBase
         {
-            internal WithManyChildren(ArrayElement<CSharpSyntaxNode>[] children)
+            public WithManyChildren(ArrayElement<CSharpSyntaxNode>[] children)
                 : base(children)
             {
             }
 
-            internal WithManyChildren(ObjectReader reader)
+            public WithManyChildren(ObjectReader reader)
                 : base(reader)
             {
             }
 
-            internal override Func<ObjectReader, object> GetReader()
+            public override Func<ObjectReader, object> GetReader()
             {
                 return r => new WithManyChildren(r);
             }

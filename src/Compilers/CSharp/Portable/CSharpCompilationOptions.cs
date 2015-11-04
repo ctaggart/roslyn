@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Expects correct arguments.
-        internal CSharpCompilationOptions(
+        public CSharpCompilationOptions(
             OutputKind outputKind,
             bool reportSuppressedDiagnostics,
             string moduleName,
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
         }
 
-        internal override ImmutableArray<string> GetImports()
+        public override ImmutableArray<string> GetImports()
         {
             return Usings;
         }
@@ -458,7 +458,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new CSharpCompilationOptions(this) { Deterministic = deterministic };
         }
 
-        internal CSharpCompilationOptions WithExtendedCustomDebugInformation(bool extendedCustomDebugInformation)
+        public CSharpCompilationOptions WithExtendedCustomDebugInformation(bool extendedCustomDebugInformation)
         {
             if (extendedCustomDebugInformation == this.ExtendedCustomDebugInformation)
             {
@@ -468,7 +468,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new CSharpCompilationOptions(this) { ExtendedCustomDebugInformation_internal_protected_set = extendedCustomDebugInformation };
         }
 
-        internal CSharpCompilationOptions WithDebugPlusMode(bool debugPlusMode)
+        public CSharpCompilationOptions WithDebugPlusMode(bool debugPlusMode)
         {
             if (debugPlusMode == this.DebugPlusMode)
             {
@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new CSharpCompilationOptions(this) { DebugPlusMode_internal_protected_set = debugPlusMode };
         }
 
-        internal CSharpCompilationOptions WithMetadataImportOptions(MetadataImportOptions value)
+        public CSharpCompilationOptions WithMetadataImportOptions(MetadataImportOptions value)
         {
             if (value == this.MetadataImportOptions)
             {
@@ -591,7 +591,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             throw new NotImplementedException();
         }
 
-        internal override void ValidateOptions(ArrayBuilder<Diagnostic> builder)
+        public override void ValidateOptions(ArrayBuilder<Diagnostic> builder)
         {
             //  /main & /target:{library|netmodule|winmdobj}
             if (this.MainTypeName != null)
@@ -697,7 +697,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                    Hash.Combine(Hash.CombineValues(this.Usings, StringComparer.Ordinal), 0)));
         }
 
-        internal override Diagnostic FilterDiagnostic(Diagnostic diagnostic)
+        public override Diagnostic FilterDiagnostic(Diagnostic diagnostic)
         {
             return CSharpDiagnosticFilter.Filter(diagnostic, WarningLevel, GeneralDiagnosticOption, SpecificDiagnosticOptions);
         }

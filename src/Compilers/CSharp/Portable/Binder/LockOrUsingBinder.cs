@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -11,19 +11,19 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <remarks>
     /// This type exists to share code between UsingStatementBinder and LockBinder.
     /// </remarks>
-    internal abstract class LockOrUsingBinder : LocalScopeBinder
+    public abstract class LockOrUsingBinder : LocalScopeBinder
     {
         private ImmutableHashSet<Symbol> _lazyLockedOrDisposedVariables;
         private ExpressionAndDiagnostics _lazyExpressionAndDiagnostics;
 
-        internal LockOrUsingBinder(Binder enclosing)
+        public LockOrUsingBinder(Binder enclosing)
             : base(enclosing)
         {
         }
 
         protected abstract ExpressionSyntax TargetExpressionSyntax { get; }
 
-        internal sealed override ImmutableHashSet<Symbol> LockedOrDisposedVariables
+        public sealed override ImmutableHashSet<Symbol> LockedOrDisposedVariables
         {
             get
             {

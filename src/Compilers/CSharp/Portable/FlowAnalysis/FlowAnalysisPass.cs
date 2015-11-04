@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Linq;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class FlowAnalysisPass
+    public class FlowAnalysisPass
     {
         /// <summary>
         /// The flow analysis pass.  This pass reports required diagnostics for unreachable
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // insert the implicit "return" statement at the end of the method body
         // Normally, we wouldn't bother attaching syntax trees to compiler-generated nodes, but these
         // ones are going to have sequence points.
-        internal static BoundBlock AppendImplicitReturn(BoundBlock body, MethodSymbol method, CSharpSyntaxNode syntax = null)
+        public static BoundBlock AppendImplicitReturn(BoundBlock body, MethodSymbol method, CSharpSyntaxNode syntax = null)
         {
             Debug.Assert(body != null);
             Debug.Assert(method != null);

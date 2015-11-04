@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Binding info for expressions and statements that are part of a member declaration.
     /// </summary>
-    internal abstract partial class MemberSemanticModel : CSharpSemanticModel
+    public abstract partial class MemberSemanticModel : CSharpSemanticModel
     {
         private readonly CSharpCompilation _compilation;
         private readonly Symbol _memberSymbol;
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // The bound nodes associated with a syntax node, from highest in the tree to lowest.
         private readonly Dictionary<CSharpSyntaxNode, ImmutableArray<BoundNode>> _guardedNodeMap = new Dictionary<CSharpSyntaxNode, ImmutableArray<BoundNode>>();
 
-        internal readonly Binder RootBinder;
+        public readonly Binder RootBinder;
 
         // Fields specific to a speculative MemberSemanticModel.
         private readonly SyntaxTreeSemanticModel _parentSemanticModelOpt;
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override CSharpSyntaxNode Root
+        public override CSharpSyntaxNode Root
         {
             get
             {
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The member symbol 
         /// </summary>
-        internal Symbol MemberSymbol
+        public Symbol MemberSymbol
         {
             get
             {
@@ -98,12 +98,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override MemberSemanticModel GetMemberModel(CSharpSyntaxNode node)
+        public override MemberSemanticModel GetMemberModel(CSharpSyntaxNode node)
         {
             return IsInTree(node) ? this : null;
         }
 
-        internal sealed override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, TypeSyntax type, SpeculativeBindingOption bindingOption, out SemanticModel speculativeModel)
+        public sealed override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, TypeSyntax type, SpeculativeBindingOption bindingOption, out SemanticModel speculativeModel)
         {
             var expression = SyntaxFactory.GetStandaloneExpression(type);
 
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal sealed override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, CrefSyntax crefSyntax, out SemanticModel speculativeModel)
+        public sealed override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, CrefSyntax crefSyntax, out SemanticModel speculativeModel)
         {
             // crefs can never legally appear within members.
             speculativeModel = null;
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return binder.Conversions.ClassifyConversionFromExpression(boundExpression, csdestination, ref useSiteDiagnostics);
         }
 
-        internal override Conversion ClassifyConversionForCast(
+        public override Conversion ClassifyConversionForCast(
             ExpressionSyntax expression,
             TypeSymbol destination)
         {
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the bound node corresponding to the root.
         /// </summary> 
-        internal virtual BoundNode GetBoundRoot()
+        public virtual BoundNode GetBoundRoot()
         {
             return GetUpperBoundNode(GetBindableSyntaxNode(this.Root));
         }
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the highest bound node in the tree associated with a particular syntax node.
         /// </summary>
-        internal BoundNode GetUpperBoundNode(CSharpSyntaxNode node, bool promoteToBindable = false)
+        public BoundNode GetUpperBoundNode(CSharpSyntaxNode node, bool promoteToBindable = false)
         {
             if (promoteToBindable)
             {
@@ -366,7 +366,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Get the lowest bound node in the tree associated with a particular syntax node. Lowest is defined as last
         /// in a pre-order traversal of the bound tree.
         /// </summary>
-        internal BoundNode GetLowerBoundNode(CSharpSyntaxNode node)
+        public BoundNode GetLowerBoundNode(CSharpSyntaxNode node)
         {
             Debug.Assert(node == GetBindableSyntaxNode(node));
 
@@ -545,7 +545,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetLambdaParameterSymbol(declarationSyntax, cancellationToken);
         }
 
-        internal override ImmutableArray<ISymbol> GetDeclaredSymbols(BaseFieldDeclarationSyntax declarationSyntax, CancellationToken cancellationToken = default(CancellationToken))
+        public override ImmutableArray<ISymbol> GetDeclaredSymbols(BaseFieldDeclarationSyntax declarationSyntax, CancellationToken cancellationToken = default(CancellationToken))
         {
             // Can't define field inside member.
             return ImmutableArray.Create<ISymbol>();
@@ -769,7 +769,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        public override SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             ValidateSymbolInfoOptions(options);
 
@@ -783,7 +783,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.GetSymbolInfoForNode(options, lowestBoundNode, highestBoundNode, boundParent, binderOpt: null);
         }
 
-        internal override CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
+        public override CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
         {
             CSharpSyntaxNode bindableNode;
             BoundNode lowestBoundNode;
@@ -794,7 +794,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetTypeInfoForNode(lowestBoundNode, highestBoundNode, boundParent);
         }
 
-        internal override ImmutableArray<Symbol> GetMemberGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        public override ImmutableArray<Symbol> GetMemberGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             CSharpSyntaxNode bindableNode;
             BoundNode lowestBoundNode;
@@ -806,7 +806,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.GetMemberGroupForNode(options, lowestBoundNode, boundParent, binderOpt: null);
         }
 
-        internal override ImmutableArray<PropertySymbol> GetIndexerGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        public override ImmutableArray<PropertySymbol> GetIndexerGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             CSharpSyntaxNode bindableNode;
             BoundNode lowestBoundNode;
@@ -818,7 +818,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.GetIndexerGroupForNode(lowestBoundNode, binderOpt: null);
         }
 
-        internal override Optional<object> GetConstantValueWorker(CSharpSyntaxNode node, CancellationToken cancellationToken)
+        public override Optional<object> GetConstantValueWorker(CSharpSyntaxNode node, CancellationToken cancellationToken)
         {
             CSharpSyntaxNode bindableNode = this.GetBindableSyntaxNode(node);
             BoundExpression boundExpr = this.GetLowerBoundNode(bindableNode) as BoundExpression;
@@ -831,7 +831,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 : new Optional<object>(constantValue.Value);
         }
 
-        internal override SymbolInfo GetCollectionInitializerSymbolInfoWorker(InitializerExpressionSyntax collectionInitializer, ExpressionSyntax node, CancellationToken cancellationToken = default(CancellationToken))
+        public override SymbolInfo GetCollectionInitializerSymbolInfoWorker(InitializerExpressionSyntax collectionInitializer, ExpressionSyntax node, CancellationToken cancellationToken = default(CancellationToken))
         {
             var boundCollectionInitializer = GetLowerBoundNode(collectionInitializer) as BoundCollectionInitializerExpression;
 
@@ -1052,7 +1052,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _guardedNodeMap.TryGetValue(syntax, out result) ? result : default(ImmutableArray<BoundNode>);
         }
 
-        internal void UnguardedAddBoundTreeForStandaloneSyntax(CSharpSyntaxNode syntax, BoundNode bound)
+        public void UnguardedAddBoundTreeForStandaloneSyntax(CSharpSyntaxNode syntax, BoundNode bound)
         {
             using (_nodeMapLock.DisposableWrite())
             {
@@ -1131,7 +1131,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // that has local z, but rather the binder that has local y. The inner block is going to be
         // bound in the context of its enclosing binder; it's contents are going to be bound in the
         // context of its binder.
-        internal override Binder GetEnclosingBinderInternal(int position)
+        public override Binder GetEnclosingBinderInternal(int position)
         {
             AssertPositionAdjusted(position);
 
@@ -1356,7 +1356,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Get all bounds nodes associated with a node, ordered from highest to lowest in the bound tree.
         /// Strictly speaking, the order is that of a pre-order traversal of the bound tree.
         /// </summary>
-        internal ImmutableArray<BoundNode> GetBoundNodes(CSharpSyntaxNode node)
+        public ImmutableArray<BoundNode> GetBoundNodes(CSharpSyntaxNode node)
         {
             // If this method is called with a null parameter, that implies that the Root should be
             // bound, but make sure that the Root is bindable.
@@ -1445,7 +1445,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // some nodes don't have direct semantic meaning by themselves and so we need to bind a different node that does
-        internal protected virtual CSharpSyntaxNode GetBindableSyntaxNode(CSharpSyntaxNode node)
+        public virtual CSharpSyntaxNode GetBindableSyntaxNode(CSharpSyntaxNode node)
         {
             switch (node.Kind())
             {
@@ -1606,11 +1606,11 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// NOTE: any member overridden by this binder should follow the BuckStopsHereBinder pattern.
         /// Otherwise, a subsequent binder in the chain could suppress the caching behavior.
         /// </remarks>
-        internal class IncrementalBinder : Binder
+        public class IncrementalBinder : Binder
         {
             private readonly MemberSemanticModel _semanticModel;
 
-            internal IncrementalBinder(MemberSemanticModel semanticModel, Binder next)
+            public IncrementalBinder(MemberSemanticModel semanticModel, Binder next)
                 : base(next)
             {
                 _semanticModel = semanticModel;
@@ -1620,7 +1620,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// We override GetBinder so that the BindStatement override is still
             /// in effect on nested binders.
             /// </summary>
-            internal override Binder GetBinder(CSharpSyntaxNode node)
+            public override Binder GetBinder(CSharpSyntaxNode node)
             {
                 Binder binder = this.Next.GetBinder(node);
 

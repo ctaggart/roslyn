@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,13 +13,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Symbol : Cci.IReference
+    public partial class Symbol : Cci.IReference
     {
         /// <summary>
         /// Checks if this symbol is a definition and its containing module is a SourceModuleSymbol.
         /// </summary>
         [Conditional("DEBUG")]
-        internal protected void CheckDefinitionInvariant()
+        public void CheckDefinitionInvariant()
         {
             // can't be generic instantiation
             Debug.Assert(this.IsDefinition);
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// or distinct from the original. Intended for use in Debug.Assert
         /// only since it may include a deep comparison.
         /// </summary>
-        internal bool IsDefinitionOrDistinct()
+        public bool IsDefinitionOrDistinct()
         {
             return this.IsDefinition || !this.Equals(this.OriginalDefinition);
         }
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetCustomAttributesToEmit(((PEModuleBuilder)context.Module).CompilationState);
         }
 
-        internal virtual IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public virtual IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             CheckDefinitionInvariant();
 
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetCustomAttributesToEmit(compilationState, emittingAssemblyAttributesInNetModule: false);
         }
 
-        internal IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState, bool emittingAssemblyAttributesInNetModule)
+        public IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState, bool emittingAssemblyAttributesInNetModule)
         {
             CheckDefinitionInvariant();
 
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns a list of attributes to emit to CustomAttribute table.
         /// The <paramref name="synthesized"/> builder is freed after all its items are enumerated.
         /// </summary>
-        internal IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(
+        public IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(
             ImmutableArray<CSharpAttributeData> userDefined,
             ArrayBuilder<SynthesizedAttributeData> synthesized,
             bool isReturnType,

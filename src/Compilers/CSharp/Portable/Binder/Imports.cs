@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Represents symbols imported to the binding scope via using namespace, using alias, and extern alias.
     /// </summary>
-    internal sealed class Imports
+    public sealed class Imports
     {
-        internal static readonly Imports Empty = new Imports(
+        public static readonly Imports Empty = new Imports(
             null,
             ImmutableDictionary<string, AliasAndUsingDirective>.Empty,
             ImmutableArray<NamespaceOrTypeAndUsingDirective>.Empty, 
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // TODO (https://github.com/dotnet/roslyn/issues/5517): skip namespace expansion if references haven't changed.
-        internal static Imports ExpandPreviousSubmissionImports(Imports previousSubmissionImports, CSharpCompilation newSubmission)
+        public static Imports ExpandPreviousSubmissionImports(Imports previousSubmissionImports, CSharpCompilation newSubmission)
         {
             if (previousSubmissionImports == Empty)
             {
@@ -361,7 +361,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 diagnostics: null);
         }
 
-        internal static NamespaceSymbol ExpandPreviousSubmissionNamespace(NamespaceSymbol originalNamespace, NamespaceSymbol expandedGlobalNamespace)
+        public static NamespaceSymbol ExpandPreviousSubmissionNamespace(NamespaceSymbol originalNamespace, NamespaceSymbol expandedGlobalNamespace)
         {
             // Soft assert: we'll still do the right thing if it fails.
             Debug.Assert(!originalNamespace.IsGlobalNamespace, "Global using to global namespace");
@@ -402,7 +402,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Does not preserve diagnostics.
         /// </remarks>
-        internal Imports Concat(Imports otherImports)
+        public Imports Concat(Imports otherImports)
         {
             Debug.Assert(otherImports != null);
 
@@ -497,7 +497,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void Complete(CancellationToken cancellationToken)
+        public void Complete(CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -571,7 +571,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool IsUsingAlias(string name, bool callerIsSemanticModel)
+        public bool IsUsingAlias(string name, bool callerIsSemanticModel)
         {
             AliasAndUsingDirective node;
             if (this.UsingAliases.TryGetValue(name, out node))
@@ -587,7 +587,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal void LookupSymbol(
+        public void LookupSymbol(
             Binder originalBinder,
             LookupResult result,
             string name,
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void LookupSymbolInAliases(
+        public void LookupSymbolInAliases(
             Binder originalBinder,
             LookupResult result,
             string name,
@@ -649,7 +649,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void LookupSymbolInUsings(
+        public static void LookupSymbolInUsings(
             ImmutableArray<NamespaceOrTypeAndUsingDirective> usings,
             Binder originalBinder,
             LookupResult result,
@@ -716,7 +716,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void LookupExtensionMethodsInUsings(
+        public void LookupExtensionMethodsInUsings(
             ArrayBuilder<MethodSymbol> methods,
             string name,
             int arity,
@@ -785,7 +785,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // SemanticModel.LookupNames/LookupSymbols work and do not count as usages of the directives
         // when the actual code is bound.
 
-        internal void AddLookupSymbolsInfo(LookupSymbolsInfo result, LookupOptions options, Binder originalBinder)
+        public void AddLookupSymbolsInfo(LookupSymbolsInfo result, LookupOptions options, Binder originalBinder)
         {
             AddLookupSymbolsInfoInAliases(result, options, originalBinder);
 
@@ -794,7 +794,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             AddLookupSymbolsInfoInUsings(this.Usings, result, usingOptions, originalBinder);
         }
 
-        internal void AddLookupSymbolsInfoInAliases(LookupSymbolsInfo result, LookupOptions options, Binder originalBinder)
+        public void AddLookupSymbolsInfoInAliases(LookupSymbolsInfo result, LookupOptions options, Binder originalBinder)
         {
             foreach (var usingAlias in this.UsingAliases.Values)
             {

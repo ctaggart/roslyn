@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// </remarks>
     /// <seealso cref="T:Microsoft.CodeAnalysis.VisualBasic.Symbols.ObjectDisplay"/>
 #pragma warning restore RS0010
-    internal static class ObjectDisplay
+    public static class ObjectDisplay
     {
         /// <summary>
         /// Returns a string representation of an object of primitive type.
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal static string NullLiteral
+        public static string NullLiteral
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(bool value)
+        public static string FormatLiteral(bool value)
         {
             return value ? "true" : "false";
         }
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return pooledBuilder.ToStringAndFree();
         }
 
-        internal static string FormatString(string str, bool useQuotes)
+        public static string FormatString(string str, bool useQuotes)
         {
             if (!useQuotes)
             {
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="c">The value that the resulting character literal should have.</param>
         /// <param name="options">Options used to customize formatting of an object value.</param>
         /// <returns>A character literal with the given value.</returns>
-        internal static string FormatLiteral(char c, ObjectDisplayOptions options)
+        public static string FormatLiteral(char c, ObjectDisplayOptions options)
         {
             var pooledBuilder = PooledStringBuilder.GetInstance();
             var builder = pooledBuilder.Builder;
@@ -326,7 +326,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return pooledBuilder.ToStringAndFree();
         }
 
-        internal static string FormatLiteral(sbyte value, ObjectDisplayOptions options)
+        public static string FormatLiteral(sbyte value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -342,7 +342,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(byte value, ObjectDisplayOptions options)
+        public static string FormatLiteral(byte value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -356,7 +356,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(short value, ObjectDisplayOptions options)
+        public static string FormatLiteral(short value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(ushort value, ObjectDisplayOptions options)
+        public static string FormatLiteral(ushort value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(int value, ObjectDisplayOptions options)
+        public static string FormatLiteral(int value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -400,7 +400,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static string FormatLiteral(uint value, ObjectDisplayOptions options)
+        public static string FormatLiteral(uint value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -425,7 +425,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return pooledBuilder.ToStringAndFree();
         }
 
-        internal static string FormatLiteral(long value, ObjectDisplayOptions options)
+        public static string FormatLiteral(long value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -450,7 +450,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return pooledBuilder.ToStringAndFree();
         }
 
-        internal static string FormatLiteral(ulong value, ObjectDisplayOptions options)
+        public static string FormatLiteral(ulong value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -475,7 +475,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return pooledBuilder.ToStringAndFree();
         }
 
-        internal static string FormatLiteral(double value, ObjectDisplayOptions options)
+        public static string FormatLiteral(double value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -484,7 +484,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return options.IncludesOption(ObjectDisplayOptions.IncludeTypeSuffix) ? result + "D" : result;
         }
 
-        internal static string FormatLiteral(float value, ObjectDisplayOptions options)
+        public static string FormatLiteral(float value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return options.IncludesOption(ObjectDisplayOptions.IncludeTypeSuffix) ? result + "F" : result;
         }
 
-        internal static string FormatLiteral(decimal value, ObjectDisplayOptions options)
+        public static string FormatLiteral(decimal value, ObjectDisplayOptions options)
         {
             ValidateOptions(options);
 

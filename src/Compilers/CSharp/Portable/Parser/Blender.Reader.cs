@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial struct Blender
+    public partial struct Blender
     {
         private struct Reader
         {
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 _newLexerDrivenMode = blender._newLexerDrivenMode;
             }
 
-            internal BlendedNode ReadNodeOrToken(LexerMode mode, bool asToken)
+            public BlendedNode ReadNodeOrToken(LexerMode mode, bool asToken)
             {
                 // This is the core driver of the blender.  It just sits in a loop trying to keep our
                 // positions in the old and new text in sync.  When they're out of sync it will try

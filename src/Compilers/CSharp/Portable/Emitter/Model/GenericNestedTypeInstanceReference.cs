@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.Emit;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// Represents a reference to a generic type instantiation that is nested in a non-generic type.
     /// e.g. A.B{int}
     /// </summary>
-    internal sealed class GenericNestedTypeInstanceReference : GenericTypeInstanceReference, Cci.INestedTypeReference
+    public sealed class GenericNestedTypeInstanceReference : GenericTypeInstanceReference, Cci.INestedTypeReference
     {
         public GenericNestedTypeInstanceReference(NamedTypeSymbol underlyingNamedType)
             : base(underlyingNamedType)

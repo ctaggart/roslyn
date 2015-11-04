@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A synthesized local variable.
     /// </summary>
     [DebuggerDisplay("{GetDebuggerDisplay(),nq}")]
-    internal sealed class SynthesizedLocal : LocalSymbol
+    public sealed class SynthesizedLocal : LocalSymbol
     {
         private readonly MethodSymbol _containingMethodOpt;
         private readonly TypeSymbol _type;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private readonly int _createdAtLineNumber;
         private readonly string _createdAtFilePath;
 
-        internal SynthesizedLocal(
+        public SynthesizedLocal(
             MethodSymbol containingMethodOpt,
             TypeSymbol type,
             SynthesizedLocalKind kind,
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _syntaxOpt; }
         }
 
-        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
+        public override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
         {
             return new SynthesizedLocal(
                 _containingMethodOpt,
@@ -81,27 +81,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _refKind);
         }
 
-        internal override RefKind RefKind
+        public override RefKind RefKind
         {
             get { return _refKind; }
         }
 
-        internal override bool IsImportedFromMetadata
+        public override bool IsImportedFromMetadata
         {
             get { return false; }
         }
 
-        internal override LocalDeclarationKind DeclarationKind
+        public override LocalDeclarationKind DeclarationKind
         {
             get { return LocalDeclarationKind.None; }
         }
 
-        internal override SynthesizedLocalKind SynthesizedKind
+        public override SynthesizedLocalKind SynthesizedKind
         {
             get { return _kind; }
         }
 
-        internal override SyntaxToken IdentifierToken
+        public override SyntaxToken IdentifierToken
         {
             get { return default(SyntaxToken); }
         }
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return (_syntaxOpt == null) ? ImmutableArray<SyntaxReference>.Empty : ImmutableArray.Create(_syntaxOpt.GetReference()); }
         }
 
-        internal override SyntaxNode GetDeclaratorSyntax()
+        public override SyntaxNode GetDeclaratorSyntax()
         {
             Debug.Assert(_syntaxOpt != null);
             return _syntaxOpt;
@@ -142,22 +142,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override bool IsPinned
+        public override bool IsPinned
         {
             get { return _isPinned; }
         }
 
-        internal override bool IsCompilerGenerated
+        public override bool IsCompilerGenerated
         {
             get { return true; }
         }
 
-        internal override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
+        public override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
         {
             return null;
         }
 
-        internal override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
+        public override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
         {
             return ImmutableArray<Diagnostic>.Empty;
         }

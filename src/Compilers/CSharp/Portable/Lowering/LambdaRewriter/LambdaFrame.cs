@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -13,16 +13,16 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A class that represents the set of variables in a scope that have been
     /// captured by lambdas within that scope.
     /// </summary>
-    internal sealed class LambdaFrame : SynthesizedContainer, ISynthesizedMethodBodyImplementationSymbol
+    public sealed class LambdaFrame : SynthesizedContainer, ISynthesizedMethodBodyImplementationSymbol
     {
         private readonly MethodSymbol _topLevelMethod;
         private readonly MethodSymbol _constructor;
         private readonly MethodSymbol _staticConstructor;
         private readonly FieldSymbol _singletonCache;
-        internal readonly CSharpSyntaxNode ScopeSyntaxOpt;
-        internal readonly int ClosureOrdinal;
+        public readonly CSharpSyntaxNode ScopeSyntaxOpt;
+        public readonly int ClosureOrdinal;
 
-        internal LambdaFrame(MethodSymbol topLevelMethod, CSharpSyntaxNode scopeSyntaxOpt, DebugId methodId, DebugId closureId)
+        public LambdaFrame(MethodSymbol topLevelMethod, CSharpSyntaxNode scopeSyntaxOpt, DebugId methodId, DebugId closureId)
             : base(MakeName(scopeSyntaxOpt, methodId, closureId), topLevelMethod)
         {
             _topLevelMethod = topLevelMethod;
@@ -78,12 +78,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return TypeKind.Class; }
         }
 
-        internal override MethodSymbol Constructor
+        public override MethodSymbol Constructor
         {
             get { return _constructor; }
         }
 
-        internal MethodSymbol StaticConstructor
+        public MethodSymbol StaticConstructor
         {
             get { return _staticConstructor; }
         }
@@ -99,13 +99,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             return members;
         }
 
-        internal FieldSymbol SingletonCache
+        public FieldSymbol SingletonCache
         {
             get { return _singletonCache; }
         }
 
         // display classes for static lambdas do not have any data and can be serialized.
-        internal override bool IsSerializable
+        public override bool IsSerializable
         {
             get { return (object)_singletonCache != null; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 
@@ -59,19 +59,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         CSharp6 = 6,
     }
 
-    internal static partial class LanguageVersionExtensions
+    public static partial class LanguageVersionExtensions
     {
-        internal static bool IsValid(this LanguageVersion value)
+        public static bool IsValid(this LanguageVersion value)
         {
             return value >= LanguageVersion.CSharp1 && value <= LanguageVersion.CSharp6;
         }
 
-        internal static object Localize(this LanguageVersion value)
+        public static object Localize(this LanguageVersion value)
         {
             return (int)value;
         }
 
-        internal static ErrorCode GetErrorCode(this LanguageVersion version)
+        public static ErrorCode GetErrorCode(this LanguageVersion version)
         {
             switch (version)
             {

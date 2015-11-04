@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents the primary module of an assembly being built by compiler.
     /// </summary>
-    internal sealed class SourceModuleSymbol : NonMissingModuleSymbol, IAttributeTargetSymbol
+    public sealed class SourceModuleSymbol : NonMissingModuleSymbol, IAttributeTargetSymbol
     {
         /// <summary>
         /// Owning assembly.
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private bool _hasBadAttributes;
 
-        internal SourceModuleSymbol(
+        public SourceModuleSymbol(
             SourceAssemblySymbol assemblySymbol,
             DeclarationTable declarations,
             string moduleName)
@@ -51,12 +51,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _name = moduleName;
         }
 
-        internal void RecordPresenceOfBadAttributes()
+        public void RecordPresenceOfBadAttributes()
         {
             _hasBadAttributes = true;
         }
 
-        internal bool HasBadAttributes
+        public bool HasBadAttributes
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int Ordinal
+        public override int Ordinal
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override Machine Machine
+        public override Machine Machine
         {
             get
             {
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool Bit32Required
+        public override bool Bit32Required
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool AnyReferencedAssembliesAreLinked
+        public bool AnyReferencedAssembliesAreLinked
         {
             get
             {
@@ -106,13 +106,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool MightContainNoPiaLocalTypes()
+        public bool MightContainNoPiaLocalTypes()
         {
             return AnyReferencedAssembliesAreLinked ||
                 ContainsExplicitDefinitionOfNoPiaLocalTypes;
         }
 
-        internal ImmutableArray<AssemblySymbol> GetAssembliesToEmbedTypesFrom()
+        public ImmutableArray<AssemblySymbol> GetAssembliesToEmbedTypesFrom()
         {
             if (_lazyAssembliesToEmbedTypesFrom.IsDefault)
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyAssembliesToEmbedTypesFrom;
         }
 
-        internal bool ContainsExplicitDefinitionOfNoPiaLocalTypes
+        public bool ContainsExplicitDefinitionOfNoPiaLocalTypes
         {
             get
             {
@@ -199,17 +199,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new SourceNamespaceSymbol(this, this, _sources.MergedRoot);
         }
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return _state.HasComplete(part);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SourceAssemblySymbol ContainingSourceAssembly
+        public SourceAssemblySymbol ContainingSourceAssembly
         {
             get
             {
@@ -397,7 +397,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// This override is essential - it's a base case of the recursive definition.
         /// </remarks>
-        internal override CSharpCompilation DeclaringCompilation
+        public override CSharpCompilation DeclaringCompilation
         {
             get
             {
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ICollection<string> TypeNames
+        public override ICollection<string> TypeNames
         {
             get
             {
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ICollection<string> NamespaceNames
+        public override ICollection<string> NamespaceNames
         {
             get
             {
@@ -479,7 +479,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonModuleWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public CommonModuleWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (CommonModuleWellKnownAttributeData)attributesBag.DecodedWellKnownAttributeData;
         }
 
-        internal override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             Debug.Assert((object)arguments.AttributeSyntaxOpt != null);
 
@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasAssemblyCompilationRelaxationsAttribute
+        public override bool HasAssemblyCompilationRelaxationsAttribute
         {
             get
             {
@@ -538,7 +538,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasAssemblyRuntimeCompatibilityAttribute
+        public override bool HasAssemblyRuntimeCompatibilityAttribute
         {
             get
             {
@@ -547,7 +547,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override CharSet? DefaultMarshallingCharSet
+        public override CharSet? DefaultMarshallingCharSet
         {
             get
             {

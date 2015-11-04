@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// embedded type symbol that was attempted to be substituted with canonical type, but the
     /// canonical type was ambiguous.
     /// </summary>
-    internal class NoPiaAmbiguousCanonicalTypeSymbol : ErrorTypeSymbol
+    public class NoPiaAmbiguousCanonicalTypeSymbol : ErrorTypeSymbol
     {
         private readonly AssemblySymbol _embeddingAssembly;
         private readonly NamedTypeSymbol _firstCandidate;
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _secondCandidate = secondCandidate;
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return RuntimeHelpers.GetHashCode(this);
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             return ReferenceEquals(this, t2);
         }

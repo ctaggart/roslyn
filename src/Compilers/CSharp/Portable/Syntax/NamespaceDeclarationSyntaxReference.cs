@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A SyntaxReference implementation that lazily translates the result (CSharpSyntaxNode) of the
     /// original syntax reference to a syntax reference for its NamespaceDeclarationSyntax.
     /// </summary>
-    internal sealed class NamespaceDeclarationSyntaxReference : TranslationSyntaxReference
+    public sealed class NamespaceDeclarationSyntaxReference : TranslationSyntaxReference
     {
         public NamespaceDeclarationSyntaxReference(SyntaxReference reference)
             : base(reference)

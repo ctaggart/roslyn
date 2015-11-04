@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// This portion of the binder converts an <see cref="ExpressionSyntax"/> into a <see cref="BoundExpression"/>.
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// Determines whether "this" reference is available within the current context.
@@ -53,12 +53,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return !inTopLevelScriptMember || !isExplicit;
         }
 
-        internal bool InFieldInitializer
+        public bool InFieldInitializer
         {
             get { return this.Flags.Includes(BinderFlags.FieldInitializer); }
         }
 
-        internal bool InParameterDefaultValue
+        public bool InParameterDefaultValue
         {
             get { return this.Flags.Includes(BinderFlags.ParameterDefaultValue); }
         }
@@ -68,12 +68,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return this.Flags.Includes(BinderFlags.ConstructorInitializer); }
         }
 
-        internal bool InAttributeArgument
+        public bool InAttributeArgument
         {
             get { return this.Flags.Includes(BinderFlags.AttributeArgument); }
         }
 
-        internal bool InCref
+        public bool InCref
         {
             get { return this.Flags.Includes(BinderFlags.Cref); }
         }
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal TypeSymbol CreateErrorType(string name = "")
+        public TypeSymbol CreateErrorType(string name = "")
         {
             return new ExtendedErrorTypeSymbol(this.Compilation, name, arity: 0, errorInfo: null, unreported: false);
         }
@@ -283,19 +283,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// did not meet the requirements, the return value will be a <see cref="BoundBadExpression"/> that
         /// (typically) wraps the subexpression.
         /// </summary>
-        internal BoundExpression BindValue(ExpressionSyntax node, DiagnosticBag diagnostics, BindValueKind valueKind)
+        public BoundExpression BindValue(ExpressionSyntax node, DiagnosticBag diagnostics, BindValueKind valueKind)
         {
             var result = this.BindExpression(node, diagnostics: diagnostics, invoked: false, indexed: false);
             return CheckValue(result, valueKind, diagnostics);
         }
 
-        internal BoundExpression BindValueAllowArgList(ExpressionSyntax node, DiagnosticBag diagnostics, BindValueKind valueKind)
+        public BoundExpression BindValueAllowArgList(ExpressionSyntax node, DiagnosticBag diagnostics, BindValueKind valueKind)
         {
             var result = this.BindExpressionAllowArgList(node, diagnostics: diagnostics);
             return CheckValue(result, valueKind, diagnostics);
         }
 
-        internal BoundExpression BindVariableOrAutoPropInitializer(
+        public BoundExpression BindVariableOrAutoPropInitializer(
             EqualsValueClauseSyntax initializerOpt,
             TypeSymbol varType,
             DiagnosticBag diagnostics)
@@ -309,14 +309,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GenerateConversionForAssignment(varType, initializer, diagnostics);
         }
 
-        internal Binder CreateBinderForParameterDefaultValue(
+        public Binder CreateBinderForParameterDefaultValue(
             ParameterSymbol parameter,
             EqualsValueClauseSyntax defaultValueSyntax)
         {
             return new LocalScopeBinder(this.WithContainingMemberOrLambda(parameter.ContainingSymbol).WithAdditionalFlags(BinderFlags.ParameterDefaultValue));
         }
 
-        internal BoundExpression BindParameterDefaultValue(
+        public BoundExpression BindParameterDefaultValue(
             EqualsValueClauseSyntax defaultValueSyntax,
             TypeSymbol parameterType,
             DiagnosticBag diagnostics,
@@ -334,7 +334,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GenerateConversionForAssignment(parameterType, valueBeforeConversion, diagnostics, isDefaultParameter: true);
         }
 
-        internal BoundExpression BindEnumConstantInitializer(
+        public BoundExpression BindEnumConstantInitializer(
             SourceEnumConstantSymbol symbol,
             ExpressionSyntax valueSyntax,
             DiagnosticBag diagnostics)
@@ -779,7 +779,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 this.GetSpecialType(SpecialType.System_Int32, diagnostics, node), hasErrors);
         }
 
-        internal static ConstantValue GetConstantSizeOf(TypeSymbol type)
+        public static ConstantValue GetConstantSizeOf(TypeSymbol type)
         {
             return ConstantValue.CreateSizeOf((type.GetEnumUnderlyingType() ?? type).SpecialType);
         }
@@ -1319,7 +1319,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal Symbol ContainingMember()
+        public Symbol ContainingMember()
         {
             // We skip intervening lambdas to find the actual member.
             var containingMember = this.ContainingMemberOrLambda;
@@ -2557,7 +2557,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// This method should be kept consistent with Compiler.BindConstructorInitializer (e.g. same error codes).
         /// </remarks>
-        internal BoundExpression BindConstructorInitializer(
+        public BoundExpression BindConstructorInitializer(
             ArgumentListSyntax initializerArgumentListOpt,
             MethodSymbol constructor,
             DiagnosticBag diagnostics)
@@ -3627,7 +3627,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal ImmutableArray<MethodSymbol> FilterInaccessibleConstructors(ImmutableArray<MethodSymbol> constructors, bool allowProtectedConstructorsOfBaseType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<MethodSymbol> FilterInaccessibleConstructors(ImmutableArray<MethodSymbol> constructors, bool allowProtectedConstructorsOfBaseType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             ArrayBuilder<MethodSymbol> builder = null;
 
@@ -6099,7 +6099,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// will either be the methods defined on the receiver class directly (no extension methods)
         /// or the first set of extension methods.
         /// </summary>
-        internal MethodGroupResolution ResolveMethodGroup(
+        public MethodGroupResolution ResolveMethodGroup(
             BoundMethodGroup node,
             AnalyzedArguments analyzedArguments,
             bool isMethodGroupConversion,
@@ -6109,7 +6109,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ResolveMethodGroup(node, node.Syntax, node.Name, analyzedArguments, isMethodGroupConversion, ref useSiteDiagnostics, inferWithDynamic: inferWithDynamic);
         }
 
-        internal MethodGroupResolution ResolveMethodGroup(
+        public MethodGroupResolution ResolveMethodGroup(
             BoundMethodGroup node,
             CSharpSyntaxNode expression,
             string methodName,
@@ -6259,7 +6259,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static bool ReportDelegateInvokeUseSiteDiagnostic(DiagnosticBag diagnostics, TypeSymbol possibleDelegateType,
+        public static bool ReportDelegateInvokeUseSiteDiagnostic(DiagnosticBag diagnostics, TypeSymbol possibleDelegateType,
             Location location = null, CSharpSyntaxNode node = null)
         {
             Debug.Assert((location == null) ^ (node == null));

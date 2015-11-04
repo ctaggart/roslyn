@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Base class for type and method type parameters.
     /// </summary>
-    internal abstract class SourceTypeParameterSymbolBase : TypeParameterSymbol, IAttributeTargetSymbol
+    public abstract class SourceTypeParameterSymbolBase : TypeParameterSymbol, IAttributeTargetSymbol
     {
         private readonly ImmutableArray<SyntaxReference> _syntaxRefs;
         private readonly ImmutableArray<Location> _locations;
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<SyntaxReference> SyntaxReferences
+        public ImmutableArray<SyntaxReference> SyntaxReferences
         {
             get
             {
@@ -83,31 +83,31 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.ConstraintTypes : ImmutableArray<TypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.Interfaces : ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+        public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.EffectiveBaseClass : this.GetDefaultBaseType();
         }
 
-        internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+        public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.DeducedBaseType : this.GetDefaultBaseType();
         }
 
-        internal ImmutableArray<SyntaxList<AttributeListSyntax>> MergedAttributeDeclarationSyntaxLists
+        public ImmutableArray<SyntaxList<AttributeListSyntax>> MergedAttributeDeclarationSyntaxLists
         {
             get
             {
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.GetAttributesBag().Attributes;
         }
 
-        internal override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
+        public override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
         {
             if (_lazyCustomAttributesBag == null || !_lazyCustomAttributesBag.IsSealed)
             {
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyCustomAttributesBag;
         }
 
-        internal override void EnsureAllConstraintsAreResolved()
+        public override void EnsureAllConstraintsAreResolved()
         {
             if (ReferenceEquals(_lazyBounds, TypeParameterBounds.Unset))
             {
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.ContainingAssembly.GetSpecialType(SpecialType.System_Object);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed class SourceTypeParameterSymbol : SourceTypeParameterSymbolBase
+    public sealed class SourceTypeParameterSymbol : SourceTypeParameterSymbolBase
     {
         private readonly SourceNamedTypeSymbol _owner;
         private readonly VarianceKind _varianceKind;
@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed class SourceMethodTypeParameterSymbol : SourceTypeParameterSymbolBase
+    public sealed class SourceMethodTypeParameterSymbol : SourceTypeParameterSymbolBase
     {
         private readonly SourceMemberMethodSymbol _owner;
 
@@ -444,7 +444,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// that explicitly implements an interface. The map caches the overridden method
     /// and a type map from overridden type parameters to overriding type parameters.
     /// </summary>
-    internal abstract class OverriddenMethodTypeParameterMapBase
+    public abstract class OverriddenMethodTypeParameterMapBase
     {
         // Method representing overriding or explicit implementation.
         private readonly SourceMemberMethodSymbol _overridingMethod;
@@ -509,7 +509,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         protected abstract MethodSymbol GetOverriddenMethod(SourceMemberMethodSymbol overridingMethod);
     }
 
-    internal sealed class OverriddenMethodTypeParameterMap : OverriddenMethodTypeParameterMapBase
+    public sealed class OverriddenMethodTypeParameterMap : OverriddenMethodTypeParameterMapBase
     {
         public OverriddenMethodTypeParameterMap(SourceMemberMethodSymbol overridingMethod)
             : base(overridingMethod)
@@ -530,7 +530,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed class ExplicitInterfaceMethodTypeParameterMap : OverriddenMethodTypeParameterMapBase
+    public sealed class ExplicitInterfaceMethodTypeParameterMap : OverriddenMethodTypeParameterMapBase
     {
         public ExplicitInterfaceMethodTypeParameterMap(SourceMemberMethodSymbol implementationMethod)
             : base(implementationMethod)
@@ -555,7 +555,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <remarks>
     /// Exists to copy constraints from the corresponding type parameter of an overridden method.
     /// </remarks>
-    internal sealed class SourceOverridingMethodTypeParameterSymbol : SourceTypeParameterSymbolBase
+    public sealed class SourceOverridingMethodTypeParameterSymbol : SourceTypeParameterSymbolBase
     {
         private readonly OverriddenMethodTypeParameterMapBase _map;
 

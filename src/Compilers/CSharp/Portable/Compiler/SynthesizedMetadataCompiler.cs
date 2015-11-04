@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// In lieu of running <see cref="MethodCompiler"/>, this class performs a quick 
     /// traversal of the symbol table and performs processing of synthesized symbols if necessary
     /// </summary>
-    internal sealed class SynthesizedMetadataCompiler : CSharpSymbolVisitor
+    public sealed class SynthesizedMetadataCompiler : CSharpSymbolVisitor
     {
         private readonly PEModuleBuilder _moduleBeingBuilt;
         private readonly CancellationToken _cancellationToken;

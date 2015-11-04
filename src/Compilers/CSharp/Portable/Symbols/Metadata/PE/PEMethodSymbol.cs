@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// The class to represent all methods imported from a PE/module.
     /// </summary>
-    internal sealed class PEMethodSymbol : MethodSymbol
+    public sealed class PEMethodSymbol : MethodSymbol
     {
         private class SignatureData
         {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// </summary>
         private UncommonFields _uncommonFields;
 
-        internal PEMethodSymbol(
+        public PEMethodSymbol(
             PEModuleSymbol moduleSymbol,
             PENamedTypeSymbol containingType,
             MethodDefinitionHandle methodDef)
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             _flags = (ushort)localflags;
         }
 
-        internal override bool TryGetThisParameter(out ParameterSymbol thisParameter)
+        public override bool TryGetThisParameter(out ParameterSymbol thisParameter)
         {
             thisParameter = IsStatic ? null :
                            _uncommonFields?._lazyThisParameter ?? InterlockedOperations.Initialize(ref AccessUncommonFields()._lazyThisParameter, new ThisParameterSymbol(this));
@@ -298,32 +298,32 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
         // Exposed for testing purposes only
-        internal MethodAttributes Flags => (MethodAttributes)_flags;
+        public MethodAttributes Flags => (MethodAttributes)_flags;
 
-        internal override bool HasSpecialName => HasFlag(MethodAttributes.SpecialName);
+        public override bool HasSpecialName => HasFlag(MethodAttributes.SpecialName);
 
-        internal override bool HasRuntimeSpecialName => HasFlag(MethodAttributes.RTSpecialName);
+        public override bool HasRuntimeSpecialName => HasFlag(MethodAttributes.RTSpecialName);
 
-        internal override MethodImplAttributes ImplementationAttributes => (MethodImplAttributes)_implFlags;
+        public override MethodImplAttributes ImplementationAttributes => (MethodImplAttributes)_implFlags;
 
-        internal override bool RequiresSecurityObject => HasFlag(MethodAttributes.RequireSecObject);
+        public override bool RequiresSecurityObject => HasFlag(MethodAttributes.RequireSecObject);
 
         // do not cache the result, the compiler doesn't use this (it's only exposed through public API):
         public override DllImportData GetDllImportData() => HasFlag(MethodAttributes.PinvokeImpl)
             ? _containingType.ContainingPEModule.Module.GetDllImportData(_handle)
             : null;
 
-        internal override bool ReturnValueIsMarshalledExplicitly => ReturnTypeParameter.IsMarshalledExplicitly;
+        public override bool ReturnValueIsMarshalledExplicitly => ReturnTypeParameter.IsMarshalledExplicitly;
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation => ReturnTypeParameter.MarshallingInformation;
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation => ReturnTypeParameter.MarshallingInformation;
 
-        internal override ImmutableArray<byte> ReturnValueMarshallingDescriptor => ReturnTypeParameter.MarshallingDescriptor;
+        public override ImmutableArray<byte> ReturnValueMarshallingDescriptor => ReturnTypeParameter.MarshallingDescriptor;
 
-        internal override bool IsAccessCheckedOnOverride => HasFlag(MethodAttributes.CheckAccessOnOverride);
+        public override bool IsAccessCheckedOnOverride => HasFlag(MethodAttributes.CheckAccessOnOverride);
 
-        internal override bool HasDeclarativeSecurity => HasFlag(MethodAttributes.HasSecurity);
+        public override bool HasDeclarativeSecurity => HasFlag(MethodAttributes.HasSecurity);
 
-        internal override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
@@ -361,7 +361,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         public override bool IsExtern => HasFlag(MethodAttributes.PinvokeImpl);
 
-        internal override bool IsExternal => IsExtern || (ImplementationAttributes & MethodImplAttributes.Runtime) != 0;
+        public override bool IsExternal => IsExtern || (ImplementationAttributes & MethodImplAttributes.Runtime) != 0;
 
         public override bool IsVararg => Signature.Header.CallingConvention == SignatureCallingConvention.VarArgs;
 
@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal MethodDefinitionHandle Handle => _handle;
+        public MethodDefinitionHandle Handle => _handle;
 
         // Has to have the abstract flag.
         // NOTE: dev10 treats the method as abstract (i.e. requiring an impl in subtypes) event if it is not metadata virtual.
@@ -431,11 +431,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         public override bool IsStatic => HasFlag(MethodAttributes.Static);
 
-        internal override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false) => HasFlag(MethodAttributes.Virtual);
+        public override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false) => HasFlag(MethodAttributes.Virtual);
 
-        internal override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false) => HasFlag(MethodAttributes.NewSlot);
+        public override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false) => HasFlag(MethodAttributes.NewSlot);
 
-        internal override bool IsMetadataFinal => HasFlag(MethodAttributes.Final);
+        public override bool IsMetadataFinal => HasFlag(MethodAttributes.Final);
 
         private bool IsExplicitFinalizerOverride
         {
@@ -467,7 +467,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         public override bool ReturnsVoid => this.ReturnType.SpecialType == SpecialType.System_Void;
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get
             {
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         public override ImmutableArray<ParameterSymbol> Parameters => Signature.Parameters;
 
-        internal PEParameterSymbol ReturnTypeParameter => Signature.ReturnParam;
+        public PEParameterSymbol ReturnTypeParameter => Signature.ReturnParam;
 
         public override TypeSymbol ReturnType => Signature.ReturnParam.Type;
 
@@ -503,7 +503,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// Associate the method with a particular property. Returns
         /// false if the method is already associated with a property or event.
         /// </summary>
-        internal bool SetAssociatedProperty(PEPropertySymbol propertySymbol, MethodKind methodKind)
+        public bool SetAssociatedProperty(PEPropertySymbol propertySymbol, MethodKind methodKind)
         {
             Debug.Assert((methodKind == MethodKind.PropertyGet) || (methodKind == MethodKind.PropertySet));
             return this.SetAssociatedPropertyOrEvent(propertySymbol, methodKind);
@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// Associate the method with a particular event. Returns
         /// false if the method is already associated with a property or event.
         /// </summary>
-        internal bool SetAssociatedEvent(PEEventSymbol eventSymbol, MethodKind methodKind)
+        public bool SetAssociatedEvent(PEEventSymbol eventSymbol, MethodKind methodKind)
         {
             Debug.Assert((methodKind == MethodKind.EventAdd) || (methodKind == MethodKind.EventRemove));
             return this.SetAssociatedPropertyOrEvent(eventSymbol, methodKind);
@@ -748,7 +748,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState) => GetAttributes();
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState) => GetAttributes();
 
         public override ImmutableArray<CSharpAttributeData> GetReturnTypeAttributes() => Signature.ReturnParam.GetAttributes();
 
@@ -900,7 +900,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return MethodKind.Ordinary;
         }
 
-        internal override Cci.CallingConvention CallingConvention => (Cci.CallingConvention)Signature.Header.RawValue;
+        public override Cci.CallingConvention CallingConvention => (Cci.CallingConvention)Signature.Header.RawValue;
 
         public override ImmutableArray<MethodSymbol> ExplicitInterfaceImplementations
         {
@@ -972,7 +972,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return PEDocumentationCommentUtils.GetDocumentationComment(this, _containingType.ContainingPEModule, preferredCulture, cancellationToken, ref AccessUncommonFields()._lazyDocComment);
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (!_packedFlags.IsUseSiteDiagnosticPopulated)
             {
@@ -1008,7 +1008,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return diagnostic;
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             if (!_packedFlags.IsConditionalPopulated)
             {
@@ -1037,12 +1037,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -1073,9 +1073,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool GenerateDebugInfo => false;
+        public override bool GenerateDebugInfo => false;
 
-        internal override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -1103,12 +1103,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
         // perf, not correctness
-        internal override CSharpCompilation DeclaringCompilation => null;
+        public override CSharpCompilation DeclaringCompilation => null;
 
         // Internal for unit test
-        internal bool TestIsExtensionBitSet => _packedFlags.IsExtensionMethodIsPopulated;
+        public bool TestIsExtensionBitSet => _packedFlags.IsExtensionMethodIsPopulated;
 
         // Internal for unit test
-        internal bool TestIsExtensionBitTrue => _packedFlags.IsExtensionMethod;
+        public bool TestIsExtensionBitTrue => _packedFlags.IsExtensionMethod;
     }
 }

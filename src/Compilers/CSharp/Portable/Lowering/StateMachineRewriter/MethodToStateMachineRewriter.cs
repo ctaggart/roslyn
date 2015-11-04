@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract class MethodToStateMachineRewriter : MethodToClassRewriter
+    public abstract class MethodToStateMachineRewriter : MethodToClassRewriter
     {
-        internal readonly MethodSymbol OriginalMethod;
+        public readonly MethodSymbol OriginalMethod;
 
         /// <summary>
         /// True if we need to generate the code to do the bookkeeping so we can "finalize" the state machine
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return OriginalMethod.ContainingType; }
         }
 
-        internal IReadOnlySet<Symbol> HoistedVariables
+        public IReadOnlySet<Symbol> HoistedVariables
         {
             get
             {
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Must remain in sync with <see cref="TryUnwrapBoundStateMachineScope"/>.
         /// </remarks>
-        internal BoundBlock MakeStateMachineScope(ImmutableArray<StateMachineFieldSymbol> hoistedLocals, BoundStatement statement)
+        public BoundBlock MakeStateMachineScope(ImmutableArray<StateMachineFieldSymbol> hoistedLocals, BoundStatement statement)
         {
             return F.Block(new BoundStateMachineScope(F.Syntax, hoistedLocals, statement));
         }
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Must remain in sync with <see cref="MakeStateMachineScope"/>.
         /// </remarks>
-        internal bool TryUnwrapBoundStateMachineScope(ref BoundStatement statement, out ImmutableArray<StateMachineFieldSymbol> hoistedLocals)
+        public bool TryUnwrapBoundStateMachineScope(ref BoundStatement statement, out ImmutableArray<StateMachineFieldSymbol> hoistedLocals)
         {
             if (statement.Kind == BoundKind.Block)
             {

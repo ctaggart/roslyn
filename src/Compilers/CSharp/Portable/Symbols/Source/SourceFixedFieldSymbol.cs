@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,14 +12,14 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal class SourceFixedFieldSymbol : SourceMemberFieldSymbol
+    public class SourceFixedFieldSymbol : SourceMemberFieldSymbol
     {
         private const int FixedSizeNotInitialized = -1;
 
         // In a fixed-size field declaration, stores the fixed size of the buffer
         private int _fixedSize = FixedSizeNotInitialized;
 
-        internal SourceFixedFieldSymbol(
+        public SourceFixedFieldSymbol(
             SourceMemberContainerTypeSymbol containingType,
             VariableDeclaratorSyntax declarator,
             DeclarationModifiers modifiers,
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             Debug.Assert(this.IsFixed);
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -137,15 +137,15 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
+        public override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
         {
             return emitModule.SetFixedImplementationType(this);
         }
     }
 
-    internal sealed class FixedFieldImplementationType : SynthesizedContainer
+    public sealed class FixedFieldImplementationType : SynthesizedContainer
     {
-        internal const string FixedElementFieldName = "FixedElementField";
+        public const string FixedElementFieldName = "FixedElementField";
 
         private readonly SourceMemberFieldSymbol _field;
         private readonly MethodSymbol _constructor;
@@ -169,12 +169,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return TypeKind.Struct; }
         }
 
-        internal override MethodSymbol Constructor
+        public override MethodSymbol Constructor
         {
             get { return _constructor; }
         }
 
-        internal override TypeLayout Layout
+        public override TypeLayout Layout
         {
             get
             {
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get
             {
@@ -197,12 +197,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return _field.ContainingType.MarshallingCharSet;
             }
         }
-        internal override FieldSymbol FixedElementField
+        public override FieldSymbol FixedElementField
         {
             get { return _internalField; }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
             var compilation = ContainingSymbol.DeclaringCompilation;
@@ -232,7 +232,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return Accessibility.Public; }
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get { return ContainingAssembly.GetSpecialType(SpecialType.System_ValueType); }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourceLabelSymbol : LabelSymbol
+    public sealed class SourceLabelSymbol : LabelSymbol
     {
         private readonly MethodSymbol _containingMethod;
         private readonly SyntaxNodeOrToken _identifierNodeOrToken;
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // Get the identifier node or token that defined this label symbol. This is useful for robustly
         // checking if a label symbol actually matches a particular definition, even in the presence
         // of duplicates.
-        internal override SyntaxNodeOrToken IdentifierNodeOrToken
+        public override SyntaxNodeOrToken IdentifierNodeOrToken
         {
             get
             {

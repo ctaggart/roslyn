@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     // a consistent way to choose one of them that does not rely on subtleties
     // of source-code ordering or implementation details of collection types.
 
-    internal sealed class FirstAmongEqualsSet<T> : IEnumerable<T>
+    public sealed class FirstAmongEqualsSet<T> : IEnumerable<T>
     {
         // We're going to be making one of these hash sets on every
         // intersection, so we might as well just make one and re-use it.

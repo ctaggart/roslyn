@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Emit;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents a getter for anonymous type property.
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
             private readonly AnonymousTypePropertySymbol _property;
 
-            internal AnonymousTypePropertyGetAccessorSymbol(AnonymousTypePropertySymbol property)
+            public AnonymousTypePropertyGetAccessorSymbol(AnonymousTypePropertySymbol property)
                 // winmdobj output only effects setters, so we can always set this to false
                 : base(property.ContainingType, SourcePropertyAccessorSymbol.GetAccessorName(property.Name, getNotSet: true, isWinMdOutput: false))
             {
@@ -60,12 +60,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+            public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
             {
                 return false;
             }
 
-            internal override bool IsMetadataFinal
+            public override bool IsMetadataFinal
             {
                 get
                 {
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+            public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
             {
                 // Do not call base.AddSynthesizedAttributes.
                 // Dev11 does not emit DebuggerHiddenAttribute in property accessors

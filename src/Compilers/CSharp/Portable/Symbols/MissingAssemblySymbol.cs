@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A <see cref="MissingAssemblySymbol"/> is a special kind of <see cref="AssemblySymbol"/> that represents
     /// an assembly that couldn't be found.
     /// </summary>
-    internal class MissingAssemblySymbol : AssemblySymbol
+    public class MissingAssemblySymbol : AssemblySymbol
     {
         protected readonly AssemblyIdentity identity;
         protected readonly MissingModuleSymbol moduleSymbol;
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             moduleSymbol = new MissingModuleSymbol(this, 0);
         }
 
-        internal sealed override bool IsMissing
+        public sealed override bool IsMissing
         {
             get
             {
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsLinked
+        public override bool IsLinked
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override Symbol GetDeclaredSpecialTypeMember(SpecialMember member)
+        public override Symbol GetDeclaredSpecialTypeMember(SpecialMember member)
         {
             return null;
         }
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<byte> PublicKey
+        public override ImmutableArray<byte> PublicKey
         {
             get { return Identity.PublicKey; }
         }
@@ -111,22 +111,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
         {
             return ImmutableArray<AssemblySymbol>.Empty;
         }
 
-        internal override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
         {
             return ImmutableArray<AssemblySymbol>.Empty;
         }
@@ -155,24 +155,24 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol LookupTopLevelMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies, bool digThroughForwardedTypes)
+        public override NamedTypeSymbol LookupTopLevelMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies, bool digThroughForwardedTypes)
         {
             var result = this.moduleSymbol.LookupTopLevelMetadataType(ref emittedName);
             Debug.Assert(result is MissingMetadataTypeSymbol);
             return result;
         }
 
-        internal override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
+        public override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool AreInternalsVisibleToThisAssembly(AssemblySymbol other)
+        public override bool AreInternalsVisibleToThisAssembly(AssemblySymbol other)
         {
             return false;
         }
 
-        internal override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
+        public override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
         {
             return SpecializedCollections.EmptyEnumerable<ImmutableArray<byte>>();
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Then, the first time one of the analysis results is used it computes that one result and
     /// caches it. Each result is computed using a custom algorithm.
     /// </summary>
-    internal class CSharpControlFlowAnalysis : ControlFlowAnalysis
+    public class CSharpControlFlowAnalysis : ControlFlowAnalysis
     {
         private readonly RegionAnalysisContext _context;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private object _regionEndPointIsReachable;
         private bool? _succeeded;
 
-        internal CSharpControlFlowAnalysis(RegionAnalysisContext context)
+        public CSharpControlFlowAnalysis(RegionAnalysisContext context)
         {
             _context = context;
         }

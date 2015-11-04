@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class ErrorTypeSymbol
+    public partial class ErrorTypeSymbol
     {
         protected sealed class ErrorTypeParameterSymbol : TypeParameterSymbol
         {
@@ -111,26 +111,26 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override void EnsureAllConstraintsAreResolved()
+            public override void EnsureAllConstraintsAreResolved()
             {
             }
 
-            internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+            public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
             {
                 return ImmutableArray<TypeSymbol>.Empty;
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+            public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
             {
                 return ImmutableArray<NamedTypeSymbol>.Empty;
             }
 
-            internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+            public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
             {
                 return null;
             }
 
-            internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+            public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
             {
                 return null;
             }
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return Hash.Combine(_container.GetHashCode(), _ordinal);
             }
 
-            internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+            public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
             {
                 if (ReferenceEquals(this, t2))
                 {

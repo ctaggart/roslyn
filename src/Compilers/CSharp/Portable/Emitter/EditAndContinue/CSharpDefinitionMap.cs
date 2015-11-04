@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Linq;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// the corresponding assembly in another. Assumes that only
     /// one assembly has changed between the two compilations.
     /// </summary>
-    internal sealed partial class CSharpDefinitionMap : DefinitionMap<CSharpSymbolMatcher>
+    public sealed partial class CSharpDefinitionMap : DefinitionMap<CSharpSymbolMatcher>
     {
         private readonly MetadataDecoder _metadataDecoder;
 
@@ -36,12 +36,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             _metadataDecoder = metadataDecoder;
         }
 
-        internal bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
+        public bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
         {
             return this.mapToPrevious.TryGetAnonymousTypeName(template, out name, out index);
         }
 
-        internal override bool TryGetTypeHandle(Cci.ITypeDefinition def, out TypeDefinitionHandle handle)
+        public override bool TryGetTypeHandle(Cci.ITypeDefinition def, out TypeDefinitionHandle handle)
         {
             var other = this.mapToMetadata.MapDefinition(def) as PENamedTypeSymbol;
             if ((object)other != null)
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal override bool TryGetEventHandle(Cci.IEventDefinition def, out EventDefinitionHandle handle)
+        public override bool TryGetEventHandle(Cci.IEventDefinition def, out EventDefinitionHandle handle)
         {
             var other = this.mapToMetadata.MapDefinition(def) as PEEventSymbol;
             if ((object)other != null)
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal override bool TryGetFieldHandle(Cci.IFieldDefinition def, out FieldDefinitionHandle handle)
+        public override bool TryGetFieldHandle(Cci.IFieldDefinition def, out FieldDefinitionHandle handle)
         {
             var other = this.mapToMetadata.MapDefinition(def) as PEFieldSymbol;
             if ((object)other != null)
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal override bool TryGetMethodHandle(Cci.IMethodDefinition def, out MethodDefinitionHandle handle)
+        public override bool TryGetMethodHandle(Cci.IMethodDefinition def, out MethodDefinitionHandle handle)
         {
             var other = this.mapToMetadata.MapDefinition(def) as PEMethodSymbol;
             if ((object)other != null)
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal override bool TryGetPropertyHandle(Cci.IPropertyDefinition def, out PropertyDefinitionHandle handle)
+        public override bool TryGetPropertyHandle(Cci.IPropertyDefinition def, out PropertyDefinitionHandle handle)
         {
             var other = this.mapToMetadata.MapDefinition(def) as PEPropertySymbol;
             if ((object)other != null)

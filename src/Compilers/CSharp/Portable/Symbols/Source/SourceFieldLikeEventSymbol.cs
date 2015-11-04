@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// name), unless it does not have an initializer and is either extern or inside
     /// an interface, in which case it only has accessors.
     /// </summary>
-    internal sealed class SourceFieldLikeEventSymbol : SourceEventSymbol
+    public sealed class SourceFieldLikeEventSymbol : SourceEventSymbol
     {
         private readonly string _name;
         private readonly TypeSymbol _type;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private readonly SynthesizedFieldLikeEventAccessorSymbol _addMethod;
         private readonly SynthesizedFieldLikeEventAccessorSymbol _removeMethod;
 
-        internal SourceFieldLikeEventSymbol(SourceMemberContainerTypeSymbol containingType, Binder binder, SyntaxTokenList modifiers, VariableDeclaratorSyntax declaratorSyntax, DiagnosticBag diagnostics)
+        public SourceFieldLikeEventSymbol(SourceMemberContainerTypeSymbol containingType, Binder binder, SyntaxTokenList modifiers, VariableDeclaratorSyntax declaratorSyntax, DiagnosticBag diagnostics)
             : base(containingType, declaratorSyntax, modifiers, null, declaratorSyntax.Identifier, diagnostics)
         {
             _name = declaratorSyntax.Identifier.ValueText;
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Backing field for field-like event. Will be null if the event
         /// has no initializer and is either extern or inside an interface.
         /// </summary>
-        internal override FieldSymbol AssociatedField
+        public override FieldSymbol AssociatedField
         {
             get { return _associatedField; }
         }
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _removeMethod; }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return false; }
         }
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return field;
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             if ((object)this.AssociatedField != null)
             {

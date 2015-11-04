@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -16,7 +16,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents an anonymous type 'public' symbol which is used in binding and lowering.
@@ -27,18 +27,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             private readonly ImmutableArray<Symbol> _members;
 
             /// <summary> Properties defined in the type </summary>
-            internal readonly ImmutableArray<AnonymousTypePropertySymbol> Properties;
+            public readonly ImmutableArray<AnonymousTypePropertySymbol> Properties;
 
             /// <summary> Maps member names to symbol(s) </summary>
             private readonly MultiDictionary<string, Symbol> _nameToSymbols = new MultiDictionary<string, Symbol>();
 
             /// <summary> Anonymous type manager owning this template </summary>
-            internal readonly AnonymousTypeManager Manager;
+            public readonly AnonymousTypeManager Manager;
 
             /// <summary> Anonymous type descriptor </summary>
-            internal readonly AnonymousTypeDescriptor TypeDescriptor;
+            public readonly AnonymousTypeDescriptor TypeDescriptor;
 
-            internal AnonymousTypePublicSymbol(AnonymousTypeManager manager, AnonymousTypeDescriptor typeDescr)
+            public AnonymousTypePublicSymbol(AnonymousTypeManager manager, AnonymousTypeDescriptor typeDescr)
             {
                 typeDescr.AssertIsGood();
 
@@ -93,17 +93,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return _members;
             }
 
-            internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+            public override IEnumerable<FieldSymbol> GetFieldsToEmit()
             {
                 throw ExceptionUtilities.Unreachable;
             }
 
-            internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+            public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
             {
                 get { return ImmutableArray<TypeSymbol>.Empty; }
             }
 
-            internal override bool HasTypeArgumentsCustomModifiers
+            public override bool HasTypeArgumentsCustomModifiers
             {
                 get
                 {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+            public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
             {
                 get
                 {
@@ -131,12 +131,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return builder.ToImmutableAndFree();
             }
 
-            internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+            public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
             {
                 return this.GetMembersUnordered();
             }
 
-            internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+            public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
             {
                 return this.GetMembers(name);
             }
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return string.Empty; }
             }
 
-            internal override bool MangleName
+            public override bool MangleName
             {
                 get { return false; }
             }
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
@@ -221,17 +221,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return Accessibility.Internal; }
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+            public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
             {
                 return ImmutableArray<NamedTypeSymbol>.Empty;
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+            public override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
             {
                 throw ExceptionUtilities.Unreachable;
             }
 
-            internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+            public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
             {
                 get { return this.Manager.System_Object; }
             }
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return TypeKind.Class; }
             }
 
-            internal override bool IsInterface
+            public override bool IsInterface
             {
                 get { return false; }
             }
@@ -274,72 +274,72 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return this; }
             }
 
-            internal override bool ShouldAddWinRTMembers
+            public override bool ShouldAddWinRTMembers
             {
                 get { return false; }
             }
 
-            internal override bool IsWindowsRuntimeImport
+            public override bool IsWindowsRuntimeImport
             {
                 get { return false; }
             }
 
-            internal override bool IsComImport
+            public override bool IsComImport
             {
                 get { return false; }
             }
 
-            internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+            public sealed override ObsoleteAttributeData ObsoleteAttributeData
             {
                 get { return null; }
             }
 
-            internal override TypeLayout Layout
+            public override TypeLayout Layout
             {
                 get { return default(TypeLayout); }
             }
 
-            internal override CharSet MarshallingCharSet
+            public override CharSet MarshallingCharSet
             {
                 get { return DefaultMarshallingCharSet; }
             }
 
-            internal override bool IsSerializable
+            public override bool IsSerializable
             {
                 get { return false; }
             }
 
-            internal override bool HasDeclarativeSecurity
+            public override bool HasDeclarativeSecurity
             {
                 get { return false; }
             }
 
-            internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+            public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
             {
                 throw ExceptionUtilities.Unreachable;
             }
 
-            internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+            public override ImmutableArray<string> GetAppliedConditionalSymbols()
             {
                 return ImmutableArray<string>.Empty;
             }
 
-            internal override AttributeUsageInfo GetAttributeUsageInfo()
+            public override AttributeUsageInfo GetAttributeUsageInfo()
             {
                 return AttributeUsageInfo.Null;
             }
 
-            internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+            public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
             {
                 return this.Manager.System_Object;
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+            public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
             {
                 return ImmutableArray<NamedTypeSymbol>.Empty;
             }
 
-            internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+            public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
             {
                 if (ReferenceEquals(this, t2))
                 {

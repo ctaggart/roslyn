@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         private class QueryTranslationState
         {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return result;
             }
 
-            internal RangeVariableSymbol AddRangeVariable(Binder binder, SyntaxToken identifier, DiagnosticBag diagnostics)
+            public RangeVariableSymbol AddRangeVariable(Binder binder, SyntaxToken identifier, DiagnosticBag diagnostics)
             {
                 string name = identifier.ValueText;
                 var result = new RangeVariableSymbol(name, binder.ContainingMemberOrLambda, identifier.GetLocation());
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             // Add a new lambda that is a transparent identifier, by providing the name that is the
             // field of the new transparent lambda parameter that contains the old variables.
-            internal void AddTransparentIdentifier(string name)
+            public void AddTransparentIdentifier(string name)
             {
                 foreach (var b in allRangeVariables.Values)
                 {
@@ -93,12 +93,12 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             private int _nextTransparentIdentifierNumber;
 
-            internal string TransparentRangeVariableName()
+            public string TransparentRangeVariableName()
             {
                 return transparentIdentifierPrefix + _nextTransparentIdentifierNumber++;
             }
 
-            internal RangeVariableSymbol TransparentRangeVariable(Binder binder)
+            public RangeVariableSymbol TransparentRangeVariable(Binder binder)
             {
                 var transparentIdentifier = TransparentRangeVariableName();
                 return new RangeVariableSymbol(transparentIdentifier, binder.ContainingMemberOrLambda, null, true);

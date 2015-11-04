@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class ControlFlowPass : AbstractFlowPass<ControlFlowPass.LocalState>
+    public class ControlFlowPass : AbstractFlowPass<ControlFlowPass.LocalState>
     {
         private readonly PooledHashSet<LabelSymbol> _labelsDefined = PooledHashSet<LabelSymbol>.GetInstance();
         private readonly PooledHashSet<LabelSymbol> _labelsUsed = PooledHashSet<LabelSymbol>.GetInstance();
@@ -22,22 +22,22 @@ namespace Microsoft.CodeAnalysis.CSharp
             base.Free();
         }
 
-        internal ControlFlowPass(CSharpCompilation compilation, Symbol member, BoundNode node)
+        public ControlFlowPass(CSharpCompilation compilation, Symbol member, BoundNode node)
             : base(compilation, member, node)
         {
         }
 
-        internal ControlFlowPass(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
+        public ControlFlowPass(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
             : base(compilation, member, node, firstInRegion, lastInRegion)
         {
         }
 
-        internal struct LocalState : AbstractLocalState
+        public struct LocalState : AbstractLocalState
         {
-            internal bool Alive;
-            internal bool Reported; // reported unreachable statement
+            public bool Alive;
+            public bool Reported; // reported unreachable statement
 
-            internal LocalState(bool live, bool reported)
+            public LocalState(bool live, bool reported)
             {
                 this.Alive = live;
                 this.Reported = reported;

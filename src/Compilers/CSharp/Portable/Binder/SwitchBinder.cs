@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,13 +11,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class SwitchBinder : LocalScopeBinder
+    public class SwitchBinder : LocalScopeBinder
     {
         private readonly SwitchStatementSyntax _switchSyntax;
         private TypeSymbol _switchGoverningType;
         private readonly GeneratedLabelSymbol _breakLabel;
 
-        internal SwitchBinder(Binder next, SwitchStatementSyntax switchSyntax)
+        public SwitchBinder(Binder next, SwitchStatementSyntax switchSyntax)
             : base(next)
         {
             _switchSyntax = switchSyntax;
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return builder.ToImmutableAndFree();
         }
 
-        internal override GeneratedLabelSymbol BreakLabel
+        public override GeneratedLabelSymbol BreakLabel
         {
             get
             {
@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         # region "Switch statement binding methods"
 
-        internal override BoundSwitchStatement BindSwitchExpressionAndSections(SwitchStatementSyntax node, Binder originalBinder, DiagnosticBag diagnostics)
+        public override BoundSwitchStatement BindSwitchExpressionAndSections(SwitchStatementSyntax node, Binder originalBinder, DiagnosticBag diagnostics)
         {
             Debug.Assert(_switchSyntax.Equals(node));
 
@@ -530,7 +530,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 hasErrors: hasErrors || hasDuplicateErrors);
         }
 
-        internal BoundStatement BindGotoCaseOrDefault(GotoStatementSyntax node, DiagnosticBag diagnostics)
+        public BoundStatement BindGotoCaseOrDefault(GotoStatementSyntax node, DiagnosticBag diagnostics)
         {
             Debug.Assert(node.Kind() == SyntaxKind.GotoCaseStatement || node.Kind() == SyntaxKind.GotoDefaultStatement);
 

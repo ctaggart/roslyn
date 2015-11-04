@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal abstract partial class SyntaxParser : IDisposable
+    public abstract partial class SyntaxParser : IDisposable
     {
         protected readonly Lexer lexer;
         private readonly bool _isIncremental;
@@ -825,7 +825,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// Converts skippedSyntax node into tokens and adds these as trivia on the target token.
         /// Also adds the first error (in depth-first preorder) found in the skipped syntax tree to the target token.
         /// </summary>
-        internal SyntaxToken AddSkippedSyntax(SyntaxToken target, CSharpSyntaxNode skippedSyntax, bool trailing)
+        public SyntaxToken AddSkippedSyntax(SyntaxToken target, CSharpSyntaxNode skippedSyntax, bool trailing)
         {
             var builder = new SyntaxListBuilder(4);
 
@@ -1004,7 +1004,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return token;
         }
 
-        internal DirectiveStack Directives
+        public DirectiveStack Directives
         {
             get { return lexer.Directives; }
         }

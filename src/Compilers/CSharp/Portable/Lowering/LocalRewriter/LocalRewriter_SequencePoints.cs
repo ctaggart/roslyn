@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -9,9 +9,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class LocalRewriter
+    public partial class LocalRewriter
     {
-        internal static BoundStatement AddSequencePoint(VariableDeclaratorSyntax declaratorSyntax, BoundStatement rewrittenStatement)
+        public static BoundStatement AddSequencePoint(VariableDeclaratorSyntax declaratorSyntax, BoundStatement rewrittenStatement)
         {
             SyntaxNode node;
             TextSpan? part;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result;
         }
 
-        internal static BoundStatement AddSequencePoint(PropertyDeclarationSyntax declarationSyntax, BoundStatement rewrittenStatement)
+        public static BoundStatement AddSequencePoint(PropertyDeclarationSyntax declarationSyntax, BoundStatement rewrittenStatement)
         {
             Debug.Assert(declarationSyntax.Initializer != null);
             int start = declarationSyntax.Initializer.Value.SpanStart;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result;
         }
 
-        internal static BoundStatement AddSequencePoint(UsingStatementSyntax usingSyntax, BoundStatement rewrittenStatement)
+        public static BoundStatement AddSequencePoint(UsingStatementSyntax usingSyntax, BoundStatement rewrittenStatement)
         {
             int start = usingSyntax.Span.Start;
             int end = usingSyntax.CloseParenToken.Span.End;
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundSequencePointWithSpan(usingSyntax, rewrittenStatement, span);
         }
 
-        internal static BoundStatement AddSequencePoint(BlockSyntax blockSyntax, BoundStatement rewrittenStatement)
+        public static BoundStatement AddSequencePoint(BlockSyntax blockSyntax, BoundStatement rewrittenStatement)
         {
             TextSpan span;
 
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void GetBreakpointSpan(VariableDeclaratorSyntax declaratorSyntax, out SyntaxNode node, out TextSpan? part)
+        public static void GetBreakpointSpan(VariableDeclaratorSyntax declaratorSyntax, out SyntaxNode node, out TextSpan? part)
         {
             var declarationSyntax = (VariableDeclarationSyntax)declaratorSyntax.Parent;
 
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void GetFirstLocalOrFieldBreakpointSpan(SyntaxTokenList modifiers, VariableDeclaratorSyntax declaratorSyntax, out SyntaxNode node, out TextSpan? part)
+        public static void GetFirstLocalOrFieldBreakpointSpan(SyntaxTokenList modifiers, VariableDeclaratorSyntax declaratorSyntax, out SyntaxNode node, out TextSpan? part)
         {
             var declarationSyntax = (VariableDeclarationSyntax)declaratorSyntax.Parent;
 
@@ -193,12 +193,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             node = declarationSyntax.Parent;
         }
 
-        internal BoundExpression AddConditionSequencePoint(BoundExpression condition, BoundStatement containingStatement)
+        public BoundExpression AddConditionSequencePoint(BoundExpression condition, BoundStatement containingStatement)
         {
             return AddConditionSequencePoint(condition, containingStatement.Syntax, containingStatement.WasCompilerGenerated);
         }
 
-        internal BoundExpression AddConditionSequencePoint(BoundExpression condition, BoundCatchBlock containingCatchWithFilter)
+        public BoundExpression AddConditionSequencePoint(BoundExpression condition, BoundCatchBlock containingCatchWithFilter)
         {
             Debug.Assert(containingCatchWithFilter.ExceptionFilterOpt.Syntax.IsKind(SyntaxKind.CatchFilterClause));
             return AddConditionSequencePoint(condition, containingCatchWithFilter.ExceptionFilterOpt.Syntax, containingCatchWithFilter.WasCompilerGenerated);

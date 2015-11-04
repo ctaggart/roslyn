@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 //#define DEBUG_ALPHA // turn on DEBUG_ALPHA to help diagnose issues around type parameter alpha-renaming
 
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal class SubstitutedTypeParameterSymbol : TypeParameterSymbol
+    public class SubstitutedTypeParameterSymbol : TypeParameterSymbol
     {
         private readonly Symbol _container;
         private readonly TypeMap _map;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private readonly int _mySequence;
 #endif
 
-        internal SubstitutedTypeParameterSymbol(Symbol newContainer, TypeMap map, TypeParameterSymbol substitutedFrom)
+        public SubstitutedTypeParameterSymbol(Symbol newContainer, TypeMap map, TypeParameterSymbol substitutedFrom)
         {
             _container = newContainer;
             // it is important that we don't use the map here in the constructor, as the map is still being filled
@@ -165,27 +165,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _substitutedFrom.GetAttributes();
         }
 
-        internal override void EnsureAllConstraintsAreResolved()
+        public override void EnsureAllConstraintsAreResolved()
         {
             _substitutedFrom.EnsureAllConstraintsAreResolved();
         }
 
-        internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
         {
             return _map.SubstituteTypesWithoutModifiers(_substitutedFrom.GetConstraintTypes(inProgress)).WhereAsArray(s_isNotObjectFunc).Distinct();
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
         {
             return _map.SubstituteNamedTypes(_substitutedFrom.GetInterfaces(inProgress));
         }
 
-        internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+        public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
         {
             return _map.SubstituteNamedType(_substitutedFrom.GetEffectiveBaseClass(inProgress));
         }
 
-        internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+        public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
         {
             return _map.SubstituteType(_substitutedFrom.GetDeducedBaseType(inProgress)).AsTypeSymbolOnly();
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// This decouples constraints checking from syntax and Locations, and supports
     /// callers that may want to create Location instances lazily or not at all.
     /// </summary>
-    internal struct TypeParameterDiagnosticInfo
+    public struct TypeParameterDiagnosticInfo
     {
         public readonly TypeParameterSymbol TypeParameter;
         public readonly DiagnosticInfo DiagnosticInfo;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// the caller must lazily check constraints, and since the types may be compound types, it is
     /// necessary to call CheckAllConstraints.
     /// </summary>
-    internal static class ConstraintsHelper
+    public static class ConstraintsHelper
     {
         /// <summary>
         /// Determine the effective base type, effective interface set, and set of type
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return bounds;
         }
 
-        internal static void CheckConstraintTypesVisibility(
+        public static void CheckConstraintTypesVisibility(
             this Symbol containingSymbol,
             Location location,
             ImmutableArray<TypeParameterConstraintClause> constraintClauses,

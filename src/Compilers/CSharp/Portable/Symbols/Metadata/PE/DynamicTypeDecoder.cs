@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// SPEC:   with true set for each "node" that is dynamic, and false set for all other types.
     /// SPEC:   When dynamic occurs as part of the base type of a type, the applicable [DynamicAttribute] is applied to the type itself.
     /// </remarks>
-    internal struct DynamicTypeDecoder
+    public struct DynamicTypeDecoder
     {
         private readonly ImmutableArray<bool> _dynamicTransformFlags;
         private readonly AssemblySymbol _containingAssembly;
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// returns the unchanged <see paramref="metadataType"/>.
         /// </summary>
         /// <remarks>This method is a port of TypeManager::ImportDynamicTransformType from the native compiler.</remarks>
-        internal static TypeSymbol TransformType(
+        public static TypeSymbol TransformType(
             TypeSymbol metadataType,
             int targetSymbolCustomModifierCount,
             EntityHandle targetSymbolToken,
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return metadataType;
         }
 
-        internal static TypeSymbol TransformTypeWithoutCustomModifierFlags(
+        public static TypeSymbol TransformTypeWithoutCustomModifierFlags(
             TypeSymbol type,
             AssemblySymbol containingAssembly,
             RefKind targetSymbolRefKind,

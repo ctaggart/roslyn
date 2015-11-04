@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class DeclarationTable
+    public partial class DeclarationTable
     {
         // The structure of the DeclarationTable provides us with a set of 'old' declarations that
         // stay relatively unchanged and a 'new' declaration that is repeatedly added and removed.
@@ -19,12 +19,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         private class Cache
         {
             // The merged root declaration for all the 'old' declarations.
-            internal readonly Lazy<MergedNamespaceDeclaration> MergedRoot;
+            public readonly Lazy<MergedNamespaceDeclaration> MergedRoot;
 
             // All the simple type names for all the types in the 'old' declarations.
-            internal readonly Lazy<ISet<string>> TypeNames;
-            internal readonly Lazy<ISet<string>> NamespaceNames;
-            internal readonly Lazy<ImmutableArray<ReferenceDirective>> ReferenceDirectives;
+            public readonly Lazy<ISet<string>> TypeNames;
+            public readonly Lazy<ISet<string>> NamespaceNames;
+            public readonly Lazy<ImmutableArray<ReferenceDirective>> ReferenceDirectives;
 
             public Cache(DeclarationTable table)
             {

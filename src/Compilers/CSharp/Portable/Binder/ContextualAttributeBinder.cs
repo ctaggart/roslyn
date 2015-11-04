@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// the attribute is on/in (e.g. on a parameter) so that we can use the name of that member as the 
     /// CallerMemberName argument.
     /// </summary>
-    internal sealed class ContextualAttributeBinder : Binder
+    public sealed class ContextualAttributeBinder : Binder
     {
         private readonly Symbol _attributeTarget;
         private readonly Symbol _attributedMember;
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// A virtual property on Binder (i.e. our usual pattern) would be more robust, but the applicability
         /// of this property is so narrow that it doesn't seem worthwhile.
         /// </remarks>
-        internal Symbol AttributedMember
+        public Symbol AttributedMember
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return symbol;
         }
 
-        internal Symbol AttributeTarget
+        public Symbol AttributeTarget
         {
             get
             {

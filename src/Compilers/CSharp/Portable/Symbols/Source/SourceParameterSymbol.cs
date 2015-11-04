@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// These parameters can potentially be targetted by an attribute specified in source code. 
     /// As an optimization we distinguish simple parameters (no attributes, no modifiers, etc.) and complex parameters.
     /// </remarks>
-    internal abstract class SourceParameterSymbol : SourceParameterSymbolBase
+    public abstract class SourceParameterSymbol : SourceParameterSymbolBase
     {
         protected SymbolCompletionState state;
         protected readonly TypeSymbol parameterType;
@@ -88,12 +88,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _locations = locations;
         }
 
-        internal override ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
+        public override ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
         {
             return WithCustomModifiersAndParamsCore(newType, newCustomModifiers, countOfCustomModifiersPrecedingByRef, newIsParams);
         }
 
-        internal SourceParameterSymbol WithCustomModifiersAndParamsCore(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
+        public SourceParameterSymbol WithCustomModifiersAndParamsCore(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
         {
             newType = CustomModifierUtils.CopyTypeCustomModifiers(newType, this.Type, _refKind, this.ContainingAssembly);
 
@@ -127,17 +127,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 this.IsExtensionMethodThis);
         }
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return state.HasComplete(part);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             state.DefaultForceComplete(this);
         }
@@ -145,16 +145,16 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if the parameter is marked by <see cref="System.Runtime.InteropServices.OptionalAttribute"/>.
         /// </summary>
-        internal abstract bool HasOptionalAttribute { get; }
+        public abstract bool HasOptionalAttribute { get; }
 
         /// <summary>
         /// True if the parameter has default argument syntax.
         /// </summary>
-        internal abstract bool HasDefaultArgumentSyntax { get; }
+        public abstract bool HasDefaultArgumentSyntax { get; }
 
-        internal abstract SyntaxList<AttributeListSyntax> AttributeDeclarationList { get; }
+        public abstract SyntaxList<AttributeListSyntax> AttributeDeclarationList { get; }
 
-        internal abstract CustomAttributesBag<CSharpAttributeData> GetAttributesBag();
+        public abstract CustomAttributesBag<CSharpAttributeData> GetAttributesBag();
 
         /// <summary>
         /// Gets the attributes applied on this symbol.
@@ -169,9 +169,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.GetAttributesBag().Attributes;
         }
 
-        internal abstract SyntaxReference SyntaxReference { get; }
+        public abstract SyntaxReference SyntaxReference { get; }
 
-        internal abstract bool IsExtensionMethodThis { get; }
+        public abstract bool IsExtensionMethodThis { get; }
 
         public sealed override RefKind RefKind
         {

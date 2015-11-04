@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -12,20 +12,20 @@ using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SubstitutedFieldSymbol : FieldSymbol
+    public sealed class SubstitutedFieldSymbol : FieldSymbol
     {
         private readonly SubstitutedNamedTypeSymbol _containingType;
         private readonly FieldSymbol _originalDefinition;
 
         private TypeSymbol _lazyType;
 
-        internal SubstitutedFieldSymbol(SubstitutedNamedTypeSymbol containingType, FieldSymbol substitutedFrom)
+        public SubstitutedFieldSymbol(SubstitutedNamedTypeSymbol containingType, FieldSymbol substitutedFrom)
         {
             _containingType = containingType;
             _originalDefinition = substitutedFrom.OriginalDefinition as FieldSymbol;
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             if ((object)_lazyType == null)
             {
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _originalDefinition.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsNotSerialized
+        public override bool IsNotSerialized
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int? TypeLayoutOffset
+        public override int? TypeLayoutOffset
         {
             get
             {
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+        public override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
         {
             return _originalDefinition.GetConstantValue(inProgress, earlyDecodingWellKnownAttributes);
         }
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
+        public override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
         {
             // This occurs rarely, if ever.  The scenario would be a generic struct
             // containing a fixed-size buffer.  Given the rarity there would be little

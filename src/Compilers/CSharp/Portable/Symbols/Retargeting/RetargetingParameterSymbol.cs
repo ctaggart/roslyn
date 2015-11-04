@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// another ParameterSymbol that is responsible for retargeting symbols from one assembly to another. 
     /// It can retarget symbols for multiple assemblies at the same time.
     /// </summary>
-    internal abstract class RetargetingParameterSymbol : ParameterSymbol
+    public abstract class RetargetingParameterSymbol : ParameterSymbol
     {
         private readonly ParameterSymbol _underlyingParameter;
         private ImmutableArray<CustomModifier> _lazyCustomModifiers;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         }
 
         // test only
-        internal ParameterSymbol UnderlyingParameter
+        public ParameterSymbol UnderlyingParameter
         {
             get
             {
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingModule.RetargetingTranslator.GetRetargetedAttributes(_underlyingParameter.GetAttributes(), ref _lazyCustomAttributes);
         }
 
-        internal sealed override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public sealed override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return this.RetargetingModule.RetargetingTranslator.RetargetAttributes(_underlyingParameter.GetCustomAttributesToEmit(compilationState));
         }
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override ModuleSymbol ContainingModule
+        public sealed override ModuleSymbol ContainingModule
         {
             get
             {
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override bool HasMetadataConstantValue
+        public sealed override bool HasMetadataConstantValue
         {
             get
             {
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override bool IsMarshalledExplicitly
+        public sealed override bool IsMarshalledExplicitly
         {
             get
             {
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<byte> MarshallingDescriptor
+        public override ImmutableArray<byte> MarshallingDescriptor
         {
             get
             {
@@ -129,14 +129,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
 
         #region Forwarded
 
-        internal sealed override ConstantValue ExplicitDefaultConstantValue
+        public sealed override ConstantValue ExplicitDefaultConstantValue
         {
             get { return _underlyingParameter.ExplicitDefaultConstantValue; }
         }
@@ -146,12 +146,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             get { return _underlyingParameter.RefKind; }
         }
 
-        internal sealed override bool IsMetadataIn
+        public sealed override bool IsMetadataIn
         {
             get { return _underlyingParameter.IsMetadataIn; }
         }
 
-        internal sealed override bool IsMetadataOut
+        public sealed override bool IsMetadataOut
         {
             get { return _underlyingParameter.IsMetadataOut; }
         }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             get { return _underlyingParameter.DeclaringSyntaxReferences; }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             _underlyingParameter.AddSynthesizedAttributes(compilationState, ref attributes);
         }
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             get { return _underlyingParameter.IsParams; }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get { return _underlyingParameter.IsMetadataOptional; }
         }
@@ -201,37 +201,37 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingParameter.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal sealed override UnmanagedType MarshallingType
+        public sealed override UnmanagedType MarshallingType
         {
             get { return _underlyingParameter.MarshallingType; }
         }
 
-        internal sealed override bool IsIDispatchConstant
+        public sealed override bool IsIDispatchConstant
         {
             get { return _underlyingParameter.IsIDispatchConstant; }
         }
 
-        internal sealed override bool IsIUnknownConstant
+        public sealed override bool IsIUnknownConstant
         {
             get { return _underlyingParameter.IsIUnknownConstant; }
         }
 
-        internal sealed override bool IsCallerLineNumber
+        public sealed override bool IsCallerLineNumber
         {
             get { return _underlyingParameter.IsCallerLineNumber; }
         }
 
-        internal sealed override bool IsCallerFilePath
+        public sealed override bool IsCallerFilePath
         {
             get { return _underlyingParameter.IsCallerFilePath; }
         }
 
-        internal sealed override bool IsCallerMemberName
+        public sealed override bool IsCallerMemberName
         {
             get { return _underlyingParameter.IsCallerMemberName; }
         }
 
-        internal sealed override ushort CountOfCustomModifiersPrecedingByRef
+        public sealed override ushort CountOfCustomModifiersPrecedingByRef
         {
             get { return _underlyingParameter.CountOfCustomModifiersPrecedingByRef; }
         }
@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         #endregion
     }
 
-    internal sealed class RetargetingMethodParameterSymbol : RetargetingParameterSymbol
+    public sealed class RetargetingMethodParameterSymbol : RetargetingParameterSymbol
     {
         /// <summary>
         /// Owning RetargetingMethodSymbol.
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         }
     }
 
-    internal sealed class RetargetingPropertyParameterSymbol : RetargetingParameterSymbol
+    public sealed class RetargetingPropertyParameterSymbol : RetargetingParameterSymbol
     {
         /// <summary>
         /// Owning RetargetingPropertySymbol.

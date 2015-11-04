@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents either a namespace or a type.
     /// </summary>
-    internal abstract class NamespaceOrTypeSymbol : Symbol, INamespaceOrTypeSymbol
+    public abstract class NamespaceOrTypeSymbol : Symbol, INamespaceOrTypeSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // Only the compiler can create new instances.
-        internal NamespaceOrTypeSymbol()
+        public NamespaceOrTypeSymbol()
         {
         }
 
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <returns>An ImmutableArray containing all the members of this symbol. If this symbol has no members,
         /// returns an empty ImmutableArray. Never returns null.</returns>
-        internal virtual ImmutableArray<Symbol> GetMembersUnordered()
+        public virtual ImmutableArray<Symbol> GetMembersUnordered()
         {
             // Default implementation is to use ordered version. When performance indicates, we specialize to have
             // separate implementation.
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <returns>An ImmutableArray containing all the types that are members of this symbol. If this symbol has no type members,
         /// returns an empty ImmutableArray. Never returns null.</returns>
-        internal virtual ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public virtual ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             // Default implementation is to use ordered version. When performance indicates, we specialize to have
             // separate implementation.
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Get a source type symbol for the given declaration syntax.
         /// </summary>
         /// <returns>Null if there is no matching declaration.</returns>
-        internal SourceNamedTypeSymbol GetSourceTypeMember(TypeDeclarationSyntax syntax)
+        public SourceNamedTypeSymbol GetSourceTypeMember(TypeDeclarationSyntax syntax)
         {
             return GetSourceTypeMember(syntax.Identifier.ValueText, syntax.Arity, syntax.Kind(), syntax);
         }
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Get a source type symbol for the given declaration syntax.
         /// </summary>
         /// <returns>Null if there is no matching declaration.</returns>
-        internal SourceNamedTypeSymbol GetSourceTypeMember(DelegateDeclarationSyntax syntax)
+        public SourceNamedTypeSymbol GetSourceTypeMember(DelegateDeclarationSyntax syntax)
         {
             return GetSourceTypeMember(syntax.Identifier.ValueText, syntax.Arity, syntax.Kind(), syntax);
         }
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// to those that are declared within the given syntax.
         /// </summary>
         /// <returns>Null if there is no matching declaration.</returns>
-        internal SourceNamedTypeSymbol GetSourceTypeMember(
+        public SourceNamedTypeSymbol GetSourceTypeMember(
             string name,
             int arity,
             SyntaxKind kind,
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <returns>
         /// Symbol for the type, or MissingMetadataSymbol if the type isn't found.
         /// </returns>
-        internal virtual NamedTypeSymbol LookupMetadataType(ref MetadataTypeName emittedTypeName)
+        public virtual NamedTypeSymbol LookupMetadataType(ref MetadataTypeName emittedTypeName)
         {
             Debug.Assert(!emittedTypeName.IsNull);
 
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// "C.D" matches C.D, C{T}.D, C{S,T}.D{U}, etc.
         /// </remarks>
-        internal IEnumerable<NamespaceOrTypeSymbol> GetNamespaceOrTypeByQualifiedName(IEnumerable<string> qualifiedName)
+        public IEnumerable<NamespaceOrTypeSymbol> GetNamespaceOrTypeByQualifiedName(IEnumerable<string> qualifiedName)
         {
             NamespaceOrTypeSymbol namespaceOrType = this;
             IEnumerable<NamespaceOrTypeSymbol> symbols = null;

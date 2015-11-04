@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// A base method symbol used as a base class for lambda method symbol and base method wrapper symbol.
     /// </summary>
-    internal abstract class SynthesizedMethodBaseSymbol : SourceMethodSymbol
+    public abstract class SynthesizedMethodBaseSymbol : SourceMethodSymbol
     {
         protected readonly MethodSymbol BaseMethod;
         protected TypeMap TypeMap { get; private set; }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             // TODO: move more functionality into here, making these symbols more lazy
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _typeParameters; }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get { return this.BaseMethod.ParameterCount; }
         }
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get { return false; }
         }

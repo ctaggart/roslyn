@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a constant field of an enum.
     /// </summary>
-    internal abstract class SourceEnumConstantSymbol : SourceFieldSymbolWithSyntaxReference
+    public abstract class SourceEnumConstantSymbol : SourceFieldSymbolWithSyntaxReference
     {
         public static SourceEnumConstantSymbol CreateExplicitValuedConstant(
             SourceMemberContainerTypeSymbol containingEnum,
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             return this.ContainingType;
         }
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public sealed override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {

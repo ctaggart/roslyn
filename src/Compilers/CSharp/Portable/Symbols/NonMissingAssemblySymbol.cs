@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A <see cref="NonMissingAssemblySymbol"/> is a special kind of <see cref="AssemblySymbol"/> that represents
     /// an assembly that is not missing, i.e. the "real" thing.
     /// </summary>
-    internal abstract class NonMissingAssemblySymbol : AssemblySymbol
+    public abstract class NonMissingAssemblySymbol : AssemblySymbol
     {
         /// <summary>
         /// This is a cache similar to the one used by MetaImport::GetTypeByName
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Does this symbol represent a missing assembly.
         /// </summary>
-        internal sealed override bool IsMissing
+        public sealed override bool IsMissing
         {
             get
             {
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="digThroughForwardedTypes">
         /// Take forwarded types into account.
         /// </param>
-        internal sealed override NamedTypeSymbol LookupTopLevelMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies, bool digThroughForwardedTypes)
+        public sealed override NamedTypeSymbol LookupTopLevelMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies, bool digThroughForwardedTypes)
         {
             NamedTypeSymbol result = null;
 
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override abstract NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies);
+        public override abstract NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies);
 
         private NamedTypeSymbol LookupTopLevelMetadataTypeInCache(ref MetadataTypeName emittedName)
         {
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// For test purposes only.
         /// </summary>
-        internal NamedTypeSymbol CachedTypeByEmittedName(string emittedname)
+        public NamedTypeSymbol CachedTypeByEmittedName(string emittedname)
         {
             MetadataTypeName mdName = MetadataTypeName.FromFullName(emittedname);
             return _emittedNameToTypeMap[mdName.ToKey()];
@@ -197,7 +197,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// For test purposes only.
         /// </summary>
-        internal int EmittedNameToTypeMapCount
+        public int EmittedNameToTypeMapCount
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal class SyntaxListPool
+    public class SyntaxListPool
     {
         private ArrayElement<SyntaxListBuilder>[] _freeList = new ArrayElement<SyntaxListBuilder>[10];
         private int _freeIndex;
@@ -18,11 +18,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         private readonly List<SyntaxListBuilder> _allocated = new List<SyntaxListBuilder>();
 #endif
 
-        internal SyntaxListPool()
+        public SyntaxListPool()
         {
         }
 
-        internal SyntaxListBuilder Allocate()
+        public SyntaxListBuilder Allocate()
         {
             SyntaxListBuilder item;
             if (_freeIndex > 0)
@@ -43,22 +43,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return item;
         }
 
-        internal SyntaxListBuilder<TNode> Allocate<TNode>() where TNode : CSharpSyntaxNode
+        public SyntaxListBuilder<TNode> Allocate<TNode>() where TNode : CSharpSyntaxNode
         {
             return new SyntaxListBuilder<TNode>(this.Allocate());
         }
 
-        internal SeparatedSyntaxListBuilder<TNode> AllocateSeparated<TNode>() where TNode : CSharpSyntaxNode
+        public SeparatedSyntaxListBuilder<TNode> AllocateSeparated<TNode>() where TNode : CSharpSyntaxNode
         {
             return new SeparatedSyntaxListBuilder<TNode>(this.Allocate());
         }
 
-        internal void Free<TNode>(SeparatedSyntaxListBuilder<TNode> item) where TNode : CSharpSyntaxNode
+        public void Free<TNode>(SeparatedSyntaxListBuilder<TNode> item) where TNode : CSharpSyntaxNode
         {
             Free(item.UnderlyingBuilder);
         }
 
-        internal void Free(SyntaxListBuilder item)
+        public void Free(SyntaxListBuilder item)
         {
             item.Clear();
             if (_freeIndex >= _freeList.Length)

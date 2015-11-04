@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// another NamedTypeSymbol that is responsible for retargeting referenced symbols from one assembly to another. 
     /// It can retarget symbols for multiple assemblies at the same time.
     /// </summary>
-    internal sealed class RetargetingNamedTypeSymbol : NamedTypeSymbol
+    public sealed class RetargetingNamedTypeSymbol : NamedTypeSymbol
     {
         /// <summary>
         /// Owning RetargetingModuleSymbol.
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+        public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasTypeArgumentsCustomModifiers
+        public override bool HasTypeArgumentsCustomModifiers
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+        public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
         {
             get
             {
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
                 return _underlyingType.MetadataName;
             }
         }
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.Retarget(_underlyingType.GetMembers());
         }
 
-        internal override ImmutableArray<Symbol> GetMembersUnordered()
+        public override ImmutableArray<Symbol> GetMembersUnordered()
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.GetMembersUnordered());
         }
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.Retarget(_underlyingType.GetMembers(name));
         }
 
-        internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+        public override IEnumerable<FieldSymbol> GetFieldsToEmit()
         {
             foreach (FieldSymbol f in _underlyingType.GetFieldsToEmit())
             {
@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override IEnumerable<MethodSymbol> GetMethodsToEmit()
+        public override IEnumerable<MethodSymbol> GetMethodsToEmit()
         {
             bool isInterface = _underlyingType.IsInterfaceType();
 
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override IEnumerable<PropertySymbol> GetPropertiesToEmit()
+        public override IEnumerable<PropertySymbol> GetPropertiesToEmit()
         {
             foreach (PropertySymbol p in _underlyingType.GetPropertiesToEmit())
             {
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override IEnumerable<EventSymbol> GetEventsToEmit()
+        public override IEnumerable<EventSymbol> GetEventsToEmit()
         {
             foreach (EventSymbol e in _underlyingType.GetEventsToEmit())
             {
@@ -269,17 +269,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.GetEarlyAttributeDecodingMembers());
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.GetEarlyAttributeDecodingMembers(name));
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.GetTypeMembersUnordered());
         }
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsInterface
+        public override bool IsInterface
         {
             get
             {
@@ -363,7 +363,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsMetadataAbstract
+        public override bool IsMetadataAbstract
         {
             get
             {
@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsMetadataSealed
+        public override bool IsMetadataSealed
         {
             get
             {
@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.GetRetargetedAttributes(_underlyingType.GetAttributes(), ref _lazyCustomAttributes);
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return this.RetargetingTranslator.RetargetAttributes(_underlyingType.GetCustomAttributesToEmit(compilationState));
         }
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override NamedTypeSymbol LookupMetadataType(ref MetadataTypeName typeName)
+        public override NamedTypeSymbol LookupMetadataType(ref MetadataTypeName typeName)
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.LookupMetadataType(ref typeName), RetargetOptions.RetargetPrimitiveTypesByName);
         }
@@ -424,7 +424,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return new ExtendedErrorTypeSymbol(declaredBase, LookupResultKind.NotReferencable, info, true);
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -453,7 +453,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
         {
             if (_lazyInterfaces.IsDefault)
             {
@@ -473,12 +473,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyInterfaces;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+        public override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
         {
             return this.RetargetingTranslator.Retarget(_underlyingType.GetInterfacesToEmit());
         }
 
-        internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             if (ReferenceEquals(_lazyDeclaredBaseType, ErrorTypeSymbol.UnknownResultType))
             {
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyDeclaredBaseType;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             if (_lazyDeclaredInterfaces.IsDefault)
             {
@@ -502,7 +502,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyDeclaredInterfaces;
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -512,7 +512,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyUseSiteDiagnostic;
         }
 
-        internal override NamedTypeSymbol ComImportCoClass
+        public override NamedTypeSymbol ComImportCoClass
         {
             get
             {
@@ -521,67 +521,67 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsComImport
+        public override bool IsComImport
         {
             get { return _underlyingType.IsComImport; }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return _underlyingType.ObsoleteAttributeData; }
         }
 
-        internal override bool ShouldAddWinRTMembers
+        public override bool ShouldAddWinRTMembers
         {
             get { return _underlyingType.ShouldAddWinRTMembers; }
         }
 
-        internal override bool IsWindowsRuntimeImport
+        public override bool IsWindowsRuntimeImport
         {
             get { return _underlyingType.IsWindowsRuntimeImport; }
         }
 
-        internal override TypeLayout Layout
+        public override TypeLayout Layout
         {
             get { return _underlyingType.Layout; }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get { return _underlyingType.MarshallingCharSet; }
         }
 
-        internal override bool IsSerializable
+        public override bool IsSerializable
         {
             get { return _underlyingType.IsSerializable; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return _underlyingType.HasDeclarativeSecurity; }
         }
 
-        internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             return _underlyingType.GetSecurityInformation();
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return _underlyingType.GetAppliedConditionalSymbols();
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             return _underlyingType.GetAttributeUsageInfo();
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
 
-        internal override bool GetGuidString(out string guidString)
+        public override bool GetGuidString(out string guidString)
         {
             return _underlyingType.GetGuidString(out guidString);
         }

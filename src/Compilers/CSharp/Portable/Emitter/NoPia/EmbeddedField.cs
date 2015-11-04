@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
 {
-    internal sealed class EmbeddedField : EmbeddedTypesManager.CommonEmbeddedField
+    public sealed class EmbeddedField : EmbeddedTypesManager.CommonEmbeddedField
     {
         public EmbeddedField(EmbeddedType containingType, FieldSymbol underlyingField) :
             base(containingType, underlyingField)
         {
         }
 
-        internal override EmbeddedTypesManager TypeManager
+        public override EmbeddedTypesManager TypeManager
         {
             get
             {

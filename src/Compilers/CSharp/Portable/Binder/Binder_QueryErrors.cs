@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// This portion of the binder reports errors arising from resolving queries.
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// This is a clone of the Dev10 logic for reporting query errors.
         /// </summary>
-        internal void ReportQueryLookupFailed(
+        public void ReportQueryLookupFailed(
             CSharpSyntaxNode queryClause,
             BoundExpression instanceArgument,
             string name,
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static void ReportQueryInferenceFailed(CSharpSyntaxNode queryClause, string methodName, BoundExpression receiver, AnalyzedArguments arguments, ImmutableArray<Symbol> symbols, DiagnosticBag diagnostics)
+        public static void ReportQueryInferenceFailed(CSharpSyntaxNode queryClause, string methodName, BoundExpression receiver, AnalyzedArguments arguments, ImmutableArray<Symbol> symbols, DiagnosticBag diagnostics)
         {
             string clauseKind = null;
             bool multiple = false;

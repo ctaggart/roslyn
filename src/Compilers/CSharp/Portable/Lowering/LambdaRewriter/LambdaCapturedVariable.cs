@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CodeGen;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A field of a frame class that represents a variable that has been captured in a lambda.
     /// </summary>
-    internal sealed class LambdaCapturedVariable : SynthesizedFieldSymbolBase
+    public sealed class LambdaCapturedVariable : SynthesizedFieldSymbolBase
     {
         private readonly TypeSymbol _type;
         private readonly bool _isThis;
@@ -86,12 +86,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return frame.TypeMap.SubstituteType((object)local != null ? local.Type : ((ParameterSymbol)variable).Type).Type;
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             return _type;
         }
 
-        internal override bool IsCapturedFrame
+        public override bool IsCapturedFrame
         {
             get
             {

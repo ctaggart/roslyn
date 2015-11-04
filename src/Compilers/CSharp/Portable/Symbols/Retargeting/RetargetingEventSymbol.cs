@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.CSharp.Emit;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
 {
-    internal sealed class RetargetingEventSymbol : EventSymbol
+    public sealed class RetargetingEventSymbol : EventSymbol
     {
         /// <summary>
         /// Owning RetargetingModuleSymbol.
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override FieldSymbol AssociatedField
+        public override FieldSymbol AssociatedField
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return _underlyingEvent.IsExplicitInterfaceImplementation; }
         }
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -265,7 +265,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -278,12 +278,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingEvent.GetAttributes();
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return this.RetargetingTranslator.RetargetAttributes(_underlyingEvent.GetCustomAttributesToEmit(compilationState));
         }
 
-        internal override bool MustCallMethodsDirectly
+        public override bool MustCallMethodsDirectly
         {
             get
             {
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

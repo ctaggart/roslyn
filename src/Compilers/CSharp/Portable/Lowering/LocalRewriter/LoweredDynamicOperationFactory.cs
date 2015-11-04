@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,14 +8,14 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class LoweredDynamicOperationFactory
+    public sealed class LoweredDynamicOperationFactory
     {
         private readonly SyntheticBoundNodeFactory _factory;
         private readonly int _methodOrdinal;
         private NamedTypeSymbol _currentDynamicCallSiteContainer;
         private int _callSiteIdDispenser;
 
-        internal LoweredDynamicOperationFactory(SyntheticBoundNodeFactory factory, int methodOrdinal)
+        public LoweredDynamicOperationFactory(SyntheticBoundNodeFactory factory, int methodOrdinal)
         {
             Debug.Assert(factory != null);
             _factory = factory;
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             IsStaticType = 32,
         }
 
-        internal LoweredDynamicOperation MakeDynamicConversion(
+        public LoweredDynamicOperation MakeDynamicConversion(
             BoundExpression loweredOperand,
             bool isExplicit,
             bool isArrayIndex,
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, null, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicUnaryOperator(
+        public LoweredDynamicOperation MakeDynamicUnaryOperator(
             UnaryOperatorKind operatorKind,
             BoundExpression loweredOperand,
             TypeSymbol resultType)
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, null, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicBinaryOperator(
+        public LoweredDynamicOperation MakeDynamicBinaryOperator(
             BinaryOperatorKind operatorKind,
             BoundExpression loweredLeft,
             BoundExpression loweredRight,
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, null, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicMemberInvocation(
+        public LoweredDynamicOperation MakeDynamicMemberInvocation(
             string name,
             BoundExpression loweredReceiver,
             ImmutableArray<TypeSymbol> typeArguments,
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, receiverRefKind, loweredArguments, refKinds, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicEventAccessorInvocation(
+        public LoweredDynamicOperation MakeDynamicEventAccessorInvocation(
             string accessorName,
             BoundExpression loweredReceiver,
             BoundExpression loweredHandler)
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, loweredHandler, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicInvocation(
+        public LoweredDynamicOperation MakeDynamicInvocation(
             BoundExpression loweredReceiver,
             ImmutableArray<BoundExpression> loweredArguments,
             ImmutableArray<string> argumentNames,
@@ -321,7 +321,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, refKinds, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicConstructorInvocation(
+        public LoweredDynamicOperation MakeDynamicConstructorInvocation(
         CSharpSyntaxNode syntax,
             TypeSymbol type,
             ImmutableArray<BoundExpression> loweredArguments,
@@ -348,7 +348,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, refKinds, null, type);
         }
 
-        internal LoweredDynamicOperation MakeDynamicGetMember(
+        public LoweredDynamicOperation MakeDynamicGetMember(
             BoundExpression loweredReceiver,
             string name,
             bool resultIndexed)
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicSetMember(
+        public LoweredDynamicOperation MakeDynamicSetMember(
             BoundExpression loweredReceiver,
             string name,
             BoundExpression loweredRight,
@@ -424,7 +424,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, ImmutableArray<RefKind>.Empty, loweredRight, AssemblySymbol.DynamicType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicGetIndex(
+        public LoweredDynamicOperation MakeDynamicGetIndex(
             BoundExpression loweredReceiver,
             ImmutableArray<BoundExpression> loweredArguments,
             ImmutableArray<string> argumentNames,
@@ -450,7 +450,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, RefKind.None, loweredArguments, refKinds, null, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicSetIndex(
+        public LoweredDynamicOperation MakeDynamicSetIndex(
             BoundExpression loweredReceiver,
             ImmutableArray<BoundExpression> loweredArguments,
             ImmutableArray<string> argumentNames,
@@ -489,7 +489,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MakeDynamicOperation(binderConstruction, loweredReceiver, loweredReceiverRefKind, loweredArguments, refKinds, loweredRight, resultType);
         }
 
-        internal LoweredDynamicOperation MakeDynamicIsEventTest(string name, BoundExpression loweredReceiver)
+        public LoweredDynamicOperation MakeDynamicIsEventTest(string name, BoundExpression loweredReceiver)
         {
             _factory.Syntax = loweredReceiver.Syntax;
             var resultType = _factory.SpecialType(SpecialType.System_Boolean);
@@ -531,7 +531,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // however
         //     dynamic d = ...;
         //     GetS().M(d); // becomes Site(GetS(), d) without ref on the target obj arg
-        internal static RefKind GetReceiverRefKind(BoundExpression loweredReceiver)
+        public static RefKind GetReceiverRefKind(BoundExpression loweredReceiver)
         {
             if (!loweredReceiver.Type.IsValueType)
             {
@@ -558,7 +558,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return RefKind.None;
         }
 
-        internal BoundExpression MakeCallSiteArgumentInfos(
+        public BoundExpression MakeCallSiteArgumentInfos(
             MethodSymbol argumentInfoFactory,
             ImmutableArray<BoundExpression> loweredArguments,
             ImmutableArray<string> argumentNames = default(ImmutableArray<string>),
@@ -598,7 +598,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _factory.Array(argumentInfoFactory.ContainingType, infos);
         }
 
-        internal LoweredDynamicOperation MakeDynamicOperation(
+        public LoweredDynamicOperation MakeDynamicOperation(
             BoundExpression binderConstruction,
             BoundExpression loweredReceiver,
             RefKind receiverRefKind,
@@ -680,7 +680,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return synthesizedContainer;
         }
 
-        internal FieldSymbol DefineCallSiteStorageSymbol(NamedTypeSymbol containerDefinition, NamedTypeSymbol delegateTypeOverMethodTypeParameters, TypeMap methodToContainerTypeParametersMap)
+        public FieldSymbol DefineCallSiteStorageSymbol(NamedTypeSymbol containerDefinition, NamedTypeSymbol delegateTypeOverMethodTypeParameters, TypeMap methodToContainerTypeParametersMap)
         {
             var fieldName = GeneratedNames.MakeDynamicCallSiteFieldName(_callSiteIdDispenser++);
             var delegateTypeOverContainerTypeParameters = methodToContainerTypeParametersMap.SubstituteNamedType(delegateTypeOverMethodTypeParameters);
@@ -690,7 +690,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _currentDynamicCallSiteContainer.IsGenericType ? field.AsMember(_currentDynamicCallSiteContainer) : field;
         }
 
-        internal NamedTypeSymbol GetDelegateType(
+        public NamedTypeSymbol GetDelegateType(
             BoundExpression loweredReceiver,
             RefKind receiverRefKind,
             ImmutableArray<BoundExpression> loweredArguments,
@@ -758,7 +758,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _factory.Compilation.AnonymousTypeManager.SynthesizeDelegate(parameterCount, byRefs, returnsVoid).Construct(delegateSignature);
         }
 
-        internal BoundExpression GetArgumentInfo(
+        public BoundExpression GetArgumentInfo(
         MethodSymbol argumentInfoFactory,
             BoundExpression boundArgument,
             string name,
@@ -831,7 +831,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _factory.Call(null, argumentInfoFactory, _factory.Literal((int)flags), _factory.Literal(name));
         }
 
-        internal static ImmutableArray<BoundExpression> GetCallSiteArguments(BoundExpression callSiteFieldAccess, BoundExpression receiver, ImmutableArray<BoundExpression> arguments, BoundExpression right)
+        public static ImmutableArray<BoundExpression> GetCallSiteArguments(BoundExpression callSiteFieldAccess, BoundExpression receiver, ImmutableArray<BoundExpression> arguments, BoundExpression right)
         {
             var result = new BoundExpression[1 + (receiver != null ? 1 : 0) + arguments.Length + (right != null ? 1 : 0)];
             int j = 0;
@@ -854,7 +854,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result.AsImmutableOrNull();
         }
 
-        internal TypeSymbol[] MakeCallSiteDelegateSignature(TypeSymbol callSiteType, BoundExpression receiver, ImmutableArray<BoundExpression> arguments, BoundExpression right, TypeSymbol resultType)
+        public TypeSymbol[] MakeCallSiteDelegateSignature(TypeSymbol callSiteType, BoundExpression receiver, ImmutableArray<BoundExpression> arguments, BoundExpression right, TypeSymbol resultType)
         {
             var systemObjectType = _factory.SpecialType(SpecialType.System_Object);
             var result = new TypeSymbol[1 + (receiver != null ? 1 : 0) + arguments.Length + (right != null ? 1 : 0) + (resultType.SpecialType == SpecialType.System_Void ? 0 : 1)];

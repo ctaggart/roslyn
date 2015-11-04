@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,13 +11,13 @@ namespace Microsoft.CodeAnalysis.CSharp
 {
     // An invariant of a merged type declaration is that all of its children are also merged
     // declarations.
-    internal sealed class MergedTypeDeclaration : MergedNamespaceOrTypeDeclaration
+    public sealed class MergedTypeDeclaration : MergedNamespaceOrTypeDeclaration
     {
         private readonly ImmutableArray<SingleTypeDeclaration> _declarations;
         private ImmutableArray<MergedTypeDeclaration> _lazyChildren;
         private ICollection<string> _lazyMemberNames;
 
-        internal MergedTypeDeclaration(ImmutableArray<SingleTypeDeclaration> declarations)
+        public MergedTypeDeclaration(ImmutableArray<SingleTypeDeclaration> declarations)
             : base(declarations[0].Name)
         {
             _declarations = declarations;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CodeGen;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class AsyncRewriter : StateMachineRewriter
+    public partial class AsyncRewriter : StateMachineRewriter
     {
         private readonly AsyncMethodBuilderMemberCollection _asyncMethodBuilderMemberCollection;
         private readonly bool _constructedSuccessfully;
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Rewrite an async method into a state machine type.
         /// </summary>
-        internal static BoundStatement Rewrite(
+        public static BoundStatement Rewrite(
             BoundStatement body,
             MethodSymbol method,
             int methodOrdinal,

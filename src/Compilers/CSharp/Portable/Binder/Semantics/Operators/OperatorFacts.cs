@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static class OperatorFacts
+    public static class OperatorFacts
     {
         public static bool DefinitelyHasNoUserDefinedOperators(TypeSymbol type)
         {
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 WellKnownMemberNames.AdditionOperatorName; // This can occur in the presence of syntax errors.
         }
 
-        internal static string BinaryOperatorNameFromSyntaxKindIfAny(SyntaxKind kind)
+        public static string BinaryOperatorNameFromSyntaxKindIfAny(SyntaxKind kind)
         {
             switch (kind)
             {
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 WellKnownMemberNames.UnaryPlusOperatorName; // This can occur in the presence of syntax errors.
         }
 
-        internal static string UnaryOperatorNameFromSyntaxKindIfAny(SyntaxKind kind)
+        public static string UnaryOperatorNameFromSyntaxKindIfAny(SyntaxKind kind)
         {
             switch (kind)
             {

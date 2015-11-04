@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// another FieldSymbol that is responsible for retargeting symbols from one assembly to another. 
     /// It can retarget symbols for multiple assemblies at the same time.
     /// </summary>
-    internal sealed class RetargetingFieldSymbol : FieldSymbol
+    public sealed class RetargetingFieldSymbol : FieldSymbol
     {
         /// <summary>
         /// Owning RetargetingModuleSymbol.
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             get { return _underlyingField.IsImplicitlyDeclared; }
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             return this.RetargetingTranslator.Retarget(_underlyingField.GetFieldType(fieldsBeingBound), RetargetOptions.RetargetPrimitiveTypesByTypeCode);
         }
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.GetRetargetedAttributes(_underlyingField.GetAttributes(), ref _lazyCustomAttributes);
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return this.RetargetingTranslator.RetargetAttributes(_underlyingField.GetCustomAttributesToEmit(compilationState));
         }
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingField.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal override bool IsNotSerialized
+        public override bool IsNotSerialized
         {
             get
             {
@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsMarshalledExplicitly
+        public override bool IsMarshalledExplicitly
         {
             get
             {
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<byte> MarshallingDescriptor
+        public override ImmutableArray<byte> MarshallingDescriptor
         {
             get
             {
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override int? TypeLayoutOffset
+        public override int? TypeLayoutOffset
         {
             get
             {
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -252,7 +252,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+        public override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
         {
             return _underlyingField.GetConstantValue(inProgress, earlyDecodingWellKnownAttributes);
         }
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyUseSiteDiagnostic;
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

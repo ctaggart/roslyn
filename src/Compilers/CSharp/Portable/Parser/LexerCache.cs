@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 // #define COLLECT_STATS
 
@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class LexerCache
+    public partial class LexerCache
     {
         private static readonly ObjectPool<CachingIdentityFactory<string, SyntaxKind>> s_keywordKindPool =
             CachingIdentityFactory<string, SyntaxKind>.CreatePool(
@@ -30,23 +30,23 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         private readonly TextKeyedCache<SyntaxTrivia> _triviaMap;
         private readonly TextKeyedCache<SyntaxToken> _tokenMap;
         private readonly CachingIdentityFactory<string, SyntaxKind> _keywordKindMap;
-        internal const int MaxKeywordLength = 10;
+        public const int MaxKeywordLength = 10;
 
-        internal LexerCache()
+        public LexerCache()
         {
             _triviaMap = TextKeyedCache<SyntaxTrivia>.GetInstance();
             _tokenMap = TextKeyedCache<SyntaxToken>.GetInstance();
             _keywordKindMap = s_keywordKindPool.Allocate();
         }
 
-        internal void Free()
+        public void Free()
         {
             _keywordKindMap.Free();
             _triviaMap.Free();
             _tokenMap.Free();
         }
 
-        internal bool TryGetKeywordKind(string key, out SyntaxKind kind)
+        public bool TryGetKeywordKind(string key, out SyntaxKind kind)
         {
             if (key.Length > MaxKeywordLength)
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return kind != SyntaxKind.None;
         }
 
-        internal SyntaxTrivia LookupTrivia(
+        public SyntaxTrivia LookupTrivia(
             char[] textBuffer,
             int keyStart,
             int keyLength,
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 #endif
 
 
-        internal SyntaxToken LookupToken(
+        public SyntaxToken LookupToken(
             char[] textBuffer,
             int keyStart,
             int keyLength,

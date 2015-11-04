@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// An ArrayTypeSymbol represents an array type, such as int[] or object[,].
     /// </summary>
-    internal abstract partial class ArrayTypeSymbol : TypeSymbol, IArrayTypeSymbol
+    public abstract partial class ArrayTypeSymbol : TypeSymbol, IArrayTypeSymbol
     {
         private readonly TypeSymbol _elementType;
         private readonly NamedTypeSymbol _baseType;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _customModifiers = customModifiers.NullToEmpty();
         }
 
-        internal static ArrayTypeSymbol CreateCSharpArray(
+        public static ArrayTypeSymbol CreateCSharpArray(
             AssemblySymbol declaringAssembly,
             TypeSymbol elementType,
             ImmutableArray<CustomModifier> customModifiers = default(ImmutableArray<CustomModifier>),
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return CreateMDArray(declaringAssembly, elementType, rank, default(ImmutableArray<int>), default(ImmutableArray<int>), customModifiers);
         }
 
-        internal static ArrayTypeSymbol CreateMDArray(
+        public static ArrayTypeSymbol CreateMDArray(
             TypeSymbol elementType,
             int rank,
             ImmutableArray<int> sizes,
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new MDArrayWithSizesAndBounds(elementType, rank, sizes, lowerBounds, array, customModifiers);
         }
 
-        internal static ArrayTypeSymbol CreateMDArray(
+        public static ArrayTypeSymbol CreateMDArray(
             AssemblySymbol declaringAssembly,
             TypeSymbol elementType,
             int rank,
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return CreateMDArray(elementType, rank, sizes, lowerBounds, declaringAssembly.GetSpecialType(SpecialType.System_Array), customModifiers);
         }
 
-        internal static ArrayTypeSymbol CreateSZArray(
+        public static ArrayTypeSymbol CreateSZArray(
             TypeSymbol elementType,
             NamedTypeSymbol array,
             ImmutableArray<NamedTypeSymbol> constructedInterfaces,
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new SZArray(elementType, array, constructedInterfaces, customModifiers);
         }
 
-        internal static ArrayTypeSymbol CreateSZArray(
+        public static ArrayTypeSymbol CreateSZArray(
             AssemblySymbol declaringAssembly,
             TypeSymbol elementType,
             ImmutableArray<CustomModifier> customModifiers = default(ImmutableArray<CustomModifier>))
@@ -139,9 +139,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Is this zero-based one-dimensional array, i.e. SZArray in CLR terms.
         /// </summary>
-        internal abstract bool IsSZArray { get; }
+        public abstract bool IsSZArray { get; }
 
-        internal bool HasSameShapeAs(ArrayTypeSymbol other)
+        public bool HasSameShapeAs(ArrayTypeSymbol other)
         {
             return Rank == other.Rank && IsSZArray == other.IsSZArray;
         }
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// meaning that some trailing dimensions don't have the size specified.
         /// The most common case is none of the dimensions have the size specified - an empty array is returned.
         /// </summary>
-        internal virtual ImmutableArray<int> Sizes
+        public virtual ImmutableArray<int> Sizes
         {
             get
             {
@@ -164,7 +164,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// meaning that some trailing dimensions don't have the lower bound specified.
         /// The most common case is all dimensions are zero bound - a null array is returned in this case.
         /// </summary>
-        internal virtual ImmutableArray<int> LowerBounds
+        public virtual ImmutableArray<int> LowerBounds
         {
             get
             {
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Note, <see cref="Rank"/> equality should be checked separately!!!
         /// </summary>
-        internal bool HasSameSizesAndLowerBoundsAs(ArrayTypeSymbol other)
+        public bool HasSameSizesAndLowerBoundsAs(ArrayTypeSymbol other)
         {
             if (this.Sizes.SequenceEqual(other.Sizes))
             {
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Normally C# arrays have default sizes and lower bounds - sizes are not specified and all dimensions are zero bound.
         /// This property should return false for any deviations.
         /// </summary>
-        internal abstract bool HasDefaultSizesAndLowerBounds { get; }
+        public abstract bool HasDefaultSizesAndLowerBounds { get; }
 
         /// <summary>
         /// Gets the type of the elements stored in the array.
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsManagedType
+        public sealed override bool IsManagedType
         {
             get
             {
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -313,7 +313,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitArrayType(this, argument);
         }
@@ -328,12 +328,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return visitor.VisitArrayType(this);
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             return this.Equals(t2 as ArrayTypeSymbol, ignoreCustomModifiersAndArraySizesAndLowerBounds, ignoreDynamic);
         }
 
-        internal bool Equals(ArrayTypeSymbol other)
+        public bool Equals(ArrayTypeSymbol other)
         {
             return Equals(other, false, false);
         }
@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             DiagnosticInfo result = null;
 
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             return _elementType.GetUnificationUseSiteDiagnosticRecursive(ref result, owner, ref checkedTypes) ||
                    ((object)_baseType != null && _baseType.GetUnificationUseSiteDiagnosticRecursive(ref result, owner, ref checkedTypes)) ||
@@ -501,7 +501,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
             private readonly ImmutableArray<NamedTypeSymbol> _interfaces;
 
-            internal SZArray(
+            public SZArray(
                 TypeSymbol elementType,
                 NamedTypeSymbol array,
                 ImmutableArray<NamedTypeSymbol> constructedInterfaces,
@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override bool IsSZArray
+            public override bool IsSZArray
             {
                 get
                 {
@@ -528,12 +528,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
+            public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
             {
                 return _interfaces;
             }
 
-            internal override bool HasDefaultSizesAndLowerBounds
+            public override bool HasDefaultSizesAndLowerBounds
             {
                 get
                 {
@@ -549,7 +549,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
             private readonly int _rank;
 
-            internal MDArray(
+            public MDArray(
                 TypeSymbol elementType,
                 int rank,
                 NamedTypeSymbol array,
@@ -568,7 +568,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal sealed override bool IsSZArray
+            public sealed override bool IsSZArray
             {
                 get
                 {
@@ -576,12 +576,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
+            public sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
             {
                 return ImmutableArray<NamedTypeSymbol>.Empty;
             }
 
-            internal override bool HasDefaultSizesAndLowerBounds
+            public override bool HasDefaultSizesAndLowerBounds
             {
                 get
                 {
@@ -595,7 +595,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             private readonly ImmutableArray<int> _sizes;
             private readonly ImmutableArray<int> _lowerBounds;
 
-            internal MDArrayWithSizesAndBounds(
+            public MDArrayWithSizesAndBounds(
                 TypeSymbol elementType,
                 int rank,
                 ImmutableArray<int> sizes,
@@ -610,7 +610,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _lowerBounds = lowerBounds;
             }
 
-            internal override ImmutableArray<int> Sizes
+            public override ImmutableArray<int> Sizes
             {
                 get
                 {
@@ -618,7 +618,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override ImmutableArray<int> LowerBounds
+            public override ImmutableArray<int> LowerBounds
             {
                 get
                 {
@@ -626,7 +626,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override bool HasDefaultSizesAndLowerBounds
+            public override bool HasDefaultSizesAndLowerBounds
             {
                 get
                 {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// This portion of the binder converts StatementSyntax nodes into BoundStatements
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// This is the set of parameters and local variables that were used as arguments to 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// using (x) { } // x counts
         /// using (IDisposable y = null) { } // y does not count
         /// </remarks>
-        internal virtual ImmutableHashSet<Symbol> LockedOrDisposedVariables
+        public virtual ImmutableHashSet<Symbol> LockedOrDisposedVariables
         {
             get { return _next.LockedOrDisposedVariables; }
         }
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return lockBinder.BindLockStatementParts(diagnostics, lockBinder);
         }
 
-        internal virtual BoundStatement BindLockStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundStatement BindLockStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindLockStatementParts(diagnostics, originalBinder);
         }
@@ -256,12 +256,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return usingBinder.BindUsingStatementParts(diagnostics, usingBinder);
         }
 
-        internal virtual BoundStatement BindUsingStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundStatement BindUsingStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindUsingStatementParts(diagnostics, originalBinder);
         }
 
-        internal BoundStatement BindPossibleEmbeddedStatement(StatementSyntax node, DiagnosticBag diagnostics)
+        public BoundStatement BindPossibleEmbeddedStatement(StatementSyntax node, DiagnosticBag diagnostics)
         {
             switch (node.Kind())
             {
@@ -572,7 +572,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
 
         // The location where the error is reported might not be the initializer.
-        internal BoundExpression BindInferredVariableInitializer(DiagnosticBag diagnostics, EqualsValueClauseSyntax initializer,
+        public BoundExpression BindInferredVariableInitializer(DiagnosticBag diagnostics, EqualsValueClauseSyntax initializer,
             CSharpSyntaxNode errorSyntax)
         {
             if (initializer == null)
@@ -1666,7 +1666,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ToBadExpression(expr, resultKind);
         }
 
-        internal bool CheckValueKind(BoundExpression expr, BindValueKind valueKind, DiagnosticBag diagnostics)
+        public bool CheckValueKind(BoundExpression expr, BindValueKind valueKind, DiagnosticBag diagnostics)
         {
             if (expr.HasAnyErrors)
             {
@@ -1919,12 +1919,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return true;
         }
 
-        internal static bool AccessingAutopropertyFromConstructor(BoundPropertyAccess propertyAccess, Symbol fromMember)
+        public static bool AccessingAutopropertyFromConstructor(BoundPropertyAccess propertyAccess, Symbol fromMember)
         {
             return AccessingAutopropertyFromConstructor(propertyAccess.ReceiverOpt, propertyAccess.PropertySymbol, fromMember);
         }
 
-        internal static bool AccessingAutopropertyFromConstructor(BoundExpression receiver, PropertySymbol propertySymbol, Symbol fromMember)
+        public static bool AccessingAutopropertyFromConstructor(BoundExpression receiver, PropertySymbol propertySymbol, Symbol fromMember)
         {
             var sourceProperty = propertySymbol as SourcePropertySymbol;
             var propertyIsStatic = propertySymbol.IsStatic;
@@ -2003,7 +2003,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return BindUnexpectedArrayInitializer((InitializerExpressionSyntax)node, diagnostics, ErrorCode.ERR_ArrayInitToNonArrayType);
         }
 
-        internal static void DeclareLocalVariable(
+        public static void DeclareLocalVariable(
             SourceLocalSymbol symbol,
             SyntaxToken identifierToken,
             TypeSymbol type)
@@ -2032,7 +2032,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return BindBlock(node, diagnostics, blockBinder);
         }
 
-        internal static BoundBlock BindBlock(BlockSyntax node, DiagnosticBag diagnostics, Binder blockBinder)
+        public static BoundBlock BindBlock(BlockSyntax node, DiagnosticBag diagnostics, Binder blockBinder)
         {
             Debug.Assert(blockBinder != null);
 
@@ -2063,7 +2063,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundBlock(node, blockBinder.GetDeclaredLocalsForScope(node), boundStatements.ToImmutableAndFree());
         }
 
-        internal BoundExpression GenerateConversionForAssignment(TypeSymbol targetType, BoundExpression expression, DiagnosticBag diagnostics, bool isDefaultParameter = false)
+        public BoundExpression GenerateConversionForAssignment(TypeSymbol targetType, BoundExpression expression, DiagnosticBag diagnostics, bool isDefaultParameter = false)
         {
             Debug.Assert((object)targetType != null);
             Debug.Assert(expression != null);
@@ -2112,7 +2112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return CreateConversion(expression.Syntax, expression, conversion, false, targetType, diagnostics);
         }
 
-        internal void GenerateAnonymousFunctionConversionError(DiagnosticBag diagnostics, CSharpSyntaxNode syntax,
+        public void GenerateAnonymousFunctionConversionError(DiagnosticBag diagnostics, CSharpSyntaxNode syntax,
             UnboundLambda anonymousFunction, TypeSymbol targetType)
         {
             Debug.Assert((object)targetType != null);
@@ -2609,7 +2609,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return switchBinder.BindSwitchExpressionAndSections(node, switchBinder, diagnostics);
         }
 
-        internal virtual BoundSwitchStatement BindSwitchExpressionAndSections(SwitchStatementSyntax node, Binder originalBinder, DiagnosticBag diagnostics)
+        public virtual BoundSwitchStatement BindSwitchExpressionAndSections(SwitchStatementSyntax node, Binder originalBinder, DiagnosticBag diagnostics)
         {
             return this.Next.BindSwitchExpressionAndSections(node, originalBinder, diagnostics);
         }
@@ -2624,7 +2624,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return loopBinder.BindWhileParts(diagnostics, loopBinder);
         }
 
-        internal virtual BoundWhileStatement BindWhileParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundWhileStatement BindWhileParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindWhileParts(diagnostics, originalBinder);
         }
@@ -2636,7 +2636,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return loopBinder.BindDoParts(diagnostics, loopBinder);
         }
 
-        internal virtual BoundDoStatement BindDoParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundDoStatement BindDoParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindDoParts(diagnostics, originalBinder);
         }
@@ -2648,12 +2648,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return loopBinder.BindForParts(diagnostics, loopBinder);
         }
 
-        internal virtual BoundForStatement BindForParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundForStatement BindForParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindForParts(diagnostics, originalBinder);
         }
 
-        internal BoundStatement BindForOrUsingOrFixedDeclarations(VariableDeclarationSyntax nodeOpt, LocalDeclarationKind localKind, DiagnosticBag diagnostics, out ImmutableArray<BoundLocalDeclaration> declarations)
+        public BoundStatement BindForOrUsingOrFixedDeclarations(VariableDeclarationSyntax nodeOpt, LocalDeclarationKind localKind, DiagnosticBag diagnostics, out ImmutableArray<BoundLocalDeclaration> declarations)
         {
             if (nodeOpt == null)
             {
@@ -2698,7 +2698,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 new BoundMultipleLocalDeclarations(nodeOpt, declarations);
         }
 
-        internal BoundStatement BindStatementExpressionList(SeparatedSyntaxList<ExpressionSyntax> statements, DiagnosticBag diagnostics)
+        public BoundStatement BindStatementExpressionList(SeparatedSyntaxList<ExpressionSyntax> statements, DiagnosticBag diagnostics)
         {
             int count = statements.Count;
             if (count == 0)
@@ -2729,7 +2729,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return loopBinder.BindForEachParts(diagnostics, loopBinder);
         }
 
-        internal virtual BoundStatement BindForEachParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public virtual BoundStatement BindForEachParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindForEachParts(diagnostics, originalBinder);
         }
@@ -2901,7 +2901,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundReturnStatement(syntax, arg);
         }
 
-        internal BoundExpression CreateReturnConversion(
+        public BoundExpression CreateReturnConversion(
             CSharpSyntaxNode syntax,
             DiagnosticBag diagnostics,
             BoundExpression argument,
@@ -3151,7 +3151,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Wrap a given expression e into a block as either { e; } or { return e; } 
         /// Shared between lambda and expression-bodied method binding.
         /// </summary>
-        internal BoundBlock CreateBlockFromExpression(CSharpSyntaxNode node, ImmutableArray<LocalSymbol> locals, ExpressionSyntax expressionSyntax, BoundExpression expression, DiagnosticBag diagnostics)
+        public BoundBlock CreateBlockFromExpression(CSharpSyntaxNode node, ImmutableArray<LocalSymbol> locals, ExpressionSyntax expressionSyntax, BoundExpression expression, DiagnosticBag diagnostics)
         {
             var returnType = GetCurrentReturnType();
             var syntax = expressionSyntax ?? expression.Syntax;
@@ -3217,7 +3217,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return CreateBlockFromExpression(body, this.Locals, body, expression, diagnostics);
         }
 
-        internal virtual ImmutableArray<LocalSymbol> Locals
+        public virtual ImmutableArray<LocalSymbol> Locals
         {
             get
             {
@@ -3225,7 +3225,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual ImmutableArray<LabelSymbol> Labels
+        public virtual ImmutableArray<LabelSymbol> Labels
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// that must be emitted in the compiler generated
     /// PrivateImplementationDetails class
     /// </summary>
-    internal abstract class SynthesizedGlobalMethodSymbol : MethodSymbol
+    public abstract class SynthesizedGlobalMethodSymbol : MethodSymbol
     {
         private readonly ModuleSymbol _containingModule;
         private readonly PrivateImplementationDetails _privateImplType;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private ImmutableArray<ParameterSymbol> _parameters;
         private readonly string _name;
 
-        internal SynthesizedGlobalMethodSymbol(ModuleSymbol containingModule, PrivateImplementationDetails privateImplType, TypeSymbol returnType, string name)
+        public SynthesizedGlobalMethodSymbol(ModuleSymbol containingModule, PrivateImplementationDetails privateImplType, TypeSymbol returnType, string name)
         {
             Debug.Assert((object)containingModule != null);
             Debug.Assert(privateImplType != null);
@@ -48,12 +48,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal sealed override bool GenerateDebugInfo
+        public sealed override bool GenerateDebugInfo
         {
             get { return false; }
         }
 
-        internal sealed override ModuleSymbol ContainingModule
+        public sealed override ModuleSymbol ContainingModule
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal PrivateImplementationDetails ContainingPrivateImplementationDetailsType
+        public PrivateImplementationDetails ContainingPrivateImplementationDetailsType
         {
             get { return _privateImplType; }
         }
@@ -96,17 +96,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _name; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return false; }
         }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get { return default(System.Reflection.MethodImplAttributes); }
         }
 
-        internal override bool RequiresSecurityObject
+        public override bool RequiresSecurityObject
         {
             get { return false; }
         }
@@ -116,27 +116,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return null; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
@@ -257,17 +257,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -280,12 +280,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override Cci.CallingConvention CallingConvention
+        public override Cci.CallingConvention CallingConvention
         {
             get { return 0; }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return false; }
         }
@@ -295,14 +295,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<MethodSymbol>.Empty; }
         }
 
-        internal override bool SynthesizesLoweredBoundBody
+        public override bool SynthesizesLoweredBoundBody
         {
             get { return true; }
         }
 
-        internal abstract override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics);
+        public abstract override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics);
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             throw ExceptionUtilities.Unreachable;
         }

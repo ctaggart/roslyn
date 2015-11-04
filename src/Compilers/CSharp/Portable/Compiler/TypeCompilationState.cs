@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,16 +17,16 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// need to be revised if emit phase is changed to support multithreading when
     /// translating a particular type.
     /// </remarks>
-    internal sealed class TypeCompilationState
+    public sealed class TypeCompilationState
     {
         /// <summary> Synthesized method info </summary>
-        internal struct MethodWithBody
+        public struct MethodWithBody
         {
             public readonly MethodSymbol Method;
             public readonly BoundStatement Body;
             public readonly ImportChain ImportChainOpt;
 
-            internal MethodWithBody(MethodSymbol method, BoundStatement body, ImportChain importChainOpt)
+            public MethodWithBody(MethodSymbol method, BoundStatement body, ImportChain importChainOpt)
             {
                 Debug.Assert(method != null);
                 Debug.Assert(body != null);
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="method2">the chained-to ctor</param>
         /// <param name="syntax">where to report a cyclic error if needed</param>
         /// <param name="diagnostics">a diagnostic bag for receiving the diagnostic</param>
-        internal void ReportCtorInitializerCycles(MethodSymbol method1, MethodSymbol method2, CSharpSyntaxNode syntax, DiagnosticBag diagnostics)
+        public void ReportCtorInitializerCycles(MethodSymbol method1, MethodSymbol method2, CSharpSyntaxNode syntax, DiagnosticBag diagnostics)
         {
             // precondition and postcondition: the graph _constructorInitializers is acyclic.
             // If adding the edge (method1, method2) would induce a cycle, we report an error

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -18,19 +18,19 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// method was selected if overload resolution succeeded, as well as detailed information about
     /// each method that was considered. 
     /// </summary>
-    internal class OverloadResolutionResult<TMember> where TMember : Symbol
+    public class OverloadResolutionResult<TMember> where TMember : Symbol
     {
         private MemberResolutionResult<TMember> _bestResult;
         private ThreeState _bestResultState;
-        internal readonly ArrayBuilder<MemberResolutionResult<TMember>> ResultsBuilder;
+        public readonly ArrayBuilder<MemberResolutionResult<TMember>> ResultsBuilder;
 
         // Create an overload resolution result from a single result.
-        internal OverloadResolutionResult()
+        public OverloadResolutionResult()
         {
             this.ResultsBuilder = new ArrayBuilder<MemberResolutionResult<TMember>>();
         }
 
-        internal void Clear()
+        public void Clear()
         {
             _bestResult = default(MemberResolutionResult<TMember>);
             _bestResultState = ThreeState.Unknown;
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Succeeded implies IsApplicable but IsApplicable does not imply Succeeded.  It is possible
         /// that no applicable member was better than all others.)
         /// </summary>
-        internal bool HasAnyApplicableMember
+        public bool HasAnyApplicableMember
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns all methods in the group that are applicable, <see cref="HasAnyApplicableMember"/>.
         /// </summary>
-        internal ImmutableArray<TMember> GetAllApplicableMembers()
+        public ImmutableArray<TMember> GetAllApplicableMembers()
         {
             var result = ArrayBuilder<TMember>.GetInstance();
             foreach (var res in this.ResultsBuilder)
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// violations of constraints on method type parameters, static/instance mismatches,
         /// and so on.
         /// </remarks>
-        internal void ReportDiagnostics<T>(
+        public void ReportDiagnostics<T>(
             Binder binder,
             Location location,
             DiagnosticBag diagnostics,
@@ -1213,7 +1213,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 #if DEBUG
-        internal string Dump()
+        public string Dump()
         {
             if (ResultsBuilder.Count == 0)
             {
@@ -1246,12 +1246,12 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         #region "Poolable"
 
-        internal static OverloadResolutionResult<TMember> GetInstance()
+        public static OverloadResolutionResult<TMember> GetInstance()
         {
             return s_pool.Allocate();
         }
 
-        internal void Free()
+        public void Free()
         {
             this.Clear();
             s_pool.Free(this);

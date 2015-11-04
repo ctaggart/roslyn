@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class NamedTypeSymbol :
+    public partial class NamedTypeSymbol :
         Cci.ITypeReference,
         Cci.ITypeDefinition,
         Cci.INamedTypeReference,
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual IEnumerable<EventSymbol> GetEventsToEmit()
+        public virtual IEnumerable<EventSymbol> GetEventsToEmit()
         {
             CheckDefinitionInvariant();
 
@@ -400,7 +400,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract IEnumerable<FieldSymbol> GetFieldsToEmit();
+        public abstract IEnumerable<FieldSymbol> GetFieldsToEmit();
 
         IEnumerable<Cci.IGenericTypeParameter> Cci.ITypeDefinition.GenericParameters
         {
@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the set of interfaces to emit on this type. This set can be different from the set returned by Interfaces property.
         /// </summary>
-        internal abstract ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit();
+        public abstract ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit();
 
         protected ImmutableArray<NamedTypeSymbol> CalculateInterfacesToEmit()
         {
@@ -496,7 +496,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsMetadataAbstract
+        public virtual bool IsMetadataAbstract
         {
             get
             {
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsMetadataSealed
+        public virtual bool IsMetadataSealed
         {
             get
             {
@@ -639,7 +639,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// To represent a gap in interface's v-table null value should be returned in the appropriate position,
         /// unless the gap has a symbol (happens if it is declared in source, for example).
         /// </summary>
-        internal virtual IEnumerable<MethodSymbol> GetMethodsToEmit()
+        public virtual IEnumerable<MethodSymbol> GetMethodsToEmit()
         {
             CheckDefinitionInvariant();
 
@@ -709,7 +709,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual IEnumerable<PropertySymbol> GetPropertiesToEmit()
+        public virtual IEnumerable<PropertySymbol> GetPropertiesToEmit()
         {
             CheckDefinitionInvariant();
 

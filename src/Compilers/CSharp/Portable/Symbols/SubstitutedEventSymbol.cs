@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Globalization;
@@ -9,14 +9,14 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SubstitutedEventSymbol : EventSymbol
+    public sealed class SubstitutedEventSymbol : EventSymbol
     {
         private readonly EventSymbol _originalDefinition;
         private readonly SubstitutedNamedTypeSymbol _containingType;
 
         private TypeSymbol _lazyType;
 
-        internal SubstitutedEventSymbol(SubstitutedNamedTypeSymbol containingType, EventSymbol originalDefinition)
+        public SubstitutedEventSymbol(SubstitutedNamedTypeSymbol containingType, EventSymbol originalDefinition)
         {
             _containingType = containingType;
             _originalDefinition = originalDefinition;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _originalDefinition.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return _originalDefinition.HasSpecialName; }
         }
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalDefinition.IsOverride; }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return _originalDefinition.ObsoleteAttributeData; }
         }
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override FieldSymbol AssociatedField
+        public override FieldSymbol AssociatedField
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return _originalDefinition.IsExplicitInterfaceImplementation; }
         }
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool MustCallMethodsDirectly
+        public override bool MustCallMethodsDirectly
         {
             get { return _originalDefinition.MustCallMethodsDirectly; }
         }
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {

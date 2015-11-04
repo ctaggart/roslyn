@@ -1161,7 +1161,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Creates a new tree of nodes with the specified nodes, tokens or trivia replaced.
         /// </summary>
-        protected internal abstract SyntaxNode ReplaceCore<TNode>(
+        public abstract SyntaxNode ReplaceCore<TNode>(
             IEnumerable<TNode> nodes = null,
             Func<TNode, TNode, SyntaxNode> computeReplacementNode = null,
             IEnumerable<SyntaxToken> tokens = null,
@@ -1170,21 +1170,21 @@ namespace Microsoft.CodeAnalysis
             Func<SyntaxTrivia, SyntaxTrivia, SyntaxTrivia> computeReplacementTrivia = null)
             where TNode : SyntaxNode;
 
-        protected internal abstract SyntaxNode ReplaceNodeInListCore(SyntaxNode originalNode, IEnumerable<SyntaxNode> replacementNodes);
-        protected internal abstract SyntaxNode InsertNodesInListCore(SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore);
-        protected internal abstract SyntaxNode ReplaceTokenInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens);
-        protected internal abstract SyntaxNode InsertTokensInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens, bool insertBefore);
-        protected internal abstract SyntaxNode ReplaceTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia);
-        protected internal abstract SyntaxNode InsertTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia, bool insertBefore);
+        public abstract SyntaxNode ReplaceNodeInListCore(SyntaxNode originalNode, IEnumerable<SyntaxNode> replacementNodes);
+        public abstract SyntaxNode InsertNodesInListCore(SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore);
+        public abstract SyntaxNode ReplaceTokenInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens);
+        public abstract SyntaxNode InsertTokensInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens, bool insertBefore);
+        public abstract SyntaxNode ReplaceTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia);
+        public abstract SyntaxNode InsertTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia, bool insertBefore);
 
         /// <summary>
         /// Creates a new tree of nodes with the specified node removed.
         /// </summary>
-        protected internal abstract SyntaxNode RemoveNodesCore(
+        public abstract SyntaxNode RemoveNodesCore(
             IEnumerable<SyntaxNode> nodes,
             SyntaxRemoveOptions options);
 
-        protected internal abstract SyntaxNode NormalizeWhitespaceCore(string indentation, string eol, bool elasticTrivia);
+        public abstract SyntaxNode NormalizeWhitespaceCore(string indentation, string eol, bool elasticTrivia);
 
         /// <summary>
         /// Determines if two nodes are the same, disregarding trivia differences.

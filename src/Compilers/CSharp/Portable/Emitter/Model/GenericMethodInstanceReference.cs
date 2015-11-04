@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// Represents a reference to a generic method instantiation, closed over type parameters,
     /// e.g. MyNamespace.Class.Method{T}()
     /// </summary>
-    internal sealed class GenericMethodInstanceReference : MethodReference, Cci.IGenericMethodInstanceReference
+    public sealed class GenericMethodInstanceReference : MethodReference, Cci.IGenericMethodInstanceReference
     {
         public GenericMethodInstanceReference(MethodSymbol underlyingMethod)
             : base(underlyingMethod)

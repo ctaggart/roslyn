@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents an assembly built by compiler.
     /// </summary>
-    internal sealed class SourceAssemblySymbol : MetadataOrSourceAssemblySymbol, IAttributeTargetSymbol
+    public sealed class SourceAssemblySymbol : MetadataOrSourceAssemblySymbol, IAttributeTargetSymbol
     {
         /// <summary>
         /// A Compilation the assembly is created for.
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Assembly's identity.
         /// </summary>
-        internal AssemblyIdentity lazyAssemblyIdentity;
+        public AssemblyIdentity lazyAssemblyIdentity;
         private readonly string _assemblySimpleName;
 
         // Computing the identity requires computing the public key. Computing the public key 
@@ -96,14 +96,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// when the enclosing type is used by an extern method for a ref argument.
         /// Here we keep track of those types.
         /// </summary>
-        internal ConcurrentSet<TypeSymbol> TypesReferencedInExternalMethods = new ConcurrentSet<TypeSymbol>();
+        public ConcurrentSet<TypeSymbol> TypesReferencedInExternalMethods = new ConcurrentSet<TypeSymbol>();
 
         /// <summary>
         /// The warnings for unused fields.
         /// </summary>
         private ImmutableArray<Diagnostic> _unusedFieldWarnings;
 
-        internal SourceAssemblySymbol(
+        public SourceAssemblySymbol(
             CSharpCompilation compilation,
             string assemblySimpleName,
             string moduleName,
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// This override is essential - it's a base case of the recursive definition.
         /// </remarks>
-        internal sealed override CSharpCompilation DeclaringCompilation
+        public sealed override CSharpCompilation DeclaringCompilation
         {
             get
             {
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool MightContainNoPiaLocalTypes()
+        public bool MightContainNoPiaLocalTypes()
         {
             for (int i = 1; i < _modules.Length; i++)
             {
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override Symbol GetSpecialTypeMember(SpecialMember member)
+        public override Symbol GetSpecialTypeMember(SpecialMember member)
         {
             return _compilation.IsMemberMissing(member) ? null : base.GetSpecialTypeMember(member);
         }
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return fieldValue;
         }
 
-        internal bool RuntimeCompatibilityWrapNonExceptionThrows
+        public bool RuntimeCompatibilityWrapNonExceptionThrows
         {
             get
             {
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string FileVersion
+        public string FileVersion
         {
             get
             {
@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Title
+        public string Title
         {
             get
             {
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Description
+        public string Description
         {
             get
             {
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Company
+        public string Company
         {
             get
             {
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Product
+        public string Product
         {
             get
             {
@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string InformationalVersion
+        public string InformationalVersion
         {
             get
             {
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Copyright
+        public string Copyright
         {
             get
             {
@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string Trademark
+        public string Trademark
         {
             get
             {
@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string SignatureKey
+        public string SignatureKey
         {
             get
             {
@@ -378,7 +378,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal AssemblyHashAlgorithm AssemblyHashAlgorithm
+        public AssemblyHashAlgorithm AssemblyHashAlgorithm
         {
             get
             {
@@ -386,7 +386,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal AssemblyHashAlgorithm? AssemblyAlgorithmIdAttributeSetting
+        public AssemblyHashAlgorithm? AssemblyAlgorithmIdAttributeSetting
         {
             get
             {
@@ -415,7 +415,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This represents what the user claimed in source through the AssemblyFlagsAttribute.
         /// It may be modified as emitted due to presence or absence of the public key.
         /// </summary>
-        internal AssemblyNameFlags Flags
+        public AssemblyNameFlags Flags
         {
             get
             {
@@ -482,7 +482,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         [ThreadStatic]
         private static AssemblySymbol t_assemblyForWhichCurrentThreadIsComputingKeys;
 
-        internal StrongNameKeys StrongNameKeys
+        public StrongNameKeys StrongNameKeys
         {
             get
             {
@@ -503,7 +503,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<byte> PublicKey
+        public override ImmutableArray<byte> PublicKey
         {
             get { return StrongNameKeys.PublicKey; }
         }
@@ -780,7 +780,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsDelaySigned
+        public bool IsDelaySigned
         {
             get
             {
@@ -794,22 +794,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SourceModuleSymbol SourceModule
+        public SourceModuleSymbol SourceModule
         {
             get { return (SourceModuleSymbol)this.Modules[0]; }
         }
 
-        internal override bool RequiresCompletion
+        public override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal override bool HasComplete(CompletionPart part)
+        public override bool HasComplete(CompletionPart part)
         {
             return _state.HasComplete(part);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -1372,14 +1372,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyNetModuleAttributesBag;
         }
 
-        internal CommonAssemblyWellKnownAttributeData GetNetModuleDecodedWellKnownAttributeData()
+        public CommonAssemblyWellKnownAttributeData GetNetModuleDecodedWellKnownAttributeData()
         {
             var attributesBag = this.GetNetModuleAttributesBag();
             Debug.Assert(attributesBag.IsSealed);
             return (CommonAssemblyWellKnownAttributeData)attributesBag.DecodedWellKnownAttributeData;
         }
 
-        internal ImmutableArray<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public ImmutableArray<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             var attrList =
                 from rootNs in DeclaringCompilation.Declarations.AllRootNamespacesUnordered()
@@ -1449,7 +1449,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// This method must be invoked only after all the assembly attributes have been bound.
         /// </remarks>
-        internal bool IsIndexOfOmittedAssemblyAttribute(int index)
+        public bool IsIndexOfOmittedAssemblyAttribute(int index)
         {
             Debug.Assert(_lazyOmittedAttributeIndices == null || !_lazyOmittedAttributeIndices.Any(i => i < 0 || i >= this.GetAttributes().Length));
             Debug.Assert(_lazySourceAttributesBag.IsSealed);
@@ -1468,7 +1468,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// TODO: We should replace methods GetSourceDecodedWellKnownAttributeData and GetNetModuleDecodedWellKnownAttributeData with
         /// a single method GetDecodedWellKnownAttributeData, which merges DecodedWellKnownAttributeData from source and netmodule attributes.
         /// </remarks>
-        internal CommonAssemblyWellKnownAttributeData GetSourceDecodedWellKnownAttributeData()
+        public CommonAssemblyWellKnownAttributeData GetSourceDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazySourceAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -1497,7 +1497,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal IEnumerable<Cci.SecurityAttribute> GetSecurityAttributes()
+        public IEnumerable<Cci.SecurityAttribute> GetSecurityAttributes()
         {
             // user defined security attributes:
 
@@ -1552,31 +1552,31 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
         {
             return _modules[0].GetReferencedAssemblySymbols();
         }
 
-        internal override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
         {
             // SourceAssemblySymbol is never used directly as a reference
             // when it is or any of its references is linked.
             return default(ImmutableArray<AssemblySymbol>);
         }
 
-        internal override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             // SourceAssemblySymbol is never used directly as a reference
             // when it is or any of its references is linked.
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool IsLinked
+        public override bool IsLinked
         {
             get
             {
@@ -1584,7 +1584,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool DeclaresTheObjectClass
+        public bool DeclaresTheObjectClass
         {
             get
             {
@@ -1623,7 +1623,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -1804,7 +1804,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
+        public override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
         {
             //EDMAURER assume that if EnsureAttributesAreBound() returns, then the internals visible to map has been populated.
             //Do not optimize by checking if m_lazyInternalsVisibleToMap is Nothing. It may be non-null yet still
@@ -1822,7 +1822,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (result != null) ? result.Keys : SpecializedCollections.EmptyEnumerable<ImmutableArray<byte>>();
         }
 
-        internal override bool AreInternalsVisibleToThisAssembly(AssemblySymbol potentialGiverOfAccess)
+        public override bool AreInternalsVisibleToThisAssembly(AssemblySymbol potentialGiverOfAccess)
         {
             // Ensure that optimistic IVT access is only granted to requests that originated on the thread
             //that is trying to compute the assembly identity. This gives us deterministic behavior when
@@ -2031,7 +2031,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             DecodeWellKnownAttribute(ref arguments, arguments.Index, isFromNetModule: false);
         }
@@ -2259,7 +2259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void NoteFieldAccess(FieldSymbol field, bool read, bool write)
+        public void NoteFieldAccess(FieldSymbol field, bool read, bool write)
         {
             var container = field.ContainingType as SourceMemberContainerTypeSymbol;
             if ((object)container == null)
@@ -2298,7 +2298,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void NoteFieldDefinition(FieldSymbol field, bool isInternal, bool isUnread)
+        public void NoteFieldDefinition(FieldSymbol field, bool isInternal, bool isUnread)
         {
             Debug.Assert(_unusedFieldWarnings.IsDefault, "We shouldn't have computed the diagnostics if we're still noting definitions.");
 
@@ -2312,7 +2312,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get the warnings for unused fields.  This should only be fetched when all method bodies have been compiled.
         /// </summary>
-        internal ImmutableArray<Diagnostic> GetUnusedFieldWarnings(CancellationToken cancellationToken)
+        public ImmutableArray<Diagnostic> GetUnusedFieldWarnings(CancellationToken cancellationToken)
         {
             if (_unusedFieldWarnings.IsDefault)
             {
@@ -2444,7 +2444,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
+        public override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
         {
             int forcedArity = emittedName.ForcedArity;
 

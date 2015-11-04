@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class BinderFactory
+    public sealed partial class BinderFactory
     {
         // key in the binder cache.
         // PERF: we are not using ValueTuple because its Equals is relatively slow.
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // reduces this churn to almost nothing.
         private readonly ObjectPool<BinderFactoryVisitor> _binderFactoryVisitorPool;
 
-        internal BinderFactory(CSharpCompilation compilation, SyntaxTree syntaxTree)
+        public BinderFactory(CSharpCompilation compilation, SyntaxTree syntaxTree)
         {
             _compilation = compilation;
             _syntaxTree = syntaxTree;
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _buckStopsHereBinder = new BuckStopsHereBinder(compilation);
         }
 
-        internal SyntaxTree SyntaxTree
+        public SyntaxTree SyntaxTree
         {
             get
             {
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Note, there is no guarantee that the factory always gives back the same binder instance for the same <param name="node"/>.
         /// </summary>
-        internal Binder GetBinder(CSharpSyntaxNode node)
+        public Binder GetBinder(CSharpSyntaxNode node)
         {
             int position = node.SpanStart;
 
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetBinder(node.Parent, position);
         }
 
-        internal Binder GetBinder(CSharpSyntaxNode node, int position)
+        public Binder GetBinder(CSharpSyntaxNode node, int position)
         {
             Debug.Assert(node != null);
 
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <see cref="CompilationUnitSyntax"/> for top-level imports.
         /// </param>
         /// <param name="inUsing">True if the binder will be used to bind a using directive.</param>
-        internal InContainerBinder GetImportsBinder(CSharpSyntaxNode unit, bool inUsing = false)
+        public InContainerBinder GetImportsBinder(CSharpSyntaxNode unit, bool inUsing = false)
         {
             switch (unit.Kind())
             {

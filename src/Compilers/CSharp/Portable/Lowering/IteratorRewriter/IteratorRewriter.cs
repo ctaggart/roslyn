@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class IteratorRewriter : StateMachineRewriter
+    public partial class IteratorRewriter : StateMachineRewriter
     {
         private readonly TypeSymbol _elementType;
 
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Rewrite an iterator method into a state machine class.
         /// </summary>
-        internal static BoundStatement Rewrite(
+        public static BoundStatement Rewrite(
             BoundStatement body,
             MethodSymbol method,
             int methodOrdinal,

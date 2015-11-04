@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class SynthesizedStringSwitchHashMethod : SynthesizedGlobalMethodSymbol
+    public sealed partial class SynthesizedStringSwitchHashMethod : SynthesizedGlobalMethodSymbol
     {
         /// <summary>
         /// Compute the hashcode of a sub string using FNV-1a
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// The control flow in this method mimics lowered "for" loop. It is exactly what we want to emit
         /// to ensure that JIT can do range check hoisting.
         /// </remarks>
-        internal static uint ComputeStringHash(string text)
+        public static uint ComputeStringHash(string text)
         {
             uint hashCode = 0;
             if (text != null)
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return hashCode;
         }
 
-        internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             SyntheticBoundNodeFactory F = new SyntheticBoundNodeFactory(this, this.GetNonNullSyntaxNode(), compilationState, diagnostics);
             F.CurrentMethod = this;
@@ -127,9 +127,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed partial class SynthesizedExplicitImplementationForwardingMethod : SynthesizedImplementationMethod
+    public sealed partial class SynthesizedExplicitImplementationForwardingMethod : SynthesizedImplementationMethod
     {
-        internal override bool SynthesizesLoweredBoundBody
+        public override bool SynthesizesLoweredBoundBody
         {
             get { return true; }
         }
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         ///     return this.Foo&lt;T1, T2, ...&gt;(a1, a2, ...);
         /// }
         /// </summary>
-        internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             SyntheticBoundNodeFactory F = new SyntheticBoundNodeFactory(this, this.GetNonNullSyntaxNode(), compilationState, diagnostics);
             F.CurrentMethod = (MethodSymbol)this.OriginalDefinition;
@@ -166,14 +166,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed partial class SynthesizedSealedPropertyAccessor : SynthesizedInstanceMethodSymbol
+    public sealed partial class SynthesizedSealedPropertyAccessor : SynthesizedInstanceMethodSymbol
     {
-        internal override bool SynthesizesLoweredBoundBody
+        public override bool SynthesizesLoweredBoundBody
         {
             get { return true; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return false; }
         }
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Given a SynthesizedSealedPropertyAccessor (an accessor with a reference to the accessor it overrides),
         /// construct a BoundBlock body.
         /// </summary>
-        internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             SyntheticBoundNodeFactory F = new SyntheticBoundNodeFactory(this, this.GetNonNullSyntaxNode(), compilationState, diagnostics);
             F.CurrentMethod = (MethodSymbol)this.OriginalDefinition;
@@ -199,16 +199,16 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal abstract partial class MethodToClassRewriter 
+    public abstract partial class MethodToClassRewriter 
     {
         private sealed partial class BaseMethodWrapperSymbol : SynthesizedMethodBaseSymbol
         {
-            internal sealed override bool GenerateDebugInfo
+            public sealed override bool GenerateDebugInfo
             {
                 get { return false; }
             }
 
-            internal override bool SynthesizesLoweredBoundBody
+            public override bool SynthesizesLoweredBoundBody
             {
                 get { return true; }
             }
@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             /// Given a SynthesizedSealedPropertyAccessor (an accessor with a reference to the accessor it overrides),
             /// construct a BoundBlock body.
             /// </summary>
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 SyntheticBoundNodeFactory F = new SyntheticBoundNodeFactory(this, this.GetNonNullSyntaxNode(), compilationState, diagnostics);
                 F.CurrentMethod = this.OriginalDefinition;
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Contains methods related to synthesizing bound nodes in lowered form 
     /// that does not need any processing before passing to codegen
     /// </summary>
-    internal static partial class MethodBodySynthesizer
+    public static partial class MethodBodySynthesizer
     {
         /// <summary>
         /// Construct a body for a method containing a call to a single other method with the same signature (modulo name).
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="methodToInvoke">Method to invoke in constructed body.</param>
         /// <param name="useBaseReference">True for "base.", false for "this.".</param>
         /// <returns>Body for implementedMethod.</returns>
-        internal static BoundBlock ConstructSingleInvocationMethodBody(SyntheticBoundNodeFactory F, MethodSymbol methodToInvoke, bool useBaseReference)
+        public static BoundBlock ConstructSingleInvocationMethodBody(SyntheticBoundNodeFactory F, MethodSymbol methodToInvoke, bool useBaseReference)
         {
             var argBuilder = ArrayBuilder<BoundExpression>.GetInstance();
             //var refKindBuilder = ArrayBuilder<RefKind>.GetInstance();

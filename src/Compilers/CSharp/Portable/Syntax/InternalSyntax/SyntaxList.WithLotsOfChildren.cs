@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Roslyn.Utilities;
@@ -6,31 +6,31 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxList
+    public partial class SyntaxList
     {
-        internal sealed class WithLotsOfChildren : WithManyChildrenBase
+        public sealed class WithLotsOfChildren : WithManyChildrenBase
         {
             private readonly int[] _childOffsets;
 
-            internal WithLotsOfChildren(ArrayElement<CSharpSyntaxNode>[] children)
+            public WithLotsOfChildren(ArrayElement<CSharpSyntaxNode>[] children)
                 : base(children)
             {
                 _childOffsets = CalculateOffsets(children);
             }
 
-            internal WithLotsOfChildren(ObjectReader reader)
+            public WithLotsOfChildren(ObjectReader reader)
                 : base(reader)
             {
                 _childOffsets = CalculateOffsets(this.children);
             }
 
-            internal override void WriteTo(ObjectWriter writer)
+            public override void WriteTo(ObjectWriter writer)
             {
                 base.WriteTo(writer);
                 // don't write offsets out, recompute them on construction
             }
 
-            internal override Func<ObjectReader, object> GetReader()
+            public override Func<ObjectReader, object> GetReader()
             {
                 return r => new WithLotsOfChildren(r);
             }

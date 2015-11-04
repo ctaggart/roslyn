@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Threading;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class EntryPointCandidateFinder : CSharpSymbolVisitor<object, object>
+    public class EntryPointCandidateFinder : CSharpSymbolVisitor<object, object>
     {
         private readonly ArrayBuilder<MethodSymbol> _entryPointCandidates;
         private readonly bool _visitNestedTypes;

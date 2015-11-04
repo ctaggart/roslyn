@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal abstract class WrappedParameterSymbol : ParameterSymbol
+    public abstract class WrappedParameterSymbol : ParameterSymbol
     {
         protected readonly ParameterSymbol underlyingParameter;
 
@@ -64,12 +64,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return underlyingParameter.RefKind; }
         }
 
-        internal sealed override bool IsMetadataIn
+        public sealed override bool IsMetadataIn
         {
             get { return underlyingParameter.IsMetadataIn; }
         }
 
-        internal sealed override bool IsMetadataOut
+        public sealed override bool IsMetadataOut
         {
             get { return underlyingParameter.IsMetadataOut; }
         }
@@ -89,12 +89,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return underlyingParameter.GetAttributes();
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             underlyingParameter.AddSynthesizedAttributes(compilationState, ref attributes);
         }
 
-        internal sealed override ConstantValue ExplicitDefaultConstantValue
+        public sealed override ConstantValue ExplicitDefaultConstantValue
         {
             get { return underlyingParameter.ExplicitDefaultConstantValue; }
         }
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return underlyingParameter.IsParams; }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get { return underlyingParameter.IsMetadataOptional; }
         }
@@ -129,42 +129,42 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return underlyingParameter.CustomModifiers; }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get { return underlyingParameter.MarshallingInformation; }
         }
 
-        internal override UnmanagedType MarshallingType
+        public override UnmanagedType MarshallingType
         {
             get { return underlyingParameter.MarshallingType; }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get { return underlyingParameter.IsIDispatchConstant; }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get { return underlyingParameter.IsIUnknownConstant; }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get { return underlyingParameter.IsCallerLineNumber; }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get { return underlyingParameter.IsCallerFilePath; }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get { return underlyingParameter.IsCallerMemberName; }
         }
 
-        internal sealed override ushort CountOfCustomModifiersPrecedingByRef
+        public sealed override ushort CountOfCustomModifiersPrecedingByRef
         {
             get { return underlyingParameter.CountOfCustomModifiersPrecedingByRef; }
         }

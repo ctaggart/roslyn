@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A representation of a property symbol that is intended only to be used for comparison purposes
     /// (esp in PropertySignatureComparer).
     /// </summary>
-    internal sealed class SignatureOnlyPropertySymbol : PropertySymbol
+    public sealed class SignatureOnlyPropertySymbol : PropertySymbol
     {
         private readonly string _name;
         private readonly TypeSymbol _containingType;
@@ -58,9 +58,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Not used by PropertySignatureComparer
 
-        internal override bool HasSpecialName { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool HasSpecialName { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override Cci.CallingConvention CallingConvention { get { throw ExceptionUtilities.Unreachable; } }
+        public override Cci.CallingConvention CallingConvention { get { throw ExceptionUtilities.Unreachable; } }
 
         public override ImmutableArray<Location> Locations { get { throw ExceptionUtilities.Unreachable; } }
 
@@ -78,13 +78,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public override bool IsExtern { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData { get { throw ExceptionUtilities.Unreachable; } }
+        public override ObsoleteAttributeData ObsoleteAttributeData { get { throw ExceptionUtilities.Unreachable; } }
 
         public override AssemblySymbol ContainingAssembly { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
+        public override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool MustCallMethodsDirectly { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool MustCallMethodsDirectly { get { throw ExceptionUtilities.Unreachable; } }
 
         public override MethodSymbol SetMethod { get { throw ExceptionUtilities.Unreachable; } }
 

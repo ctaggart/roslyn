@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp
 {
     [SuppressMessage("Performance", "RS0008", Justification = "Equality not actually implemented")]
-    internal struct MemberAnalysisResult
+    public struct MemberAnalysisResult
     {
         // put these first for better packing
         public readonly ImmutableArray<Conversion> ConversionsOpt;
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// because those diagnostics are only reported if no other candidates are
         /// available.
         /// </remarks>
-        internal bool HasUseSiteDiagnosticToReportFor(Symbol symbol)
+        public bool HasUseSiteDiagnosticToReportFor(Symbol symbol)
         {
             // There is a use site diagnostic to report here, but it is not reported
             // just because this member was a candidate - only if it "wins".

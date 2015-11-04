@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslyn.Utilities;
@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal abstract class SourceMethodSymbol : MethodSymbol, IAttributeTargetSymbol
+    public abstract class SourceMethodSymbol : MethodSymbol, IAttributeTargetSymbol
     {
         // The flags type is used to compact many different bits of information.
         protected struct Flags
@@ -179,12 +179,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         //are stashed here in service of API usage patterns
         //where method body diagnostics are requested multiple times.
         private ImmutableArray<Diagnostic> _cachedDiagnostics;
-        internal ImmutableArray<Diagnostic> Diagnostics
+        public ImmutableArray<Diagnostic> Diagnostics
         {
             get { return _cachedDiagnostics; }
         }
 
-        internal ImmutableArray<Diagnostic> SetDiagnostics(ImmutableArray<Diagnostic> newSet, out bool diagsWritten)
+        public ImmutableArray<Diagnostic> SetDiagnostics(ImmutableArray<Diagnostic> newSet, out bool diagsWritten)
         {
             //return the diagnostics that were actually saved in the event that there were two threads racing. 
             diagsWritten = ImmutableInterlocked.InterlockedInitialize(ref _cachedDiagnostics, newSet);
@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // TODO (tomat): sealed
-        internal override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             // If C# and the runtime don't agree on the overridden method,
             // then we will mark the method as newslot and specify the
@@ -405,12 +405,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // TODO (tomat): sealed?
-        internal override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return this.flags.IsMetadataVirtual(ignoreInterfaceImplementationChanges);
         }
 
-        internal void EnsureMetadataVirtual()
+        public void EnsureMetadataVirtual()
         {
             this.flags.EnsureMetadataVirtual();
         }
@@ -465,7 +465,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsPartial
+        public bool IsPartial
         {
             get
             {
@@ -481,7 +481,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsNew
+        public bool IsNew
         {
             get
             {
@@ -497,7 +497,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsUnsafe
+        public bool IsUnsafe
         {
             get
             {
@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override Cci.CallingConvention CallingConvention
+        public sealed override Cci.CallingConvention CallingConvention
         {
             get
             {
@@ -537,7 +537,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Syntax
 
-        internal SyntaxNode BodySyntax
+        public SyntaxNode BodySyntax
         {
             get
             {
@@ -545,7 +545,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SyntaxReference SyntaxRef
+        public SyntaxReference SyntaxRef
         {
             get
             {
@@ -553,7 +553,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal CSharpSyntaxNode SyntaxNode
+        public CSharpSyntaxNode SyntaxNode
         {
             get
             {
@@ -561,7 +561,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SyntaxTree SyntaxTree
+        public SyntaxTree SyntaxTree
         {
             get
             {
@@ -620,7 +620,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool TryGetThisParameter(out ParameterSymbol thisParameter)
+        public sealed override bool TryGetThisParameter(out ParameterSymbol thisParameter)
         {
             thisParameter = _lazyThisParameter;
             if ((object)thisParameter != null || IsStatic)
@@ -633,7 +633,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return true;
         }
 
-        internal override TypeSymbol IteratorElementType
+        public override TypeSymbol IteratorElementType
         {
             get
             {
@@ -655,7 +655,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public sealed override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -669,17 +669,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return state.HasComplete(part);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -804,7 +804,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the syntax list of custom attributes that declares attributes for this method symbol.
         /// </summary>
-        internal virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             return OneOrMany.Create(default(SyntaxList<AttributeListSyntax>));
         }
@@ -812,7 +812,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the syntax list of custom attributes that declares attributes for return type of this method.
         /// </summary>
-        internal virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
+        public virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
         {
             // Usually the same list as other attributes applied on the method, but e.g.
             // constructors and destructors do not allow return-type attributes, so this is empty.
@@ -825,7 +825,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonMethodEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
+        public CommonMethodEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsEarlyDecodedWellKnownAttributeDataComputed)
@@ -842,7 +842,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonMethodWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public CommonMethodWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -859,7 +859,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonReturnTypeWellKnownAttributeData GetDecodedReturnTypeWellKnownAttributeData()
+        public CommonReturnTypeWellKnownAttributeData GetDecodedReturnTypeWellKnownAttributeData()
         {
             var attributesBag = _lazyReturnTypeCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -949,7 +949,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.GetReturnTypeAttributesBag().Attributes;
         }
 
-        internal override void AddSynthesizedReturnTypeAttributes(ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedReturnTypeAttributes(ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedReturnTypeAttributes(ref attributes);
 
@@ -960,7 +960,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             Debug.Assert(arguments.SymbolPart == AttributeLocation.None || arguments.SymbolPart == AttributeLocation.Return);
 
@@ -1007,7 +1007,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -1035,13 +1035,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             CommonMethodEarlyWellKnownAttributeData data = this.GetEarlyDecodedWellKnownAttributeData();
             return data != null ? data.ConditionalSymbols : ImmutableArray<string>.Empty;
         }
 
-        internal override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             Debug.Assert(!arguments.Attribute.HasErrors);
             Debug.Assert(arguments.SymbolPart == AttributeLocation.None || arguments.SymbolPart == AttributeLocation.Return);
@@ -1333,7 +1333,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
+        public override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
         {
             Debug.Assert(!boundAttributes.IsDefault);
             Debug.Assert(!allAttributeSyntaxNodes.IsDefault);
@@ -1382,7 +1382,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -1396,7 +1396,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                    ModuleExtensions.GetVTableGapSize(this.MetadataName) > 0;
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get
             {
@@ -1423,7 +1423,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool RequiresSecurityObject
+        public sealed override bool RequiresSecurityObject
         {
             get
             {
@@ -1432,7 +1432,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get
             {
@@ -1441,7 +1441,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             var attributesBag = this.GetAttributesBag();
             var wellKnownData = (CommonMethodWellKnownAttributeData)attributesBag.DecodedWellKnownAttributeData;
@@ -1463,7 +1463,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return data != null ? data.DllImportPlatformInvokeData : null;
         }
 
-        internal sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get
             {
@@ -1472,7 +1472,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get
             {
@@ -1491,7 +1491,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #endregion
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -1555,9 +1555,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If the method has both block body and an expression body
         /// present, this is not treated as expression-bodied.
         /// </remarks>
-        internal abstract bool IsExpressionBodied { get; }
+        public abstract bool IsExpressionBodied { get; }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             // Method without body doesn't declare locals.
             Debug.Assert(this.BodySyntax != null);

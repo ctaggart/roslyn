@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A <see cref="MissingNamespaceSymbol"/> is a special kind of <see cref="NamespaceSymbol"/> that represents
     /// a namespace that couldn't be found.
     /// </summary>
-    internal class MissingNamespaceSymbol : NamespaceSymbol
+    public class MissingNamespaceSymbol : NamespaceSymbol
     {
         private readonly string _name;
         private readonly Symbol _containingSymbol;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamespaceExtent Extent
+        public override NamespaceExtent Extent
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {

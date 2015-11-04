@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// Represents an assembly imported from a PE.
     /// </summary>
-    internal sealed class PEAssemblySymbol : MetadataOrSourceAssemblySymbol
+    public sealed class PEAssemblySymbol : MetadataOrSourceAssemblySymbol
     {
         /// <summary>
         /// An Assembly object providing metadata for the assembly.
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// </summary>
         private ImmutableArray<CSharpAttributeData> _lazyCustomAttributes;
 
-        internal PEAssemblySymbol(PEAssembly assembly, DocumentationProvider documentationProvider, bool isLinked, MetadataImportOptions importOptions)
+        public PEAssemblySymbol(PEAssembly assembly, DocumentationProvider documentationProvider, bool isLinked, MetadataImportOptions importOptions)
         {
             Debug.Assert(assembly != null);
             Debug.Assert(documentationProvider != null);
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             _isLinked = isLinked;
         }
 
-        internal PEAssembly Assembly
+        public PEAssembly Assembly
         {
             get
             {
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <remarks>
         /// The returned assembly may also forward the type.
         /// </remarks>
-        internal AssemblySymbol LookupAssemblyForForwardedMetadataType(ref MetadataTypeName emittedName)
+        public AssemblySymbol LookupAssemblyForForwardedMetadataType(ref MetadataTypeName emittedName)
         {
             // Look in the type forwarders of the primary module of this assembly, clr does not honor type forwarder
             // in non-primary modules.
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return this.PrimaryModule.GetAssemblyForForwardedType(ref emittedName);
         }
 
-        internal override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
+        public override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
         {
             // Check if it is a forwarded type.
             var forwardedToAssembly = LookupAssemblyForForwardedMetadataType(ref emittedName);
@@ -164,27 +164,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return null;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
         {
             return _noPiaResolutionAssemblies;
         }
 
-        internal override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             _noPiaResolutionAssemblies = assemblies;
         }
 
-        internal override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             _linkedReferencedAssemblies = assemblies;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
         {
             return _linkedReferencedAssemblies;
         }
 
-        internal override ImmutableArray<byte> PublicKey
+        public override ImmutableArray<byte> PublicKey
         {
             get
             {
@@ -192,23 +192,23 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool GetGuidString(out string guidString)
+        public override bool GetGuidString(out string guidString)
         {
             return Assembly.Modules[0].HasGuidAttribute(Assembly.Handle, out guidString);
         }
 
-        internal override bool AreInternalsVisibleToThisAssembly(AssemblySymbol potentialGiverOfAccess)
+        public override bool AreInternalsVisibleToThisAssembly(AssemblySymbol potentialGiverOfAccess)
         {
             IVTConclusion conclusion = MakeFinalIVTDetermination(potentialGiverOfAccess);
             return conclusion == IVTConclusion.Match || conclusion == IVTConclusion.OneSignedOneNot;
         }
 
-        internal override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
+        public override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
         {
             return Assembly.GetInternalsVisibleToPublicKeys(simpleName);
         }
 
-        internal DocumentationProvider DocumentationProvider
+        public DocumentationProvider DocumentationProvider
         {
             get
             {
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsLinked
+        public override bool IsLinked
         {
             get
             {
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal PEModuleSymbol PrimaryModule
+        public PEModuleSymbol PrimaryModule
         {
             get
             {
@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

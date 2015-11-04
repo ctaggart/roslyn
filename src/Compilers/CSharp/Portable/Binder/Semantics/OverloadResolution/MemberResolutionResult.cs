@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -9,25 +9,25 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Represents the results of overload resolution for a single member.
     /// </summary>
     [SuppressMessage("Performance", "RS0008", Justification = "Equality not actually implemented")]
-    internal struct MemberResolutionResult<TMember> where TMember : Symbol
+    public struct MemberResolutionResult<TMember> where TMember : Symbol
     {
         private readonly TMember _member;
         private readonly TMember _leastOverriddenMember;
         private readonly MemberAnalysisResult _result;
 
-        internal MemberResolutionResult(TMember member, TMember leastOverriddenMember, MemberAnalysisResult result)
+        public MemberResolutionResult(TMember member, TMember leastOverriddenMember, MemberAnalysisResult result)
         {
             _member = member;
             _leastOverriddenMember = leastOverriddenMember;
             _result = result;
         }
 
-        internal bool IsNull
+        public bool IsNull
         {
             get { return (object)_member == null; }
         }
 
-        internal bool IsNotNull
+        public bool IsNotNull
         {
             get { return (object)_member != null; }
         }
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// The member whose parameter types and params modifiers were considered during overload resolution.
         /// </remarks>
-        internal TMember LeastOverriddenMember
+        public TMember LeastOverriddenMember
         {
             get { return _leastOverriddenMember; }
         }
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool HasUseSiteDiagnosticToReport
+        public bool HasUseSiteDiagnosticToReport
         {
             get
             {
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The result of member analysis.
         /// </summary>
-        internal MemberAnalysisResult Result
+        public MemberAnalysisResult Result
         {
             get { return _result; }
         }

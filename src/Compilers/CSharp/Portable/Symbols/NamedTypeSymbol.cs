@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,12 +15,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a type other than an array, a pointer, a type parameter, and dynamic.
     /// </summary>
-    internal abstract partial class NamedTypeSymbol : TypeSymbol, INamedTypeSymbol
+    public abstract partial class NamedTypeSymbol : TypeSymbol, INamedTypeSymbol
     {
         private bool _hasNoBaseCycles;
 
         // Only the compiler can create NamedTypeSymbols.
-        internal NamedTypeSymbol()
+        public NamedTypeSymbol()
         {
         }
 
@@ -62,9 +62,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns custom modifiers for the type arguments that have been substituted for the type parameters. 
         /// </summary>
-        internal abstract ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers { get; }
+        public abstract ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers { get; }
 
-        internal ImmutableArray<ImmutableArray<CustomModifier>> CreateEmptyTypeArgumentsCustomModifiers()
+        public ImmutableArray<ImmutableArray<CustomModifier>> CreateEmptyTypeArgumentsCustomModifiers()
         {
             var arity = this.Arity;
 
@@ -78,17 +78,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static ImmutableArray<ImmutableArray<CustomModifier>> CreateEmptyTypeArgumentsCustomModifiers(int arity)
+        public static ImmutableArray<ImmutableArray<CustomModifier>> CreateEmptyTypeArgumentsCustomModifiers(int arity)
         {
             Debug.Assert(arity > 0);
             return ArrayBuilder<ImmutableArray<CustomModifier>>.GetInstance(arity, ImmutableArray<CustomModifier>.Empty).ToImmutableAndFree();
         }
 
-        internal abstract bool HasTypeArgumentsCustomModifiers { get; }
+        public abstract bool HasTypeArgumentsCustomModifiers { get; }
 
-        internal abstract ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics { get; }
+        public abstract ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics { get; }
 
-        internal ImmutableArray<TypeSymbol> TypeArgumentsWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<TypeSymbol> TypeArgumentsWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = TypeArgumentsNoUseSiteDiagnostics;
 
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal TypeSymbol TypeArgumentWithDefinitionUseSiteDiagnostics(int index, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public TypeSymbol TypeArgumentWithDefinitionUseSiteDiagnostics(int index, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = TypeArgumentsNoUseSiteDiagnostics[index];
             result.OriginalDefinition.AddUseSiteDiagnostics(ref useSiteDiagnostics);
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This property is intended for flow analysis only
         /// since it is only implemented for source types.
         /// </summary>
-        internal virtual bool KnownCircularStruct
+        public virtual bool KnownCircularStruct
         {
             get
             {
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool KnownToHaveNoDeclaredBaseCycles
+        public bool KnownToHaveNoDeclaredBaseCycles
         {
             get
             {
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void SetKnownToHaveNoDeclaredBaseCycles()
+        public void SetKnownToHaveNoDeclaredBaseCycles()
         {
             _hasNoBaseCycles = true;
         }
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Is this a NoPia local type explicitly declared in source, i.e.
         /// top level type with a TypeIdentifier attribute on it?
         /// </summary>
-        internal virtual bool IsExplicitDefinitionOfNoPiaLocalType
+        public virtual bool IsExplicitDefinitionOfNoPiaLocalType
         {
             get
             {
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// the string might be null or an invalid guid representation. False, 
         /// if there is no GuidAttribute with string argument.
         /// </summary>
-        internal virtual bool GetGuidString(out string guidString)
+        public virtual bool GetGuidString(out string guidString)
         {
             return GetGuidStringDefaultImplementation(out guidString);
         }
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get the operators for this type by their metadata name
         /// </summary>
-        internal ImmutableArray<MethodSymbol> GetOperators(string name)
+        public ImmutableArray<MethodSymbol> GetOperators(string name)
         {
             ImmutableArray<Symbol> candidates = GetSimpleNonTypeMembers(name);
             if (candidates.IsEmpty)
@@ -360,7 +360,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </remarks>
         public abstract bool MightContainExtensionMethods { get; }
 
-        internal void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
+        public void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
         {
             if (this.MightContainExtensionMethods)
             {
@@ -415,7 +415,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsManagedType
+        public override bool IsManagedType
         {
             get
             {
@@ -429,7 +429,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the associated attribute usage info for an attribute type.
         /// </summary>
-        internal abstract AttributeUsageInfo GetAttributeUsageInfo();
+        public abstract AttributeUsageInfo GetAttributeUsageInfo();
 
         /// <summary>
         /// Returns true if the type is a Script class. 
@@ -443,7 +443,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsSubmissionClass
+        public bool IsSubmissionClass
         {
             get
             {
@@ -451,19 +451,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SynthesizedInstanceConstructor GetScriptConstructor()
+        public SynthesizedInstanceConstructor GetScriptConstructor()
         {
             Debug.Assert(IsScriptClass);
             return (SynthesizedInstanceConstructor)InstanceConstructors.Single();
         }
 
-        internal SynthesizedInteractiveInitializerMethod GetScriptInitializer()
+        public SynthesizedInteractiveInitializerMethod GetScriptInitializer()
         {
             Debug.Assert(IsScriptClass);
             return (SynthesizedInteractiveInitializerMethod)GetMembers(SynthesizedInteractiveInitializerMethod.InitializerName).Single();
         }
 
-        internal SynthesizedEntryPointSymbol GetScriptEntryPoint()
+        public SynthesizedEntryPointSymbol GetScriptEntryPoint()
         {
             Debug.Assert(IsScriptClass);
             var name = (TypeKind == TypeKind.Submission) ? SynthesizedEntryPointSymbol.FactoryName : SynthesizedEntryPointSymbol.MainName;
@@ -503,7 +503,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Should the name returned by Name property be mangled with [`arity] suffix in order to get metadata name.
         /// Must return False for a type with Arity == 0.
         /// </summary>
-        internal abstract bool MangleName
+        public abstract bool MangleName
         {
             // Intentionally no default implementation to force consideration of appropriate implementation for each new subclass
             get;
@@ -528,7 +528,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// no members with this name, returns an empty ImmutableArray. Never returns null.</returns>
         public abstract override ImmutableArray<Symbol> GetMembers(string name);
 
-        internal virtual ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
+        public virtual ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
         {
             return GetMembers(name);
         }
@@ -565,7 +565,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Used to implement visitor pattern.
         /// </summary>
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitNamedType(this, argument);
         }
@@ -588,7 +588,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Never returns null (empty instead).
         /// Expected implementations: for source, return type and field members; for metadata, return all members.
         /// </remarks>
-        internal abstract ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers();
+        public abstract ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers();
 
         /// <summary>
         /// During early attribute decoding, we consider a safe subset of all members that will not
@@ -598,7 +598,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Never returns null (empty instead).
         /// Expected implementations: for source, return type and field members; for metadata, return all members.
         /// </remarks>
-        internal abstract ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name);
+        public abstract ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name);
 
         /// <summary>
         /// Gets the kind of this symbol.
@@ -611,9 +611,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved);
+        public abstract NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved);
 
-        internal abstract ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved);
+        public abstract ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved);
 
         public override int GetHashCode()
         {
@@ -632,7 +632,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Compares this type to another type.
         /// </summary>
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds = false, bool ignoreDynamic = false)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds = false, bool ignoreDynamic = false)
         {
             if (ReferenceEquals(this, t2)) return true;
             if ((object)t2 == null) return false;
@@ -767,7 +767,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return OriginalDefinition.AsUnboundGenericType();
         }
 
-        internal NamedTypeSymbol GetUnboundGenericTypeOrSelf()
+        public NamedTypeSymbol GetUnboundGenericTypeOrSelf()
         {
             if (!this.IsGenericType)
             {
@@ -777,11 +777,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.ConstructUnboundGenericType();
         }
 
-        internal static readonly Func<TypeWithModifiers, bool> TypeSymbolIsNullFunction = type => (object)type.Type == null;
+        public static readonly Func<TypeWithModifiers, bool> TypeSymbolIsNullFunction = type => (object)type.Type == null;
 
-        internal static readonly Func<TypeWithModifiers, bool> TypeSymbolIsErrorType = type => (object)type.Type != null && type.Type.IsErrorType();
+        public static readonly Func<TypeWithModifiers, bool> TypeSymbolIsErrorType = type => (object)type.Type != null && type.Type.IsErrorType();
 
-        internal NamedTypeSymbol ConstructWithoutModifiers(ImmutableArray<TypeSymbol> arguments, bool unbound)
+        public NamedTypeSymbol ConstructWithoutModifiers(ImmutableArray<TypeSymbol> arguments, bool unbound)
         {
             ImmutableArray<TypeWithModifiers> modifiedArguments;
 
@@ -807,7 +807,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return Construct(modifiedArguments, unbound);
         }
 
-        internal NamedTypeSymbol Construct(ImmutableArray<TypeWithModifiers> arguments, bool unbound)
+        public NamedTypeSymbol Construct(ImmutableArray<TypeWithModifiers> arguments, bool unbound)
         {
             if (!ReferenceEquals(this, ConstructedFrom) || this.Arity == 0)
             {
@@ -880,7 +880,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Given C<int>.D<string, double>, yields { int, string, double }
-        internal void GetAllTypeArguments(ArrayBuilder<TypeSymbol> builder, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public void GetAllTypeArguments(ArrayBuilder<TypeSymbol> builder, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var outer = ContainingType;
             if (!ReferenceEquals(outer, null))
@@ -891,14 +891,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             builder.AddRange(TypeArgumentsWithDefinitionUseSiteDiagnostics(ref useSiteDiagnostics));
         }
 
-        internal ImmutableArray<TypeWithModifiers> GetAllTypeArguments(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<TypeWithModifiers> GetAllTypeArguments(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             ArrayBuilder<TypeWithModifiers> builder = ArrayBuilder<TypeWithModifiers>.GetInstance();
             GetAllTypeArguments(builder, ref useSiteDiagnostics);
             return builder.ToImmutableAndFree();
         }
 
-        internal void GetAllTypeArguments(ArrayBuilder<TypeWithModifiers> builder, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public void GetAllTypeArguments(ArrayBuilder<TypeWithModifiers> builder, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var outer = ContainingType;
             if (!ReferenceEquals(outer, null))
@@ -926,7 +926,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal int AllTypeArgumentCount()
+        public int AllTypeArgumentCount()
         {
             int count = TypeArgumentsNoUseSiteDiagnostics.Length;
 
@@ -965,12 +965,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If this is not a generic type instantiation, returns null.
         /// The map targets the original definition of the type.
         /// </summary>
-        internal virtual TypeMap TypeSubstitution
+        public virtual TypeMap TypeSubstitution
         {
             get { return null; }
         }
 
-        internal virtual NamedTypeSymbol AsMember(NamedTypeSymbol newOwner)
+        public virtual NamedTypeSymbol AsMember(NamedTypeSymbol newOwner)
         {
             Debug.Assert(this.IsDefinition);
             Debug.Assert(ReferenceEquals(newOwner.OriginalDefinition, this.ContainingSymbol.OriginalDefinition));
@@ -979,7 +979,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (this.IsDefinition)
             {
@@ -1022,7 +1022,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal DiagnosticInfo CalculateUseSiteDiagnostic()
+        public DiagnosticInfo CalculateUseSiteDiagnostic()
         {
             DiagnosticInfo result = null;
 
@@ -1063,7 +1063,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             if (!this.MarkCheckedIfNecessary(ref checkedTypes))
             {
@@ -1100,7 +1100,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this symbol has a special name (metadata flag SpecialName is set).
         /// </summary>
-        internal abstract bool HasSpecialName { get; }
+        public abstract bool HasSpecialName { get; }
 
         /// <summary>
         /// Returns a flag indicating whether this symbol is ComImport.
@@ -1108,7 +1108,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// A type can me marked as a ComImport type in source by applying the <see cref="System.Runtime.InteropServices.ComImportAttribute"/>
         /// </remarks>
-        internal abstract bool IsComImport { get; }
+        public abstract bool IsComImport { get; }
 
         /// <summary>
         /// True if the type is a Windows runtime type.
@@ -1119,13 +1119,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This is needed to mark Windows runtime types which are redefined in mscorlib.dll and System.Runtime.WindowsRuntime.dll.
         /// These two assemblies are special as they implement the CLR's support for WinRT.
         /// </remarks>
-        internal abstract bool IsWindowsRuntimeImport { get; }
+        public abstract bool IsWindowsRuntimeImport { get; }
 
         /// <summary>
         /// True if the type should have its WinRT interfaces projected onto .NET types and
         /// have missing .NET interface members added to the type.
         /// </summary>
-        internal abstract bool ShouldAddWinRTMembers { get; }
+        public abstract bool ShouldAddWinRTMembers { get; }
 
         /// <summary>
         /// Returns a flag indicating whether this symbol has at least one applied/inherited conditional attribute.
@@ -1133,7 +1133,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal bool IsConditional
+        public bool IsConditional
         {
             get
             {
@@ -1151,12 +1151,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if the type is serializable (has Serializable metadata flag).
         /// </summary>
-        internal abstract bool IsSerializable { get; }
+        public abstract bool IsSerializable { get; }
 
         /// <summary>
         /// Type layout information (ClassLayout metadata and layout kind flags).
         /// </summary>
-        internal abstract TypeLayout Layout { get; }
+        public abstract TypeLayout Layout { get; }
 
         /// <summary>
         /// The default charset used for type marshalling. 
@@ -1173,22 +1173,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Marshalling charset of string data fields within the type (string formatting flags in metadata).
         /// </summary>
-        internal abstract CharSet MarshallingCharSet { get; }
+        public abstract CharSet MarshallingCharSet { get; }
 
         /// <summary>
         /// True if the type has declarative security information (HasSecurity flags).
         /// </summary>
-        internal abstract bool HasDeclarativeSecurity { get; }
+        public abstract bool HasDeclarativeSecurity { get; }
 
         /// <summary>
         /// Declaration security information associated with this type, or null if there is none.
         /// </summary>
-        internal abstract IEnumerable<Cci.SecurityAttribute> GetSecurityInformation();
+        public abstract IEnumerable<Cci.SecurityAttribute> GetSecurityInformation();
 
         /// <summary>
         /// Returns a sequence of preprocessor symbols specified in <see cref="ConditionalAttribute"/> applied on this symbol, or null if there are none.
         /// </summary>
-        internal abstract ImmutableArray<string> GetAppliedConditionalSymbols();
+        public abstract ImmutableArray<string> GetAppliedConditionalSymbols();
 
         /// <summary>
         /// If <see cref="CoClassAttribute"/> was applied to the type and the attribute argument is a valid named type argument, i.e. accessible class type, then it returns the type symbol for the argument.
@@ -1207,7 +1207,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// early binding of some well known attributes.
         /// </para>
         /// </remarks>
-        internal virtual NamedTypeSymbol ComImportCoClass
+        public virtual NamedTypeSymbol ComImportCoClass
         {
             get
             {
@@ -1218,7 +1218,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// If class represents fixed buffer, this property returns the FixedElementField
         /// </summary>
-        internal virtual FieldSymbol FixedElementField
+        public virtual FieldSymbol FixedElementField
         {
             get
             {
@@ -1234,7 +1234,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// to cycles if base types are already being computed.
         /// </remarks>
         /// <returns>True if this is an interface type.</returns>
-        internal abstract bool IsInterface { get; }
+        public abstract bool IsInterface { get; }
 
         #region INamedTypeSymbol Members
 

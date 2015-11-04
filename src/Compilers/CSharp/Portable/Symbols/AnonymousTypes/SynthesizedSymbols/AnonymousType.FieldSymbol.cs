@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents a baking field for an anonymous type template property symbol.
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _property = property;
             }
 
-            internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+            public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
             {
                 return _property.Type;
             }
@@ -32,27 +32,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return GeneratedNames.MakeAnonymousTypeBackingFieldName(_property.Name); }
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
 
-            internal override bool HasRuntimeSpecialName
+            public override bool HasRuntimeSpecialName
             {
                 get { return false; }
             }
 
-            internal override bool IsNotSerialized
+            public override bool IsNotSerialized
             {
                 get { return false; }
             }
 
-            internal override MarshalPseudoCustomAttributeData MarshallingInformation
+            public override MarshalPseudoCustomAttributeData MarshallingInformation
             {
                 get { return null; }
             }
 
-            internal override int? TypeLayoutOffset
+            public override int? TypeLayoutOffset
             {
                 get { return null; }
             }
@@ -85,12 +85,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+            public sealed override ObsoleteAttributeData ObsoleteAttributeData
             {
                 get { return null; }
             }
 
-            internal override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+            public override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
             {
                 return null;
             }
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return true; }
             }
 
-            internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+            public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
             {
                 base.AddSynthesizedAttributes(compilationState, ref attributes);
 

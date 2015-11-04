@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Represents a method or method-like symbol (including constructor,
     /// destructor, operator, or property/event accessor).
     /// </summary>
-    internal abstract partial class MethodSymbol : Symbol, IMethodSymbolInternal
+    public abstract partial class MethodSymbol : Symbol, IMethodSymbolInternal
     {
-        internal const MethodSymbol None = null;
+        public const MethodSymbol None = null;
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -85,17 +85,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this symbol has a special name (metadata flag SpecialName is set).
         /// </summary>
-        internal abstract bool HasSpecialName { get; }
+        public abstract bool HasSpecialName { get; }
 
         /// <summary>
         /// Misc implementation metadata flags (ImplFlags in metadata).
         /// </summary>
-        internal abstract System.Reflection.MethodImplAttributes ImplementationAttributes { get; }
+        public abstract System.Reflection.MethodImplAttributes ImplementationAttributes { get; }
 
         /// <summary>
         /// True if the type has declarative security information (HasSecurity flags).
         /// </summary>
-        internal abstract bool HasDeclarativeSecurity { get; }
+        public abstract bool HasDeclarativeSecurity { get; }
 
         /// <summary>
         /// Platform invoke information, or null if the method isn't a P/Invoke.
@@ -105,12 +105,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Declaration security information associated with this type, or null if there is none.
         /// </summary>
-        internal abstract IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation();
+        public abstract IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation();
 
         /// <summary>
         /// Marshalling information for return value (FieldMarshal in metadata). 
         /// </summary>
-        internal abstract MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation { get; }
+        public abstract MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation { get; }
 
         /// <summary>
         /// True if the method calls another method containing security code (metadata flag RequiresSecurityObject is set).
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// DynamicSecurityMethodAttribute is a pseudo custom attribute defined as an internal class in System.Security namespace.
         /// This attribute is set on certain security methods defined within mscorlib.
         /// </remarks>
-        internal abstract bool RequiresSecurityObject { get; }
+        public abstract bool RequiresSecurityObject { get; }
 
         // Note: This is no public "IsNew". This is intentional, because new has no syntactic meaning.
 
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Call <see cref="TryGetThisParameter"/> and throw if it returns false.
         /// </summary>
-        internal ParameterSymbol ThisParameter
+        public ParameterSymbol ThisParameter
         {
             get
             {
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// and false otherwise.  Note that a return value of true does not guarantee a non-null
         /// <paramref name="thisParameter"/> (e.g. fails for static methods).
         /// </returns>
-        internal virtual bool TryGetThisParameter(out ParameterSymbol thisParameter)
+        public virtual bool TryGetThisParameter(out ParameterSymbol thisParameter)
         {
             thisParameter = null;
             return false;
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// The default implementation is always correct, but may be unnecessarily slow.
         /// </remarks>
-        internal virtual int ParameterCount
+        public virtual int ParameterCount
         {
             get
             {
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Will not always agree with ExplicitInterfaceImplementations.Any()
         /// (e.g. if binding of the type part of the name fails).
         /// </remarks>
-        internal virtual bool IsExplicitInterfaceImplementation
+        public virtual bool IsExplicitInterfaceImplementation
         {
             get { return ExplicitInterfaceImplementations.Any(); }
         }
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// ignoring any other overriding methods in base classes.
         /// </summary>
         /// <param name="accessingTypeOpt">The search must respect accessibility from this type.</param>
-        internal MethodSymbol GetLeastOverriddenMethod(NamedTypeSymbol accessingTypeOpt)
+        public MethodSymbol GetLeastOverriddenMethod(NamedTypeSymbol accessingTypeOpt)
         {
             var accessingType = ((object)accessingTypeOpt == null ? this.ContainingType : accessingTypeOpt).OriginalDefinition;
 
@@ -344,7 +344,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Also, if the given method symbol is generic then the resulting virtual or abstract method is constructed with the
         /// same type arguments as the given method.
         /// </summary>
-        internal MethodSymbol GetConstructedLeastOverriddenMethod(NamedTypeSymbol accessingTypeOpt)
+        public MethodSymbol GetConstructedLeastOverriddenMethod(NamedTypeSymbol accessingTypeOpt)
         {
             var m = this.ConstructedFrom.GetLeastOverriddenMethod(accessingTypeOpt);
             return m.IsGenericMethod ? m.Construct(this.TypeArguments) : m;
@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// called method is a conditional method whose condition is not true in the source file
         /// corresponding to the given syntax tree.
         /// </summary>
-        internal virtual bool CallsAreOmitted(SyntaxTree syntaxTree)
+        public virtual bool CallsAreOmitted(SyntaxTree syntaxTree)
         {
             return syntaxTree != null && this.CallsAreConditionallyOmitted(syntaxTree);
         }
@@ -426,7 +426,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns a sequence of preprocessor symbols specified in <see cref="ConditionalAttribute"/> applied on this symbol, or null if there are none.
         /// </summary>
-        internal abstract ImmutableArray<string> GetAppliedConditionalSymbols();
+        public abstract ImmutableArray<string> GetAppliedConditionalSymbols();
 
         /// <summary>
         /// Returns a flag indicating whether this symbol has at least one applied/inherited conditional attribute.
@@ -434,7 +434,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal bool IsConditional
+        public bool IsConditional
         {
             get
             {
@@ -460,7 +460,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Some method kinds do not participate in overriding/hiding (e.g. constructors).
         /// </summary>
-        internal static bool CanOverrideOrHide(MethodKind kind)
+        public static bool CanOverrideOrHide(MethodKind kind)
         {
             switch (kind)
             {
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -510,7 +510,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this symbol represents a constructor of a script class.
         /// </summary>
-        internal bool IsScriptConstructor
+        public bool IsScriptConstructor
         {
             get
             {
@@ -518,7 +518,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsScriptInitializer
+        public virtual bool IsScriptInitializer
         {
             get { return false; }
         }
@@ -526,7 +526,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns if the method is implicit constructor (normal and static)
         /// </summary>
-        internal bool IsImplicitConstructor
+        public bool IsImplicitConstructor
         {
             get
             {
@@ -537,7 +537,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns if the method is implicit instance constructor
         /// </summary>
-        internal bool IsImplicitInstanceConstructor
+        public bool IsImplicitInstanceConstructor
         {
             get
             {
@@ -548,7 +548,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this symbol represents a constructor of an interactive submission class.
         /// </summary>
-        internal bool IsSubmissionConstructor
+        public bool IsSubmissionConstructor
         {
             get
             {
@@ -556,7 +556,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsSubmissionInitializer
+        public bool IsSubmissionInitializer
         {
             get
             {
@@ -568,7 +568,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Determines whether this method is a candidate for a default assembly entry point 
         /// (i.e. it is a static method called "Main").
         /// </summary>
-        internal bool IsEntryPointCandidate
+        public bool IsEntryPointCandidate
         {
             get { return IsStatic && Name == WellKnownMemberNames.EntryPointMethodName; }
         }
@@ -578,7 +578,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// - the return type is either void or int
         /// - has either no parameter or a single parameter of type string[]
         /// </summary>
-        internal bool HasEntryPointSignature()
+        public bool HasEntryPointSignature()
         {
             if (this.IsVararg)
             {
@@ -616,7 +616,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return array.IsSZArray && array.ElementType.SpecialType == SpecialType.System_String;
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitMethod(this, argument);
         }
@@ -666,7 +666,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If this method is a reduced extension method, returns the extension method that
         /// should be used at call site during ILGen. Otherwise, returns null.
         /// </summary>
-        internal virtual MethodSymbol CallsiteReducedFromMethod
+        public virtual MethodSymbol CallsiteReducedFromMethod
         {
             get { return null; }
         }
@@ -733,7 +733,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.Construct(ImmutableArray.Create(typeArguments));
         }
 
-        internal static readonly Func<TypeSymbol, bool> TypeSymbolIsNullFunction = type => (object)type == null;
+        public static readonly Func<TypeSymbol, bool> TypeSymbolIsNullFunction = type => (object)type == null;
 
         /// <summary>
         /// Apply type substitution to a generic method to create an method symbol with the given type parameters supplied.
@@ -770,7 +770,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new ConstructedMethodSymbol(this, typeArguments);
         }
 
-        internal static bool TypeParametersMatchTypeArguments(ImmutableArray<TypeParameterSymbol> typeParameters, ImmutableArray<TypeSymbol> typeArguments)
+        public static bool TypeParametersMatchTypeArguments(ImmutableArray<TypeParameterSymbol> typeParameters, ImmutableArray<TypeSymbol> typeArguments)
         {
             int n = typeParameters.Length;
             Debug.Assert(typeArguments.Length == n);
@@ -787,7 +787,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return true;
         }
 
-        internal MethodSymbol AsMember(NamedTypeSymbol newOwner)
+        public MethodSymbol AsMember(NamedTypeSymbol newOwner)
         {
             Debug.Assert(this.IsDefinition);
             Debug.Assert(ReferenceEquals(newOwner.OriginalDefinition, this.ContainingSymbol.OriginalDefinition));
@@ -798,7 +798,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// As a performance optimization, cache parameter types and refkinds - overload resolution uses them a lot.
         /// </summary>
         private ParameterSignature _lazyParameterSignature;
-        internal ImmutableArray<TypeSymbol> ParameterTypes
+        public ImmutableArray<TypeSymbol> ParameterTypes
         {
             get
             {
@@ -810,7 +810,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Null if no parameter is ref/out. Otherwise the RefKind for each parameter.
         /// </summary>
-        internal ImmutableArray<RefKind> ParameterRefKinds
+        public ImmutableArray<RefKind> ParameterRefKinds
         {
             get
             {
@@ -819,7 +819,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract Microsoft.Cci.CallingConvention CallingConvention
+        public abstract Microsoft.Cci.CallingConvention CallingConvention
         {
             get;
         }
@@ -829,14 +829,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If this is not a generic method instantiation, returns null.
         /// The map targets the original definition of the method.
         /// </summary>
-        internal virtual TypeMap TypeSubstitution
+        public virtual TypeMap TypeSubstitution
         {
             get { return null; }
         }
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (this.IsDefinition)
             {
@@ -848,7 +848,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.OriginalDefinition.GetUseSiteDiagnostic();
         }
 
-        internal bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
+        public bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
         {
             Debug.Assert(this.IsDefinition);
 
@@ -900,7 +900,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #endregion
 
-        internal bool IsIterator
+        public bool IsIterator
         {
             get
             {
@@ -912,7 +912,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If the method was written as an iterator method (i.e. with yield statements in its body) returns the
         /// element type of the iterator.  Otherwise returns null.
         /// </summary>
-        internal virtual TypeSymbol IteratorElementType
+        public virtual TypeSymbol IteratorElementType
         {
             get { return null; }
             set { throw ExceptionUtilities.Unreachable; }
@@ -923,7 +923,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// a collection of method bodies of the current module. This method is supposed to only be 
         /// called for method symbols which return SynthesizesLoweredBoundBody == true.
         /// </summary>
-        internal virtual void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public virtual void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             throw ExceptionUtilities.Unreachable;
         }
@@ -931,7 +931,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true for synthesized symbols which generate synthesized body in lowered form
         /// </summary>
-        internal virtual bool SynthesizesLoweredBoundBody
+        public virtual bool SynthesizesLoweredBoundBody
         {
             get
             {
@@ -942,7 +942,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Return true iff the method contains user code.
         /// </summary>
-        internal abstract bool GenerateDebugInfo { get; }
+        public abstract bool GenerateDebugInfo { get; }
 
         /// <summary>
         /// Calculates a syntax offset for a local (user-defined or long-lived synthesized) declared at <paramref name="localPosition"/>.
@@ -956,7 +956,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// as if all source these parts were concatenated together and prepended to the constructor body.
         /// The resulting syntax offset is then negative for locals defined outside of the constructor body.
         /// </remarks>
-        internal abstract int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree);
+        public abstract int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree);
 
         #region IMethodSymbol Members
 
@@ -1140,7 +1140,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Build and add synthesized return type attributes for this method symbol.
         /// </summary>
-        internal virtual void AddSynthesizedReturnTypeAttributes(ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public virtual void AddSynthesizedReturnTypeAttributes(ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
         }
 

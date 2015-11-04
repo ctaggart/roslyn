@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.CSharp
 {
     // Note: this code has a copy-and-paste sibling in AbstractRegionDataFlowPass.
     // Any fix to one should be applied to the other.
-    internal class AbstractRegionDataFlowPass : DataFlowPass
+    public class AbstractRegionDataFlowPass : DataFlowPass
     {
-        internal AbstractRegionDataFlowPass(
+        public AbstractRegionDataFlowPass(
             CSharpCompilation compilation,
             Symbol member,
             BoundNode node,

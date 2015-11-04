@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class ParameterSymbol :
+    public partial class ParameterSymbol :
         Cci.IParameterTypeInformation,
         Cci.IParameterDefinition
     {
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.GetMetadataConstantValue(context);
         }
 
-        internal Cci.IMetadataConstant GetMetadataConstantValue(EmitContext context)
+        public Cci.IMetadataConstant GetMetadataConstantValue(EmitContext context)
         {
             if (!HasMetadataConstantValue)
             {
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                                                            diagnostics: context.Diagnostics);
         }
 
-        internal virtual bool HasMetadataConstantValue
+        public virtual bool HasMetadataConstantValue
         {
             get
             {
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsMarshalledExplicitly
+        public virtual bool IsMarshalledExplicitly
         {
             get
             {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual ImmutableArray<byte> MarshallingDescriptor
+        public virtual ImmutableArray<byte> MarshallingDescriptor
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
     [Flags]
-    internal enum LexerMode
+    public enum LexerMode
     {
         Syntax = 0x0001,
         DebuggerSyntax = 0x0002,
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     }
 
     // Needs to match LexMode.XmlDocCommentLocation*
-    internal enum XmlDocCommentLocation
+    public enum XmlDocCommentLocation
     {
         Start = 0,
         Interior = 1,
@@ -57,13 +57,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     }
 
     // Needs to match LexMode.XmlDocCommentStyle*
-    internal enum XmlDocCommentStyle
+    public enum XmlDocCommentStyle
     {
         SingleLine = 0,
         Delimited = 1
     }
 
-    internal partial class Lexer : AbstractLexer
+    public partial class Lexer : AbstractLexer
     {
         private const int TriviaListInitialCapacity = 8;
 
@@ -79,25 +79,25 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         private DocumentationCommentParser _xmlParser;
         private int _badTokenCount; // cumulative count of bad tokens produced
 
-        internal struct TokenInfo
+        public struct TokenInfo
         {
             // scanned values
-            internal SyntaxKind Kind;
-            internal SyntaxKind ContextualKind;
-            internal string Text;
-            internal SpecialType ValueKind;
-            internal bool RequiresTextForXmlEntity;
-            internal bool HasIdentifierEscapeSequence;
-            internal string StringValue;
-            internal char CharValue;
-            internal int IntValue;
-            internal uint UintValue;
-            internal long LongValue;
-            internal ulong UlongValue;
-            internal float FloatValue;
-            internal double DoubleValue;
-            internal decimal DecimalValue;
-            internal bool IsVerbatim;
+            public SyntaxKind Kind;
+            public SyntaxKind ContextualKind;
+            public string Text;
+            public SpecialType ValueKind;
+            public bool RequiresTextForXmlEntity;
+            public bool HasIdentifierEscapeSequence;
+            public string StringValue;
+            public char CharValue;
+            public int IntValue;
+            public uint UintValue;
+            public long LongValue;
+            public ulong UlongValue;
+            public float FloatValue;
+            public double DoubleValue;
+            public decimal DecimalValue;
+            public bool IsVerbatim;
         }
 
         public Lexer(SourceText text, CSharpParseOptions options, bool allowPreprocessorDirectives = true)
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         }
 
 #if DEBUG
-        internal static int TokensLexed;
+        public static int TokensLexed;
 #endif
 
         public SyntaxToken Lex(LexerMode mode)
@@ -299,14 +299,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return Create(ref tokenInfo, leading, trailing, errors);
         }
 
-        internal SyntaxTriviaList LexSyntaxLeadingTrivia()
+        public SyntaxTriviaList LexSyntaxLeadingTrivia()
         {
             _leadingTriviaCache.Clear();
             this.LexSyntaxTrivia(afterFirstToken: TextWindow.Position > 0, isTrailing: false, triviaList: ref _leadingTriviaCache);
             return new SyntaxTriviaList(default(Microsoft.CodeAnalysis.SyntaxToken), SyntaxList.List(_leadingTriviaCache), 0, 0);
         }
 
-        internal SyntaxTriviaList LexSyntaxTrailingTrivia()
+        public SyntaxTriviaList LexSyntaxTrailingTrivia()
         {
             _trailingTriviaCache.Clear();
             this.LexSyntaxTrivia(afterFirstToken: true, isTrailing: true, triviaList: ref _trailingTriviaCache);

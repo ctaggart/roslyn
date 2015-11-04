@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal class SyntaxListBuilder
+    public class SyntaxListBuilder
     {
         private ArrayElement<CSharpSyntaxNode>[] _nodes;
         public int Count { get; private set; }
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             this.AddRange(new SyntaxList<CSharpSyntaxNode>(list.Node), offset, length);
         }
 
-        internal void RemoveLast()
+        public void RemoveLast()
         {
             Count--;
             _nodes[Count].Value = null;
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return array;
         }
 
-        internal CSharpSyntaxNode ToListNode()
+        public CSharpSyntaxNode ToListNode()
         {
             switch (this.Count)
             {

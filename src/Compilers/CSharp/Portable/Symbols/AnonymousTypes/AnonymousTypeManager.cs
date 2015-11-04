@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Manages anonymous types created in owning compilation. All requests for 
     /// anonymous type symbols go via the instance of this class.
     /// </summary>
-    internal sealed partial class AnonymousTypeManager : CommonAnonymousTypeManager
+    public sealed partial class AnonymousTypeManager : CommonAnonymousTypeManager
     {
-        internal AnonymousTypeManager(CSharpCompilation compilation)
+        public AnonymousTypeManager(CSharpCompilation compilation)
         {
             Debug.Assert(compilation != null);
             this.Compilation = compilation;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get a symbol of constructed anonymous type property by property index
         /// </summary>
-        internal static PropertySymbol GetAnonymousTypeProperty(NamedTypeSymbol type, int index)
+        public static PropertySymbol GetAnonymousTypeProperty(NamedTypeSymbol type, int index)
         {
             Debug.Assert((object)type != null);
             Debug.Assert(type.IsAnonymousType);
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Retrieves anonymous type properties types
         /// </summary>
-        internal static ImmutableArray<TypeSymbol> GetAnonymousTypePropertyTypes(NamedTypeSymbol type)
+        public static ImmutableArray<TypeSymbol> GetAnonymousTypePropertyTypes(NamedTypeSymbol type)
         {
             Debug.Assert(type.IsAnonymousType);
             var anonymous = (AnonymousTypePublicSymbol)type;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Logical equality on anonymous types that ignores custom modifiers and/or the object/dynamic distinction.
         /// Differs from IsSameType for arrays, pointers, and generic instantiations.
         /// </summary>
-        internal static bool IsSameType(TypeSymbol type1, TypeSymbol type2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public static bool IsSameType(TypeSymbol type1, TypeSymbol type2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             Debug.Assert(type1.IsAnonymousType);
             Debug.Assert(type2.IsAnonymousType);

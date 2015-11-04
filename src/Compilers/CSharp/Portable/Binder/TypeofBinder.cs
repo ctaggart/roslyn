@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// should be considered open so that the flag can be set 
     /// appropriately in BoundTypeOfOperator.
     /// </summary>
-    internal sealed class TypeofBinder : Binder
+    public sealed class TypeofBinder : Binder
     {
         private readonly Dictionary<GenericNameSyntax, bool> _allowedMap;
         private readonly bool _isTypeExpressionOpen;
 
-        internal TypeofBinder(ExpressionSyntax typeExpression, Binder next)
+        public TypeofBinder(ExpressionSyntax typeExpression, Binder next)
             // Unsafe types are not unsafe in typeof, so it is effectively an unsafe region.
             // Since we only depend on existence of nameable members and nameof(x) produces a constant
             // string expression usable in an early attribute, we use early attribute binding.
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             OpenTypeVisitor.Visit(typeExpression, out _allowedMap, out _isTypeExpressionOpen);
         }
 
-        internal bool IsTypeExpressionOpen { get { return _isTypeExpressionOpen; } }
+        public bool IsTypeExpressionOpen { get { return _isTypeExpressionOpen; } }
 
         protected override bool IsUnboundTypeAllowed(GenericNameSyntax syntax)
         {

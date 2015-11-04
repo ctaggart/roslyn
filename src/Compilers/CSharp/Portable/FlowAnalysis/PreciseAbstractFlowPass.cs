@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract partial class PreciseAbstractFlowPass<LocalState> : BoundTreeVisitor
+    public abstract partial class PreciseAbstractFlowPass<LocalState> : BoundTreeVisitor
         where LocalState : AbstractFlowPass<LocalState>.AbstractLocalState
     {
         protected int _recursionDepth;
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// this is false). Since the analysis proceeds by monotonically changing the state computed
         /// at each label, this must terminate.
         /// </summary>
-        internal bool backwardBranchChanged;
+        public bool backwardBranchChanged;
 
         /// <summary>
         /// See property PendingBranches
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// we relay it up to the enclosing construct as a pending branch of the enclosing
         /// construct.
         /// </summary>
-        internal class PendingBranch
+        public class PendingBranch
         {
             public readonly BoundNode Branch;
             public LocalState State;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     //deferral can result in meaningful savings of strings.
     public abstract partial class CSharpSyntaxNode : SyntaxNode, IMessageSerializable
     {
-        internal CSharpSyntaxNode(GreenNode green, SyntaxNode parent, int position)
+        public CSharpSyntaxNode(GreenNode green, SyntaxNode parent, int position)
             : base(green, parent, position)
         {
         }
@@ -32,12 +32,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Used by structured trivia which has "parent == null", and therefore must know its
         /// SyntaxTree explicitly when created.
         /// </summary>
-        internal CSharpSyntaxNode(GreenNode green, int position, SyntaxTree syntaxTree)
+        public CSharpSyntaxNode(GreenNode green, int position, SyntaxTree syntaxTree)
             : base(green, position, syntaxTree)
         {
         }
 
-        internal override AbstractSyntaxNavigator Navigator
+        public override AbstractSyntaxNavigator Navigator
         {
             get
             {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Creates a clone of a red node that can be used as a root of given syntaxTree.
         /// New node has no parents, position == 0, and syntaxTree as specified.
         /// </summary>
-        internal static T CloneNodeAsRoot<T>(T node, SyntaxTree syntaxTree) where T : SyntaxNode
+        public static T CloneNodeAsRoot<T>(T node, SyntaxTree syntaxTree) where T : SyntaxNode
         {
             var clone = (T)node.Green.CreateRed(null, 0);
             clone._syntaxTree = syntaxTree;
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Otherwise, if this node has a non-null parent, then returns the parent's <see cref="SyntaxTree"/>.
         /// Otherwise, returns a newly created <see cref="SyntaxTree"/> rooted at this node, preserving this node's reference identity.
         /// </summary>
-        internal new SyntaxTree SyntaxTree
+        public new SyntaxTree SyntaxTree
         {
             get
             {
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The node that contains this node in its Children collection.
         /// </summary>
-        internal new CSharpSyntaxNode Parent
+        public new CSharpSyntaxNode Parent
         {
             get
             {
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal new CSharpSyntaxNode ParentOrStructuredTriviaParent
+        public new CSharpSyntaxNode ParentOrStructuredTriviaParent
         {
             get
             {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // TODO: may be eventually not needed
-        internal Syntax.InternalSyntax.CSharpSyntaxNode CsGreen
+        public Syntax.InternalSyntax.CSharpSyntaxNode CsGreen
         {
             get { return (Syntax.InternalSyntax.CSharpSyntaxNode)this.Green; }
         }
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return LanguageNames.CSharp; }
         }
 
-        internal bool HasErrors
+        public bool HasErrors
         {
             get
             {
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return lastToken.TrailingTrivia;
         }
 
-        internal Location Location
+        public Location Location
         {
             get
             {
@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Determines whether this node is structurally equivalent to another.
         /// </summary>
-        internal bool IsEquivalentTo(CSharpSyntaxNode other)
+        public bool IsEquivalentTo(CSharpSyntaxNode other)
         {
             if (this == other)
             {
@@ -426,7 +426,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// regain access to a syntax node without keeping the entire tree and source text in
         /// memory.
         /// </summary>
-        internal new SyntaxReference GetReference()
+        public new SyntaxReference GetReference()
         {
             return this.SyntaxTree.GetReference(this);
         }
@@ -441,19 +441,19 @@ namespace Microsoft.CodeAnalysis.CSharp
             return this.SyntaxTree.GetDiagnostics(this);
         }
 
-        internal sealed override SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode body)
+        public sealed override SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode body)
         {
             return LambdaUtilities.TryGetCorrespondingLambdaBody(body, this);
         }
 
-        internal override SyntaxNode GetLambda()
+        public override SyntaxNode GetLambda()
         {
             return LambdaUtilities.GetLambda(this);
         }
 
         #region Directives
 
-        internal IList<DirectiveTriviaSyntax> GetDirectives(Func<DirectiveTriviaSyntax, bool> filter = null)
+        public IList<DirectiveTriviaSyntax> GetDirectives(Func<DirectiveTriviaSyntax, bool> filter = null)
         {
             return ((SyntaxNodeOrToken)this).GetDirectives<DirectiveTriviaSyntax>(filter);
         }
@@ -585,7 +585,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="stepInto">Steps into trivia if this is not null.  Only trivia for which this delegate returns
         /// true are included.</param> 
         /// <returns></returns>
-        internal SyntaxToken GetFirstToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
+        public SyntaxToken GetFirstToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
         {
             return SyntaxNavigator.Instance.GetFirstToken(this, predicate, stepInto);
         }
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.GetLastToken(includeZeroWidth, includeSkipped, includeDirectives, includeDocumentationComments);
         }
 
-        internal SyntaxToken FindTokenInternal(int position)
+        public SyntaxToken FindTokenInternal(int position)
         {
             // While maintaining invariant   curNode.Position <= position < curNode.FullSpan.End
             // go down the tree until a token is found
@@ -730,7 +730,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// 
         ///  3) Otherwise an ArgumentOutOfRangeException is thrown
         /// </summary>
-        internal SyntaxToken FindTokenIncludingCrefAndNameAttributes(int position)
+        public SyntaxToken FindTokenIncludingCrefAndNameAttributes(int position)
         {
             SyntaxToken nonTriviaToken = this.FindToken(position, findInsideTrivia: false);
 
@@ -764,7 +764,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return nonTriviaToken;
         }
 
-        internal static SyntaxTrivia GetTriviaThatContainsPosition(SyntaxTriviaList list, int position)
+        public static SyntaxTrivia GetTriviaThatContainsPosition(SyntaxTriviaList list, int position)
         {
             foreach (var trivia in list)
             {
@@ -816,7 +816,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return FindTrivia(position, findInsideTrivia ? SyntaxTrivia.Any : null);
         }
 
-        internal static SyntaxTrivia FindTriviaByOffset(SyntaxNode node, int textOffset, Func<SyntaxTrivia, bool> stepInto = null)
+        public static SyntaxTrivia FindTriviaByOffset(SyntaxNode node, int textOffset, Func<SyntaxTrivia, bool> stepInto = null)
         {
             if (textOffset >= 0)
             {
@@ -917,7 +917,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return FindTrivia(position, findInsideTrivia);
         }
 
-        protected internal override SyntaxNode ReplaceCore<TNode>(
+        public override SyntaxNode ReplaceCore<TNode>(
             IEnumerable<TNode> nodes = null,
             Func<TNode, TNode, SyntaxNode> computeReplacementNode = null,
             IEnumerable<SyntaxToken> tokens = null,
@@ -928,42 +928,42 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SyntaxReplacer.Replace(this, nodes, computeReplacementNode, tokens, computeReplacementToken, trivia, computeReplacementTrivia);
         }
 
-        protected internal override SyntaxNode ReplaceNodeInListCore(SyntaxNode originalNode, IEnumerable<SyntaxNode> replacementNodes)
+        public override SyntaxNode ReplaceNodeInListCore(SyntaxNode originalNode, IEnumerable<SyntaxNode> replacementNodes)
         {
             return SyntaxReplacer.ReplaceNodeInList(this, originalNode, replacementNodes);
         }
 
-        protected internal override SyntaxNode InsertNodesInListCore(SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore)
+        public override SyntaxNode InsertNodesInListCore(SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore)
         {
             return SyntaxReplacer.InsertNodeInList(this, nodeInList, nodesToInsert, insertBefore);
         }
 
-        protected internal override SyntaxNode ReplaceTokenInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens)
+        public override SyntaxNode ReplaceTokenInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens)
         {
             return SyntaxReplacer.ReplaceTokenInList(this, originalToken, newTokens);
         }
 
-        protected internal override SyntaxNode InsertTokensInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens, bool insertBefore)
+        public override SyntaxNode InsertTokensInListCore(SyntaxToken originalToken, IEnumerable<SyntaxToken> newTokens, bool insertBefore)
         {
             return SyntaxReplacer.InsertTokenInList(this, originalToken, newTokens, insertBefore);
         }
 
-        protected internal override SyntaxNode ReplaceTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia)
+        public override SyntaxNode ReplaceTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia)
         {
             return SyntaxReplacer.ReplaceTriviaInList(this, originalTrivia, newTrivia);
         }
 
-        protected internal override SyntaxNode InsertTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia, bool insertBefore)
+        public override SyntaxNode InsertTriviaInListCore(SyntaxTrivia originalTrivia, IEnumerable<SyntaxTrivia> newTrivia, bool insertBefore)
         {
             return SyntaxReplacer.InsertTriviaInList(this, originalTrivia, newTrivia, insertBefore);
         }
 
-        protected internal override SyntaxNode RemoveNodesCore(IEnumerable<SyntaxNode> nodes, SyntaxRemoveOptions options)
+        public override SyntaxNode RemoveNodesCore(IEnumerable<SyntaxNode> nodes, SyntaxRemoveOptions options)
         {
             return SyntaxNodeRemover.RemoveNodes(this, nodes.Cast<CSharpSyntaxNode>(), options);
         }
 
-        protected internal override SyntaxNode NormalizeWhitespaceCore(string indentation, string eol, bool elasticTrivia)
+        public override SyntaxNode NormalizeWhitespaceCore(string indentation, string eol, bool elasticTrivia)
         {
             return SyntaxNormalizer.Normalize(this, indentation, eol, elasticTrivia);
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Gets the expression-body syntax from an expression-bodied member. The
         /// given syntax must be for a member which could contain an expression-body.
         /// </summary>
-        internal static ArrowExpressionClauseSyntax GetExpressionBodySyntax(this CSharpSyntaxNode node)
+        public static ArrowExpressionClauseSyntax GetExpressionBodySyntax(this CSharpSyntaxNode node)
         {
             ArrowExpressionClauseSyntax arrowExpr = null;
             switch (node.Kind())
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SyntaxFactory.TriviaList(sequence);
         }
 
-        internal static XmlNameAttributeElementKind GetElementKind(this XmlNameAttributeSyntax attributeSyntax)
+        public static XmlNameAttributeElementKind GetElementKind(this XmlNameAttributeSyntax attributeSyntax)
         {
             CSharpSyntaxNode parentSyntax = attributeSyntax.Parent;
             SyntaxKind parentKind = parentSyntax.Kind();
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static bool ReportDocumentationCommentDiagnostics(this SyntaxTree tree)
+        public static bool ReportDocumentationCommentDiagnostics(this SyntaxTree tree)
         {
             return tree.Options.DocumentationMode >= DocumentationMode.Diagnose;
         }
@@ -180,13 +180,13 @@ namespace Microsoft.CodeAnalysis.CSharp
                 : (SimpleNameSyntax)((GenericNameSyntax)simpleName).WithIdentifier(identifier);
         }
 
-        internal static bool IsTypeInContextWhichNeedsDynamicAttribute(this IdentifierNameSyntax typeNode)
+        public static bool IsTypeInContextWhichNeedsDynamicAttribute(this IdentifierNameSyntax typeNode)
         {
             Debug.Assert(typeNode != null);
             return SyntaxFacts.IsInTypeOnlyContext(typeNode) && IsInContextWhichNeedsDynamicAttribute(typeNode);
         }
 
-        internal static CSharpSyntaxNode SkipParens(this CSharpSyntaxNode expression)
+        public static CSharpSyntaxNode SkipParens(this CSharpSyntaxNode expression)
         {
             while (expression != null && expression.Kind() == SyntaxKind.ParenthesizedExpression)
             {

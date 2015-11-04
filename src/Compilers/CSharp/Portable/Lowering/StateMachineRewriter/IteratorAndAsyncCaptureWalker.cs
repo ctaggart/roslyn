@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// "this" parameter is captured if a reference to "this", "base" or an instance field is encountered.
     /// Variables used in finally also need to be captured if there is a yield in the corresponding try block.
     /// </remarks>
-    internal sealed class IteratorAndAsyncCaptureWalker : DataFlowPass
+    public sealed class IteratorAndAsyncCaptureWalker : DataFlowPass
     {
         // In Release builds we hoist only variables (locals and parameters) that are captured. 
         // This set will contain such variables after the bound tree is visited.

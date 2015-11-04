@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +14,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A region analysis walker that records jumps into the region.  Works by overriding NoteBranch, which is
     /// invoked by a superclass when the two endpoints of a jump have been identified.
     /// </summary>
-    internal class EntryPointsWalker : AbstractRegionControlFlowPass
+    public class EntryPointsWalker : AbstractRegionControlFlowPass
     {
-        internal static IEnumerable<LabeledStatementSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion, out bool? succeeded)
+        public static IEnumerable<LabeledStatementSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion, out bool? succeeded)
         {
             var walker = new EntryPointsWalker(compilation, member, node, firstInRegion, lastInRegion);
             bool badRegion = false;

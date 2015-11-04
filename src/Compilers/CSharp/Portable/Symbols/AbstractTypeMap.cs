@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Abstract base class for mutable and immutable type maps.
     /// </summary>
-    internal abstract class AbstractTypeMap
+    public abstract class AbstractTypeMap
     {
         /// <summary>
         /// Substitute for a type declaration.  May use alpha renaming if the container is substituted.
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// SubstType, but for NamedTypeSymbols only.  This is used for concrete types, so no alpha substitution appears in the result.
         /// </summary>
-        internal NamedTypeSymbol SubstituteNamedType(NamedTypeSymbol previous)
+        public NamedTypeSymbol SubstituteNamedType(NamedTypeSymbol previous)
         {
             if (ReferenceEquals(previous, null))
                 return null;
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <param name="previous">The type to be rewritten.</param>
         /// <returns>The type with type parameters replaced with the type arguments.</returns>
-        internal TypeWithModifiers SubstituteType(TypeSymbol previous)
+        public TypeWithModifiers SubstituteType(TypeSymbol previous)
         {
             if (ReferenceEquals(previous, null))
                 return default(TypeWithModifiers);
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal ImmutableArray<CustomModifier> SubstituteCustomModifiers(TypeSymbol type, ImmutableArray<CustomModifier> customModifiers)
+        public ImmutableArray<CustomModifier> SubstituteCustomModifiers(TypeSymbol type, ImmutableArray<CustomModifier> customModifiers)
         {
             if (IsPossiblyByRefTypeParameter(type))
             {
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return SubstituteCustomModifiers(customModifiers);
         }
 
-        internal ImmutableArray<CustomModifier> SubstituteCustomModifiers(ImmutableArray<CustomModifier> customModifiers)
+        public ImmutableArray<CustomModifier> SubstituteCustomModifiers(ImmutableArray<CustomModifier> customModifiers)
         {
             if (customModifiers.IsDefaultOrEmpty)
             {
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new PointerTypeSymbol(pointedAtType.Type, pointedAtType.CustomModifiers);
         }
 
-        internal ImmutableArray<TypeSymbol> SubstituteTypesWithoutModifiers(ImmutableArray<TypeSymbol> original)
+        public ImmutableArray<TypeSymbol> SubstituteTypesWithoutModifiers(ImmutableArray<TypeSymbol> original)
         {
             if (original.IsDefault)
             {
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result != null ? result.AsImmutableOrNull() : original;
         }
 
-        internal ImmutableArray<TypeWithModifiers> SubstituteTypes(ImmutableArray<TypeSymbol> original)
+        public ImmutableArray<TypeWithModifiers> SubstituteTypes(ImmutableArray<TypeSymbol> original)
         {
             if (original.IsDefault)
             {
@@ -311,7 +311,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Substitute types, and return the results without duplicates, preserving the original order.
         /// </summary>
-        internal void SubstituteTypesDistinctWithoutModifiers(ImmutableArray<TypeSymbol> original, ArrayBuilder<TypeSymbol> result)
+        public void SubstituteTypesDistinctWithoutModifiers(ImmutableArray<TypeSymbol> original, ArrayBuilder<TypeSymbol> result)
         {
             if (original.Length == 0)
             {
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<TypeParameterSymbol> SubstituteTypeParameters(ImmutableArray<TypeParameterSymbol> original)
+        public ImmutableArray<TypeParameterSymbol> SubstituteTypeParameters(ImmutableArray<TypeParameterSymbol> original)
         {
             return original.SelectAsArray((tp, m) => (TypeParameterSymbol)m.SubstituteTypeParameter(tp).AsTypeSymbolOnly(), this);
         }
@@ -343,7 +343,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Like SubstTypes, but for NamedTypeSymbols.
         /// </summary>
-        internal ImmutableArray<NamedTypeSymbol> SubstituteNamedTypes(ImmutableArray<NamedTypeSymbol> original)
+        public ImmutableArray<NamedTypeSymbol> SubstituteNamedTypes(ImmutableArray<NamedTypeSymbol> original)
         {
             NamedTypeSymbol[] result = null;
 

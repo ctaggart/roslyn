@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal static class SyntaxReplacer
+    public static class SyntaxReplacer
     {
-        internal static SyntaxNode Replace<TNode>(
+        public static SyntaxNode Replace<TNode>(
             SyntaxNode root,
             IEnumerable<TNode> nodes = null,
             Func<TNode, TNode, SyntaxNode> computeReplacementNode = null,
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             }
         }
 
-        internal static SyntaxToken Replace(
+        public static SyntaxToken Replace(
             SyntaxToken root,
             IEnumerable<SyntaxNode> nodes = null,
             Func<SyntaxNode, SyntaxNode, SyntaxNode> computeReplacementNode = null,
@@ -229,12 +229,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             }
         }
 
-        internal static SyntaxNode ReplaceNodeInList(SyntaxNode root, SyntaxNode originalNode, IEnumerable<SyntaxNode> newNodes)
+        public static SyntaxNode ReplaceNodeInList(SyntaxNode root, SyntaxNode originalNode, IEnumerable<SyntaxNode> newNodes)
         {
             return new NodeListEditor(originalNode, newNodes, ListEditKind.Replace).Visit(root);
         }
 
-        internal static SyntaxNode InsertNodeInList(SyntaxNode root, SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore)
+        public static SyntaxNode InsertNodeInList(SyntaxNode root, SyntaxNode nodeInList, IEnumerable<SyntaxNode> nodesToInsert, bool insertBefore)
         {
             return new NodeListEditor(nodeInList, nodesToInsert, insertBefore ? ListEditKind.InsertBefore : ListEditKind.InsertAfter).Visit(root);
         }

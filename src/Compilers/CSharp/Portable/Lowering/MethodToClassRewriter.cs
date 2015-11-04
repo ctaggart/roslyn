@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// a bound node rewriter that rewrites types properly (which in some cases the automatically-generated
     /// base class does not).  This is used in the lambda rewriter, the iterator rewriter, and the async rewriter.
     /// </summary>
-    internal abstract partial class MethodToClassRewriter : BoundTreeRewriterWithStackGuard
+    public abstract partial class MethodToClassRewriter : BoundTreeRewriterWithStackGuard
     {
         // For each captured variable, information about its replacement.  May be populated lazily (that is, not all
         // upfront) by subclasses.  Specifically, the async rewriter produces captured symbols for temps, including
@@ -653,7 +653,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         private sealed partial class BaseMethodWrapperSymbol : SynthesizedMethodBaseSymbol
         {
-            internal BaseMethodWrapperSymbol(NamedTypeSymbol containingType, MethodSymbol methodBeingWrapped, CSharpSyntaxNode syntax, string name)
+            public BaseMethodWrapperSymbol(NamedTypeSymbol containingType, MethodSymbol methodBeingWrapped, CSharpSyntaxNode syntax, string name)
                 : base(containingType, methodBeingWrapped, syntax.SyntaxTree.GetReference(syntax), null, syntax.GetLocation(), name, DeclarationModifiers.Private)
             {
                 Debug.Assert(containingType.ContainingModule is SourceModuleSymbol);
@@ -678,7 +678,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 AssignTypeMapAndTypeParameters(typeMap, typeParameters);
             }
 
-            internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+            public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
             {
                 base.AddSynthesizedAttributes(compilationState, ref attributes);
 

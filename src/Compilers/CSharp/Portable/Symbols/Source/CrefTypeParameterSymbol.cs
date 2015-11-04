@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// 
     /// This class represents such an implicitly declared type parameter.  The declaring syntax is expected to be
     /// an IdentifierNameSyntax in the type argument list of a QualifiedNameSyntax.
-    internal sealed class CrefTypeParameterSymbol : TypeParameterSymbol
+    public sealed class CrefTypeParameterSymbol : TypeParameterSymbol
     {
         private readonly string _name;
         private readonly int _ordinal;
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _ordinal; }
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             if (ReferenceEquals(this, t2))
             {
@@ -155,27 +155,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void EnsureAllConstraintsAreResolved()
+        public override void EnsureAllConstraintsAreResolved()
         {
         }
 
-        internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
         {
             return ImmutableArray<TypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+        public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
         {
             // Constraints are not checked in crefs, so this should never be examined.
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+        public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
         {
             // Constraints are not checked in crefs, so this should never be examined.
             throw ExceptionUtilities.Unreachable;

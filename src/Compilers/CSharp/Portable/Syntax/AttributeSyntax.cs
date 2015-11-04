@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -15,13 +15,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
         /// name without the "Attribute" suffix. (For certain diagnostics, the native
         /// compiler uses the attribute name from syntax rather than the class name.)
         /// </summary>
-        internal string GetErrorDisplayName()
+        public string GetErrorDisplayName()
         {
             // Dev10 uses the name from source, even if it's an alias.
             return Name.ToString();
         }
 
-        internal AttributeArgumentSyntax GetNamedArgumentSyntax(string namedArgName)
+        public AttributeArgumentSyntax GetNamedArgumentSyntax(string namedArgName)
         {
             Debug.Assert(!String.IsNullOrEmpty(namedArgName));
 

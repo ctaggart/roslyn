@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -10,17 +10,17 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class ThisParameterSymbol : ParameterSymbol
+    public sealed class ThisParameterSymbol : ParameterSymbol
     {
-        internal const string SymbolName = "this";
+        public const string SymbolName = "this";
 
         private readonly MethodSymbol _containingMethod;
         private readonly TypeSymbol _containingType;
 
-        internal ThisParameterSymbol(MethodSymbol forMethod) : this(forMethod, forMethod.ContainingType)
+        public ThisParameterSymbol(MethodSymbol forMethod) : this(forMethod, forMethod.ContainingType)
         {
         }
-        internal ThisParameterSymbol(MethodSymbol forMethod, TypeSymbol containingType)
+        public ThisParameterSymbol(MethodSymbol forMethod, TypeSymbol containingType)
         {
             _containingMethod = forMethod;
             _containingType = containingType;
@@ -62,12 +62,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return (Symbol)_containingMethod ?? _containingType; }
         }
 
-        internal override ConstantValue ExplicitDefaultConstantValue
+        public override ConstantValue ExplicitDefaultConstantValue
         {
             get { return null; }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get { return false; }
         }
@@ -77,27 +77,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get { return false; }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get { return false; }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get { return false; }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get { return false; }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get { return false; }
         }
@@ -124,22 +124,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override bool IsMetadataIn
+        public override bool IsMetadataIn
         {
             get { return false; }
         }
 
-        internal override bool IsMetadataOut
+        public override bool IsMetadataOut
         {
             get { return false; }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get { return null; }
         }
 
-        internal sealed override ushort CountOfCustomModifiersPrecedingByRef
+        public sealed override ushort CountOfCustomModifiersPrecedingByRef
         {
             get { return 0; }
         }

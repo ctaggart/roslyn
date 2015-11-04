@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// and that type's lifetime is that of the compilation. Therefore we do not store
     /// binders local to method bodies in that type's cache. 
     /// </summary>
-    internal sealed class LocalBinderFactory : CSharpSyntaxVisitor
+    public sealed class LocalBinderFactory : CSharpSyntaxVisitor
     {
         private readonly SmallDictionary<CSharpSyntaxNode, Binder> _map;
         private bool _sawYield;

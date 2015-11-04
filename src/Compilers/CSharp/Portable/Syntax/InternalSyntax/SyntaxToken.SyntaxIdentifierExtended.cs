@@ -1,44 +1,44 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxToken
+    public partial class SyntaxToken
     {
-        internal class SyntaxIdentifierExtended : SyntaxIdentifier
+        public class SyntaxIdentifierExtended : SyntaxIdentifier
         {
             protected readonly SyntaxKind contextualKind;
             protected readonly string valueText;
 
-            internal SyntaxIdentifierExtended(SyntaxKind contextualKind, string text, string valueText)
+            public SyntaxIdentifierExtended(SyntaxKind contextualKind, string text, string valueText)
                 : base(text)
             {
                 this.contextualKind = contextualKind;
                 this.valueText = valueText;
             }
 
-            internal SyntaxIdentifierExtended(SyntaxKind contextualKind, string text, string valueText, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
+            public SyntaxIdentifierExtended(SyntaxKind contextualKind, string text, string valueText, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
                 : base(text, diagnostics, annotations)
             {
                 this.contextualKind = contextualKind;
                 this.valueText = valueText;
             }
 
-            internal SyntaxIdentifierExtended(ObjectReader reader)
+            public SyntaxIdentifierExtended(ObjectReader reader)
                 : base(reader)
             {
                 this.contextualKind = (SyntaxKind)reader.ReadInt16();
                 this.valueText = reader.ReadString();
             }
 
-            internal override Func<ObjectReader, object> GetReader()
+            public override Func<ObjectReader, object> GetReader()
             {
                 return r => new SyntaxIdentifierExtended(r);
             }
 
-            internal override void WriteTo(ObjectWriter writer)
+            public override void WriteTo(ObjectWriter writer)
             {
                 base.WriteTo(writer);
                 writer.WriteInt16((short)this.contextualKind);
@@ -60,22 +60,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 get { return this.valueText; }
             }
 
-            internal override SyntaxToken WithLeadingTrivia(CSharpSyntaxNode trivia)
+            public override SyntaxToken WithLeadingTrivia(CSharpSyntaxNode trivia)
             {
                 return new SyntaxIdentifierWithTrivia(this.contextualKind, this.TextField, this.valueText, trivia, null, this.GetDiagnostics(), this.GetAnnotations());
             }
 
-            internal override SyntaxToken WithTrailingTrivia(CSharpSyntaxNode trivia)
+            public override SyntaxToken WithTrailingTrivia(CSharpSyntaxNode trivia)
             {
                 return new SyntaxIdentifierWithTrivia(this.contextualKind, this.TextField, this.valueText, null, trivia, this.GetDiagnostics(), this.GetAnnotations());
             }
 
-            internal override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
+            public override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
             {
                 return new SyntaxIdentifierExtended(this.contextualKind, this.TextField, this.valueText, diagnostics, this.GetAnnotations());
             }
 
-            internal override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
+            public override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
             {
                 return new SyntaxIdentifierExtended(this.contextualKind, this.TextField, this.valueText, this.GetDiagnostics(), annotations);
             }

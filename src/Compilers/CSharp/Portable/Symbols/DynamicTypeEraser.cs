@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Substitutes all occurrences of dynamic type with Object type.
     /// </summary>
-    internal sealed class DynamicTypeEraser : AbstractTypeMap
+    public sealed class DynamicTypeEraser : AbstractTypeMap
     {
         private readonly TypeSymbol _objectType;
 

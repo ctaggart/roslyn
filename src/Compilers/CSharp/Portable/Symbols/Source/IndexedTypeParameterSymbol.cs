@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// 
     /// They do not have constraints, variance, or attributes. 
     /// </summary>
-    internal sealed class IndexedTypeParameterSymbol : TypeParameterSymbol
+    public sealed class IndexedTypeParameterSymbol : TypeParameterSymbol
     {
         private static TypeParameterSymbol[] s_parameterPool = SpecializedCollections.EmptyArray<TypeParameterSymbol>();
 
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static TypeParameterSymbol GetTypeParameter(int index)
+        public static TypeParameterSymbol GetTypeParameter(int index)
         {
             if (index >= s_parameterPool.Length)
             {
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        internal static ImmutableArray<TypeParameterSymbol> Take(int count)
+        public static ImmutableArray<TypeParameterSymbol> Take(int count)
         {
             if (count > s_parameterPool.Length)
             {
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // These object are unique (per index).
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             return ReferenceEquals(this, t2);
         }
@@ -153,26 +153,26 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void EnsureAllConstraintsAreResolved()
+        public override void EnsureAllConstraintsAreResolved()
         {
         }
 
-        internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
         {
             return ImmutableArray<TypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+        public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
         {
             return null;
         }
 
-        internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+        public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
         {
             return null;
         }

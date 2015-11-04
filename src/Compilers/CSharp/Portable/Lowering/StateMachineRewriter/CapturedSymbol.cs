@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract class CapturedSymbolReplacement
+    public abstract class CapturedSymbolReplacement
     {
         public readonly bool IsReusable;
 
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public abstract BoundExpression Replacement(CSharpSyntaxNode node, Func<NamedTypeSymbol, BoundExpression> makeFrame);
     }
 
-    internal sealed class CapturedToFrameSymbolReplacement : CapturedSymbolReplacement
+    public sealed class CapturedToFrameSymbolReplacement : CapturedSymbolReplacement
     {
         public readonly LambdaCapturedVariable HoistedField;
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed class CapturedToStateMachineFieldReplacement : CapturedSymbolReplacement
+    public sealed class CapturedToStateMachineFieldReplacement : CapturedSymbolReplacement
     {
         public readonly StateMachineFieldSymbol HoistedField;
 
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed class CapturedToExpressionSymbolReplacement : CapturedSymbolReplacement
+    public sealed class CapturedToExpressionSymbolReplacement : CapturedSymbolReplacement
     {
         private readonly BoundExpression _replacement;
         public readonly ImmutableArray<StateMachineFieldSymbol> HoistedFields;

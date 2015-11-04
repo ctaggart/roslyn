@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.CodeGen
 {
-    internal partial class CodeGenerator
+    public partial class CodeGenerator
     {
         private int _recursionDepth;
 
@@ -992,7 +992,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
             return true;
         }
 
-        internal static bool FieldLoadMustUseRef(BoundExpression expr)
+        public static bool FieldLoadMustUseRef(BoundExpression expr)
         {
             var type = expr.Type;
 
@@ -1581,7 +1581,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
         /// It basically checks if the method overrides any other and method's defining type
         /// is not a 'special' or 'special-by-ref' type. 
         /// </summary>
-        internal static bool MayUseCallForStructMethod(MethodSymbol method)
+        public static bool MayUseCallForStructMethod(MethodSymbol method)
         {
             Debug.Assert(method.ContainingType.IsVerifierValue(), "this is not a value type");
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourceUserDefinedConversionSymbol : SourceUserDefinedOperatorSymbolBase
+    public sealed class SourceUserDefinedConversionSymbol : SourceUserDefinedOperatorSymbolBase
     {
         public static SourceUserDefinedConversionSymbol CreateUserDefinedConversionSymbol(
             SourceMemberContainerTypeSymbol containingType,
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
         }
 
-        internal new ConversionOperatorDeclarationSyntax GetSyntax()
+        public new ConversionOperatorDeclarationSyntax GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (ConversionOperatorDeclarationSyntax)syntaxReferenceOpt.GetSyntax();
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }

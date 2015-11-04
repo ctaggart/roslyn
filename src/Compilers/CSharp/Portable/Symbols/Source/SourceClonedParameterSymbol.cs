@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -11,14 +11,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// For example, parameters on a property symbol are cloned to generate parameters on accessors.
     /// Similarly parameters on delegate invoke method are cloned to delegate begin/end invoke methods.
     /// </summary>
-    internal sealed class SourceClonedParameterSymbol : SourceParameterSymbolBase
+    public sealed class SourceClonedParameterSymbol : SourceParameterSymbolBase
     {
         // if true suppresses params-array and default value:
         private readonly bool _suppressOptional;
 
         private readonly SourceParameterSymbol _originalParam;
 
-        internal SourceClonedParameterSymbol(SourceParameterSymbol originalParam, Symbol newOwner, int newOrdinal, bool suppressOptional)
+        public SourceClonedParameterSymbol(SourceParameterSymbol originalParam, Symbol newOwner, int newOrdinal, bool suppressOptional)
             : base(newOwner, newOrdinal)
         {
             Debug.Assert((object)originalParam != null);
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return !_suppressOptional && _originalParam.IsParams; }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get
             {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ConstantValue ExplicitDefaultConstantValue
+        public override ConstantValue ExplicitDefaultConstantValue
         {
             get
             {
@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ConstantValue DefaultValueFromAttributes
+        public override ConstantValue DefaultValueFromAttributes
         {
             get { return _originalParam.DefaultValueFromAttributes; }
         }
 
-        internal override ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
+        public override ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams)
         {
             return new SourceClonedParameterSymbol(
                 _originalParam.WithCustomModifiersAndParamsCore(newType, newCustomModifiers, countOfCustomModifiersPrecedingByRef, newIsParams),
@@ -91,12 +91,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalParam.RefKind; }
         }
 
-        internal override bool IsMetadataIn
+        public override bool IsMetadataIn
         {
             get { return _originalParam.IsMetadataIn; }
         }
 
-        internal override bool IsMetadataOut
+        public override bool IsMetadataOut
         {
             get { return _originalParam.IsMetadataOut; }
         }
@@ -121,32 +121,32 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalParam.CustomModifiers; }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get { return _originalParam.MarshallingInformation; }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get { return _originalParam.IsIDispatchConstant; }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get { return _originalParam.IsIUnknownConstant; }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get { return _originalParam.IsCallerFilePath; }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get { return _originalParam.IsCallerLineNumber; }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get { return _originalParam.IsCallerMemberName; }
         }

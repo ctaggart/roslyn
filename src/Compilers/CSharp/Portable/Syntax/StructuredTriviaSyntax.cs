@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,13 +13,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
     {
         private SyntaxTrivia _parent;
 
-        internal StructuredTriviaSyntax(Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)
+        public StructuredTriviaSyntax(Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)
             : base(green, position, parent == null ? null : parent.SyntaxTree)
         {
             System.Diagnostics.Debug.Assert(parent == null || position >= 0);
         }
 
-        internal static StructuredTriviaSyntax Create(SyntaxTrivia trivia)
+        public static StructuredTriviaSyntax Create(SyntaxTrivia trivia)
         {
             var node = trivia.UnderlyingNode;
             var parent = (CSharpSyntaxNode)trivia.Token.Parent;

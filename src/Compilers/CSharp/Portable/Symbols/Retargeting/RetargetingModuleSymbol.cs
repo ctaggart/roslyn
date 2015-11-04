@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     ///   used as is.
     /// - Symbols from referenced assemblies that must be retargeted are substituted with result of retargeting.
     /// </summary>
-    internal sealed partial class RetargetingModuleSymbol : NonMissingModuleSymbol
+    public sealed partial class RetargetingModuleSymbol : NonMissingModuleSymbol
     {
         /// <summary>
         /// Owning <see cref="RetargetingAssemblySymbol"/>.
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             public ConcurrentDictionary<NamedTypeSymbol, NamedTypeSymbol> SymbolMap => LazyInitializer.EnsureInitialized(ref _symbolMap);
         }
 
-        internal readonly RetargetingSymbolTranslator RetargetingTranslator;
+        public readonly RetargetingSymbolTranslator RetargetingTranslator;
 
         /// <summary>
         /// Retargeted custom attributes
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             _createRetargetingTypeParameter = CreateRetargetingTypeParameter;
         }
 
-        internal override int Ordinal
+        public override int Ordinal
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override Machine Machine
+        public override Machine Machine
         {
             get
             {
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool Bit32Required
+        public override bool Bit32Required
         {
             get
             {
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         /// A helper method for ReferenceManager to set AssemblySymbols for assemblies 
         /// referenced by this module.
         /// </summary>
-        internal override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly)
+        public override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly)
         {
             base.SetReferences(moduleReferences, originatingSourceAssemblyDebugOnly);
 
@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
 #endif
         }
 
-        internal override ICollection<string> TypeNames
+        public override ICollection<string> TypeNames
         {
             get
             {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ICollection<string> NamespaceNames
+        public override ICollection<string> NamespaceNames
         {
             get
             {
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return RetargetingTranslator.GetRetargetedAttributes(_underlyingModule.GetAttributes(), ref _lazyCustomAttributes);
         }
 
-        internal override bool HasAssemblyCompilationRelaxationsAttribute
+        public override bool HasAssemblyCompilationRelaxationsAttribute
         {
             get
             {
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasAssemblyRuntimeCompatibilityAttribute
+        public override bool HasAssemblyRuntimeCompatibilityAttribute
         {
             get
             {
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override CharSet? DefaultMarshallingCharSet
+        public override CharSet? DefaultMarshallingCharSet
         {
             get
             {
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

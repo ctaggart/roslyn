@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class LanguageParser : SyntaxParser
+    public partial class LanguageParser : SyntaxParser
     {
         // list pools - allocators for lists that are used to build sequences of nodes. The lists
         // can be reused (hence pooled) since the syntax factory methods don't keep references to
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
         // NOTE: If you add new state, you should probably add it to ResetPoint as well.
 
-        internal LanguageParser(
+        public LanguageParser(
             Lexer lexer,
             CSharp.CSharpSyntaxNode oldTree,
             IEnumerable<TextChangeRange> changes,
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         // okay to abort the current parsing rule when unexpected tokens occur.
 
         [Flags]
-        internal enum TerminatorState
+        public enum TerminatorState
         {
             EndOfFile = 0,
             IsNamespaceMemberStartOrStop = 1 << 0,
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 Members = pool.Allocate<MemberDeclarationSyntax>();
             }
 
-            internal void Free(SyntaxListPool pool)
+            public void Free(SyntaxListPool pool)
             {
                 pool.Free(Members);
                 pool.Free(Attributes);
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal CompilationUnitSyntax ParseCompilationUnit()
+        public CompilationUnitSyntax ParseCompilationUnit()
         {
             return ParseWithStackGuard(
                 ParseCompilationUnitCore,
@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                         SyntaxFactory.Token(SyntaxKind.EndOfFileToken)));
         }
 
-        internal CompilationUnitSyntax ParseCompilationUnitCore()
+        public CompilationUnitSyntax ParseCompilationUnitCore()
         {
             SyntaxToken tmp = null;
             SyntaxListBuilder initialBadNodes = null;
@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal TNode ParseWithStackGuard<TNode>(Func<TNode> parseFunc, Func<TNode> createEmptyNodeFunc) where TNode : CSharpSyntaxNode
+        public TNode ParseWithStackGuard<TNode>(Func<TNode> parseFunc, Func<TNode> createEmptyNodeFunc) where TNode : CSharpSyntaxNode
         {
             // If this value is non-zero then we are nesting calls to ParseWithStackGuard which should not be 
             // happening.  It's not a bug but it's inefficient and should be changed.
@@ -1109,7 +1109,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return _syntaxFactory.Attribute(name, argList);
         }
 
-        internal AttributeArgumentListSyntax ParseAttributeArgumentList()
+        public AttributeArgumentListSyntax ParseAttributeArgumentList()
         {
             if (this.IsIncrementalAndFactoryContextMatches && this.CurrentNodeKind == SyntaxKind.AttributeArgumentList)
             {
@@ -3774,7 +3774,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return false;
         }
 
-        internal ParameterListSyntax ParseParenthesizedParameterList(bool allowThisKeyword, bool allowDefaults, bool allowAttributes)
+        public ParameterListSyntax ParseParenthesizedParameterList(bool allowThisKeyword, bool allowDefaults, bool allowAttributes)
         {
             if (this.IsIncrementalAndFactoryContextMatches && CanReuseParameterList(this.CurrentNode as CSharp.Syntax.ParameterListSyntax))
             {
@@ -3799,7 +3799,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal BracketedParameterListSyntax ParseBracketedParameterList(bool allowDefaults = true)
+        public BracketedParameterListSyntax ParseBracketedParameterList(bool allowDefaults = true)
         {
             if (this.IsIncrementalAndFactoryContextMatches && CanReuseBracketedParameterList(this.CurrentNode as CSharp.Syntax.BracketedParameterListSyntax))
             {
@@ -8118,7 +8118,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal static bool IsRightAssociative(SyntaxKind op)
+        public static bool IsRightAssociative(SyntaxKind op)
         {
             switch (op)
             {
@@ -8659,7 +8659,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                     kind == SyntaxKind.OpenBracketToken;
         }
 
-        internal ExpressionSyntax ParseConsequenceSyntax()
+        public ExpressionSyntax ParseConsequenceSyntax()
         {
             SyntaxKind tk = this.CurrentToken.Kind;
             ExpressionSyntax expr = null;
@@ -8708,7 +8708,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal ArgumentListSyntax ParseParenthesizedArgumentList()
+        public ArgumentListSyntax ParseParenthesizedArgumentList()
         {
             if (this.IsIncrementalAndFactoryContextMatches && this.CurrentNodeKind == SyntaxKind.ArgumentList)
             {
@@ -8722,7 +8722,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return _syntaxFactory.ArgumentList(openToken, arguments, closeToken);
         }
 
-        internal BracketedArgumentListSyntax ParseBracketedArgumentList()
+        public BracketedArgumentListSyntax ParseBracketedArgumentList()
         {
             if (this.IsIncrementalAndFactoryContextMatches && this.CurrentNodeKind == SyntaxKind.BracketedArgumentList)
             {
@@ -10460,7 +10460,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal static bool MatchesFactoryContext(GreenNode green, SyntaxFactoryContext context)
+        public static bool MatchesFactoryContext(GreenNode green, SyntaxFactoryContext context)
         {
             return context.IsInAsync == green.ParsedInAsync &&
                 context.IsInQuery == green.ParsedInQuery;
@@ -10515,13 +10515,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
         private new struct ResetPoint
         {
-            internal SyntaxParser.ResetPoint BaseResetPoint;
-            internal readonly TerminatorState TerminatorState;
-            internal readonly bool IsInTry;
-            internal readonly bool IsInAsync;
-            internal readonly int QueryDepth;
+            public SyntaxParser.ResetPoint BaseResetPoint;
+            public readonly TerminatorState TerminatorState;
+            public readonly bool IsInTry;
+            public readonly bool IsInAsync;
+            public readonly int QueryDepth;
 
-            internal ResetPoint(
+            public ResetPoint(
                 SyntaxParser.ResetPoint resetPoint,
                 TerminatorState terminatorState,
                 bool isInTry,
@@ -10536,7 +10536,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal TNode ConsumeUnexpectedTokens<TNode>(TNode node) where TNode : CSharpSyntaxNode
+        public TNode ConsumeUnexpectedTokens<TNode>(TNode node) where TNode : CSharpSyntaxNode
         {
             if (this.CurrentToken.Kind == SyntaxKind.EndOfFileToken) return node;
             SyntaxListBuilder<SyntaxToken> b = _pool.Allocate<SyntaxToken>();

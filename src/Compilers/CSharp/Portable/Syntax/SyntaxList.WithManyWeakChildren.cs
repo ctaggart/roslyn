@@ -1,13 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Threading;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal partial class SyntaxList
+    public partial class SyntaxList
     {
-        internal class WithManyWeakChildren : SyntaxList
+        public class WithManyWeakChildren : SyntaxList
         {
             private readonly ArrayElement<WeakReference<SyntaxNode>>[] _children;
 
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             // the position of a child later requires traversing all previous siblings.
             private readonly int[] _childPositions;
 
-            internal WithManyWeakChildren(Syntax.InternalSyntax.SyntaxList.WithManyChildrenBase green, SyntaxNode parent, int position)
+            public WithManyWeakChildren(Syntax.InternalSyntax.SyntaxList.WithManyChildrenBase green, SyntaxNode parent, int position)
                 : base(green, parent, position)
             {
                 int count = green.SlotCount;
@@ -35,17 +35,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                 _childPositions = childOffsets;
             }
 
-            internal override int GetChildPosition(int index)
+            public override int GetChildPosition(int index)
             {
                 return _childPositions[index];
             }
 
-            internal override SyntaxNode GetNodeSlot(int index)
+            public override SyntaxNode GetNodeSlot(int index)
             {
                 return GetWeakRedElement(ref _children[index].Value, index);
             }
 
-            internal override SyntaxNode GetCachedSlot(int index)
+            public override SyntaxNode GetCachedSlot(int index)
             {
                 SyntaxNode value = null;
                 _children[index].Value?.TryGetTarget(out value);

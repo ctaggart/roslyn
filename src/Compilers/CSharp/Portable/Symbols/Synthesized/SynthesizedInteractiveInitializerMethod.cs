@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System.Collections.Generic;
@@ -8,15 +8,15 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SynthesizedInteractiveInitializerMethod : SynthesizedInstanceMethodSymbol
+    public sealed class SynthesizedInteractiveInitializerMethod : SynthesizedInstanceMethodSymbol
     {
-        internal const string InitializerName = "<Initialize>";
+        public const string InitializerName = "<Initialize>";
 
         private readonly SourceMemberContainerTypeSymbol _containingType;
         private readonly TypeSymbol _resultType;
         private readonly TypeSymbol _returnType;
 
-        internal SynthesizedInteractiveInitializerMethod(SourceMemberContainerTypeSymbol containingType, DiagnosticBag diagnostics)
+        public SynthesizedInteractiveInitializerMethod(SourceMemberContainerTypeSymbol containingType, DiagnosticBag diagnostics)
         {
             Debug.Assert(containingType.IsScriptClass);
 
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return InitializerName; }
         }
 
-        internal override bool IsScriptInitializer
+        public override bool IsScriptInitializer
         {
             get { return true; }
         }
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<TypeParameterSymbol>.Empty; }
         }
 
-        internal override Cci.CallingConvention CallingConvention
+        public override Cci.CallingConvention CallingConvention
         {
             get
             {
@@ -159,32 +159,32 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return true; }
         }
 
-        internal override MethodImplAttributes ImplementationAttributes
+        public override MethodImplAttributes ImplementationAttributes
         {
             get { return default(MethodImplAttributes); }
         }
 
-        internal override bool RequiresSecurityObject
+        public override bool RequiresSecurityObject
         {
             get { return false; }
         }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return null; }
         }
@@ -194,32 +194,32 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
 
-        internal override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             return _containingType.CalculateSyntaxOffsetInSynthesizedConstructor(localPosition, localTree, isStatic: false);
         }
 
-        internal TypeSymbol ResultType
+        public TypeSymbol ResultType
         {
             get { return _resultType; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// A{int}.Field
     /// A{int}.B{string}.C.Field
     /// </summary>
-    internal sealed class SpecializedFieldReference : TypeMemberReference, Cci.ISpecializedFieldReference
+    public sealed class SpecializedFieldReference : TypeMemberReference, Cci.ISpecializedFieldReference
     {
         private readonly FieldSymbol _underlyingField;
 

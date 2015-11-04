@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// Helper class to resolve metadata tokens and signatures.
     /// </summary>
-    internal class MetadataDecoder : MetadataDecoder<PEModuleSymbol, TypeSymbol, MethodSymbol, FieldSymbol, Symbol>
+    public class MetadataDecoder : MetadataDecoder<PEModuleSymbol, TypeSymbol, MethodSymbol, FieldSymbol, Symbol>
     {
         /// <summary>
         /// Type context for resolving generic type arguments.
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             _methodContextOpt = methodContextOpt;
         }
 
-        internal PEModuleSymbol ModuleSymbol
+        public PEModuleSymbol ModuleSymbol
         {
             get { return moduleSymbol; }
         }
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <returns>
         /// Symbol for the canonical type or an ErrorTypeSymbol. Never returns null.
         /// </returns>
-        internal static NamedTypeSymbol SubstituteNoPiaLocalType(
+        public static NamedTypeSymbol SubstituteNoPiaLocalType(
             ref MetadataTypeName name,
             bool isInterface,
             TypeSymbol baseType,
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return null;
         }
 
-        internal override Symbol GetSymbolForMemberRef(MemberReferenceHandle memberRef, TypeSymbol scope = null, bool methodsOnly = false)
+        public override Symbol GetSymbolForMemberRef(MemberReferenceHandle memberRef, TypeSymbol scope = null, bool methodsOnly = false)
         {
             TypeSymbol targetTypeSymbol = GetMemberRefTypeSymbol(memberRef);
 

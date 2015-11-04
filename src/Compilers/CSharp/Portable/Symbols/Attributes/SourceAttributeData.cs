@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a Source custom attribute specification
     /// </summary>
-    internal class SourceAttributeData : CSharpAttributeData
+    public class SourceAttributeData : CSharpAttributeData
     {
         private readonly NamedTypeSymbol _attributeClass;
         private readonly MethodSymbol _attributeConstructor;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private readonly bool _hasErrors;
         private readonly SyntaxReference _applicationNode;
 
-        internal SourceAttributeData(
+        public SourceAttributeData(
             SyntaxReference applicationNode,
             NamedTypeSymbol attributeClass,
             MethodSymbol attributeConstructor,
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _applicationNode = applicationNode;
         }
 
-        internal SourceAttributeData(SyntaxReference applicationNode, NamedTypeSymbol attributeClass, MethodSymbol attributeConstructor, bool hasErrors)
+        public SourceAttributeData(SyntaxReference applicationNode, NamedTypeSymbol attributeClass, MethodSymbol attributeConstructor, bool hasErrors)
             : this(
             applicationNode,
             attributeClass,
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// it returns an array representing each argument's source argument index. A value of -1 indicates default value argument.
         /// Otherwise, returns null.
         /// </summary>
-        internal ImmutableArray<int> ConstructorArgumentsSourceIndices
+        public ImmutableArray<int> ConstructorArgumentsSourceIndices
         {
             get
             {
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal CSharpSyntaxNode GetAttributeArgumentSyntax(int parameterIndex, AttributeSyntax attributeSyntax)
+        public CSharpSyntaxNode GetAttributeArgumentSyntax(int parameterIndex, AttributeSyntax attributeSyntax)
         {
             // This method is only called when decoding (non-erroneous) well-known attributes.
             Debug.Assert(!this.HasErrors);
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsConditionallyOmitted
+        public override bool IsConditionallyOmitted
         {
             get
             {
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SourceAttributeData WithOmittedCondition(bool isConditionallyOmitted)
+        public SourceAttributeData WithOmittedCondition(bool isConditionallyOmitted)
         {
             if (this.IsConditionallyOmitted == isConditionallyOmitted)
             {
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasErrors
+        public override bool HasErrors
         {
             get
             {
@@ -164,12 +164,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal protected sealed override ImmutableArray<TypedConstant> CommonConstructorArguments
+        public sealed override ImmutableArray<TypedConstant> CommonConstructorArguments
         {
             get { return _constructorArguments; }
         }
 
-        internal protected sealed override ImmutableArray<KeyValuePair<string, TypedConstant>> CommonNamedArguments
+        public sealed override ImmutableArray<KeyValuePair<string, TypedConstant>> CommonNamedArguments
         {
             get { return _namedArguments; }
         }
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <param name="targetSymbol">The symbol which is the target of the attribute</param>
         /// <param name="description">The attribute to match.</param>
-        internal override int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description)
+        public override int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description)
         {
             if (!IsTargetAttribute(description.Namespace, description.Name))
             {
@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         /// <param name="targetSymbol">Target symbol on which this attribute is applied.</param>
         /// <returns>System.Type type symbol.</returns>
-        internal virtual TypeSymbol GetSystemType(Symbol targetSymbol)
+        public virtual TypeSymbol GetSystemType(Symbol targetSymbol)
         {
             return targetSymbol.DeclaringCompilation.GetWellKnownType(WellKnownType.System_Type);
         }

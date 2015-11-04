@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal enum MessageID
+    public enum MessageID
     {
         MessageBase = 1200,
         IDS_SK_METHOD = MessageBase + 2000,
@@ -116,11 +116,11 @@ namespace Microsoft.CodeAnalysis.CSharp
 
     // Message IDs may refer to strings that need to be localized.
     // This struct makes an IFormattable wrapper around a MessageID
-    internal struct LocalizableErrorArgument : IFormattable, IMessageSerializable
+    public struct LocalizableErrorArgument : IFormattable, IMessageSerializable
     {
         private readonly MessageID _id;
 
-        internal LocalizableErrorArgument(MessageID id)
+        public LocalizableErrorArgument(MessageID id)
         {
             _id = id;
         }
@@ -138,14 +138,14 @@ namespace Microsoft.CodeAnalysis.CSharp
 
     // And this extension method makes it easy to localize MessageIDs:
 
-    internal static partial class MessageIDExtensions
+    public static partial class MessageIDExtensions
     {
         public static LocalizableErrorArgument Localize(this MessageID id)
         {
             return new LocalizableErrorArgument(id);
         }
 
-        internal static string RequiredFeature(this MessageID feature)
+        public static string RequiredFeature(this MessageID feature)
         {
             switch (feature)
             {
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static LanguageVersion RequiredVersion(this MessageID feature)
+        public static LanguageVersion RequiredVersion(this MessageID feature)
         {
             // Based on CSourceParser::GetFeatureUsage from SourceParser.cpp.
             // Checks are in the LanguageParser unless otherwise noted.

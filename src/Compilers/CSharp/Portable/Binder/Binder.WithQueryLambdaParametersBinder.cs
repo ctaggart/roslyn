@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         // A binder that finds query variables (BoundRangeVariableSymbol) and can bind them
         // to the appropriate rewriting involving lambda parameters when transparent identifiers are involved.
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return result;
             }
 
-            internal override void LookupSymbolsInSingleBinder(
+            public override void LookupSymbolsInSingleBinder(
                 LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
             {
                 Debug.Assert(result.IsClear);

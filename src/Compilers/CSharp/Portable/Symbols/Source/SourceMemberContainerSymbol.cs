@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a named type symbol whose members are declared in source.
     /// </summary>
-    internal abstract partial class SourceMemberContainerTypeSymbol : NamedTypeSymbol
+    public abstract partial class SourceMemberContainerTypeSymbol : NamedTypeSymbol
     {
         // The flags type is used to compact many different bits of information efficiently.
         private struct Flags
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Construction
 
-        internal SourceMemberContainerTypeSymbol(
+        public SourceMemberContainerTypeSymbol(
             NamespaceOrTypeSymbol containingSymbol,
             MergedTypeDeclaration declaration,
             DiagnosticBag diagnostics)
@@ -379,12 +379,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Completion
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return state.HasComplete(part);
         }
@@ -392,7 +392,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         protected abstract void CheckBase(DiagnosticBag diagnostics);
         protected abstract void CheckInterfaces(DiagnosticBag diagnostics);
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -534,7 +534,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal void EnsureFieldDefinitionsNoted()
+        public void EnsureFieldDefinitionsNoted()
         {
             if (_flags.FieldDefinitionsNoted)
             {
@@ -630,7 +630,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal MergedTypeDeclaration MergedDeclaration
+        public MergedTypeDeclaration MergedDeclaration
         {
             get
             {
@@ -638,7 +638,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsInterface
+        public sealed override bool IsInterface
         {
             get
             {
@@ -647,7 +647,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsManagedType
+        public override bool IsManagedType
         {
             get
             {
@@ -686,7 +686,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsPartial
+        public bool IsPartial
         {
             get
             {
@@ -694,7 +694,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsNew
+        public bool IsNew
         {
             get
             {
@@ -777,7 +777,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -785,7 +785,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override LexicalSortKey GetLexicalSortKey()
+        public override LexicalSortKey GetLexicalSortKey()
         {
             if (!_lazyLexicalSortKey.IsInitialized)
             {
@@ -849,12 +849,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </remarks>
         private sealed class MembersAndInitializers
         {
-            internal readonly ImmutableArray<Symbol> NonTypeNonIndexerMembers;
-            internal readonly ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> StaticInitializers;
-            internal readonly ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> InstanceInitializers;
-            internal readonly ImmutableArray<SyntaxReference> IndexerDeclarations;
-            internal readonly int StaticInitializersSyntaxLength;
-            internal readonly int InstanceInitializersSyntaxLength;
+            public readonly ImmutableArray<Symbol> NonTypeNonIndexerMembers;
+            public readonly ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> StaticInitializers;
+            public readonly ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> InstanceInitializers;
+            public readonly ImmutableArray<SyntaxReference> IndexerDeclarations;
+            public readonly int StaticInitializersSyntaxLength;
+            public readonly int InstanceInitializersSyntaxLength;
 
             public MembersAndInitializers(
                 ImmutableArray<Symbol> nonTypeNonIndexerMembers,
@@ -885,17 +885,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> StaticInitializers
+        public ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> StaticInitializers
         {
             get { return GetMembersAndInitializers().StaticInitializers; }
         }
 
-        internal ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> InstanceInitializers
+        public ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> InstanceInitializers
         {
             get { return GetMembersAndInitializers().InstanceInitializers; }
         }
 
-        internal int CalculateSyntaxOffsetInSynthesizedConstructor(int position, SyntaxTree tree, bool isStatic)
+        public int CalculateSyntaxOffsetInSynthesizedConstructor(int position, SyntaxTree tree, bool isStatic)
         {
             if (IsScriptClass && !isStatic)
             {
@@ -928,7 +928,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Calculates a syntax offset of a syntax position that is contained in a property or field initializer (if it is in fact contained in one).
         /// </summary>
-        internal bool TryCalculateSyntaxOffsetOfPositionInInitializer(int position, SyntaxTree tree, bool isStatic, int ctorInitializerLength, out int syntaxOffset)
+        public bool TryCalculateSyntaxOffsetOfPositionInInitializer(int position, SyntaxTree tree, bool isStatic, int ctorInitializerLength, out int syntaxOffset)
         {
             Debug.Assert(ctorInitializerLength >= 0);
 
@@ -1005,7 +1005,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return this.declaration.MemberNames; }
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             return GetTypeMembersDictionary().Flatten();
         }
@@ -1115,7 +1115,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<Symbol> GetMembersUnordered()
+        public override ImmutableArray<Symbol> GetMembersUnordered()
         {
             var result = _lazyMembersFlattened;
 
@@ -1168,7 +1168,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ImmutableArray<Symbol>.Empty;
         }
 
-        internal override ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
+        public override ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
         {
             if (_lazyMembersDictionary != null || MemberNames.Contains(name))
             {
@@ -1178,7 +1178,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ImmutableArray<Symbol>.Empty;
         }
 
-        internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+        public override IEnumerable<FieldSymbol> GetFieldsToEmit()
         {
             if (this.TypeKind == TypeKind.Enum)
             {
@@ -1213,7 +1213,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// In particular, this method will return nested types and fields (other than auto-property
         /// backing fields).
         /// </summary>
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
         {
             return GetEarlyAttributeDecodingMembersDictionary().Flatten();
         }
@@ -1225,7 +1225,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// In particular, this method will return nested types and fields (other than auto-property
         /// backing fields).
         /// </summary>
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
         {
             ImmutableArray<Symbol> result;
             return GetEarlyAttributeDecodingMembersDictionary().TryGetValue(name, out result) ? result : ImmutableArray<Symbol>.Empty;
@@ -1728,7 +1728,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool KnownCircularStruct
+        public override bool KnownCircularStruct
         {
             get
             {
@@ -2334,7 +2334,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal Binder GetBinder(CSharpSyntaxNode syntaxNode)
+        public Binder GetBinder(CSharpSyntaxNode syntaxNode)
         {
             return this.DeclaringCompilation.GetBinder(syntaxNode);
         }
@@ -3143,7 +3143,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Extension Methods
 
-        internal bool ContainsExtensionMethods
+        public bool ContainsExtensionMethods
         {
             get
             {
@@ -3157,7 +3157,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool AnyMemberHasAttributes
+        public bool AnyMemberHasAttributes
         {
             get
             {

@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static class DiagnosticBagExtensions
+    public static class DiagnosticBagExtensions
     {
         /// <summary>
         /// Add a diagnostic to the bag.
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="code"></param>
         /// <param name="location"></param>
         /// <returns></returns>
-        internal static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location)
+        public static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location)
         {
             var info = new CSDiagnosticInfo(code);
             var diag = new CSDiagnostic(info, location);
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="location"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        internal static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location, params object[] args)
+        public static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location, params object[] args)
         {
             var info = new CSDiagnosticInfo(code, args);
             var diag = new CSDiagnostic(info, location);
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return info;
         }
 
-        internal static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location, ImmutableArray<Symbol> symbols, params object[] args)
+        public static CSDiagnosticInfo Add(this DiagnosticBag diagnostics, ErrorCode code, Location location, ImmutableArray<Symbol> symbols, params object[] args)
         {
             var info = new CSDiagnosticInfo(code, args, symbols, ImmutableArray<Location>.Empty);
             var diag = new CSDiagnostic(info, location);
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return info;
         }
 
-        internal static void Add(this DiagnosticBag diagnostics, DiagnosticInfo info, Location location)
+        public static void Add(this DiagnosticBag diagnostics, DiagnosticInfo info, Location location)
         {
             var diag = new CSDiagnostic(info, location);
             diagnostics.Add(diag);
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Adds diagnostics from useSiteDiagnostics into diagnostics and returns True if there were any errors.
         /// </summary>
-        internal static bool Add(
+        public static bool Add(
             this DiagnosticBag diagnostics,
             CSharpSyntaxNode node,
             HashSet<DiagnosticInfo> useSiteDiagnostics)
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return !useSiteDiagnostics.IsNullOrEmpty() && diagnostics.Add(node.Location, useSiteDiagnostics);
         }
 
-        internal static bool Add(
+        public static bool Add(
             this DiagnosticBag diagnostics,
             Location location,
             HashSet<DiagnosticInfo> useSiteDiagnostics)

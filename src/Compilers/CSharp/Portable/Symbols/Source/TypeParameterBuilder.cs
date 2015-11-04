@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,13 +12,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// A context for binding type parameter symbols.
     /// </summary>
-    internal sealed class TypeParameterBuilder
+    public sealed class TypeParameterBuilder
     {
         private readonly SyntaxReference _syntaxRef;
         private readonly SourceNamedTypeSymbol _owner;
         private readonly Location _location;
 
-        internal TypeParameterBuilder(SyntaxReference syntaxRef, SourceNamedTypeSymbol owner, Location location)
+        public TypeParameterBuilder(SyntaxReference syntaxRef, SourceNamedTypeSymbol owner, Location location)
         {
             _syntaxRef = syntaxRef;
             Debug.Assert(syntaxRef.GetSyntax().IsKind(SyntaxKind.TypeParameter));
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _location = location;
         }
 
-        internal TypeParameterSymbol MakeSymbol(int ordinal, IList<TypeParameterBuilder> builders, DiagnosticBag diagnostics)
+        public TypeParameterSymbol MakeSymbol(int ordinal, IList<TypeParameterBuilder> builders, DiagnosticBag diagnostics)
         {
             var syntaxNode = (TypeParameterSyntax)_syntaxRef.GetSyntax();
             var result = new SourceTypeParameterSymbol(

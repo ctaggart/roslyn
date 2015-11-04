@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// are two possible scopes: one for the namespace, and another for any using statements
     /// in the namespace. The namespace scope is searched before the using scope.
     /// </summary>
-    internal struct ExtensionMethodScope
+    public struct ExtensionMethodScope
     {
         public readonly Binder Binder;
         public readonly bool SearchUsingsNotNamespace;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// An enumerable collection of extension method scopes in search
     /// order, from the given Binder, out through containing Binders.
     /// </summary>
-    internal struct ExtensionMethodScopes
+    public struct ExtensionMethodScopes
     {
         private readonly Binder _binder;
 
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// An enumerator over ExtensionMethodScopes.
     /// </summary>
-    internal struct ExtensionMethodScopeEnumerator
+    public struct ExtensionMethodScopeEnumerator
     {
         private readonly Binder _binder;
         private ExtensionMethodScope _current;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Either a SubstitutedNestedTypeSymbol or a ConstructedNamedTypeSymbol, which share in common that they
     /// have type parameters substituted.
     /// </summary>
-    internal abstract class SubstitutedNamedTypeSymbol : NamedTypeSymbol
+    public abstract class SubstitutedNamedTypeSymbol : NamedTypeSymbol
     {
         private static readonly Func<Symbol, NamedTypeSymbol, Symbol> s_symbolAsMemberFunc = SymbolExtensions.SymbolAsMember;
 
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalDefinition.Name; }
         }
 
-        internal sealed override bool MangleName
+        public sealed override bool MangleName
         {
             get { return _originalDefinition.MangleName; }
         }
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _originalDefinition.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get { return _originalDefinition.HasSpecialName; }
         }
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalDefinition.TypeKind; }
         }
 
-        internal sealed override bool IsInterface
+        public sealed override bool IsInterface
         {
             get { return _originalDefinition.IsInterface; }
         }
@@ -198,17 +198,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public sealed override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             return _unbound ? null : Map.SubstituteNamedType(OriginalDefinition.GetDeclaredBaseType(basesBeingResolved));
         }
 
-        internal sealed override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public sealed override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             return _unbound ? ImmutableArray<NamedTypeSymbol>.Empty : Map.SubstituteNamedTypes(OriginalDefinition.GetDeclaredInterfaces(basesBeingResolved));
         }
 
-        internal sealed override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public sealed override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -216,12 +216,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+        public sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
         {
             return _unbound ? ImmutableArray<NamedTypeSymbol>.Empty : Map.SubstituteNamedTypes(OriginalDefinition.InterfacesNoUseSiteDiagnostics(basesBeingResolved));
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+        public override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
         {
             throw ExceptionUtilities.Unreachable;
         }
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalDefinition.MightContainExtensionMethods; }
         }
 
-        internal sealed override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public sealed override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             return _originalDefinition.GetTypeMembersUnordered().SelectAsArray((t, self) => t.AsMember(self), this);
         }
@@ -308,7 +308,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return builder.ToImmutableAndFree();
         }
 
-        internal sealed override ImmutableArray<Symbol> GetMembersUnordered()
+        public sealed override ImmutableArray<Symbol> GetMembersUnordered()
         {
             var builder = ArrayBuilder<Symbol>.GetInstance();
 
@@ -373,19 +373,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return substitutedMembers;
         }
 
-        internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+        public override IEnumerable<FieldSymbol> GetFieldsToEmit()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
         {
             return _unbound
                 ? GetMembers()
                 : _originalDefinition.GetEarlyAttributeDecodingMembers().SelectAsArray(s_symbolAsMemberFunc, this);
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
         {
             if (_unbound) return GetMembers(name);
 
@@ -416,67 +416,67 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _hashCode;
         }
 
-        internal sealed override TypeMap TypeSubstitution
+        public sealed override TypeMap TypeSubstitution
         {
             get { return this.Map; }
         }
 
-        internal sealed override bool IsComImport
+        public sealed override bool IsComImport
         {
             get { return _originalDefinition.IsComImport; }
         }
 
-        internal sealed override NamedTypeSymbol ComImportCoClass
+        public sealed override NamedTypeSymbol ComImportCoClass
         {
             get { return _originalDefinition.ComImportCoClass; }
         }
 
-        internal sealed override bool ShouldAddWinRTMembers
+        public sealed override bool ShouldAddWinRTMembers
         {
             get { return _originalDefinition.ShouldAddWinRTMembers; }
         }
 
-        internal sealed override bool IsWindowsRuntimeImport
+        public sealed override bool IsWindowsRuntimeImport
         {
             get { return _originalDefinition.IsWindowsRuntimeImport; }
         }
 
-        internal sealed override TypeLayout Layout
+        public sealed override TypeLayout Layout
         {
             get { return _originalDefinition.Layout; }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get { return _originalDefinition.MarshallingCharSet; }
         }
 
-        internal sealed override bool IsSerializable
+        public sealed override bool IsSerializable
         {
             get { return _originalDefinition.IsSerializable; }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get { return _originalDefinition.HasDeclarativeSecurity; }
         }
 
-        internal sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             return _originalDefinition.GetSecurityInformation();
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return _originalDefinition.GetAppliedConditionalSymbols();
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return _originalDefinition.ObsoleteAttributeData; }
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             return _originalDefinition.GetAttributeUsageInfo();
         }

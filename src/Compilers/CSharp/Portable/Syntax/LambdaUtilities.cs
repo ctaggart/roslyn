@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static class LambdaUtilities
+    public static class LambdaUtilities
     {
         /// <summary>
         /// Returns true if the specified node represents a lambda.
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// See SyntaxNode.GetCorrespondingLambdaBody.
         /// </summary>
-        internal static SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode oldBody, SyntaxNode newLambda)
+        public static SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode oldBody, SyntaxNode newLambda)
         {
             var oldLambda = oldBody.Parent;
             switch (oldLambda.Kind())
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// "Pair lambda" is a synthesized lambda that creates an instance of an anonymous type representing a pair of values. 
         /// </summary>
-        internal static bool IsQueryPairLambda(SyntaxNode syntax)
+        public static bool IsQueryPairLambda(SyntaxNode syntax)
         {
             // TODO (bug https://github.com/dotnet/roslyn/issues/2663): 
             // Avoid generating these lambdas. Instead generate a static factory method on the anonymous type.
@@ -342,7 +342,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns true if the specified node can represent a closure scope -- that is a scope of a captured variable.
         /// Doesn't validate whether or not the node actually declares any captured variable.
         /// </summary>
-        internal static bool IsClosureScope(SyntaxNode node)
+        public static bool IsClosureScope(SyntaxNode node)
         {
             switch (node.Kind())
             {

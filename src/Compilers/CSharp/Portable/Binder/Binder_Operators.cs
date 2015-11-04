@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         private BoundExpression BindCompoundAssignment(AssignmentExpressionSyntax node, DiagnosticBag diagnostics)
         {
@@ -1265,7 +1265,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static TypeSymbol GetEnumType(BinaryOperatorKind kind, BoundExpression left, BoundExpression right)
+        public static TypeSymbol GetEnumType(BinaryOperatorKind kind, BoundExpression left, BoundExpression right)
         {
             switch (kind)
             {
@@ -1290,7 +1290,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static SpecialType GetEnumPromotedType(SpecialType underlyingType)
+        public static SpecialType GetEnumPromotedType(SpecialType underlyingType)
         {
             switch (underlyingType)
             {
@@ -2041,7 +2041,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // Basically a port of ExpressionBinder::isFixedExpression, which basically implements spec section 18.3.
         // Renamed because there are already too many things called "fixed".
         // NOTE: internal purely for testing purposes.
-        internal bool IsNonMoveableVariable(BoundExpression expr, out Symbol accessedLocalOrParameterOpt)
+        public bool IsNonMoveableVariable(BoundExpression expr, out Symbol accessedLocalOrParameterOpt)
         {
             accessedLocalOrParameterOpt = null;
 
@@ -2658,7 +2658,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static ConstantValue GetIsOperatorConstantResult(TypeSymbol operandType, TypeSymbol targetType, ConversionKind conversionKind, ConstantValue operandConstantValue)
+        public static ConstantValue GetIsOperatorConstantResult(TypeSymbol operandType, TypeSymbol targetType, ConversionKind conversionKind, ConstantValue operandConstantValue)
         {
             Debug.Assert((object)targetType != null);
 
@@ -3100,7 +3100,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static ConstantValue GetAsOperatorConstantResult(TypeSymbol operandType, TypeSymbol targetType, ConversionKind conversionKind, ConstantValue operandConstantValue)
+        public static ConstantValue GetAsOperatorConstantResult(TypeSymbol operandType, TypeSymbol targetType, ConversionKind conversionKind, ConstantValue operandConstantValue)
         {
             // NOTE:    Even though BoundIsOperator and BoundAsOperator will always have no ConstantValue
             // NOTE:    (they are non-constant expressions according to Section 7.19 of the specification),

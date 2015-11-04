@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourcePropertyAccessorSymbol : SourceMethodSymbol
+    public sealed class SourcePropertyAccessorSymbol : SourceMethodSymbol
     {
         private readonly SourcePropertySymbol _property;
         private ImmutableArray<ParameterSymbol> _lazyParameters;
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 diagnostics);
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get
             {
@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Return Accessibility declared locally on the accessor, or
         /// NotApplicable if no accessibility was declared explicitly.
         /// </summary>
-        internal Accessibility LocalAccessibility
+        public Accessibility LocalAccessibility
         {
             get { return ModifierUtils.EffectiveAccessibility(this.DeclarationModifiers); }
         }
@@ -430,7 +430,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// If we are outputting a .winmdobj then the setter name is put_, not set_.
         /// </summary>
-        internal static string GetAccessorName(string propertyName, bool getNotSet, bool isWinMdOutput)
+        public static string GetAccessorName(string propertyName, bool getNotSet, bool isWinMdOutput)
         {
             var prefix = getNotSet ? "get_" : isWinMdOutput ? "put_" : "set_";
             return prefix + propertyName;
@@ -439,7 +439,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <returns>
         /// <see cref="AccessorDeclarationSyntax"/> or <see cref="ArrowExpressionClauseSyntax"/>
         /// </returns>
-        internal CSharpSyntaxNode GetSyntax()
+        public CSharpSyntaxNode GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (CSharpSyntaxNode)syntaxReferenceOpt.GetSyntax();
@@ -453,7 +453,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             var syntax = this.GetSyntax();
             switch (syntax.Kind())
@@ -484,7 +484,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get
             {
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return parameters.ToImmutableAndFree();
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 

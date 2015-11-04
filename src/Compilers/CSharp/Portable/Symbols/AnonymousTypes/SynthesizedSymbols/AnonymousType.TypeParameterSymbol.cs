@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -6,12 +6,12 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents an anonymous type template's type parameter.
         /// </summary>
-        internal sealed class AnonymousTypeParameterSymbol : TypeParameterSymbol
+        public sealed class AnonymousTypeParameterSymbol : TypeParameterSymbol
         {
             private readonly Symbol _container;
             private readonly int _ordinal;
@@ -83,11 +83,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return VarianceKind.None; }
             }
 
-            internal override void EnsureAllConstraintsAreResolved()
+            public override void EnsureAllConstraintsAreResolved()
             {
             }
 
-            internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+            public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
             {
                 return ImmutableArray<TypeSymbol>.Empty;
             }
@@ -97,17 +97,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return _container; }
             }
 
-            internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+            public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
             {
                 return ImmutableArray<NamedTypeSymbol>.Empty;
             }
 
-            internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+            public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
             {
                 return null;
             }
 
-            internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+            public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
             {
                 return null;
             }

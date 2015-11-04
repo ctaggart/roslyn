@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A representation of a method symbol that is intended only to be used for comparison purposes
     /// (esp in MethodSignatureComparer).
     /// </summary>
-    internal sealed class SignatureOnlyMethodSymbol : MethodSymbol
+    public sealed class SignatureOnlyMethodSymbol : MethodSymbol
     {
         private readonly string _name;
         private readonly TypeSymbol _containingType;
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _name = name;
         }
 
-        internal override Cci.CallingConvention CallingConvention { get { return _callingConvention; } }
+        public override Cci.CallingConvention CallingConvention { get { return _callingConvention; } }
 
         public override bool IsVararg { get { return new SignatureHeader((byte)_callingConvention).CallingConvention == SignatureCallingConvention.VarArgs; } }
 
@@ -74,25 +74,25 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Not used by MethodSignatureComparer
 
-        internal override bool GenerateDebugInfo { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool GenerateDebugInfo { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool HasSpecialName { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool HasSpecialName { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes { get { throw ExceptionUtilities.Unreachable; } }
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool RequiresSecurityObject { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool RequiresSecurityObject { get { throw ExceptionUtilities.Unreachable; } }
 
         public override DllImportData GetDllImportData() { return null; }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation { get { throw ExceptionUtilities.Unreachable; } }
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool HasDeclarativeSecurity { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool HasDeclarativeSecurity { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation() { throw ExceptionUtilities.Unreachable; }
+        public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation() { throw ExceptionUtilities.Unreachable; }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData { get { throw ExceptionUtilities.Unreachable; } }
+        public override ObsoleteAttributeData ObsoleteAttributeData { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols() { throw ExceptionUtilities.Unreachable; }
+        public override ImmutableArray<string> GetAppliedConditionalSymbols() { throw ExceptionUtilities.Unreachable; }
 
         public override ImmutableArray<TypeSymbol> TypeArguments { get { throw ExceptionUtilities.Unreachable; } }
 
@@ -124,13 +124,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public override AssemblySymbol ContainingAssembly { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
+        public override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false) { throw ExceptionUtilities.Unreachable; }
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false) { throw ExceptionUtilities.Unreachable; }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false) { throw ExceptionUtilities.Unreachable; }
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false) { throw ExceptionUtilities.Unreachable; }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree) { throw ExceptionUtilities.Unreachable; }
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree) { throw ExceptionUtilities.Unreachable; }
 
         #endregion
     }

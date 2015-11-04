@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A small cache for remembering empty struct types for flow analysis.
     /// </summary>
-    internal class EmptyStructTypeCache
+    public class EmptyStructTypeCache
     {
         private SmallDictionary<NamedTypeSymbol, bool> _cache;
 
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         ///  ignores inaccessible fields of reference type for structs loaded from metadata.</param>
         /// <param name="compilation">if <see cref="_dev12CompilerCompatibility"/> is true, set to the compilation from
         /// which to check accessibility.</param>
-        internal EmptyStructTypeCache(Compilation compilation, bool dev12CompilerCompatibility)
+        public EmptyStructTypeCache(Compilation compilation, bool dev12CompilerCompatibility)
         {
             Debug.Assert(compilation != null || !dev12CompilerCompatibility);
             _dev12CompilerCompatibility = dev12CompilerCompatibility;
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Specialized EmptyStructTypeCache that reports all structs as not empty
     /// </summary>
-    internal sealed class NeverEmptyStructTypeCache : EmptyStructTypeCache
+    public sealed class NeverEmptyStructTypeCache : EmptyStructTypeCache
     {
         public NeverEmptyStructTypeCache()
            : base(null, false)

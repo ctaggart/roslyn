@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class SourceNamedTypeSymbol
+    public partial class SourceNamedTypeSymbol
     {
         private SynthesizedEnumValueFieldSymbol _lazyEnumValueField;
         private NamedTypeSymbol _lazyEnumUnderlyingType = ErrorTypeSymbol.UnknownResultType;
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// For enum types, returns the synthesized instance field used
         /// for generating metadata. Returns null for non-enum types.
         /// </summary>
-        internal FieldSymbol EnumValueField
+        public FieldSymbol EnumValueField
         {
             get
             {

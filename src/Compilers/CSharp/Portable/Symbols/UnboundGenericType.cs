@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static partial class TypeSymbolExtensions
+    public static partial class TypeSymbolExtensions
     {
         static public NamedTypeSymbol AsUnboundGenericType(this NamedTypeSymbol type)
         {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed class UnboundArgumentErrorTypeSymbol : ErrorTypeSymbol
+    public sealed class UnboundArgumentErrorTypeSymbol : ErrorTypeSymbol
     {
         public static ImmutableArray<TypeWithModifiers> CreateTypeArguments(ImmutableArray<TypeParameterSymbol> typeParameters, int n, DiagnosticInfo errorInfo)
         {
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             if ((object)t2 == (object)this)
             {

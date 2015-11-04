@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a compiler generated field.
     /// </summary>
-    internal abstract class SynthesizedFieldSymbolBase : FieldSymbol
+    public abstract class SynthesizedFieldSymbolBase : FieldSymbol
     {
         private readonly NamedTypeSymbol _containingType;
         private readonly string _name;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 (isStatic ? DeclarationModifiers.Static : DeclarationModifiers.None);
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound);
+        public abstract override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound);
 
         public override string Name
         {
@@ -91,27 +91,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override bool IsNotSerialized
+        public override bool IsNotSerialized
         {
             get { return false; }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get { return null; }
         }
 
-        internal override int? TypeLayoutOffset
+        public override int? TypeLayoutOffset
         {
             get { return null; }
         }
 
-        internal override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+        public override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
         {
             return null;
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -152,12 +152,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return (_modifiers & DeclarationModifiers.Static) != 0; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return this.HasRuntimeSpecialName; }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get { return this.Name == WellKnownMemberNames.EnumBackingFieldName; }
         }

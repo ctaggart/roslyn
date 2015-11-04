@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// another MethodSymbol that is responsible for retargeting symbols from one assembly to another. 
     /// It can retarget symbols for multiple assemblies at the same time.
     /// </summary>
-    internal sealed class RetargetingMethodSymbol : MethodSymbol
+    public sealed class RetargetingMethodSymbol : MethodSymbol
     {
         /// <summary>
         /// Owning RetargetingModuleSymbol.
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get { return _underlyingMethod.ParameterCount; }
         }
@@ -338,12 +338,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return _underlyingMethod.IsMetadataVirtual(ignoreInterfaceImplementationChanges);
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -351,12 +351,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return _underlyingMethod.IsMetadataNewSlot(ignoreInterfaceImplementationChanges);
         }
 
-        internal override bool RequiresSecurityObject
+        public override bool RequiresSecurityObject
         {
             get
             {
@@ -369,7 +369,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingMethod.GetDllImportData();
         }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get
             {
@@ -377,17 +377,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return _underlyingMethod.HasDeclarativeSecurity; }
         }
 
-        internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             return _underlyingMethod.GetSecurityInformation();
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return _underlyingMethod.GetAppliedConditionalSymbols();
         }
@@ -397,7 +397,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.GetRetargetedAttributes(_underlyingMethod.GetAttributes(), ref _lazyCustomAttributes);
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return this.RetargetingTranslator.RetargetAttributes(_underlyingMethod.GetCustomAttributesToEmit(compilationState));
         }
@@ -408,7 +408,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.GetRetargetedAttributes(_underlyingMethod.GetReturnTypeAttributes(), ref _lazyReturnTypeCustomAttributes);
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -424,7 +424,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -453,7 +453,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingMethod.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get
             {
@@ -469,7 +469,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override Microsoft.Cci.CallingConvention CallingConvention
+        public override Microsoft.Cci.CallingConvention CallingConvention
         {
             get
             {
@@ -477,7 +477,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return _underlyingMethod.IsExplicitInterfaceImplementation; }
         }
@@ -522,7 +522,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return builder.ToImmutableAndFree();
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -534,7 +534,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _lazyUseSiteDiagnostic;
         }
 
-        internal override bool IsAccessCheckedOnOverride
+        public override bool IsAccessCheckedOnOverride
         {
             get
             {
@@ -542,7 +542,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool IsExternal
+        public override bool IsExternal
         {
             get
             {
@@ -550,7 +550,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -559,7 +559,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         }
 
 
-        internal override bool ReturnValueIsMarshalledExplicitly
+        public override bool ReturnValueIsMarshalledExplicitly
         {
             get
             {
@@ -567,7 +567,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<byte> ReturnValueMarshallingDescriptor
+        public override ImmutableArray<byte> ReturnValueMarshallingDescriptor
         {
             get
             {
@@ -575,17 +575,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return false; }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             // retargeting symbols refer to a symbol from another compilation, they don't define locals in the current compilation
             throw ExceptionUtilities.Unreachable;

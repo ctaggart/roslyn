@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Groups the information computed by MakeOverriddenOrHiddenMembers.
     /// </summary>
-    internal sealed class OverriddenOrHiddenMembersResult
+    public sealed class OverriddenOrHiddenMembersResult
     {
         public static readonly OverriddenOrHiddenMembersResult Empty =
             new OverriddenOrHiddenMembersResult(
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static Symbol GetOverriddenMember(Symbol substitutedOverridingMember, Symbol overriddenByDefinitionMember)
+        public static Symbol GetOverriddenMember(Symbol substitutedOverridingMember, Symbol overriddenByDefinitionMember)
         {
             Debug.Assert(!substitutedOverridingMember.IsDefinition);
 
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// associated with a member within substituted type, <see cref="GetOverriddenMember(Symbol, Symbol)"/>
         /// should be used instead.
         /// </summary>
-        internal Symbol GetOverriddenMember()
+        public Symbol GetOverriddenMember()
         {
             foreach (var overriddenMember in _overriddenMembers)
             {

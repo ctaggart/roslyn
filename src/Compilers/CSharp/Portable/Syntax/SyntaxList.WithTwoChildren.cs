@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,19 +7,19 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal partial class SyntaxList
+    public partial class SyntaxList
     {
-        internal class WithTwoChildren : SyntaxList
+        public class WithTwoChildren : SyntaxList
         {
             private SyntaxNode _child0;
             private SyntaxNode _child1;
 
-            internal WithTwoChildren(Syntax.InternalSyntax.SyntaxList green, SyntaxNode parent, int position)
+            public WithTwoChildren(Syntax.InternalSyntax.SyntaxList green, SyntaxNode parent, int position)
                 : base(green, parent, position)
             {
             }
 
-            internal override SyntaxNode GetNodeSlot(int index)
+            public override SyntaxNode GetNodeSlot(int index)
             {
                 switch (index)
                 {
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                 }
             }
 
-            internal override SyntaxNode GetCachedSlot(int index)
+            public override SyntaxNode GetCachedSlot(int index)
             {
                 switch (index)
                 {

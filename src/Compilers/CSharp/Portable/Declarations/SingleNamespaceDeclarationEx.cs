@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class SingleNamespaceDeclarationEx : SingleNamespaceDeclaration
+    public sealed class SingleNamespaceDeclarationEx : SingleNamespaceDeclaration
     {
         private readonly bool _hasUsings;
         private readonly bool _hasExternAliases;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract partial class BoundNode
+    public abstract partial class BoundNode
     {
         private readonly BoundKind _kind;
         private BoundNodeAttributes _attributes;
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 #endif
                 return (_attributes & BoundNodeAttributes.CompilerGenerated) != 0;
             }
-            internal set
+set
             {
 #if DEBUG
                 Debug.Assert((_attributes & BoundNodeAttributes.WasCompilerGeneratedIsChecked) == 0,
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 #if DEBUG
-        internal virtual string Dump()
+        public virtual string Dump()
         {
             return TreeDumper.DumpCompact(BoundTreeDumperNodeProducer.MakeTree(this));
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class ExplicitInterfaceHelpers
+    public static class ExplicitInterfaceHelpers
     {
         public static string GetMemberName(
             Binder binder,
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return builder.ToImmutableAndFree();
         }
 
-        internal static MethodSymbol FindExplicitlyImplementedMethod(
+        public static MethodSymbol FindExplicitlyImplementedMethod(
             this MethodSymbol implementingMethod,
             TypeSymbol explicitInterfaceType,
             string interfaceMethodName,
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (MethodSymbol)FindExplicitlyImplementedMember(implementingMethod, explicitInterfaceType, interfaceMethodName, explicitInterfaceSpecifierSyntax, diagnostics);
         }
 
-        internal static PropertySymbol FindExplicitlyImplementedProperty(
+        public static PropertySymbol FindExplicitlyImplementedProperty(
             this PropertySymbol implementingProperty,
             TypeSymbol explicitInterfaceType,
             string interfacePropertyName,
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (PropertySymbol)FindExplicitlyImplementedMember(implementingProperty, explicitInterfaceType, interfacePropertyName, explicitInterfaceSpecifierSyntax, diagnostics);
         }
 
-        internal static EventSymbol FindExplicitlyImplementedEvent(
+        public static EventSymbol FindExplicitlyImplementedEvent(
             this EventSymbol implementingEvent,
             TypeSymbol explicitInterfaceType,
             string interfaceEventName,

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class SourceNamespaceSymbol
+    public partial class SourceNamespaceSymbol
     {
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _state.SpinWaitComplete(allParts, cancellationToken);
         }
 
-        internal override bool HasComplete(CompletionPart part)
+        public override bool HasComplete(CompletionPart part)
         {
             return _state.HasComplete(part);
         }

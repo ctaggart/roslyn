@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// However, we can't create a BoundIndexerAccess with a null indexer symbol,
     /// so we create an ErrorPropertySymbol to fill the gap.
     /// </summary>
-    internal sealed class ErrorPropertySymbol : PropertySymbol
+    public sealed class ErrorPropertySymbol : PropertySymbol
     {
         private readonly Symbol _containingSymbol;
         private readonly TypeSymbol _type;
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public override string Name { get { return _name; } }
 
-        internal override bool HasSpecialName { get { return false; } }
+        public override bool HasSpecialName { get { return false; } }
 
         public override bool IsIndexer { get { return _isIndexer; } }
 
@@ -71,13 +71,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public override bool IsExtern { get { return false; } }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData { get { return null; } }
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData { get { return null; } }
 
         public override ImmutableArray<ParameterSymbol> Parameters { get { return ImmutableArray<ParameterSymbol>.Empty; } }
 
-        internal override Cci.CallingConvention CallingConvention { get { return Cci.CallingConvention.Default; } }
+        public override Cci.CallingConvention CallingConvention { get { return Cci.CallingConvention.Default; } }
 
-        internal override bool MustCallMethodsDirectly { get { return false; } }
+        public override bool MustCallMethodsDirectly { get { return false; } }
 
         public override ImmutableArray<PropertySymbol> ExplicitInterfaceImplementations { get { return ImmutableArray<PropertySymbol>.Empty; } }
 

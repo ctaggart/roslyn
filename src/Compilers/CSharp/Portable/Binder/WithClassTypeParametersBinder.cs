@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,19 +11,19 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A binder that places class/interface/struct/delegate type parameters in scope
     /// </summary>
-    internal sealed class WithClassTypeParametersBinder : WithTypeParametersBinder
+    public sealed class WithClassTypeParametersBinder : WithTypeParametersBinder
     {
         private readonly NamedTypeSymbol _namedType;
         private MultiDictionary<string, TypeParameterSymbol> _lazyTypeParameterMap;
 
-        internal WithClassTypeParametersBinder(NamedTypeSymbol container, Binder next)
+        public WithClassTypeParametersBinder(NamedTypeSymbol container, Binder next)
             : base(next)
         {
             Debug.Assert((object)container != null);
             _namedType = container;
         }
 
-        internal override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
+        public override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
         {
             return this.IsSymbolAccessibleConditional(symbol, _namedType, accessThroughType, out failedThroughTypeCheck, ref useSiteDiagnostics, basesBeingResolved);
         }

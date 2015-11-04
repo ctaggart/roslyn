@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class LocalRewriter
+    public sealed partial class LocalRewriter
     {
         public override BoundNode VisitCompoundAssignmentOperator(BoundCompoundAssignmentOperator node)
         {
@@ -583,7 +583,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// even though l is a local, we must access it via a temp since "foo(ref l)" may change it
         /// on between accesses. 
         /// </summary>
-        internal static bool CanChangeValueBetweenReads(
+        public static bool CanChangeValueBetweenReads(
             BoundExpression expression,
             bool localsMayBeAssignedOrCaptured = true)
         {
@@ -620,7 +620,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // a simple check for common non-side-effecting expressions
-        internal static bool ReadIsSideeffecting(
+        public static bool ReadIsSideeffecting(
             BoundExpression expression)
         {
             if (expression.ConstantValue != null)

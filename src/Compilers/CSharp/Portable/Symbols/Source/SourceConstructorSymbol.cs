@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourceConstructorSymbol : SourceMethodSymbol
+    public sealed class SourceConstructorSymbol : SourceMethodSymbol
     {
         private ImmutableArray<ParameterSymbol> _lazyParameters;
         private TypeSymbol _lazyReturnType;
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ConstructorDeclarationSyntax GetSyntax()
+        public ConstructorDeclarationSyntax GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (ConstructorDeclarationSyntax)syntaxReferenceOpt.GetSyntax();
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get
             {
@@ -200,12 +200,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return this.IsStatic ? WellKnownMemberNames.StaticConstructorName : WellKnownMemberNames.InstanceConstructorName; }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             return OneOrMany.Create(((ConstructorDeclarationSyntax)this.SyntaxNode).AttributeLists);
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
         {
             // constructors can't have return type attributes
             return OneOrMany.Create(default(SyntaxList<AttributeListSyntax>));
@@ -219,17 +219,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get { return false; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int position, SyntaxTree tree)
+        public override int CalculateLocalSyntaxOffset(int position, SyntaxTree tree)
         {
             Debug.Assert(position >= 0 && tree != null);
 

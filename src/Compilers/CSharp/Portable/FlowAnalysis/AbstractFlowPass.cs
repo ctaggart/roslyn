@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// analyses whose soundness would be affected (e.g. "data flows out"), we track "unassignments" to keep
     /// the analysis sound.
     /// </summary>
-    internal abstract partial class AbstractFlowPass<TLocalState> : PreciseAbstractFlowPass<TLocalState>
+    public abstract partial class AbstractFlowPass<TLocalState> : PreciseAbstractFlowPass<TLocalState>
         where TLocalState : PreciseAbstractFlowPass<TLocalState>.AbstractLocalState
     {
         protected readonly bool trackUnassignments; // for the data flows out walker, we track unassignments as well as assignments

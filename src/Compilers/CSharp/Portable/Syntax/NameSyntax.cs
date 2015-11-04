@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,14 +24,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
         /// If called on an instance of <see cref="QualifiedNameSyntax"/> returns the value of the <see cref="QualifiedNameSyntax.Right"/> property.
         /// If called on an instance of <see cref="SimpleNameSyntax"/> returns the instance itself.
         /// </returns>
-        internal abstract SimpleNameSyntax GetUnqualifiedName();
+        public abstract SimpleNameSyntax GetUnqualifiedName();
 
         /// <remarks>
         /// This inspection is entirely syntactic.  We are not trying to find the alias corresponding to the assembly symbol
         /// containing the explicitly implemented interface symbol - there may be more than one.  We just want to know
         /// how the name was qualified in source so that we can make a similar qualification (for uniqueness purposes).
         /// </remarks>
-        internal string GetAliasQualifierOpt()
+        public string GetAliasQualifierOpt()
         {
             NameSyntax name = this;
             while (true)

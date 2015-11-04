@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -13,14 +13,14 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents an anonymous type 'GetHashCode' method.
         /// </summary>
         private sealed partial class AnonymousTypeGetHashCodeMethodSymbol : SynthesizedMethodBase
         {
-            internal AnonymousTypeGetHashCodeMethodSymbol(NamedTypeSymbol container)
+            public AnonymousTypeGetHashCodeMethodSymbol(NamedTypeSymbol container)
                 : base(container, WellKnownMemberNames.ObjectGetHashCode)
             {
             }
@@ -50,12 +50,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return true; }
             }
 
-            internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+            public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
             {
                 return true;
             }
 
-            internal override bool IsMetadataFinal
+            public override bool IsMetadataFinal
             {
                 get
                 {

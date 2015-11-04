@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// If a well-known member of a generic type instantiation is needed use this method to get the corresponding generic definition and 
         /// <see cref="MethodSymbol.AsMember"/> to construct an instantiation.
         /// </remarks>
-        internal Symbol GetWellKnownTypeMember(WellKnownMember member)
+        public Symbol GetWellKnownTypeMember(WellKnownMember member)
         {
             Debug.Assert(member >= 0 && member < WellKnownMember.Count);
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _lazyWellKnownTypeMembers[(int)member];
         }
 
-        internal NamedTypeSymbol GetWellKnownType(WellKnownType type)
+        public NamedTypeSymbol GetWellKnownType(WellKnownType type)
         {
             Debug.Assert(type >= WellKnownType.First && type <= WellKnownType.Last);
 
@@ -125,23 +125,23 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _lazyWellKnownTypes[index];
         }
 
-        internal bool IsAttributeType(TypeSymbol type)
+        public bool IsAttributeType(TypeSymbol type)
         {
             HashSet<DiagnosticInfo> useSiteDiagnostics = null;
             return IsEqualOrDerivedFromWellKnownClass(type, WellKnownType.System_Attribute, ref useSiteDiagnostics);
         }
 
-        internal override bool IsAttributeType(ITypeSymbol type)
+        public override bool IsAttributeType(ITypeSymbol type)
         {
             return IsAttributeType((TypeSymbol)type);
         }
 
-        internal bool IsExceptionType(TypeSymbol type, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool IsExceptionType(TypeSymbol type, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             return IsEqualOrDerivedFromWellKnownClass(type, WellKnownType.System_Exception, ref useSiteDiagnostics);
         }
 
-        internal bool IsEqualOrDerivedFromWellKnownClass(TypeSymbol type, WellKnownType wellKnownType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool IsEqualOrDerivedFromWellKnownClass(TypeSymbol type, WellKnownType wellKnownType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert(wellKnownType == WellKnownType.System_Attribute ||
                          wellKnownType == WellKnownType.System_Exception);
@@ -155,17 +155,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             return type.Equals(wkType, ignoreDynamic: false) || type.IsDerivedFrom(wkType, ignoreDynamic: false, useSiteDiagnostics: ref useSiteDiagnostics);
         }
 
-        internal override bool IsSystemTypeReference(ITypeSymbol type)
+        public override bool IsSystemTypeReference(ITypeSymbol type)
         {
             return (TypeSymbol)type == GetWellKnownType(WellKnownType.System_Type);
         }
 
-        internal override ISymbol CommonGetWellKnownTypeMember(WellKnownMember member)
+        public override ISymbol CommonGetWellKnownTypeMember(WellKnownMember member)
         {
             return GetWellKnownTypeMember(member);
         }
 
-        internal static Symbol GetRuntimeMember(NamedTypeSymbol declaringType, ref MemberDescriptor descriptor, SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol> comparer, AssemblySymbol accessWithinOpt)
+        public static Symbol GetRuntimeMember(NamedTypeSymbol declaringType, ref MemberDescriptor descriptor, SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol> comparer, AssemblySymbol accessWithinOpt)
         {
             Symbol result = null;
             SymbolKind targetSymbolKind;
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// If the well-known member does not exist in the compilation then no attribute
         /// will be synthesized.
         /// </param>
-        internal SynthesizedAttributeData TrySynthesizeAttribute(
+        public SynthesizedAttributeData TrySynthesizeAttribute(
             WellKnownMember constructor,
             ImmutableArray<TypedConstant> arguments = default(ImmutableArray<TypedConstant>),
             ImmutableArray<KeyValuePair<WellKnownMember, TypedConstant>> namedArguments = default(ImmutableArray<KeyValuePair<WellKnownMember, TypedConstant>>))
@@ -342,7 +342,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new SynthesizedAttributeData(ctorSymbol, arguments, namedStringArguments);
         }
 
-        internal SynthesizedAttributeData SynthesizeDecimalConstantAttribute(decimal value)
+        public SynthesizedAttributeData SynthesizeDecimalConstantAttribute(decimal value)
         {
             bool isNegative;
             byte scale;
@@ -365,7 +365,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 ));
         }
 
-        internal SynthesizedAttributeData SynthesizeDebuggerBrowsableNeverAttribute()
+        public SynthesizedAttributeData SynthesizeDebuggerBrowsableNeverAttribute()
         {
             if (Options.OptimizationLevel != OptimizationLevel.Debug)
             {
@@ -379,7 +379,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                        DebuggerBrowsableState.Never)));
         }
 
-        internal SynthesizedAttributeData SynthesizeDebuggerStepThroughAttribute()
+        public SynthesizedAttributeData SynthesizeDebuggerStepThroughAttribute()
         {
             if (Options.OptimizationLevel != OptimizationLevel.Debug)
             {
@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TrySynthesizeAttribute(WellKnownMember.System_Diagnostics_DebuggerStepThroughAttribute__ctor);
         }
 
-        internal SynthesizedAttributeData SynthesizeDebuggableAttribute()
+        public SynthesizedAttributeData SynthesizeDebuggableAttribute()
         {
             TypeSymbol debuggableAttribute = GetWellKnownType(WellKnownType.System_Diagnostics_DebuggableAttribute);
             Debug.Assert((object)debuggableAttribute != null, "GetWellKnownType unexpectedly returned null");
@@ -466,7 +466,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// returns a synthesized DynamicAttribute with encoded dynamic transforms array.
         /// </summary>
         /// <remarks>This method is port of AttrBind::CompileDynamicAttr from the native C# compiler.</remarks>
-        internal SynthesizedAttributeData SynthesizeDynamicAttribute(TypeSymbol type, int customModifiersCount, RefKind refKindOpt = RefKind.None)
+        public SynthesizedAttributeData SynthesizeDynamicAttribute(TypeSymbol type, int customModifiersCount, RefKind refKindOpt = RefKind.None)
         {
             Debug.Assert((object)type != null);
             Debug.Assert(type.ContainsDynamic());
@@ -489,9 +489,9 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Used to generate the dynamic attributes for the required typesymbol.
         /// </summary>
-        internal static class DynamicTransformsEncoder
+        public static class DynamicTransformsEncoder
         {
-            internal static ImmutableArray<TypedConstant> Encode(TypeSymbol type, TypeSymbol booleanType, int customModifiersCount, RefKind refKind)
+            public static ImmutableArray<TypedConstant> Encode(TypeSymbol type, TypeSymbol booleanType, int customModifiersCount, RefKind refKind)
             {
                 var flagsBuilder = ArrayBuilder<bool>.GetInstance();
                 EncodeInternal(type, customModifiersCount, refKind, flagsBuilder);
@@ -508,14 +508,14 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return constantsBuilder.ToImmutableAndFree();
             }
 
-            internal static ImmutableArray<bool> Encode(TypeSymbol type, int customModifiersCount, RefKind refKind)
+            public static ImmutableArray<bool> Encode(TypeSymbol type, int customModifiersCount, RefKind refKind)
             {
                 var transformFlagsBuilder = ArrayBuilder<bool>.GetInstance();
                 EncodeInternal(type, customModifiersCount, refKind, transformFlagsBuilder);
                 return transformFlagsBuilder.ToImmutableAndFree();
             }
 
-            internal static void EncodeInternal(TypeSymbol type, int customModifiersCount, RefKind refKind, ArrayBuilder<bool> transformFlagsBuilder)
+            public static void EncodeInternal(TypeSymbol type, int customModifiersCount, RefKind refKind, ArrayBuilder<bool> transformFlagsBuilder)
             {
                 Debug.Assert(!transformFlagsBuilder.Any());
 
@@ -581,7 +581,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal class SpecialMembersSignatureComparer : SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol>
+        public class SpecialMembersSignatureComparer : SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol>
         {
             // Fields
             public static readonly SpecialMembersSignatureComparer Instance = new SpecialMembersSignatureComparer();

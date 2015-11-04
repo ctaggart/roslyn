@@ -1,17 +1,17 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxParser
+    public partial class SyntaxParser
     {
         protected struct ResetPoint
         {
-            internal readonly int ResetCount;
-            internal readonly LexerMode Mode;
-            internal readonly int Position;
-            internal readonly CSharpSyntaxNode PrevTokenTrailingTrivia;
+            public readonly int ResetCount;
+            public readonly LexerMode Mode;
+            public readonly int Position;
+            public readonly CSharpSyntaxNode PrevTokenTrailingTrivia;
 
-            internal ResetPoint(int resetCount, LexerMode mode, int position, CSharpSyntaxNode prevTokenTrailingTrivia)
+            public ResetPoint(int resetCount, LexerMode mode, int position, CSharpSyntaxNode prevTokenTrailingTrivia)
             {
                 this.ResetCount = resetCount;
                 this.Mode = mode;

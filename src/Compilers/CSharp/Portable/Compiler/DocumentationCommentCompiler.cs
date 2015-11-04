@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Traverses the symbol table processing XML documentation comments and optionally writing them to
     /// a provided stream.
     /// </summary>
-    internal partial class DocumentationCommentCompiler : CSharpSymbolVisitor
+    public partial class DocumentationCommentCompiler : CSharpSymbolVisitor
     {
         private readonly string _assemblyName;
         private readonly CSharpCompilation _compilation;
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="symbol">The symbol for which to retrieve documentation comments.</param>
         /// <param name="processIncludes">True to treat includes as semantically meaningful (pull in contents from other files and bind crefs, etc).</param>
         /// <param name="cancellationToken">To stop traversing the symbol table early.</param>
-        internal static string GetDocumentationCommentXml(Symbol symbol, bool processIncludes, CancellationToken cancellationToken)
+        public static string GetDocumentationCommentXml(Symbol symbol, bool processIncludes, CancellationToken cancellationToken)
         {
             Debug.Assert(
                 symbol.Kind == SymbolKind.Event ||

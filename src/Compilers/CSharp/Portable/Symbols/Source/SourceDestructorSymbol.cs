@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -7,11 +7,11 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourceDestructorSymbol : SourceMethodSymbol
+    public sealed class SourceDestructorSymbol : SourceMethodSymbol
     {
         private TypeSymbol _lazyReturnType;
 
-        internal SourceDestructorSymbol(
+        public SourceDestructorSymbol(
             SourceMemberContainerTypeSymbol containingType,
             DestructorDeclarationSyntax syntax,
             DiagnosticBag diagnostics) :
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _lazyReturnType = bodyBinder.GetSpecialType(SpecialType.System_Void, diagnostics, syntax);
         }
 
-        internal DestructorDeclarationSyntax GetSyntax()
+        public DestructorDeclarationSyntax GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (DestructorDeclarationSyntax)syntaxReferenceOpt.GetSyntax();
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get { return 0; }
         }
@@ -110,29 +110,29 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return WellKnownMemberNames.DestructorName; }
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get { return false; }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             // destructors can't have return type attributes
             return OneOrMany.Create(this.GetSyntax().AttributeLists);
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
         {
             // destructors can't have return type attributes
             return OneOrMany.Create(default(SyntaxList<AttributeListSyntax>));
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return true;
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -140,12 +140,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return (object)this.ContainingType.BaseTypeNoUseSiteDiagnostics == null;
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }

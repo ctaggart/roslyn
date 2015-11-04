@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ using Microsoft.CodeAnalysis.CSharp.Emit;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal abstract class SourceFieldSymbol : FieldSymbol, IAttributeTargetSymbol
+    public abstract class SourceFieldSymbol : FieldSymbol, IAttributeTargetSymbol
     {
         protected SymbolCompletionState state;
         protected readonly SourceMemberContainerTypeSymbol containingType;
@@ -30,12 +30,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             this.containingType = containingType;
         }
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return state.HasComplete(part);
         }
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsNew
+        public bool IsNew
         {
             get
             {
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract Location ErrorLocation { get; }
+        public abstract Location ErrorLocation { get; }
 
         /// <summary>
         /// Gets the syntax list of custom attributes applied on the symbol.
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonFieldWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public CommonFieldWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonFieldEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
+        public CommonFieldEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsEarlyDecodedWellKnownAttributeDataComputed)
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (CommonFieldEarlyWellKnownAttributeData)attributesBag.EarlyDecodedWellKnownAttributeData;
         }
 
-        internal sealed override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public sealed override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             CSharpAttributeData boundAttribute;
             ObsoleteAttributeData obsoleteData;
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             Debug.Assert((object)arguments.AttributeSyntaxOpt != null);
 
@@ -416,7 +416,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
+        public override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
         {
             Debug.Assert(!boundAttributes.IsDefault);
             Debug.Assert(!allAttributeSyntaxNodes.IsDefault);
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             base.PostDecodeWellKnownAttributes(boundAttributes, allAttributeSyntaxNodes, diagnostics, symbolPart, decodedData);
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -462,7 +462,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get
             {
@@ -476,7 +476,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasRuntimeSpecialName
+        public sealed override bool HasRuntimeSpecialName
         {
             get
             {
@@ -484,7 +484,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsNotSerialized
+        public sealed override bool IsNotSerialized
         {
             get
             {
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override MarshalPseudoCustomAttributeData MarshallingInformation
+        public sealed override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -502,7 +502,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override int? TypeLayoutOffset
+        public sealed override int? TypeLayoutOffset
         {
             get
             {
@@ -512,7 +512,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal abstract class SourceFieldSymbolWithSyntaxReference : SourceFieldSymbol
+    public abstract class SourceFieldSymbolWithSyntaxReference : SourceFieldSymbol
     {
         private readonly string _name;
         private readonly Location _location;
@@ -559,7 +559,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override LexicalSortKey GetLexicalSortKey()
+        public override LexicalSortKey GetLexicalSortKey()
         {
             return new LexicalSortKey(_location, this.DeclaringCompilation);
         }
@@ -572,7 +572,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override Location ErrorLocation
+        public sealed override Location ErrorLocation
         {
             get
             {
@@ -593,7 +593,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return SourceDocumentationCommentUtils.GetAndCacheDocumentationComment(this, expandIncludes, ref _lazyDocComment);
         }
 
-        internal sealed override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+        public sealed override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
         {
             var value = this.GetLazyConstantValue(earlyDecodingWellKnownAttributes);
             if (value != Microsoft.CodeAnalysis.ConstantValue.Unset)
@@ -636,7 +636,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// constant value if there were no dependencies. (If there are dependencies,
         /// the constant value will be re-evaluated after evaluating dependencies.)
         /// </summary>
-        internal ImmutableHashSet<SourceFieldSymbolWithSyntaxReference> GetConstantValueDependencies(bool earlyDecodingWellKnownAttributes)
+        public ImmutableHashSet<SourceFieldSymbolWithSyntaxReference> GetConstantValueDependencies(bool earlyDecodingWellKnownAttributes)
         {
             var value = this.GetLazyConstantValue(earlyDecodingWellKnownAttributes);
             if (value != Microsoft.CodeAnalysis.ConstantValue.Unset)

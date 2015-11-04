@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// for comparison (when searching through the methods of a known
     /// TypeSymbol), we can return indexed type parameters instead.
     /// </summary>
-    internal sealed class MemberRefMetadataDecoder : MetadataDecoder
+    public sealed class MemberRefMetadataDecoder : MetadataDecoder
     {
         /// <summary>
         /// Type context for resolving generic type arguments.
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <param name="memberRef">A MemberRef handle that can be used to obtain the name and signature of the method</param>
         /// <param name="methodsOnly">True to only return a method.</param>
         /// <returns>The matching method symbol, or null if the inputs do not correspond to a valid method.</returns>
-        internal Symbol FindMember(TypeSymbol targetTypeSymbol, MemberReferenceHandle memberRef, bool methodsOnly)
+        public Symbol FindMember(TypeSymbol targetTypeSymbol, MemberReferenceHandle memberRef, bool methodsOnly)
         {
             if ((object)targetTypeSymbol == null)
             {

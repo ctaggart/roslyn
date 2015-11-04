@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.Text;
@@ -6,14 +6,14 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class CommandLineDiagnosticFormatter : CSharpDiagnosticFormatter
+    public sealed class CommandLineDiagnosticFormatter : CSharpDiagnosticFormatter
     {
         private readonly string _baseDirectory;
         private readonly Lazy<string> _lazyNormalizedBaseDirectory;
         private readonly bool _displayFullPaths;
         private readonly bool _displayEndLocations;
 
-        internal CommandLineDiagnosticFormatter(string baseDirectory, bool displayFullPaths, bool displayEndLocations)
+        public CommandLineDiagnosticFormatter(string baseDirectory, bool displayFullPaths, bool displayEndLocations)
         {
             _baseDirectory = baseDirectory;
             _displayFullPaths = displayFullPaths;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _lazyNormalizedBaseDirectory = new Lazy<string>(() => FileUtilities.TryNormalizeAbsolutePath(baseDirectory));
         }
 
-        internal override string FormatSourceSpan(LinePositionSpan span, IFormatProvider formatter)
+        public override string FormatSourceSpan(LinePositionSpan span, IFormatProvider formatter)
         {
             if (_displayEndLocations)
             {
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override string FormatSourcePath(string path, string basePath, IFormatProvider formatter)
+        public override string FormatSourcePath(string path, string basePath, IFormatProvider formatter)
         {
             var normalizedPath = FileUtilities.NormalizeRelativePath(path, basePath, _baseDirectory);
             if (normalizedPath == null)
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the path name starting from the <see cref="_baseDirectory"/>
         /// </summary>
-        internal string RelativizeNormalizedPath(string normalizedPath)
+        public string RelativizeNormalizedPath(string normalizedPath)
         {
             var normalizedBaseDirectory = _lazyNormalizedBaseDirectory.Value;
             if (normalizedBaseDirectory == null)

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// in the region. A variable is "always assigned" in a region if an analysis of the region that
     /// starts with the variable unassigned ends with the variable assigned.
     /// </summary>
-    internal class AlwaysAssignedWalker : AbstractRegionDataFlowPass
+    public class AlwaysAssignedWalker : AbstractRegionDataFlowPass
     {
         private LocalState _endOfRegionState;
         private readonly HashSet<LabelSymbol> _labelsInside = new HashSet<LabelSymbol>();
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
         }
 
-        internal static IEnumerable<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
+        public static IEnumerable<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
         {
             var walker = new AlwaysAssignedWalker(compilation, member, node, firstInRegion, lastInRegion);
             bool badRegion = false;

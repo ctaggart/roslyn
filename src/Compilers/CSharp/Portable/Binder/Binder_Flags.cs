@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// Represents a small change from the enclosing/next binder.
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             private readonly Symbol _containingMemberOrLambda;
 
-            internal BinderWithContainingMemberOrLambda(Binder next, Symbol containingMemberOrLambda)
+            public BinderWithContainingMemberOrLambda(Binder next, Symbol containingMemberOrLambda)
                 : base(next)
             {
                 Debug.Assert(containingMemberOrLambda != null);
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _containingMemberOrLambda = containingMemberOrLambda;
             }
 
-            internal BinderWithContainingMemberOrLambda(Binder next, BinderFlags flags, Symbol containingMemberOrLambda)
+            public BinderWithContainingMemberOrLambda(Binder next, BinderFlags flags, Symbol containingMemberOrLambda)
                 : base(next, flags)
             {
                 Debug.Assert(containingMemberOrLambda != null);
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _containingMemberOrLambda = containingMemberOrLambda;
             }
 
-            internal override Symbol ContainingMemberOrLambda
+            public override Symbol ContainingMemberOrLambda
             {
                 get { return _containingMemberOrLambda; }
             }
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             private readonly BoundExpression _receiverExpression;
 
-            internal BinderWithConditionalReceiver(Binder next, BoundExpression receiverExpression)
+            public BinderWithConditionalReceiver(Binder next, BoundExpression receiverExpression)
                 : base(next)
             {
                 Debug.Assert(receiverExpression != null);
@@ -53,27 +53,27 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _receiverExpression = receiverExpression;
             }
 
-            internal override BoundExpression ConditionalReceiverExpression
+            public override BoundExpression ConditionalReceiverExpression
             {
                 get { return _receiverExpression; }
             }
         }
 
-        internal Binder WithFlags(BinderFlags flags)
+        public Binder WithFlags(BinderFlags flags)
         {
             return this.Flags == flags
                 ? this
                 : new Binder(this, flags);
         }
 
-        internal Binder WithAdditionalFlags(BinderFlags flags)
+        public Binder WithAdditionalFlags(BinderFlags flags)
         {
             return this.Flags.Includes(flags)
                 ? this
                 : new Binder(this, this.Flags | flags);
         }
 
-        internal Binder WithContainingMemberOrLambda(Symbol containing)
+        public Binder WithContainingMemberOrLambda(Symbol containing)
         {
             Debug.Assert((object)containing != null);
             return new BinderWithContainingMemberOrLambda(this, containing);
@@ -83,20 +83,20 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// It seems to be common to do both of these things at once, so provide a way to do so
         /// without adding two links to the binder chain.
         /// </remarks>
-        internal Binder WithAdditionalFlagsAndContainingMemberOrLambda(BinderFlags flags, Symbol containing)
+        public Binder WithAdditionalFlagsAndContainingMemberOrLambda(BinderFlags flags, Symbol containing)
         {
             Debug.Assert((object)containing != null);
             return new BinderWithContainingMemberOrLambda(this, this.Flags | flags, containing);
         }
 
-        internal Binder WithUnsafeRegionIfNecessary(SyntaxTokenList modifiers)
+        public Binder WithUnsafeRegionIfNecessary(SyntaxTokenList modifiers)
         {
             return (this.Flags.Includes(BinderFlags.UnsafeRegion) || !modifiers.Any(SyntaxKind.UnsafeKeyword))
                 ? this
                 : new Binder(this, this.Flags | BinderFlags.UnsafeRegion);
         }
 
-        internal Binder WithCheckedOrUncheckedRegion(bool @checked)
+        public Binder WithCheckedOrUncheckedRegion(bool @checked)
         {
             Debug.Assert(!this.Flags.Includes(BinderFlags.UncheckedRegion | BinderFlags.CheckedRegion));
 

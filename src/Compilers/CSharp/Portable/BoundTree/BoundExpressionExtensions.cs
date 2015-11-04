@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static partial class BoundExpressionExtensions
+    public static partial class BoundExpressionExtensions
     {
         public static bool IsLiteralNull(this BoundExpression node)
         {
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static bool IsExpressionOfComImportType(this BoundExpression expressionOpt)
+        public static bool IsExpressionOfComImportType(this BoundExpression expressionOpt)
         {
             // NOTE: Dev11 also returns false if expressionOpt is a TypeExpression.  Unfortunately,
             // that makes it impossible to handle TypeOrValueExpression in a consistent way, since

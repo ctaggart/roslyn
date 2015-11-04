@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal sealed class ParameterTypeInformation : Cci.IParameterTypeInformation
+    public sealed class ParameterTypeInformation : Cci.IParameterTypeInformation
     {
         private readonly ParameterSymbol _underlyingParameter;
 
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
         }
     }
 
-    internal sealed class ArgListParameterTypeInformation : Cci.IParameterTypeInformation
+    public sealed class ArgListParameterTypeInformation : Cci.IParameterTypeInformation
     {
         private readonly ushort _ordinal;
         private readonly bool _isByRef;

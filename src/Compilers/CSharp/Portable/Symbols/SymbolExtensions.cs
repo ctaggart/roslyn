@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static partial class SymbolExtensions
+    public static partial class SymbolExtensions
     {
         /// <summary>
         /// Does the compilation this symbol belongs to output to a winmdobj?
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// The immediately containing namespace or named type, or null
         /// if the containing symbol is neither a namespace or named type.
         /// </summary>
-        internal static NamespaceOrTypeSymbol ContainingNamespaceOrType(this Symbol symbol)
+        public static NamespaceOrTypeSymbol ContainingNamespaceOrType(this Symbol symbol)
         {
             var containingSymbol = symbol.ContainingSymbol;
             if ((object)containingSymbol != null)
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal static Symbol ContainingNonLambdaMember(this Symbol containingMember)
+        public static Symbol ContainingNonLambdaMember(this Symbol containingMember)
         {
             while ((object)containingMember != null && containingMember.Kind == SymbolKind.Method)
             {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return containingMember;
         }
 
-        internal static ParameterSymbol EnclosingThisSymbol(this Symbol containingMember)
+        public static ParameterSymbol EnclosingThisSymbol(this Symbol containingMember)
         {
             Symbol symbol = containingMember;
             while (true)
@@ -243,17 +243,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool CompilationAllowsUnsafe(this Symbol symbol)
+        public static bool CompilationAllowsUnsafe(this Symbol symbol)
         {
             return symbol.DeclaringCompilation.Options.AllowUnsafe;
         }
 
-        internal static void CheckUnsafeModifier(this Symbol symbol, DeclarationModifiers modifiers, DiagnosticBag diagnostics)
+        public static void CheckUnsafeModifier(this Symbol symbol, DeclarationModifiers modifiers, DiagnosticBag diagnostics)
         {
             symbol.CheckUnsafeModifier(modifiers, symbol.Locations[0], diagnostics);
         }
 
-        internal static void CheckUnsafeModifier(this Symbol symbol, DeclarationModifiers modifiers, Location errorLocation, DiagnosticBag diagnostics)
+        public static void CheckUnsafeModifier(this Symbol symbol, DeclarationModifiers modifiers, Location errorLocation, DiagnosticBag diagnostics)
         {
             if (((modifiers & DeclarationModifiers.Unsafe) == DeclarationModifiers.Unsafe) && !symbol.CompilationAllowsUnsafe())
             {
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return 0;
         }
 
-        internal static CSharpSyntaxNode GetNonNullSyntaxNode(this Symbol symbol)
+        public static CSharpSyntaxNode GetNonNullSyntaxNode(this Symbol symbol)
         {
             if ((object)symbol != null)
             {
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (CSharpSyntaxNode)CSharpSyntaxTree.Dummy.GetRoot();
         }
 
-        internal static TDestination EnsureCSharpSymbolOrNull<TSource, TDestination>(this TSource symbol, string paramName)
+        public static TDestination EnsureCSharpSymbolOrNull<TSource, TDestination>(this TSource symbol, string paramName)
             where TSource : ISymbol
             where TDestination : Symbol, TSource
         {

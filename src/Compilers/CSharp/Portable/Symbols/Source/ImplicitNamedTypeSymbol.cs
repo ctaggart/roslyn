@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents implicit, script and submission classes.
     /// </summary>
-    internal sealed class ImplicitNamedTypeSymbol : SourceMemberContainerTypeSymbol
+    public sealed class ImplicitNamedTypeSymbol : SourceMemberContainerTypeSymbol
     {
-        internal ImplicitNamedTypeSymbol(NamespaceOrTypeSymbol containingSymbol, MergedTypeDeclaration declaration, DiagnosticBag diagnostics)
+        public ImplicitNamedTypeSymbol(NamespaceOrTypeSymbol containingSymbol, MergedTypeDeclaration declaration, DiagnosticBag diagnostics)
             : base(containingSymbol, declaration, diagnostics)
         {
             Debug.Assert(declaration.Kind == DeclarationKind.ImplicitClass ||
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ImmutableArray<CSharpAttributeData>.Empty;
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             return AttributeUsageInfo.Null;
         }
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return NoLocation.Singleton;
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -67,17 +67,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             return BaseTypeNoUseSiteDiagnostics;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
@@ -92,12 +92,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<TypeParameterSymbol>.Empty; }
         }
 
-        internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+        public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
         {
             get { return ImmutableArray<TypeSymbol>.Empty; }
         }
 
-        internal override bool HasTypeArgumentsCustomModifiers
+        public override bool HasTypeArgumentsCustomModifiers
         {
             get
             {
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+        public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
         {
             get
             {
@@ -113,67 +113,67 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsComImport
+        public override bool IsComImport
         {
             get { return false; }
         }
 
-        internal override NamedTypeSymbol ComImportCoClass
+        public override NamedTypeSymbol ComImportCoClass
         {
             get { return null; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return false; }
         }
 
-        internal override bool ShouldAddWinRTMembers
+        public override bool ShouldAddWinRTMembers
         {
             get { return false; }
         }
 
-        internal sealed override bool IsWindowsRuntimeImport
+        public sealed override bool IsWindowsRuntimeImport
         {
             get { return false; }
         }
 
-        internal sealed override bool IsSerializable
+        public sealed override bool IsSerializable
         {
             get { return false; }
         }
 
-        internal sealed override TypeLayout Layout
+        public sealed override TypeLayout Layout
         {
             get { return default(TypeLayout); }
         }
 
-        internal bool HasStructLayoutAttribute
+        public bool HasStructLayoutAttribute
         {
             get { return false; }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get { return DefaultMarshallingCharSet; }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }

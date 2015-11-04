@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A binder that places the members of a symbol in scope.  If there is a container declaration
     /// with using directives, those are merged when looking up names.
     /// </summary>
-    internal sealed class InContainerBinder : Binder
+    public sealed class InContainerBinder : Binder
     {
         private readonly NamespaceOrTypeSymbol _container;
         private readonly Func<ConsList<Symbol>, Imports> _computeImports;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Creates a binder for a container with imports (usings and extern aliases) that can be
         /// retrieved from <paramref name="declarationSyntax"/>.
         /// </summary>
-        internal InContainerBinder(NamespaceOrTypeSymbol container, Binder next, CSharpSyntaxNode declarationSyntax, bool inUsing)
+        public InContainerBinder(NamespaceOrTypeSymbol container, Binder next, CSharpSyntaxNode declarationSyntax, bool inUsing)
             : base(next)
         {
             Debug.Assert((object)container != null);
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Creates a binder with given imports.
         /// </summary>
-        internal InContainerBinder(NamespaceOrTypeSymbol container, Binder next, Imports imports = null)
+        public InContainerBinder(NamespaceOrTypeSymbol container, Binder next, Imports imports = null)
             : base(next)
         {
             Debug.Assert((object)container != null || imports != null);
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Creates a binder with given import computation function.
         /// </summary>
-        internal InContainerBinder(Binder next, Func<ConsList<Symbol>, Imports> computeImports)
+        public InContainerBinder(Binder next, Func<ConsList<Symbol>, Imports> computeImports)
             : base(next)
         {
             Debug.Assert(computeImports != null);
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _computeImports = computeImports;
         }
 
-        internal NamespaceOrTypeSymbol Container
+        public NamespaceOrTypeSymbol Container
         {
             get
             {
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override Imports GetImports(ConsList<Symbol> basesBeingResolved)
+        public override Imports GetImports(ConsList<Symbol> basesBeingResolved)
         {
             Debug.Assert(_lazyImports != null || _computeImports != null, "Have neither imports nor a way to compute them.");
 
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _lazyImports;
         }
 
-        internal override ImportChain ImportChain
+        public override ImportChain ImportChain
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get
             {
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return (_container?.Kind == SymbolKind.NamedType) && ((NamedTypeSymbol)_container).IsScriptClass; }
         }
 
-        internal override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
+        public override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
         {
             var type = _container as NamedTypeSymbol;
             if ((object)type != null)
@@ -132,12 +132,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool SupportsExtensionMethods
+        public override bool SupportsExtensionMethods
         {
             get { return true; }
         }
 
-        internal override void GetCandidateExtensionMethods(
+        public override void GetCandidateExtensionMethods(
             bool searchUsingsNotNamespace,
             ArrayBuilder<MethodSymbol> methods,
             string name,
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
+        public override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
         {
             if (IsScriptClass)
             {
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override void LookupSymbolsInSingleBinder(
+        public override void LookupSymbolsInSingleBinder(
             LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert(result.IsClear);

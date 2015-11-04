@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal class SyntaxNodeOrTokenListBuilder
+    public class SyntaxNodeOrTokenListBuilder
     {
         private Syntax.InternalSyntax.CSharpSyntaxNode[] _nodes;
         private int _count;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             }
         }
 
-        internal void Add(Syntax.InternalSyntax.CSharpSyntaxNode item)
+        public void Add(Syntax.InternalSyntax.CSharpSyntaxNode item)
         {
             if (_nodes == null || _count >= _nodes.Length)
             {
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             }
         }
 
-        internal void RemoveLast()
+        public void RemoveLast()
         {
             _count--;
             _nodes[_count] = null;

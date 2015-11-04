@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents a base implementation for anonymous type synthesized methods.
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _name = name;
             }
 
-            internal sealed override bool GenerateDebugInfo
+            public sealed override bool GenerateDebugInfo
             {
                 get { return false; }
             }
@@ -70,12 +70,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
+            public sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
             {
                 get { return default(System.Reflection.MethodImplAttributes); }
             }
 
-            internal sealed override Cci.CallingConvention CallingConvention
+            public sealed override Cci.CallingConvention CallingConvention
             {
                 get { return Cci.CallingConvention.HasThis; }
             }
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return ImmutableArray<TypeParameterSymbol>.Empty; }
             }
 
-            internal sealed override bool IsExplicitInterfaceImplementation
+            public sealed override bool IsExplicitInterfaceImplementation
             {
                 get { return false; }
             }
@@ -145,12 +145,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return _name; }
             }
 
-            internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+            public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
             {
                 return false;
             }
 
-            internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+            public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
             {
                 base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal sealed override bool RequiresSecurityObject
+            public sealed override bool RequiresSecurityObject
             {
                 get { return false; }
             }
@@ -177,27 +177,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return null;
             }
 
-            internal sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+            public sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
             {
                 get { return null; }
             }
 
-            internal sealed override bool HasDeclarativeSecurity
+            public sealed override bool HasDeclarativeSecurity
             {
                 get { return false; }
             }
 
-            internal sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+            public sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
             {
                 throw ExceptionUtilities.Unreachable;
             }
 
-            internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+            public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
             {
                 return ImmutableArray<string>.Empty;
             }
 
-            internal override bool SynthesizesLoweredBoundBody
+            public override bool SynthesizesLoweredBoundBody
             {
                 get
                 {
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return F;
             }
 
-            internal sealed override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+            public sealed override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
             {
                 throw ExceptionUtilities.Unreachable;
             }

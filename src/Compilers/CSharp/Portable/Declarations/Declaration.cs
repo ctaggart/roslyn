@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// declaration.  The whole program, consisting of the set of all declarations in all of the
     /// source files, is represented by a tree of merged declarations.
     /// </summary>
-    internal abstract class Declaration
+    public abstract class Declaration
     {
         protected readonly string name;
 

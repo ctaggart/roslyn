@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static partial class OperatorKindExtensions
+    public static partial class OperatorKindExtensions
     {
         public static RefKind RefKinds(this ImmutableArray<RefKind> ArgumentRefKinds, int index)
         {
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal static partial class BoundExpressionExtensions
+    public static partial class BoundExpressionExtensions
     {
         public static bool NullableAlwaysHasValue(this BoundExpression expr)
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// For every other submission referenced by this submission we add a field, so that we can access members of the target submission.
     /// A field is also needed for the host object, if provided.
     /// </remarks>
-    internal class SynthesizedSubmissionFields
+    public class SynthesizedSubmissionFields
     {
         private readonly NamedTypeSymbol _declaringSubmissionClass;
         private readonly CSharpCompilation _compilation;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _compilation = compilation;
         }
 
-        internal int Count
+        public int Count
         {
             get
             {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal IEnumerable<FieldSymbol> FieldSymbols
+        public IEnumerable<FieldSymbol> FieldSymbols
         {
             get
             {
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal FieldSymbol GetHostObjectField()
+        public FieldSymbol GetHostObjectField()
         {
             if ((object)_hostObjectField != null)
             {
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal FieldSymbol GetOrMakeField(ImplicitNamedTypeSymbol previousSubmissionType)
+        public FieldSymbol GetOrMakeField(ImplicitNamedTypeSymbol previousSubmissionType)
         {
             if (_previousSubmissionFieldMap == null)
             {
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return previousSubmissionField;
         }
 
-        internal void AddToType(NamedTypeSymbol containingType, PEModuleBuilder moduleBeingBuilt)
+        public void AddToType(NamedTypeSymbol containingType, PEModuleBuilder moduleBeingBuilt)
         {
             foreach (var field in FieldSymbols)
             {

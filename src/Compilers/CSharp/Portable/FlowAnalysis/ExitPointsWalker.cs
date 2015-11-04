@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A region analysis walker that records jumps out of the region.
     /// </summary>
-    internal class ExitPointsWalker : AbstractRegionControlFlowPass
+    public class ExitPointsWalker : AbstractRegionControlFlowPass
     {
         private readonly ArrayBuilder<LabelSymbol> _labelsInside;
         private ArrayBuilder<StatementSyntax> _branchesOutOf;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             base.Free();
         }
 
-        internal static IEnumerable<StatementSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
+        public static IEnumerable<StatementSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion)
         {
             var walker = new ExitPointsWalker(compilation, member, node, firstInRegion, lastInRegion);
             try

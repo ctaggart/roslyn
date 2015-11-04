@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal enum DeclarationKind : byte
+    public enum DeclarationKind : byte
     {
         Namespace,
         Class,
@@ -20,9 +20,9 @@ namespace Microsoft.CodeAnalysis.CSharp
         ImplicitClass
     }
 
-    internal static partial class EnumConversions
+    public static partial class EnumConversions
     {
-        internal static DeclarationKind ToDeclarationKind(this SyntaxKind kind)
+        public static DeclarationKind ToDeclarationKind(this SyntaxKind kind)
         {
             switch (kind)
             {

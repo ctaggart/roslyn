@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -12,11 +12,11 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
     //This used to implement IEnumerable and have more functionality, but it was not tested or used.
-    internal struct SyntaxDiagnosticInfoList
+    public struct SyntaxDiagnosticInfoList
     {
         private readonly GreenNode _node;
 
-        internal SyntaxDiagnosticInfoList(GreenNode node)
+        public SyntaxDiagnosticInfoList(GreenNode node)
         {
             _node = node;
         }
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return new Enumerator(_node);
         }
 
-        internal bool Any(Func<DiagnosticInfo, bool> predicate)
+        public bool Any(Func<DiagnosticInfo, bool> predicate)
         {
             var enumerator = GetEnumerator();
             while (enumerator.MoveNext())
@@ -42,11 +42,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         {
             private struct NodeIteration
             {
-                internal readonly GreenNode Node;
-                internal int DiagnosticIndex;
-                internal int SlotIndex;
+                public readonly GreenNode Node;
+                public int DiagnosticIndex;
+                public int SlotIndex;
 
-                internal NodeIteration(GreenNode node)
+                public NodeIteration(GreenNode node)
                 {
                     this.Node = node;
                     this.SlotIndex = -1;
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             private int _count;
             private DiagnosticInfo _current;
 
-            internal Enumerator(GreenNode node)
+            public Enumerator(GreenNode node)
             {
                 _current = null;
                 _stack = null;

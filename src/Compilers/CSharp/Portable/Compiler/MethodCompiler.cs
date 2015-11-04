@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -18,7 +18,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class MethodCompiler : CSharpSymbolVisitor<TypeCompilationState, object>
+    public sealed class MethodCompiler : CSharpSymbolVisitor<TypeCompilationState, object>
     {
         private readonly CSharpCompilation _compilation;
         private readonly bool _emittingPdb;
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Internal for testing only.
-        internal MethodCompiler(CSharpCompilation compilation, PEModuleBuilder moduleBeingBuiltOpt, bool emittingPdb, bool hasDeclarationErrors,
+        public MethodCompiler(CSharpCompilation compilation, PEModuleBuilder moduleBeingBuiltOpt, bool emittingPdb, bool hasDeclarationErrors,
             DiagnosticBag diagnostics, Predicate<Symbol> filterOpt, CancellationToken cancellationToken)
         {
             Debug.Assert(compilation != null);
@@ -1147,7 +1147,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // internal for testing
-        internal static BoundStatement LowerBodyOrInitializer(
+        public static BoundStatement LowerBodyOrInitializer(
             MethodSymbol method,
             int methodOrdinal,
             BoundStatement body,
@@ -1453,7 +1453,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // NOTE: can return null if the method has no body.
-        internal static BoundBlock BindMethodBody(MethodSymbol method, TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public static BoundBlock BindMethodBody(MethodSymbol method, TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             ImportChain unused;
             return BindMethodBody(method, compilationState, diagnostics, out unused);
@@ -1612,7 +1612,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="diagnostics">Accumulates errors (e.g. access "this" in constructor initializer).</param>
         /// <param name="compilation">Used to retrieve binder.</param>
         /// <returns>A bound expression for the constructor initializer call.</returns>
-        internal static BoundExpression BindConstructorInitializer(MethodSymbol constructor, DiagnosticBag diagnostics, CSharpCompilation compilation)
+        public static BoundExpression BindConstructorInitializer(MethodSymbol constructor, DiagnosticBag diagnostics, CSharpCompilation compilation)
         {
             // Note that the base type can be null if we're compiling System.Object in source.
             NamedTypeSymbol baseType = constructor.ContainingType.BaseTypeNoUseSiteDiagnostics;
@@ -1734,7 +1734,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static BoundCall GenerateObjectConstructorInitializer(MethodSymbol constructor, DiagnosticBag diagnostics)
+        public static BoundCall GenerateObjectConstructorInitializer(MethodSymbol constructor, DiagnosticBag diagnostics)
         {
             NamedTypeSymbol objectType = constructor.ContainingType.BaseTypeNoUseSiteDiagnostics;
             Debug.Assert(objectType.SpecialType == SpecialType.System_Object);

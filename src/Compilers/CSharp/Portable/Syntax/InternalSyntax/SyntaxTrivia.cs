@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,11 +6,11 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal class SyntaxTrivia : CSharpSyntaxNode
+    public class SyntaxTrivia : CSharpSyntaxNode
     {
         public readonly string Text;
 
-        internal SyntaxTrivia(SyntaxKind kind, string text, DiagnosticInfo[] diagnostics = null, SyntaxAnnotation[] annotations = null)
+        public SyntaxTrivia(SyntaxKind kind, string text, DiagnosticInfo[] diagnostics = null, SyntaxAnnotation[] annotations = null)
             : base(kind, diagnostics, annotations, text.Length)
         {
             this.Text = text;
@@ -20,25 +20,25 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal SyntaxTrivia(ObjectReader reader)
+        public SyntaxTrivia(ObjectReader reader)
             : base(reader)
         {
             this.Text = reader.ReadString();
             this.FullWidth = this.Text.Length;
         }
 
-        internal override Func<ObjectReader, object> GetReader()
+        public override Func<ObjectReader, object> GetReader()
         {
             return r => new SyntaxTrivia(r);
         }
 
-        internal override void WriteTo(ObjectWriter writer)
+        public override void WriteTo(ObjectWriter writer)
         {
             base.WriteTo(writer);
             writer.WriteString(this.Text);
         }
 
-        internal static SyntaxTrivia Create(SyntaxKind kind, string text)
+        public static SyntaxTrivia Create(SyntaxKind kind, string text)
         {
             return new SyntaxTrivia(kind, text);
         }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return this.Text;
         }
 
-        internal override GreenNode GetSlot(int index)
+        public override GreenNode GetSlot(int index)
         {
             throw ExceptionUtilities.Unreachable;
         }
@@ -77,12 +77,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return 0;
         }
 
-        internal override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
+        public override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
         {
             return new SyntaxTrivia(this.Kind, this.Text, diagnostics, GetAnnotations());
         }
 
-        internal override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
+        public override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
         {
             return new SyntaxTrivia(this.Kind, this.Text, GetDiagnostics(), annotations);
         }
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             visitor.VisitTrivia(this);
         }
 
-        protected internal override void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
+        public override void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
         {
             writer.Write(Text);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return true;
         }
 
-        internal override SyntaxNode CreateRed(SyntaxNode parent, int position)
+        public override SyntaxNode CreateRed(SyntaxNode parent, int position)
         {
             throw ExceptionUtilities.Unreachable;
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class UsingStatementBinder : LockOrUsingBinder
+    public sealed class UsingStatementBinder : LockOrUsingBinder
     {
         private readonly UsingStatementSyntax _syntax;
 
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override BoundStatement BindUsingStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundStatement BindUsingStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             ExpressionSyntax expressionSyntax = TargetExpressionSyntax;
             VariableDeclarationSyntax declarationSyntax = _syntax.Declaration;

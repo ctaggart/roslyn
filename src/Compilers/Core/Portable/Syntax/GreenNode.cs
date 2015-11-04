@@ -571,7 +571,7 @@ namespace Microsoft.CodeAnalysis
             this.WriteTo(writer, true, true);
         }
 
-        protected internal virtual void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
+        public virtual void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
         {
             bool first = true;
             int n = this.SlotCount;

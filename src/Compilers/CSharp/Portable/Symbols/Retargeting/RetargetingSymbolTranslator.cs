@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -12,13 +12,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
 {
-    internal enum RetargetOptions : byte
+    public enum RetargetOptions : byte
     {
         RetargetPrimitiveTypesByName = 0,
         RetargetPrimitiveTypesByTypeCode = 1,
     }
 
-    internal partial class RetargetingModuleSymbol
+    public partial class RetargetingModuleSymbol
     {
         /// <summary>
         /// Retargeting map from underlying module to this one.
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return new RetargetingTypeParameterSymbol(this, (TypeParameterSymbol)symbol);
         }
 
-        internal class RetargetingSymbolTranslator
+        public class RetargetingSymbolTranslator
             : CSharpSymbolVisitor<RetargetOptions, Symbol>
         {
             private readonly RetargetingModuleSymbol _retargetingModule;
@@ -684,7 +684,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
                 return ArrayTypeSymbol.CreateMDArray(this.RetargetingAssembly, newElement, type.Rank, type.Sizes, type.LowerBounds, newModifiers);
             }
 
-            internal ImmutableArray<CustomModifier> RetargetModifiers(ImmutableArray<CustomModifier> oldModifiers, out bool modifiersHaveChanged)
+            public ImmutableArray<CustomModifier> RetargetModifiers(ImmutableArray<CustomModifier> oldModifiers, out bool modifiersHaveChanged)
             {
                 int i;
                 int count = oldModifiers.Length;
@@ -1024,7 +1024,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
                 return null;
             }
 
-            internal ImmutableArray<CustomModifier> RetargetModifiers(
+            public ImmutableArray<CustomModifier> RetargetModifiers(
                 ImmutableArray<CustomModifier> oldModifiers,
                 ref ImmutableArray<CustomModifier> lazyCustomModifiers)
             {
@@ -1049,7 +1049,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
                 return oldAttributes.SelectAsArray((a, t) => t.RetargetAttributeData(a), this);
             }
 
-            internal IEnumerable<CSharpAttributeData> RetargetAttributes(IEnumerable<CSharpAttributeData> attributes)
+            public IEnumerable<CSharpAttributeData> RetargetAttributes(IEnumerable<CSharpAttributeData> attributes)
             {
 #if DEBUG
                 SynthesizedAttributeData x = null;
@@ -1213,7 +1213,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
 
             // Get the retargeted attributes
-            internal ImmutableArray<CSharpAttributeData> GetRetargetedAttributes(
+            public ImmutableArray<CSharpAttributeData> GetRetargetedAttributes(
                 ImmutableArray<CSharpAttributeData> underlyingAttributes,
                 ref ImmutableArray<CSharpAttributeData> lazyCustomAttributes)
             {

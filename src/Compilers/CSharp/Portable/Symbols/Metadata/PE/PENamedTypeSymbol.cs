@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// The class to represent all types imported from a PE/module.
     /// </summary>
-    internal abstract class PENamedTypeSymbol : NamedTypeSymbol
+    public abstract class PENamedTypeSymbol : NamedTypeSymbol
     {
         private static readonly Dictionary<string, ImmutableArray<PENamedTypeSymbol>> s_emptyNestedTypes = new Dictionary<string, ImmutableArray<PENamedTypeSymbol>>();
 
@@ -120,19 +120,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             /// <summary>
             /// Need to import them for an enum from a linked assembly, when we are embedding it. These symbols are not included into lazyMembersInDeclarationOrder.  
             /// </summary>
-            internal ImmutableArray<PEFieldSymbol> lazyInstanceEnumFields;
-            internal NamedTypeSymbol lazyEnumUnderlyingType;
+            public ImmutableArray<PEFieldSymbol> lazyInstanceEnumFields;
+            public NamedTypeSymbol lazyEnumUnderlyingType;
 
             // CONSIDER: Should we use a CustomAttributeBag for PE symbols?
-            internal ImmutableArray<CSharpAttributeData> lazyCustomAttributes;
-            internal ImmutableArray<string> lazyConditionalAttributeSymbols;
-            internal ObsoleteAttributeData lazyObsoleteAttributeData = ObsoleteAttributeData.Uninitialized;
-            internal AttributeUsageInfo lazyAttributeUsageInfo = AttributeUsageInfo.Null;
-            internal ThreeState lazyContainsExtensionMethods;
-            internal string lazyDefaultMemberName;
-            internal NamedTypeSymbol lazyComImportCoClassType = ErrorTypeSymbol.UnknownResultType;
+            public ImmutableArray<CSharpAttributeData> lazyCustomAttributes;
+            public ImmutableArray<string> lazyConditionalAttributeSymbols;
+            public ObsoleteAttributeData lazyObsoleteAttributeData = ObsoleteAttributeData.Uninitialized;
+            public AttributeUsageInfo lazyAttributeUsageInfo = AttributeUsageInfo.Null;
+            public ThreeState lazyContainsExtensionMethods;
+            public string lazyDefaultMemberName;
+            public NamedTypeSymbol lazyComImportCoClassType = ErrorTypeSymbol.UnknownResultType;
 
-            internal bool IsDefaultValue()
+            public bool IsDefaultValue()
             {
                 return lazyInstanceEnumFields.IsDefault &&
                     (object)lazyEnumUnderlyingType == null &&
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         #endregion  // Uncommon properties
 
-        internal static PENamedTypeSymbol Create(
+        public static PENamedTypeSymbol Create(
             PEModuleSymbol moduleSymbol,
             PENamespaceSymbol containingNamespace,
             TypeDefinitionHandle handle,
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal static PENamedTypeSymbol Create(
+        public static PENamedTypeSymbol Create(
             PEModuleSymbol moduleSymbol,
             PENamedTypeSymbol containingType,
             TypeDefinitionHandle handle)
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal PEModuleSymbol ContainingPEModule
+        public PEModuleSymbol ContainingPEModule
         {
             get
             {
@@ -340,7 +340,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -353,17 +353,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             get;
         }
 
-        internal abstract override bool MangleName
+        public abstract override bool MangleName
         {
             get;
         }
 
-        internal abstract int MetadataArity
+        public abstract int MetadataArity
         {
             get;
         }
 
-        internal TypeDefinitionHandle Handle
+        public TypeDefinitionHandle Handle
         {
             get
             {
@@ -371,7 +371,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
+        public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null)
         {
             if (_lazyInterfaces.IsDefault)
             {
@@ -394,12 +394,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyInterfaces;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+        public override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
         {
             return InterfacesNoUseSiteDiagnostics();
         }
 
-        internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             if (ReferenceEquals(_lazyDeclaredBaseType, ErrorTypeSymbol.UnknownResultType))
             {
@@ -409,7 +409,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyDeclaredBaseType;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             if (_lazyDeclaredInterfaces.IsDefault)
             {
@@ -586,7 +586,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return uncommon.lazyCustomAttributes;
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             return GetAttributes();
         }
@@ -707,7 +707,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<Symbol> GetMembersUnordered()
+        public override ImmutableArray<Symbol> GetMembersUnordered()
         {
             ImmutableArray<Symbol> result = GetMembers();
 #if DEBUG
@@ -804,7 +804,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             Debug.Assert(staticIndex == staticFields.Length || staticFields[staticIndex].Kind != SymbolKind.Field);
         }
 
-        internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+        public override IEnumerable<FieldSymbol> GetFieldsToEmit()
         {
             if (this.TypeKind == TypeKind.Enum)
             {
@@ -881,7 +881,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override IEnumerable<MethodSymbol> GetMethodsToEmit()
+        public override IEnumerable<MethodSymbol> GetMethodsToEmit()
         {
             ImmutableArray<Symbol> members = GetMembers();
 
@@ -976,22 +976,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override IEnumerable<PropertySymbol> GetPropertiesToEmit()
+        public override IEnumerable<PropertySymbol> GetPropertiesToEmit()
         {
             return GetMembers<PropertySymbol>(this.GetMembers(), SymbolKind.Property);
         }
 
-        internal override IEnumerable<EventSymbol> GetEventsToEmit()
+        public override IEnumerable<EventSymbol> GetEventsToEmit()
         {
             return GetMembers<EventSymbol>(this.GetMembers(), SymbolKind.Event);
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
         {
             return this.GetMembersUnordered();
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
         {
             return this.GetMembers(name);
         }
@@ -1302,7 +1302,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
+        public override ImmutableArray<Symbol> GetSimpleNonTypeMembers(string name)
         {
             EnsureAllMembersAreLoaded();
 
@@ -1335,7 +1335,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return m;
         }
 
-        internal override FieldSymbol FixedElementField
+        public override FieldSymbol FixedElementField
         {
             get
             {
@@ -1351,7 +1351,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             ImmutableArray<NamedTypeSymbol> result = GetTypeMembers();
 #if DEBUG
@@ -1443,7 +1443,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -1451,7 +1451,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+        public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
         {
             get
             {
@@ -1459,7 +1459,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasTypeArgumentsCustomModifiers
+        public override bool HasTypeArgumentsCustomModifiers
         {
             get
             {
@@ -1467,7 +1467,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+        public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
         {
             get
             {
@@ -1503,7 +1503,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsMetadataAbstract
+        public override bool IsMetadataAbstract
         {
             get
             {
@@ -1521,7 +1521,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsMetadataSealed
+        public override bool IsMetadataSealed
         {
             get
             {
@@ -1529,7 +1529,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal TypeAttributes Flags
+        public TypeAttributes Flags
         {
             get
             {
@@ -1630,7 +1630,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override bool IsInterface
+        public sealed override bool IsInterface
         {
             get
             {
@@ -1887,7 +1887,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -1914,7 +1914,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return diagnostic;
         }
 
-        internal string DefaultMemberName
+        public string DefaultMemberName
         {
             get
             {
@@ -1939,7 +1939,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsComImport
+        public override bool IsComImport
         {
             get
             {
@@ -1947,12 +1947,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool ShouldAddWinRTMembers
+        public override bool ShouldAddWinRTMembers
         {
             get { return IsWindowsRuntimeImport; }
         }
 
-        internal override bool IsWindowsRuntimeImport
+        public override bool IsWindowsRuntimeImport
         {
             get
             {
@@ -1960,12 +1960,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool GetGuidString(out string guidString)
+        public override bool GetGuidString(out string guidString)
         {
             return ContainingPEModule.Module.HasGuidAttribute(_handle, out guidString);
         }
 
-        internal override TypeLayout Layout
+        public override TypeLayout Layout
         {
             get
             {
@@ -1973,7 +1973,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get
             {
@@ -1989,22 +1989,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsSerializable
+        public override bool IsSerializable
         {
             get { return (_flags & TypeAttributes.Serializable) != 0; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return (_flags & TypeAttributes.HasSecurity) != 0; }
         }
 
-        internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override NamedTypeSymbol ComImportCoClass
+        public override NamedTypeSymbol ComImportCoClass
         {
             get
             {
@@ -2031,7 +2031,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             var uncommon = GetUncommonProperties();
             if (uncommon == s_noUncommonProperties)
@@ -2049,7 +2049,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return uncommon.lazyConditionalAttributeSymbols;
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -2064,7 +2064,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             var uncommon = GetUncommonProperties();
             if (uncommon == s_noUncommonProperties)
@@ -2099,7 +2099,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return ((object)this.BaseTypeNoUseSiteDiagnostics != null) ? this.BaseTypeNoUseSiteDiagnostics.GetAttributeUsageInfo() : AttributeUsageInfo.Default;
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
@@ -2152,7 +2152,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// </summary>
         private sealed class PENamedTypeSymbolNonGeneric : PENamedTypeSymbol
         {
-            internal PENamedTypeSymbolNonGeneric(
+            public PENamedTypeSymbolNonGeneric(
                 PEModuleSymbol moduleSymbol,
                 NamespaceOrTypeSymbol container,
                 TypeDefinitionHandle handle,
@@ -2170,7 +2170,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override bool MangleName
+            public override bool MangleName
             {
                 get
                 {
@@ -2178,7 +2178,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override int MetadataArity
+            public override int MetadataArity
             {
                 get
                 {
@@ -2199,7 +2199,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             private readonly bool _mangleName;
             private ImmutableArray<TypeParameterSymbol> _lazyTypeParameters;
 
-            internal PENamedTypeSymbolGeneric(
+            public PENamedTypeSymbolGeneric(
                     PEModuleSymbol moduleSymbol,
                     NamespaceOrTypeSymbol container,
                     TypeDefinitionHandle handle,
@@ -2229,7 +2229,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override bool MangleName
+            public override bool MangleName
             {
                 get
                 {
@@ -2237,7 +2237,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            override internal int MetadataArity
+            override public int MetadataArity
             {
                 get
                 {
@@ -2245,7 +2245,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+            public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
             {
                 get
                 {
@@ -2254,7 +2254,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override bool HasTypeArgumentsCustomModifiers
+            public override bool HasTypeArgumentsCustomModifiers
             {
                 get
                 {
@@ -2262,7 +2262,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+            public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
             {
                 get
                 {

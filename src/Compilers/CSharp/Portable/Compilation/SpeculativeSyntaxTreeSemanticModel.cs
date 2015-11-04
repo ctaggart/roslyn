@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Allows asking semantic questions about a tree of syntax nodes that did not appear in the original source code.
     /// Typically, an instance is obtained by a call to SemanticModel.TryGetSpeculativeSemanticModel. 
     /// </summary>
-    internal class SpeculativeSyntaxTreeSemanticModel : SyntaxTreeSemanticModel
+    public class SpeculativeSyntaxTreeSemanticModel : SyntaxTreeSemanticModel
     {
         private readonly CSharpSemanticModel _parentSemanticModel;
         private readonly CSharpSyntaxNode _root;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override CSharpSyntaxNode Root
+        public override CSharpSyntaxNode Root
         {
             get
             {
@@ -84,12 +84,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
+        public override BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
         {
             return _parentSemanticModel.Bind(binder, node, diagnostics);
         }
 
-        internal override Binder GetEnclosingBinderInternal(int position)
+        public override Binder GetEnclosingBinderInternal(int position)
         {
             return _rootBinder;
         }
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _bindingOption;
         }
 
-        internal override SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        public override SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             var cref = node as CrefSyntax;
             if (cref != null)
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _parentSemanticModel.GetSpeculativeSymbolInfo(_position, expression, this.GetSpeculativeBindingOption(expression));
         }
 
-        internal override CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
+        public override CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
         {
             var expression = (ExpressionSyntax)node;
             return _parentSemanticModel.GetSpeculativeTypeInfoWorker(_position, expression, this.GetSpeculativeBindingOption(expression));

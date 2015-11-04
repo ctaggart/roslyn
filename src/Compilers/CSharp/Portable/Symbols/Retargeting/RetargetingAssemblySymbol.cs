@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     ///   used as is.
     /// - Symbols from referenced assemblies that must be retargeted are substituted with result of retargeting.
     /// </summary>
-    internal sealed class RetargetingAssemblySymbol : NonMissingAssemblySymbol
+    public sealed class RetargetingAssemblySymbol : NonMissingAssemblySymbol
     {
         /// <summary>
         /// The underlying AssemblySymbol, it leaks symbols that should be retargeted.
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         /// <summary>
         /// A map from a local NoPia type to corresponding canonical type.
         /// </summary>
-        internal ConcurrentDictionary<NamedTypeSymbol, NamedTypeSymbol> NoPiaUnificationMap =>
+        public ConcurrentDictionary<NamedTypeSymbol, NamedTypeSymbol> NoPiaUnificationMap =>
             LazyInitializer.EnsureInitialized(ref _noPiaUnificationMap, () => new ConcurrentDictionary<NamedTypeSymbol, NamedTypeSymbol>(concurrencyLevel: 2, capacity: 0));
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ImmutableArray<byte> PublicKey
+        public override ImmutableArray<byte> PublicKey
         {
             get { return _underlyingAssembly.PublicKey; }
         }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override bool KeepLookingForDeclaredSpecialTypes
+        public override bool KeepLookingForDeclaredSpecialTypes
         {
             get
             {
@@ -183,12 +183,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
+        public override IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
         {
             return _underlyingAssembly.GetInternalsVisibleToPublicKeys(simpleName);
         }
 
-        internal override bool AreInternalsVisibleToThisAssembly(AssemblySymbol other)
+        public override bool AreInternalsVisibleToThisAssembly(AssemblySymbol other)
         {
             return _underlyingAssembly.AreInternalsVisibleToThisAssembly(other);
         }
@@ -204,34 +204,34 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         /// <param name="type"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        internal override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
+        public override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
         {
             // Cor library should not have any references and, therefore, should never be
             // wrapped by a RetargetingAssemblySymbol.
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetNoPiaResolutionAssemblies()
         {
             return _noPiaResolutionAssemblies;
         }
 
-        internal override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetNoPiaResolutionAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             _noPiaResolutionAssemblies = assemblies;
         }
 
-        internal override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
+        public override void SetLinkedReferencedAssemblies(ImmutableArray<AssemblySymbol> assemblies)
         {
             _linkedReferencedAssemblies = assemblies;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
+        public override ImmutableArray<AssemblySymbol> GetLinkedReferencedAssemblies()
         {
             return _linkedReferencedAssemblies;
         }
 
-        internal override bool IsLinked
+        public override bool IsLinked
         {
             get
             {
@@ -263,17 +263,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
 
-        internal override bool GetGuidString(out string guidString)
+        public override bool GetGuidString(out string guidString)
         {
             return _underlyingAssembly.GetGuidString(out guidString);
         }
 
-        internal override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
+        public override NamedTypeSymbol TryLookupForwardedMetadataTypeWithCycleDetection(ref MetadataTypeName emittedName, ConsList<AssemblySymbol> visitedAssemblies)
         {
             NamedTypeSymbol underlying = _underlyingAssembly.TryLookupForwardedMetadataType(ref emittedName);
 

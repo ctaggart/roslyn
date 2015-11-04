@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -6,11 +6,11 @@ using Microsoft.CodeAnalysis.Collections;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         private sealed partial class AnonymousTypeConstructorSymbol : SynthesizedMethodBase
         {
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 //  Method body:
                 //
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 F.CloseMethod(F.Block(statements));
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return true; }
             }
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed partial class AnonymousTypePropertyGetAccessorSymbol : SynthesizedMethodBase
         {
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 //  Method body:
                 //
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 F.CloseMethod(F.Block(F.Return(F.Field(F.This(), _property.BackingField))));
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return true; }
             }
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed partial class AnonymousTypeEqualsMethodSymbol : SynthesizedMethodBase
         {
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 AnonymousTypeManager manager = ((AnonymousTypeTemplateSymbol)this.ContainingType).Manager;
                 SyntheticBoundNodeFactory F = this.CreateBoundNodeFactory(compilationState, diagnostics);
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 F.CloseMethod(F.Block(ImmutableArray.Create<LocalSymbol>(boundLocal.LocalSymbol), assignment, retStatement));
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
@@ -156,7 +156,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed partial class AnonymousTypeGetHashCodeMethodSymbol : SynthesizedMethodBase
         {
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 AnonymousTypeManager manager = ((AnonymousTypeTemplateSymbol)this.ContainingType).Manager;
                 SyntheticBoundNodeFactory F = this.CreateBoundNodeFactory(compilationState, diagnostics);
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 F.CloseMethod(F.Block(F.Return(retExpression)));
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed partial class AnonymousTypeToStringMethodSymbol : SynthesizedMethodBase
         {
-            internal override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
+            public override void GenerateMethodBody(TypeCompilationState compilationState, DiagnosticBag diagnostics)
             {
                 AnonymousTypeManager manager = ((AnonymousTypeTemplateSymbol)this.ContainingType).Manager;
                 SyntheticBoundNodeFactory F = this.CreateBoundNodeFactory(compilationState, diagnostics);
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 F.CloseMethod(F.Block(F.Return(retExpression)));
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }

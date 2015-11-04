@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A region analysis walker that records reads and writes of all variables, both inside and outside the region.
     /// </summary>
-    internal class ReadWriteWalker : AbstractRegionDataFlowPass
+    public class ReadWriteWalker : AbstractRegionDataFlowPass
     {
-        internal static void Analyze(
+        public static void Analyze(
             CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion, HashSet<PrefixUnaryExpressionSyntax> unassignedVariableAddressOfSyntaxes,
             out IEnumerable<Symbol> readInside,
             out IEnumerable<Symbol> writtenInside,

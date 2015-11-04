@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract partial class BoundTreeRewriter : BoundTreeVisitor
+    public abstract partial class BoundTreeRewriter : BoundTreeVisitor
     {
         public virtual TypeSymbol VisitType(TypeSymbol type)
         {
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal abstract class BoundTreeRewriterWithStackGuard : BoundTreeRewriter
+    public abstract class BoundTreeRewriterWithStackGuard : BoundTreeRewriter
     {
         private int _recursionDepth;
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal abstract class BoundTreeRewriterWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator : BoundTreeRewriterWithStackGuard
+    public abstract class BoundTreeRewriterWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator : BoundTreeRewriterWithStackGuard
     {
         protected BoundTreeRewriterWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator()
         { }

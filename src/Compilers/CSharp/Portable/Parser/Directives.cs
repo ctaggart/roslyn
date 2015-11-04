@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Text;
@@ -10,11 +10,11 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct Directive
+    public struct Directive
     {
         private readonly DirectiveTriviaSyntax _node;
 
-        internal Directive(DirectiveTriviaSyntax node)
+        public Directive(DirectiveTriviaSyntax node)
         {
             _node = node;
         }
@@ -63,14 +63,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         }
 
         // Can't be private as it's called by DirectiveStack in its GetDebuggerDisplay()
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             var writer = new System.IO.StringWriter(System.Globalization.CultureInfo.InvariantCulture);
             _node.WriteTo(writer, false, false);
             return writer.ToString();
         }
 
-        internal string GetIdentifier()
+        public string GetIdentifier()
         {
             switch (_node.Kind)
             {
@@ -83,12 +83,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal bool IsActive
+        public bool IsActive
         {
             get { return _node.IsActive; }
         }
 
-        internal bool BranchTaken
+        public bool BranchTaken
         {
             get
             {
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         }
     }
 
-    internal enum DefineState
+    public enum DefineState
     {
         Defined,
         Undefined,
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     }
 
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct DirectiveStack
+    public struct DirectiveStack
     {
         public static readonly DirectiveStack Empty = new DirectiveStack(ConsList<Directive>.Empty);
         public static readonly DirectiveStack Null = new DirectiveStack(null);

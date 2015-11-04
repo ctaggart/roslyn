@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// particular module, assembly, or merged across all modules (source and metadata) in a
     /// particular compilation.
     /// </summary>
-    internal struct NamespaceExtent : IEquatable<NamespaceExtent>
+    public struct NamespaceExtent : IEquatable<NamespaceExtent>
     {
         private readonly NamespaceKind _kind;
         private readonly object _symbolOrCompilation;
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Create a NamespaceExtent that represents a given ModuleSymbol.
         /// </summary>
-        internal NamespaceExtent(ModuleSymbol module)
+        public NamespaceExtent(ModuleSymbol module)
         {
             _kind = NamespaceKind.Module;
             _symbolOrCompilation = module;
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Create a NamespaceExtent that represents a given AssemblySymbol.
         /// </summary>
-        internal NamespaceExtent(AssemblySymbol assembly)
+        public NamespaceExtent(AssemblySymbol assembly)
         {
             _kind = NamespaceKind.Assembly;
             _symbolOrCompilation = assembly;
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Create a NamespaceExtent that represents a given Compilation.
         /// </summary>
-        internal NamespaceExtent(CSharpCompilation compilation)
+        public NamespaceExtent(CSharpCompilation compilation)
         {
             _kind = NamespaceKind.Compilation;
             _symbolOrCompilation = compilation;

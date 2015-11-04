@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Reflection;
 using Microsoft.CodeAnalysis.CSharp.Emit;
@@ -15,14 +15,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <remarks>
     /// Associated with <see cref="SourceFieldLikeEventSymbol"/>.
     /// </remarks>
-    internal sealed class SynthesizedFieldLikeEventAccessorSymbol : SourceEventAccessorSymbol
+    public sealed class SynthesizedFieldLikeEventAccessorSymbol : SourceEventAccessorSymbol
     {
         // Since we don't have a syntax reference, we'll have to use another object for locking.
         private readonly object _methodChecksLockObject = new object();
 
         private readonly string _name;
 
-        internal SynthesizedFieldLikeEventAccessorSymbol(SourceFieldLikeEventSymbol @event, bool isAdder)
+        public SynthesizedFieldLikeEventAccessorSymbol(SourceFieldLikeEventSymbol @event, bool isAdder)
             : base(@event, null, null, @event.Locations)
         {
             this.MakeFlags(
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return false; }
         }
@@ -70,12 +70,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             return OneOrMany.Create(this.AssociatedEvent.AttributeDeclarationSyntaxList);
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _methodChecksLockObject; }
         }
 
-        internal override MethodImplAttributes ImplementationAttributes
+        public override MethodImplAttributes ImplementationAttributes
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal abstract class SourceDelegateMethodSymbol : SourceMethodSymbol
+    public abstract class SourceDelegateMethodSymbol : SourceMethodSymbol
     {
         private ImmutableArray<ParameterSymbol> _parameters;
         private readonly TypeSymbol _returnType;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _parameters = parameters;
         }
 
-        internal static void AddDelegateMembers(
+        public static void AddDelegateMembers(
             SourceMemberContainerTypeSymbol delegateType,
             ArrayBuilder<Symbol> symbols,
             DelegateDeclarationSyntax syntax,
@@ -149,12 +149,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get { return false; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return false; }
         }
@@ -167,26 +167,26 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get { return System.Reflection.MethodImplAttributes.Runtime; }
         }
 
-        internal sealed override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public sealed override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             // TODO: This implementation looks strange. It might make sense for the Invoke method, but
             //       not for constructor and other methods.
             return OneOrMany.Create(((SourceNamedTypeSymbol)ContainingSymbol).GetAttributeDeclarations());
         }
 
-        internal sealed override System.AttributeTargets GetAttributeTarget()
+        public sealed override System.AttributeTargets GetAttributeTarget()
         {
             return System.AttributeTargets.Delegate;
         }
 
         private sealed class Constructor : SourceDelegateMethodSymbol
         {
-            internal Constructor(
+            public Constructor(
                 SourceMemberContainerTypeSymbol delegateType,
                 TypeSymbol voidType,
                 TypeSymbol objectType,
@@ -204,13 +204,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return WellKnownMemberNames.InstanceConstructorName; }
             }
 
-            internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
+            public override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
             {
                 // Constructors don't have return type attributes
                 return OneOrMany.Create(default(SyntaxList<AttributeListSyntax>));
             }
 
-            internal override LexicalSortKey GetLexicalSortKey()
+            public override LexicalSortKey GetLexicalSortKey()
             {
                 // associate "Invoke and .ctor" with whole delegate declaration for the sorting purposes
                 // other methods will be associated with delegate's identifier
@@ -224,7 +224,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed class InvokeMethod : SourceDelegateMethodSymbol
         {
-            internal InvokeMethod(
+            public InvokeMethod(
                 SourceMemberContainerTypeSymbol delegateType,
                 TypeSymbol returnType,
                 DelegateDeclarationSyntax syntax,
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return WellKnownMemberNames.DelegateInvokeName; }
             }
 
-            internal override LexicalSortKey GetLexicalSortKey()
+            public override LexicalSortKey GetLexicalSortKey()
             {
                 // associate "Invoke and .ctor" with whole delegate declaration for the sorting purposes
                 // other methods will be associated with delegate's identifier
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed class BeginInvokeMethod : SourceDelegateMethodSymbol
         {
-            internal BeginInvokeMethod(
+            public BeginInvokeMethod(
                 InvokeMethod invoke,
                 TypeSymbol iAsyncResultType,
                 TypeSymbol objectType,
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return WellKnownMemberNames.DelegateBeginInvokeName; }
             }
 
-            internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
+            public override OneOrMany<SyntaxList<AttributeListSyntax>> GetReturnTypeAttributeDeclarations()
             {
                 // BeginInvoke method doesn't have return type attributes
                 // because it doesn't inherit Delegate declaration's return type.
@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private sealed class EndInvokeMethod : SourceDelegateMethodSymbol
         {
-            internal EndInvokeMethod(
+            public EndInvokeMethod(
                 InvokeMethod invoke,
                 TypeSymbol iAsyncResultType,
                 DelegateDeclarationSyntax syntax)

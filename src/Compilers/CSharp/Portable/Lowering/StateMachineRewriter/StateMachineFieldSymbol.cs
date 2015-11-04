@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -11,14 +11,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Represents a synthesized state machine field.
     /// </summary>
-    internal sealed class StateMachineFieldSymbol : SynthesizedFieldSymbolBase, ISynthesizedMethodBodyImplementationSymbol
+    public sealed class StateMachineFieldSymbol : SynthesizedFieldSymbolBase, ISynthesizedMethodBodyImplementationSymbol
     {
         private readonly TypeSymbol _type;
 
         // -1 if the field doesn't represent a long-lived local or an awaiter.
-        internal readonly int SlotIndex;
+        public readonly int SlotIndex;
 
-        internal readonly LocalSlotDebugInfo SlotDebugInfo;
+        public readonly LocalSlotDebugInfo SlotDebugInfo;
 
         // Some fields need to be public since they are initialized directly by the kickoff method.
         public StateMachineFieldSymbol(NamedTypeSymbol stateMachineType, TypeSymbol type, string name, bool isPublic)
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.SlotDebugInfo = slotDebugInfo;
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             return _type;
         }

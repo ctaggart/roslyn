@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Base class for event accessors - synthesized and user defined.
     /// </summary>
-    internal abstract class SourceEventAccessorSymbol : SourceMethodSymbol
+    public abstract class SourceEventAccessorSymbol : SourceMethodSymbol
     {
         private readonly SourceEventSymbol _event;
 
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<TypeParameterSymbol>.Empty; }
         }
 
-        internal Location Location
+        public Location Location
         {
             get
             {
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             // Events cannot be expression-bodied
             get { return false; }

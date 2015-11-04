@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// This part of the partial class focuses on features that cannot be used in expression trees.
     /// CAVEAT: Errors may be produced for ObsoleteAttribute, but such errors don't affect lambda convertibility.
     /// </summary>
-    internal sealed partial class DiagnosticsPass
+    public sealed partial class DiagnosticsPass
     {
         private readonly DiagnosticBag _diagnostics;
         private readonly CSharpCompilation _compilation;

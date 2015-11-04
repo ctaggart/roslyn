@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,18 +11,18 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class SyntaxAndDeclarationManager : CommonSyntaxAndDeclarationManager
+    public sealed partial class SyntaxAndDeclarationManager : CommonSyntaxAndDeclarationManager
     {
-        internal sealed class State
+        public sealed class State
         {
-            internal readonly ImmutableArray<SyntaxTree> SyntaxTrees; // In ordinal order.
-            internal readonly ImmutableDictionary<SyntaxTree, int> OrdinalMap; // Inverse of syntaxTrees array (i.e. maps tree to index)
-            internal readonly ImmutableDictionary<SyntaxTree, ImmutableArray<LoadDirective>> LoadDirectiveMap;
-            internal readonly ImmutableDictionary<string, SyntaxTree> LoadedSyntaxTreeMap;
-            internal readonly ImmutableDictionary<SyntaxTree, Lazy<RootSingleNamespaceDeclaration>> RootNamespaces;
-            internal readonly DeclarationTable DeclarationTable;
+            public readonly ImmutableArray<SyntaxTree> SyntaxTrees; // In ordinal order.
+            public readonly ImmutableDictionary<SyntaxTree, int> OrdinalMap; // Inverse of syntaxTrees array (i.e. maps tree to index)
+            public readonly ImmutableDictionary<SyntaxTree, ImmutableArray<LoadDirective>> LoadDirectiveMap;
+            public readonly ImmutableDictionary<string, SyntaxTree> LoadedSyntaxTreeMap;
+            public readonly ImmutableDictionary<SyntaxTree, Lazy<RootSingleNamespaceDeclaration>> RootNamespaces;
+            public readonly DeclarationTable DeclarationTable;
 
-            internal State(
+            public State(
                 ImmutableArray<SyntaxTree> syntaxTrees,
                 ImmutableDictionary<SyntaxTree, int> syntaxTreeOrdinalMap,
                 ImmutableDictionary<SyntaxTree, ImmutableArray<LoadDirective>> loadDirectiveMap,

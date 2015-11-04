@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// it is illegal to refer to the variable.
     /// </summary>
 
-    internal sealed class ImplicitlyTypedLocalBinder : Binder
+    public sealed class ImplicitlyTypedLocalBinder : Binder
     {
         // 
         // This is legal:
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override LocalSymbol LocalInProgress
+        public override LocalSymbol LocalInProgress
         {
             get
             {

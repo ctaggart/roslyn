@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// An error type, used to represent the type of a type binding
     /// operation when binding fails.
     /// </summary>
-    internal sealed class ExtendedErrorTypeSymbol : ErrorTypeSymbol
+    public sealed class ExtendedErrorTypeSymbol : ErrorTypeSymbol
     {
         private readonly string _name;
         private readonly int _arity;
@@ -26,12 +26,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private readonly ImmutableArray<Symbol> _candidateSymbols;  // Best guess at what user meant, but was wrong.
         private readonly LookupResultKind _resultKind; // why the guessSymbols were wrong.
 
-        internal ExtendedErrorTypeSymbol(CSharpCompilation compilation, string name, int arity, DiagnosticInfo errorInfo, bool unreported = false, bool variableUsedBeforeDeclaration = false)
+        public ExtendedErrorTypeSymbol(CSharpCompilation compilation, string name, int arity, DiagnosticInfo errorInfo, bool unreported = false, bool variableUsedBeforeDeclaration = false)
             : this(compilation.Assembly.GlobalNamespace, name, arity, errorInfo, unreported, variableUsedBeforeDeclaration)
         {
         }
 
-        internal ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, string name, int arity, DiagnosticInfo errorInfo, bool unreported = false, bool variableUsedBeforeDeclaration = false)
+        public ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, string name, int arity, DiagnosticInfo errorInfo, bool unreported = false, bool variableUsedBeforeDeclaration = false)
         {
             Debug.Assert(((object)containingSymbol == null) ||
                 (containingSymbol.Kind == SymbolKind.Namespace) ||
@@ -62,17 +62,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _resultKind = resultKind;
         }
 
-        internal ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol guessSymbol, LookupResultKind resultKind, DiagnosticInfo errorInfo, bool unreported = false)
+        public ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol guessSymbol, LookupResultKind resultKind, DiagnosticInfo errorInfo, bool unreported = false)
             : this(guessSymbol.ContainingNamespaceOrType(), guessSymbol, resultKind, errorInfo, unreported)
         {
         }
 
-        internal ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, Symbol guessSymbol, LookupResultKind resultKind, DiagnosticInfo errorInfo, bool unreported = false)
+        public ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, Symbol guessSymbol, LookupResultKind resultKind, DiagnosticInfo errorInfo, bool unreported = false)
             : this(containingSymbol, ImmutableArray.Create<Symbol>(guessSymbol), resultKind, errorInfo, GetArity(guessSymbol), unreported)
         {
         }
 
-        internal ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, ImmutableArray<Symbol> candidateSymbols, LookupResultKind resultKind, DiagnosticInfo errorInfo, int arity, bool unreported = false)
+        public ExtendedErrorTypeSymbol(NamespaceOrTypeSymbol containingSymbol, ImmutableArray<Symbol> candidateSymbols, LookupResultKind resultKind, DiagnosticInfo errorInfo, int arity, bool unreported = false)
             : this(containingSymbol, candidateSymbols[0].Name, arity, errorInfo, unreported)
         {
             _candidateSymbols = UnwrapErrorCandidates(candidateSymbols);
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             Debug.Assert(candidateSymbols.IsEmpty || resultKind != LookupResultKind.Viable, "Shouldn't use LookupResultKind.Viable with candidate symbols");
         }
 
-        internal ExtendedErrorTypeSymbol AsUnreported()
+        public ExtendedErrorTypeSymbol AsUnreported()
         {
             return this.Unreported ? this :
                 new ExtendedErrorTypeSymbol(_containingSymbol, _name, _arity, _errorInfo, true, VariableUsedBeforeDeclaration, _candidateSymbols, _resultKind);
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ((object)candidate != null && !candidate.CandidateSymbols.IsEmpty) ? candidate.CandidateSymbols : candidateSymbols;
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override LookupResultKind ResultKind
+        public override LookupResultKind ResultKind
         {
             get
             {
@@ -118,12 +118,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool Unreported
+        public override bool Unreported
         {
             get { return _unreported; }
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (_unreported)
             {
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -190,12 +190,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             return null;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// However, the real definition is in this class so that it can access the private field 
         /// nonErrorGuessType.
         /// </remarks>
-        internal static TypeSymbol ExtractNonErrorType(TypeSymbol oldSymbol)
+        public static TypeSymbol ExtractNonErrorType(TypeSymbol oldSymbol)
         {
             if ((object)oldSymbol == null || oldSymbol.TypeKind != TypeKind.Error)
             {
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Get the type kind of a symbol, going to candidates if possible.
-        internal static TypeKind ExtractNonErrorTypeKind(TypeSymbol oldSymbol)
+        public static TypeKind ExtractNonErrorTypeKind(TypeSymbol oldSymbol)
         {
             if (oldSymbol.TypeKind != TypeKind.Error)
             {
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return commonTypeKind;
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             if (ReferenceEquals(this, t2))
             {

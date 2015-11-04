@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// constraints, with any cycles removed. The fields are exposed by the
     /// TypeParameterSymbol as ConstraintTypes, Interfaces, and BaseType.
     /// </summary>
-    internal sealed class TypeParameterBounds
+    public sealed class TypeParameterBounds
     {
         public static readonly TypeParameterBounds Unset = new TypeParameterBounds();
 

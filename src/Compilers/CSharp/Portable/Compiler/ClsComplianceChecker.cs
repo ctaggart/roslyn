@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Traverses the symbol table checking for CLS compliance.
     /// </summary>
-    internal partial class ClsComplianceChecker : CSharpSymbolVisitor
+    public partial class ClsComplianceChecker : CSharpSymbolVisitor
     {
         private readonly CSharpCompilation _compilation;
         private readonly SyntaxTree _filterTree; //if not null, limit analysis to types residing in this tree

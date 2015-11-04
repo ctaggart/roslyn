@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
     [Flags]
-    internal enum TypeParameterConstraintKind
+    public enum TypeParameterConstraintKind
     {
         None = 0x00,
         ReferenceType = 0x01,
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A simple representation of a type parameter constraint clause
     /// as a set of constraint bits and a set of constraint types.
     /// </summary>
-    internal sealed class TypeParameterConstraintClause
+    public sealed class TypeParameterConstraintClause
     {
         public TypeParameterConstraintClause(TypeParameterConstraintKind constraints, ImmutableArray<TypeSymbol> constraintTypes)
         {

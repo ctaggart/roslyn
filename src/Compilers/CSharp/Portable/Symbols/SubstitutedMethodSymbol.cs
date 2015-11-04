@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     // C<X> is a ConstructedTypeSymbol.
     // C<X>.M<> is a SubstitutedMethodSymbol. It has parameters of types X and U.
     // C<X>.M<Y> is a ConstructedMethodSymbol.
-    internal class SubstitutedMethodSymbol : MethodSymbol
+    public class SubstitutedMethodSymbol : MethodSymbol
     {
         private readonly NamedTypeSymbol _containingType;
         protected readonly MethodSymbol originalDefinition;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private int _hashCode; // computed on demand
 
-        internal SubstitutedMethodSymbol(SubstitutedNamedTypeSymbol containingSymbol, MethodSymbol originalDefinition)
+        public SubstitutedMethodSymbol(SubstitutedNamedTypeSymbol containingSymbol, MethodSymbol originalDefinition)
             : this(containingSymbol, containingSymbol.TypeSubstitution, originalDefinition, constructedFrom: null)
         {
         }
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             Debug.Assert(_lazyTypeParameters != null);
         }
 
-        internal sealed override Microsoft.Cci.CallingConvention CallingConvention
+        public sealed override Microsoft.Cci.CallingConvention CallingConvention
         {
             get
             {
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get
             {
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get
             {
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool RequiresSecurityObject
+        public sealed override bool RequiresSecurityObject
         {
             get
             {
@@ -170,22 +170,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return originalDefinition.GetDllImportData();
         }
 
-        internal sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return originalDefinition.ReturnValueMarshallingInformation; }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get { return originalDefinition.HasDeclarativeSecurity; }
         }
 
-        internal sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             return originalDefinition.GetSecurityInformation();
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return originalDefinition.GetAppliedConditionalSymbols();
         }
@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override MethodSymbol CallsiteReducedFromMethod
+        public sealed override MethodSymbol CallsiteReducedFromMethod
         {
             get
             {
@@ -358,12 +358,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return originalDefinition.IsMetadataVirtual(ignoreInterfaceImplementationChanges);
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -371,7 +371,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return originalDefinition.IsMetadataNewSlot(ignoreInterfaceImplementationChanges);
         }
@@ -438,7 +438,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool GenerateDebugInfo
+        public sealed override bool GenerateDebugInfo
         {
             get
             {
@@ -477,7 +477,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override int ParameterCount
+        public sealed override int ParameterCount
         {
             get { return this.originalDefinition.ParameterCount; }
         }
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsExplicitInterfaceImplementation
+        public sealed override bool IsExplicitInterfaceImplementation
         {
             get { return this.originalDefinition.IsExplicitInterfaceImplementation; }
         }
@@ -520,7 +520,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public sealed override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -535,17 +535,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool CallsAreOmitted(SyntaxTree syntaxTree)
+        public sealed override bool CallsAreOmitted(SyntaxTree syntaxTree)
         {
             return originalDefinition.CallsAreOmitted(syntaxTree);
         }
 
-        internal sealed override TypeMap TypeSubstitution
+        public sealed override TypeMap TypeSubstitution
         {
             get { return this.Map; }
         }
 
-        internal sealed override bool TryGetThisParameter(out ParameterSymbol thisParameter)
+        public sealed override bool TryGetThisParameter(out ParameterSymbol thisParameter)
         {
             // Required in EE scenarios.  Specifically, the EE binds in the context of a 
             // substituted method, whereas the core compiler always binds within the
@@ -587,7 +587,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             throw ExceptionUtilities.Unreachable;
         }

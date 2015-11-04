@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal static class SyntaxNodeRemover
+    public static class SyntaxNodeRemover
     {
-        internal static TRoot RemoveNodes<TRoot>(TRoot root,
+        public static TRoot RemoveNodes<TRoot>(TRoot root,
                 IEnumerable<SyntaxNode> nodes,
                 SyntaxRemoveOptions options)
             where TRoot : SyntaxNode
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                 return new TextSpan(start, end - start);
             }
 
-            internal SyntaxTriviaList ResidualTrivia
+            public SyntaxTriviaList ResidualTrivia
             {
                 get
                 {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -1101,7 +1101,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Parse a list of trivia rules for leading trivia.
         /// </summary>
-        internal static SyntaxTriviaList ParseLeadingTrivia(string text, CSharpParseOptions options, int offset = 0)
+        public static SyntaxTriviaList ParseLeadingTrivia(string text, CSharpParseOptions options, int offset = 0)
         {
             using (var lexer = new InternalSyntax.Lexer(MakeSourceText(text, offset), options))
             {
@@ -1122,7 +1122,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // TODO: If this becomes a real API, we'll need to add an offset parameter to
         // match the pattern followed by the other ParseX methods.
-        internal static CrefSyntax ParseCref(string text)
+        public static CrefSyntax ParseCref(string text)
         {
             // NOTE: Conceivably, we could introduce a new code path that directly calls
             // DocumentationCommentParser.ParseCrefAttributeValue, but that method won't
@@ -1521,7 +1521,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SyntaxEquivalence.AreEquivalent(oldList.Node, newList.Node, ignoreChildNode, topLevel: false);
         }
 
-        internal static TypeSyntax GetStandaloneType(TypeSyntax node)
+        public static TypeSyntax GetStandaloneType(TypeSyntax node)
         {
             if (node != null)
             {
@@ -1572,7 +1572,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Similarly, if the input node is a cref part that is not independently meaningful, then
         /// the result will be the full cref.
         /// </summary>
-        internal static CSharpSyntaxNode GetStandaloneNode(CSharpSyntaxNode node)
+        public static CSharpSyntaxNode GetStandaloneNode(CSharpSyntaxNode node)
         {
             if (node == null || !(node is ExpressionSyntax || node is CrefSyntax))
             {
@@ -1689,7 +1689,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Given a conditional binding expression, find corresponding conditional access node.
         /// </summary>
-        internal static ConditionalAccessExpressionSyntax FindConditionalAccessNodeForBinding(CSharpSyntaxNode node)
+        public static ConditionalAccessExpressionSyntax FindConditionalAccessNodeForBinding(CSharpSyntaxNode node)
         {
             var currentNode = node;
 

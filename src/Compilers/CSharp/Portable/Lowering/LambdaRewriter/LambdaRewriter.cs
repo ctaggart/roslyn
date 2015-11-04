@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 #if DEBUG
 //#define CHECK_LOCALS // define CHECK_LOCALS to help debug some rewriting problems that would otherwise cause code-gen failures
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// the returned bound node.  For example, the caller will typically perform iterator method and
     /// asynchronous method transformations, and emit IL instructions into an assembly.
     /// </summary>
-    internal sealed partial class LambdaRewriter : MethodToClassRewriter
+    public sealed partial class LambdaRewriter : MethodToClassRewriter
     {
         private readonly Analysis _analysis;
         private readonly MethodSymbol _topLevelMethod;

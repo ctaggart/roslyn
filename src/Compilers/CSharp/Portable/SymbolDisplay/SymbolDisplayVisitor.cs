@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,12 +8,12 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class SymbolDisplayVisitor : AbstractSymbolDisplayVisitor<SemanticModel>
+    public partial class SymbolDisplayVisitor : AbstractSymbolDisplayVisitor<SemanticModel>
     {
         private readonly bool _escapeKeywordIdentifiers;
         private IDictionary<INamespaceOrTypeSymbol, IAliasSymbol> _lazyAliasMap;
 
-        internal SymbolDisplayVisitor(
+        public SymbolDisplayVisitor(
             ArrayBuilder<SymbolDisplayPart> builder,
             SymbolDisplayFormat format,
             SemanticModel semanticModelOpt,
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 isFirstSymbolVisited: false);
         }
 
-        internal SymbolDisplayPart CreatePart(SymbolDisplayPartKind kind, ISymbol symbol, string text)
+        public SymbolDisplayPart CreatePart(SymbolDisplayPartKind kind, ISymbol symbol, string text)
         {
             text = (text == null) ? "?" :
                    (_escapeKeywordIdentifiers && IsEscapable(kind)) ? EscapeIdentifier(text) : text;

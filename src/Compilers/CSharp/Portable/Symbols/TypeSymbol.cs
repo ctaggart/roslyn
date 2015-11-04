@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A TypeSymbol is a base class for all the symbols that represent a type
     /// in C#.
     /// </summary>
-    internal abstract partial class TypeSymbol : NamespaceOrTypeSymbol, ITypeSymbol
+    public abstract partial class TypeSymbol : NamespaceOrTypeSymbol, ITypeSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         // TODO (tomat): Consider changing this to an empty name. This name shouldn't ever leak to the user in error messages.
-        internal static readonly string ImplicitTypeName = "<invalid-global-code>";
+        public static readonly string ImplicitTypeName = "<invalid-global-code>";
 
         // InterfaceInfo for a common case of a type not implementing anything directly or indirectly.
         private static readonly InterfaceInfo s_noInterfaces = new InterfaceInfo();
@@ -38,10 +38,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private class InterfaceInfo
         {
             // all directly implemented interfaces, their bases and all interfaces to the bases of the type recursively
-            internal ImmutableArray<NamedTypeSymbol> allInterfaces;
+            public ImmutableArray<NamedTypeSymbol> allInterfaces;
 
             // same as allInterfaces, but not sorted and does not include interfaces implemented by base types.
-            internal ImmutableHashSet<NamedTypeSymbol> interfacesAndTheirBaseInterfaces;
+            public ImmutableHashSet<NamedTypeSymbol> interfacesAndTheirBaseInterfaces;
 
             // Key is implemented member (method, property, or event), value is implementing member (from the 
             // perspective of this type).  Don't allocate until someone needs it.
@@ -64,9 +64,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
 
             // key = interface method/property/event, value = explicitly implementing method/property/event declared on this type
-            internal Dictionary<Symbol, Symbol> explicitInterfaceImplementationMap;
+            public Dictionary<Symbol, Symbol> explicitInterfaceImplementationMap;
 
-            internal bool IsDefaultValue()
+            public bool IsDefaultValue()
             {
                 return allInterfaces.IsDefault &&
                     interfacesAndTheirBaseInterfaces == null &&
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// A comparator that treats dynamic and object as "the same" types.
         /// </summary>
-        internal static readonly EqualityComparer<TypeSymbol> EqualsIgnoringDynamicComparer = new EqualsIgnoringComparer(ignoreDynamic: true, ignoreCustomModifiersAndArraySizesAndLowerBounds: false);
+        public static readonly EqualityComparer<TypeSymbol> EqualsIgnoringDynamicComparer = new EqualsIgnoringComparer(ignoreDynamic: true, ignoreCustomModifiersAndArraySizesAndLowerBounds: false);
 
         /// <summary>
         /// The original definition of this symbol. If this symbol is constructed from another
@@ -152,9 +152,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract NamedTypeSymbol BaseTypeNoUseSiteDiagnostics { get; }
+        public abstract NamedTypeSymbol BaseTypeNoUseSiteDiagnostics { get; }
 
-        internal NamedTypeSymbol BaseTypeWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public NamedTypeSymbol BaseTypeWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = BaseTypeNoUseSiteDiagnostics;
 
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal NamedTypeSymbol BaseTypeOriginalDefinition(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public NamedTypeSymbol BaseTypeOriginalDefinition(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = BaseTypeNoUseSiteDiagnostics;
 
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null);
+        public abstract ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved = null);
 
         /// <summary>
         /// The list of all interfaces of which this type is a declared subtype, excluding this type
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<NamedTypeSymbol> AllInterfacesNoUseSiteDiagnostics
+        public ImmutableArray<NamedTypeSymbol> AllInterfacesNoUseSiteDiagnostics
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<NamedTypeSymbol> AllInterfacesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<NamedTypeSymbol> AllInterfacesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = AllInterfacesNoUseSiteDiagnostics;
 
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// If this is a type parameter returns its effective base class, otherwise returns this type.
         /// </summary>
-        internal TypeSymbol EffectiveTypeNoUseSiteDiagnostics
+        public TypeSymbol EffectiveTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal TypeSymbol EffectiveType(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public TypeSymbol EffectiveType(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             return this.IsTypeParameter() ? ((TypeParameterSymbol)this).EffectiveBaseClass(ref useSiteDiagnostics) : this;
         }
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this type derives from a given type.
         /// </summary>
-        internal bool IsDerivedFrom(TypeSymbol type, bool ignoreDynamic, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool IsDerivedFrom(TypeSymbol type, bool ignoreDynamic, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert((object)type != null);
             Debug.Assert(!type.IsTypeParameter());
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this type is equal or derives from a given type.
         /// </summary>
-        internal bool IsEqualToOrDerivedFrom(TypeSymbol type, bool ignoreDynamic, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool IsEqualToOrDerivedFrom(TypeSymbol type, bool ignoreDynamic, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             return this.Equals(type, ignoreDynamic: ignoreDynamic) || this.IsDerivedFrom(type, ignoreDynamic, ref useSiteDiagnostics);
         }
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="ignoreCustomModifiersAndArraySizesAndLowerBounds">True to compare without regard to custom modifiers, false by default.</param>
         /// <param name="ignoreDynamic">True to ignore the distinction between object and dynamic, false by default.</param>
         /// <returns>True if the types are equivalent.</returns>
-        internal virtual bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds = false, bool ignoreDynamic = false)
+        public virtual bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds = false, bool ignoreDynamic = false)
         {
             return ReferenceEquals(this, t2);
         }
@@ -406,7 +406,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// alternative approaches (recompute every time, cache on the side, only store on some types,
         /// etc).
         /// </remarks>
-        internal ImmutableHashSet<NamedTypeSymbol> InterfacesAndTheirBaseInterfacesNoUseSiteDiagnostics
+        public ImmutableHashSet<NamedTypeSymbol> InterfacesAndTheirBaseInterfacesNoUseSiteDiagnostics
         {
             get
             {
@@ -479,7 +479,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         public abstract bool IsValueType { get; }
 
         // Only the compiler can create TypeSymbols.
-        internal TypeSymbol()
+        public TypeSymbol()
         {
         }
 
@@ -505,7 +505,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets corresponding primitive type code for this type declaration.
         /// </summary>
-        internal Microsoft.Cci.PrimitiveTypeCode PrimitiveTypeCode
+        public Microsoft.Cci.PrimitiveTypeCode PrimitiveTypeCode
         {
             get
             {
@@ -538,7 +538,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes);
+        public abstract bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes);
 
         #endregion
 
@@ -560,7 +560,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// See Type::computeManagedType.
         /// </remarks>
-        internal abstract bool IsManagedType { get; }
+        public abstract bool IsManagedType { get; }
 
         #region ITypeSymbol Members
 
@@ -1267,7 +1267,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// The set of abstract members in declared in this type or declared in a base type and not overridden.
         /// </summary>
-        internal ImmutableHashSet<Symbol> AbstractMembers
+        public ImmutableHashSet<Symbol> AbstractMembers
         {
             get
             {
@@ -1334,7 +1334,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         #endregion Abstract base type checks
 
         [Obsolete("Use TypeWithModifiers.Is method.", true)]
-        internal bool Equals(TypeWithModifiers other)
+        public bool Equals(TypeWithModifiers other)
         {
             return other.Is(this);
         }

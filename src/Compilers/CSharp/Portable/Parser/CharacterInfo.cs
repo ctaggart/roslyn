@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Globalization;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <param name="c">The Unicode character.</param>
         /// <returns>true if the character is a hexadecimal digit 0-9, A-F, a-f.</returns>
-        internal static bool IsHexDigit(char c)
+        public static bool IsHexDigit(char c)
         {
             return (c >= '0' && c <= '9') ||
                    (c >= 'A' && c <= 'F') ||
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <param name="c">The Unicode character.</param>
         /// <returns>true if the Unicode character is a decimal digit.</returns>
-        internal static bool IsDecDigit(char c)
+        public static bool IsDecDigit(char c)
         {
             return c >= '0' && c <= '9';
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns the value of a hexadecimal Unicode character.
         /// </summary>
         /// <param name="c">The Unicode character.</param>
-        internal static int HexValue(char c)
+        public static int HexValue(char c)
         {
             Debug.Assert(IsHexDigit(c));
             return (c >= '0' && c <= '9') ? c - '0' : (c & 0xdf) - 'A' + 10;
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns the value of a decimal Unicode character.
         /// </summary>
         /// <param name="c">The Unicode character.</param>
-        internal static int DecValue(char c)
+        public static int DecValue(char c)
         {
             Debug.Assert(IsDecDigit(c));
             return c - '0';
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// characters will have been dropped from the search string).
         /// See DevDiv #14432 for more.
         /// </summary>
-        internal static bool ContainsDroppedIdentifierCharacters(string name)
+        public static bool ContainsDroppedIdentifierCharacters(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool IsNonAsciiQuotationMark(char ch)
+        public static bool IsNonAsciiQuotationMark(char ch)
         {
             // CONSIDER: There are others:
             // http://en.wikipedia.org/wiki/Quotation_mark_glyphs#Quotation_marks_in_Unicode

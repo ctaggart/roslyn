@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal abstract class PEAssemblyBuilderBase : PEModuleBuilder, Cci.IAssembly
+    public abstract class PEAssemblyBuilderBase : PEModuleBuilder, Cci.IAssembly
     {
         private readonly SourceAssemblySymbol _sourceAssembly;
         private readonly ImmutableArray<NamedTypeSymbol> _additionalTypes;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
         }
 
 
-        internal override ImmutableArray<NamedTypeSymbol> GetAdditionalTopLevelTypes()
+        public override ImmutableArray<NamedTypeSymbol> GetAdditionalTopLevelTypes()
         {
             return _additionalTypes;
         }
@@ -200,7 +200,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             return _sourceAssembly.Identity.GetDisplayName();
         }
 
-        internal override string Name
+        public override string Name
         {
             get { return _metadataName; }
         }
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
         }
     }
 
-    internal sealed class PEAssemblyBuilder : PEAssemblyBuilderBase
+    public sealed class PEAssemblyBuilder : PEAssemblyBuilderBase
     {
         public PEAssemblyBuilder(
             SourceAssemblySymbol sourceAssembly,

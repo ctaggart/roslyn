@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Globalization;
@@ -6,16 +6,16 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class XmlSyntaxDiagnosticInfo : SyntaxDiagnosticInfo
+    public sealed class XmlSyntaxDiagnosticInfo : SyntaxDiagnosticInfo
     {
         private readonly XmlParseErrorCode _xmlErrorCode;
 
-        internal XmlSyntaxDiagnosticInfo(XmlParseErrorCode code, params object[] args)
+        public XmlSyntaxDiagnosticInfo(XmlParseErrorCode code, params object[] args)
             : this(0, 0, code, args)
         {
         }
 
-        internal XmlSyntaxDiagnosticInfo(int offset, int width, XmlParseErrorCode code, params object[] args)
+        public XmlSyntaxDiagnosticInfo(int offset, int width, XmlParseErrorCode code, params object[] args)
             : base(offset, width, ErrorCode.WRN_XMLParseError, args)
         {
             _xmlErrorCode = code;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Threading;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -12,19 +12,19 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// between the binder which it is constructed with and those that it constructs via
     /// the LocalBinderFactory. 
     /// </summary>
-    internal sealed class ExecutableCodeBinder : Binder
+    public sealed class ExecutableCodeBinder : Binder
     {
         private readonly Symbol _memberSymbol;
         private readonly CSharpSyntaxNode _root;
         private readonly MethodSymbol _owner;
         private SmallDictionary<CSharpSyntaxNode, Binder> _lazyBinderMap;
 
-        internal ExecutableCodeBinder(CSharpSyntaxNode root, Symbol memberSymbol, Binder next)
+        public ExecutableCodeBinder(CSharpSyntaxNode root, Symbol memberSymbol, Binder next)
             : this(root, memberSymbol, next, next.Flags)
         {
         }
 
-        internal ExecutableCodeBinder(CSharpSyntaxNode root, Symbol memberSymbol, Binder next, BinderFlags additionalFlags)
+        public ExecutableCodeBinder(CSharpSyntaxNode root, Symbol memberSymbol, Binder next, BinderFlags additionalFlags)
             : base(next, (next.Flags | additionalFlags) & ~BinderFlags.AllClearedAtExecutableCodeBoundary)
         {
             _memberSymbol = memberSymbol;
@@ -32,14 +32,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             _owner = memberSymbol as MethodSymbol;
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get { return _owner ?? Next.ContainingMemberOrLambda; }
         }
 
-        internal Symbol MemberSymbol { get { return _memberSymbol; } }
+        public Symbol MemberSymbol { get { return _memberSymbol; } }
 
-        internal override Binder GetBinder(CSharpSyntaxNode node)
+        public override Binder GetBinder(CSharpSyntaxNode node)
         {
             Binder binder;
             return this.BinderMap.TryGetValue(node, out binder) ? binder : Next.GetBinder(node);

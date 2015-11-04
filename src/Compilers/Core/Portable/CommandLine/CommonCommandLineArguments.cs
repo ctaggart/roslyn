@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Drop to an interactive loop. If a script is specified in <see cref="SourceFiles"/> executes the script first.
         /// </summary>
-        public bool InteractiveMode { get; internal set; }
+        public bool InteractiveMode { get; set; }
 
         /// <summary>
         /// Directory used to resolve relative paths stored in the arguments.
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
         /// absolute. This is the directory that relative paths specified on
         /// command line were resolved against.
         /// </remarks>
-        public string BaseDirectory { get; internal set; }
+        public string BaseDirectory { get; set; }
         
         /// <summary>
         /// A list of pairs of paths. This stores the value of the command-line compiler
@@ -48,153 +48,153 @@ namespace Microsoft.CodeAnalysis
         /// This option is used to help get build-to-build determinism even when the build
         /// directory is different from one build to the next.  The prefix matching is case sensitive.
         /// </remarks>
-        public ImmutableArray<KeyValuePair<string, string>> PathMap { get; internal set; }
+        public ImmutableArray<KeyValuePair<string, string>> PathMap { get; set; }
 
         /// <summary>
         /// Sequence of absolute paths used to search for references.
         /// </summary>
-        public ImmutableArray<string> ReferencePaths { get; internal set; }
+        public ImmutableArray<string> ReferencePaths { get; set; }
 
         /// <summary>
         /// Sequence of absolute paths used to search for sources specified as #load directives.
         /// </summary>
-        public ImmutableArray<string> SourcePaths { get; internal set; }
+        public ImmutableArray<string> SourcePaths { get; set; }
 
         /// <summary>
         /// Sequence of absolute paths used to search for key files.
         /// </summary>
-        public ImmutableArray<string> KeyFileSearchPaths { get; internal set; }
+        public ImmutableArray<string> KeyFileSearchPaths { get; set; }
 
         /// <summary>
         /// If true, use UTF8 for output.
         /// </summary>
-        public bool Utf8Output { get; internal set; }
+        public bool Utf8Output { get; set; }
 
         /// <summary>
         /// Compilation name or null if not specified.
         /// </summary>
-        public string CompilationName { get; internal set; }
+        public string CompilationName { get; set; }
 
         /// <summary>
         /// Gets the emit options.
         /// </summary>
-        public EmitOptions EmitOptions { get; internal set; }
+        public EmitOptions EmitOptions { get; set; }
 
         /// <summary>
         /// Name of the output file or null if not specified.
         /// </summary>
-        public string OutputFileName { get; internal set; }
+        public string OutputFileName { get; set; }
 
         /// <summary>
         /// Path of the PDB file or null if same as output binary path with .pdb extension.
         /// </summary>
-        public string PdbPath { get; internal set; }
+        public string PdbPath { get; set; }
 
         /// <summary>
         /// True to emit PDB file.
         /// </summary>
-        public bool EmitPdb { get; internal set; }
+        public bool EmitPdb { get; set; }
 
         /// <summary>
         /// Absolute path of the output directory.
         /// </summary>
-        public string OutputDirectory { get; internal set; }
+        public string OutputDirectory { get; set; }
 
         /// <summary>
         /// Absolute path of the documentation comment XML file or null if not specified.
         /// </summary>
-        public string DocumentationPath { get; internal set; }
+        public string DocumentationPath { get; set; }
 
         /// <summary>
         /// Absolute path of the error log file or null if not specified.
         /// </summary>
-        public string ErrorLogPath { get; internal set; }
+        public string ErrorLogPath { get; set; }
 
         /// <summary>
         /// An absolute path of the App.config file or null if not specified.
         /// </summary>
-        public string AppConfigPath { get; internal set; }
+        public string AppConfigPath { get; set; }
 
         /// <summary>
         /// Errors while parsing the command line arguments.
         /// </summary>
-        public ImmutableArray<Diagnostic> Errors { get; internal set; }
+        public ImmutableArray<Diagnostic> Errors { get; set; }
 
         /// <summary>
         /// References to metadata supplied on the command line. 
         /// Includes assemblies specified via /r and netmodules specified via /addmodule.
         /// </summary>
-        public ImmutableArray<CommandLineReference> MetadataReferences { get; internal set; }
+        public ImmutableArray<CommandLineReference> MetadataReferences { get; set; }
 
         /// <summary>
         /// References to analyzers supplied on the command line.
         /// </summary>
-        public ImmutableArray<CommandLineAnalyzerReference> AnalyzerReferences { get; internal set; }
+        public ImmutableArray<CommandLineAnalyzerReference> AnalyzerReferences { get; set; }
 
         /// <summary>
         /// A set of additional non-code text files that can be used by analyzers.
         /// </summary>
-        public ImmutableArray<CommandLineSourceFile> AdditionalFiles { get; internal set; }
+        public ImmutableArray<CommandLineSourceFile> AdditionalFiles { get; set; }
 
         /// <value>
         /// Report additional information related to analyzers, such as analyzer execution time.
         /// </value>
-        public bool ReportAnalyzer { get; internal set; }
+        public bool ReportAnalyzer { get; set; }
 
         /// <summary>
         /// If true, prepend the command line header logo during 
         /// <see cref="CommonCompiler.Run"/>.
         /// </summary>
-        public bool DisplayLogo { get; internal set; }
+        public bool DisplayLogo { get; set; }
 
         /// <summary>
         /// If true, append the command line help during
         /// <see cref="CommonCompiler.Run"/>
         /// </summary>
-        public bool DisplayHelp { get; internal set; }
+        public bool DisplayHelp { get; set; }
 
         /// <summary>
         /// The path to a Win32 resource.
         /// </summary>
-        public string Win32ResourceFile { get; internal set; }
+        public string Win32ResourceFile { get; set; }
 
         /// <summary>
         /// The path to a .ico icon file.
         /// </summary>
-        public string Win32Icon { get; internal set; }
+        public string Win32Icon { get; set; }
 
         /// <summary>
         /// The path to a Win32 manifest file to embed
         /// into the output portable executable (PE) file.
         /// </summary>
-        public string Win32Manifest { get; internal set; }
+        public string Win32Manifest { get; set; }
 
         /// <summary>
         /// If true, do not embed any Win32 manifest, including
         /// one specified by <see cref="Win32Manifest"/> or any
         /// default manifest.
         /// </summary>
-        public bool NoWin32Manifest { get; internal set; }
+        public bool NoWin32Manifest { get; set; }
 
         /// <summary>
         /// Resources specified as arguments to the compilation.
         /// </summary>
-        public ImmutableArray<ResourceDescription> ManifestResources { get; internal set; }
+        public ImmutableArray<ResourceDescription> ManifestResources { get; set; }
 
         /// <summary>
         /// Encoding to be used for source files or 'null' for autodetect/default.
         /// </summary>
-        public Encoding Encoding { get; internal set; }
+        public Encoding Encoding { get; set; }
 
         /// <summary>
         /// Hash algorithm to use to calculate source file debug checksums.
         /// </summary>
-        public SourceHashAlgorithm ChecksumAlgorithm { get; internal set; }
+        public SourceHashAlgorithm ChecksumAlgorithm { get; set; }
 
         /// <summary>
         /// Arguments following a script file or separator "--". Null if the command line parser is not interactive.
         /// </summary>
-        public ImmutableArray<string> ScriptArguments { get; internal set; }
+        public ImmutableArray<string> ScriptArguments { get; set; }
 
         /// <summary>
         /// Source file paths.
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis
         /// Includes files specified directly on command line as well as files matching patterns specified 
         /// on command line using '*' and '?' wildcards or /recurse option.
         /// </remarks>
-        public ImmutableArray<CommandLineSourceFile> SourceFiles { get; internal set; }
+        public ImmutableArray<CommandLineSourceFile> SourceFiles { get; set; }
 
         /// <summary>
         /// Full path of a log of file paths accessed by the compiler, or null if file logging should be suppressed.
@@ -213,13 +213,13 @@ namespace Microsoft.CodeAnalysis
         /// One with path <see cref="TouchedFilesPath"/> and extension ".read" logging the files read,
         /// and second with path <see cref="TouchedFilesPath"/> and extension ".write" logging the files written to during compilation.
         /// </remarks>
-        public string TouchedFilesPath { get; internal set; }
+        public string TouchedFilesPath { get; set; }
 
         /// <summary>
         /// If true, prints the full path of the file containing errors or
         /// warnings in diagnostics.
         /// </summary>
-        public bool PrintFullPaths { get; internal set; }
+        public bool PrintFullPaths { get; set; }
 
         /// <summary>
         /// Options to the <see cref="CommandLineParser"/>.
@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Specify the preferred output language name.
         /// </summary>
-        public CultureInfo PreferredUILang { get; internal set; }
+        public CultureInfo PreferredUILang { get; set; }
 
         public Guid SqmSessionGuid { get; set; }
 

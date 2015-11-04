@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Intended to be used to create ParameterSymbols for a SignatureOnlyMethodSymbol.
     /// </summary>
-    internal sealed class SignatureOnlyParameterSymbol : ParameterSymbol
+    public sealed class SignatureOnlyParameterSymbol : ParameterSymbol
     {
         private readonly TypeSymbol _type;
         private readonly ImmutableArray<CustomModifier> _customModifiers;
@@ -52,29 +52,29 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Not used by MethodSignatureComparer
 
-        internal override bool IsMetadataIn { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsMetadataIn { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsMetadataOut { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsMetadataOut { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation { get { throw ExceptionUtilities.Unreachable; } }
+        public override MarshalPseudoCustomAttributeData MarshallingInformation { get { throw ExceptionUtilities.Unreachable; } }
 
         public override int Ordinal { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsMetadataOptional { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsMetadataOptional { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ConstantValue ExplicitDefaultConstantValue { get { throw ExceptionUtilities.Unreachable; } }
+        public override ConstantValue ExplicitDefaultConstantValue { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsIDispatchConstant { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsIDispatchConstant { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsIUnknownConstant { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsIUnknownConstant { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsCallerFilePath { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsCallerFilePath { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsCallerLineNumber { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsCallerLineNumber { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override bool IsCallerMemberName { get { throw ExceptionUtilities.Unreachable; } }
+        public override bool IsCallerMemberName { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal sealed override ushort CountOfCustomModifiersPrecedingByRef { get { return 0; } }
+        public sealed override ushort CountOfCustomModifiersPrecedingByRef { get { return 0; } }
 
         public override Symbol ContainingSymbol { get { throw ExceptionUtilities.Unreachable; } }
 
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public override AssemblySymbol ContainingAssembly { get { throw ExceptionUtilities.Unreachable; } }
 
-        internal override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
+        public override ModuleSymbol ContainingModule { get { throw ExceptionUtilities.Unreachable; } }
 
         #endregion Not used by MethodSignatureComparer
     }

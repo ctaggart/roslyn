@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
     // This is a type symbol associated with a type definition in source code.
     // That is, for a generic type C<T> this is the instance type C<T>.  
-    internal sealed partial class SourceNamedTypeSymbol : SourceMemberContainerTypeSymbol, IAttributeTargetSymbol
+    public sealed partial class SourceNamedTypeSymbol : SourceMemberContainerTypeSymbol, IAttributeTargetSymbol
     {
         private ImmutableArray<TypeParameterSymbol> _lazyTypeParameters;
 
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return backupLocation;
         }
 
-        internal SourceNamedTypeSymbol(NamespaceOrTypeSymbol containingSymbol, MergedTypeDeclaration declaration, DiagnosticBag diagnostics)
+        public SourceNamedTypeSymbol(NamespaceOrTypeSymbol containingSymbol, MergedTypeDeclaration declaration, DiagnosticBag diagnostics)
             : base(containingSymbol, declaration, diagnostics)
         {
             Debug.Assert(declaration.Kind == DeclarationKind.Struct ||
@@ -217,13 +217,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return parameters.AsImmutable();
         }
 
-        internal TypeParameterConstraintKind GetTypeParameterConstraints(int ordinal)
+        public TypeParameterConstraintKind GetTypeParameterConstraints(int ordinal)
         {
             var clause = this.GetTypeParameterConstraintClause(ordinal);
             return (clause != null) ? clause.Constraints : TypeParameterConstraintKind.None;
         }
 
-        internal ImmutableArray<TypeSymbol> GetTypeParameterConstraintTypes(int ordinal)
+        public ImmutableArray<TypeSymbol> GetTypeParameterConstraintTypes(int ordinal)
         {
             var clause = this.GetTypeParameterConstraintClause(ordinal);
             return (clause != null) ? clause.ConstraintTypes : ImmutableArray<TypeSymbol>.Empty;
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return true;
         }
 
-        internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+        public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
         {
             get
             {
@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasTypeArgumentsCustomModifiers
+        public override bool HasTypeArgumentsCustomModifiers
         {
             get
             {
@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+        public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
         {
             get
             {
@@ -401,7 +401,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Attributes
 
-        internal ImmutableArray<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public ImmutableArray<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             return declaration.GetAttributeDeclarations();
         }
@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal TypeWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public TypeWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonTypeEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
+        public CommonTypeEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsEarlyDecodedWellKnownAttributeDataComputed)
@@ -506,7 +506,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (CommonTypeEarlyWellKnownAttributeData)attributesBag.EarlyDecodedWellKnownAttributeData;
         }
 
-        internal override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             bool hasAnyDiagnostics;
             CSharpAttributeData boundAttribute;
@@ -580,7 +580,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return base.EarlyDecodeWellKnownAttribute(ref arguments);
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             Debug.Assert(this.SpecialType == SpecialType.System_Object || this.DeclaringCompilation.IsAttributeType(this));
 
@@ -597,7 +597,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -620,7 +620,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             Debug.Assert((object)arguments.AttributeSyntaxOpt != null);
 
@@ -711,7 +711,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExplicitDefinitionOfNoPiaLocalType
+        public override bool IsExplicitDefinitionOfNoPiaLocalType
         {
             get
             {
@@ -787,7 +787,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsComImport
+        public override bool IsComImport
         {
             get
             {
@@ -796,7 +796,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol ComImportCoClass
+        public override NamedTypeSymbol ComImportCoClass
         {
             get
             {
@@ -828,7 +828,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -837,12 +837,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool ShouldAddWinRTMembers
+        public sealed override bool ShouldAddWinRTMembers
         {
             get { return false; }
         }
 
-        internal sealed override bool IsWindowsRuntimeImport
+        public sealed override bool IsWindowsRuntimeImport
         {
             get
             {
@@ -851,7 +851,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsSerializable
+        public sealed override bool IsSerializable
         {
             get
             {
@@ -886,7 +886,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal sealed override TypeLayout Layout
+        public sealed override TypeLayout Layout
         {
             get
             {
@@ -910,7 +910,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool HasStructLayoutAttribute
+        public bool HasStructLayoutAttribute
         {
             get
             {
@@ -919,7 +919,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get
             {
@@ -928,7 +928,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get
             {
@@ -937,7 +937,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool HasSecurityCriticalAttributes
+        public bool HasSecurityCriticalAttributes
         {
             get
             {
@@ -946,7 +946,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
         {
             var attributesBag = this.GetAttributesBag();
             var wellKnownData = (TypeWellKnownAttributeData)attributesBag.DecodedWellKnownAttributeData;
@@ -962,13 +962,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             var data = GetEarlyDecodedWellKnownAttributeData();
             return data != null ? data.ConditionalSymbols : ImmutableArray<string>.Empty;
         }
 
-        internal override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
+        public override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
         {
             Debug.Assert(!boundAttributes.IsDefault);
             Debug.Assert(!allAttributeSyntaxNodes.IsDefault);
@@ -1054,7 +1054,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// These won't be returned by GetAttributes on source methods, but they
         /// will be returned by GetAttributes on metadata symbols.
         /// </remarks>
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 

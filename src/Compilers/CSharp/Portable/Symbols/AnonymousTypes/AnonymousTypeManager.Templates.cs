@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Manages anonymous types created on module level. All requests for anonymous type symbols 
     /// go via the instance of this class, the symbol will be either created or returned from cache.
     /// </summary>
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Cache of created anonymous type templates used as an implementation of anonymous 
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SynthesizedDelegateSymbol SynthesizeDelegate(int parameterCount, BitVector byRefParameters, bool returnsVoid)
+        public SynthesizedDelegateSymbol SynthesizeDelegate(int parameterCount, BitVector byRefParameters, bool returnsVoid)
         {
             // parameterCount doesn't include return type
             Debug.Assert(byRefParameters.IsNull || parameterCount == byRefParameters.Capacity);
@@ -397,12 +397,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static Microsoft.CodeAnalysis.Emit.AnonymousTypeKey GetAnonymousTypeKey(NamedTypeSymbol type)
+        public static Microsoft.CodeAnalysis.Emit.AnonymousTypeKey GetAnonymousTypeKey(NamedTypeSymbol type)
         {
             return ((AnonymousTypeTemplateSymbol)type).GetAnonymousTypeKey();
         }
 
-        internal IReadOnlyDictionary<Microsoft.CodeAnalysis.Emit.AnonymousTypeKey, Microsoft.CodeAnalysis.Emit.AnonymousTypeValue> GetAnonymousTypeMap()
+        public IReadOnlyDictionary<Microsoft.CodeAnalysis.Emit.AnonymousTypeKey, Microsoft.CodeAnalysis.Emit.AnonymousTypeValue> GetAnonymousTypeMap()
         {
             var result = new Dictionary<Microsoft.CodeAnalysis.Emit.AnonymousTypeKey, Microsoft.CodeAnalysis.Emit.AnonymousTypeValue>();
             var templates = GetAllCreatedTemplates();
@@ -419,7 +419,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns all templates owned by this type manager
         /// </summary>
-        internal ImmutableArray<NamedTypeSymbol> GetAllCreatedTemplates()
+        public ImmutableArray<NamedTypeSymbol> GetAllCreatedTemplates()
         {
             // NOTE: templates may not be sealed in case metadata is being emitted without IL
 
@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if the named type is an implementation template for an anonymous type
         /// </summary>
-        internal static bool IsAnonymousTypeTemplate(NamedTypeSymbol type)
+        public static bool IsAnonymousTypeTemplate(NamedTypeSymbol type)
         {
             return type is AnonymousTypeTemplateSymbol;
         }
@@ -450,7 +450,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Retrieves methods of anonymous type template which are not placed to symbol table.
         /// In current implementation those are overridden 'ToString', 'Equals' and 'GetHashCode'
         /// </summary>
-        internal static ImmutableArray<MethodSymbol> GetAnonymousTypeHiddenMethods(NamedTypeSymbol type)
+        public static ImmutableArray<MethodSymbol> GetAnonymousTypeHiddenMethods(NamedTypeSymbol type)
         {
             Debug.Assert((object)type != null);
             return ((AnonymousTypeTemplateSymbol)type).SpecialMembers;
@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Translates anonymous type public symbol into an implementation type symbol to be used in emit.
         /// </summary>
-        internal static NamedTypeSymbol TranslateAnonymousTypeSymbol(NamedTypeSymbol type)
+        public static NamedTypeSymbol TranslateAnonymousTypeSymbol(NamedTypeSymbol type)
         {
             Debug.Assert((object)type != null);
             Debug.Assert(type.IsAnonymousType);
@@ -471,7 +471,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Translates anonymous type method symbol into an implementation method symbol to be used in emit.
         /// </summary>
-        internal static MethodSymbol TranslateAnonymousTypeMethodSymbol(MethodSymbol method)
+        public static MethodSymbol TranslateAnonymousTypeMethodSymbol(MethodSymbol method)
         {
             Debug.Assert((object)method != null);
             NamedTypeSymbol translatedType = TranslateAnonymousTypeSymbol(method.ContainingType);

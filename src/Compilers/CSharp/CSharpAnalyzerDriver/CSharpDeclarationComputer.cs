@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class CSharpDeclarationComputer : DeclarationComputer
+    public class CSharpDeclarationComputer : DeclarationComputer
     {
         public static void ComputeDeclarationsInSpan(SemanticModel model, TextSpan span, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken)
         {
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Gets the expression-body syntax from an expression-bodied member. The
         /// given syntax must be for a member which could contain an expression-body.
         /// </summary>
-        internal static ArrowExpressionClauseSyntax GetExpressionBodySyntax(CSharpSyntaxNode node)
+        public static ArrowExpressionClauseSyntax GetExpressionBodySyntax(CSharpSyntaxNode node)
         {
             ArrowExpressionClauseSyntax arrowExpr = null;
             switch (node.Kind())

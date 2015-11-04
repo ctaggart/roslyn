@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,17 +8,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
-        internal struct ProcessedFieldInitializers
+        public struct ProcessedFieldInitializers
         {
-            internal ImmutableArray<BoundInitializer> BoundInitializers { get; set; }
-            internal BoundStatementList LoweredInitializers { get; set; }
-            internal bool HasErrors { get; set; }
-            internal ImportChain FirstImportChain { get; set; }
+            public ImmutableArray<BoundInitializer> BoundInitializers { get; set; }
+            public BoundStatementList LoweredInitializers { get; set; }
+            public bool HasErrors { get; set; }
+            public ImportChain FirstImportChain { get; set; }
         }
 
-        internal static void BindFieldInitializers(
+        public static void BindFieldInitializers(
             CSharpCompilation compilation,
             SynthesizedInteractiveInitializerMethod scriptInitializerOpt,
             ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> fieldInitializers,
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// In regular C#, all field initializers are assignments to fields and the assigned expressions
         /// may not reference instance members.
         /// </summary>
-        internal static void BindRegularCSharpFieldInitializers(
+        public static void BindRegularCSharpFieldInitializers(
             CSharpCompilation compilation,
             ImmutableArray<ImmutableArray<FieldOrPropertyInitializer>> initializers,
             ArrayBuilder<BoundInitializer> boundInitializers,

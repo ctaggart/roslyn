@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal class SyntaxTokenListBuilder
+    public class SyntaxTokenListBuilder
     {
         private Syntax.InternalSyntax.CSharpSyntaxNode[] _nodes;
         private int _count;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             this.Add((Syntax.InternalSyntax.SyntaxToken)item.Node);
         }
 
-        internal void Add(Syntax.InternalSyntax.SyntaxToken item)
+        public void Add(Syntax.InternalSyntax.SyntaxToken item)
         {
             CheckSpace(1);
             _nodes[_count++] = item;

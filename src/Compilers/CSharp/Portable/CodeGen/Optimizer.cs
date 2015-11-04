@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.CodeGen
 {
-    internal class Optimizer
+    public class Optimizer
     {
         /// <summary>
         /// Perform IL specific optimizations (mostly reduction of local slots)
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
     //      a write or a subsequent read. These cases are not ambiguous because 
     //      when rewriting, definition will match to a single node and 
     //      we always know if given node is reading or writing.
-    internal class LocalDefUseInfo
+    public class LocalDefUseInfo
     {
         // stack at variable declaration, may be > 0 in sequences.
         public readonly int stackAtDeclaration;
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
     // represents a span of a value between definition and use.
     // start/end positions are specified in terms of global node count as visited by 
     // StackOptimizer visitors. (i.e. recursive walk not looking into constants)
-    internal class LocalDefUseSpan
+    public class LocalDefUseSpan
     {
         public readonly int start;
         public int end;
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
     // it will also affect when locals can be scheduled to the stack
     // Example:
     //      Foo(x, ref x)     <-- x cannot be a stack local as it is used in different contexts.
-    internal enum ExprContext
+    public enum ExprContext
     {
         Sideeffects,
         Value,
@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
     // NOTE: It is always safe to mark a local as not eligible as a stack local
     //       so when situation gets complicated we just refuse to schedule and move on.
     //
-    internal sealed class StackOptimizerPass1 : BoundTreeRewriter
+    public sealed class StackOptimizerPass1 : BoundTreeRewriter
     {
         private readonly bool _debugFriendly;
         private readonly ArrayBuilder<ValueTuple<BoundExpression, ExprContext>> _evalStack;
@@ -736,7 +736,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
             private readonly LocalSymbol _local;
             private bool _found;
 
-            internal LocalUsedWalker(LocalSymbol local, int recursionDepth)
+            public LocalUsedWalker(LocalSymbol local, int recursionDepth)
                 : base(recursionDepth)
             {
                 _local = local;
@@ -1769,7 +1769,7 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
     //              NotLastUse(X_stackLocal) ===> NotLastUse(Dup)
     //              LastUse(X_stackLocal) ===> LastUse(X_stackLocal)
     //
-    internal sealed class StackOptimizerPass2 : BoundTreeRewriterWithStackGuard
+    public sealed class StackOptimizerPass2 : BoundTreeRewriterWithStackGuard
     {
         private int _nodeCounter;
         private readonly Dictionary<LocalSymbol, LocalDefUseInfo> _info;
@@ -1989,34 +1989,34 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
         }
     }
 
-    internal sealed class DummyLocal : LocalSymbol
+    public sealed class DummyLocal : LocalSymbol
     {
-        internal override bool IsImportedFromMetadata
+        public override bool IsImportedFromMetadata
         {
             get { return false; }
         }
 
-        internal override LocalDeclarationKind DeclarationKind
+        public override LocalDeclarationKind DeclarationKind
         {
             get { return LocalDeclarationKind.None; }
         }
 
-        internal override SynthesizedLocalKind SynthesizedKind
+        public override SynthesizedLocalKind SynthesizedKind
         {
             get { return SynthesizedLocalKind.OptimizerTemp; }
         }
 
-        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
+        public override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
         {
             throw new NotImplementedException();
         }
 
-        internal override SyntaxToken IdentifierToken
+        public override SyntaxToken IdentifierToken
         {
             get { return default(SyntaxToken); }
         }
 
-        internal override bool IsPinned
+        public override bool IsPinned
         {
             get { return false; }
         }
@@ -2041,27 +2041,27 @@ namespace Microsoft.CodeAnalysis.CSharp.CodeGen
             get { throw new NotImplementedException(); }
         }
 
-        internal override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
+        public override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
         {
             throw new NotImplementedException();
         }
 
-        internal override bool IsCompilerGenerated
+        public override bool IsCompilerGenerated
         {
             get { return true; }
         }
 
-        internal override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
+        public override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
         {
             throw new NotImplementedException();
         }
 
-        internal override SyntaxNode GetDeclaratorSyntax()
+        public override SyntaxNode GetDeclaratorSyntax()
         {
             throw new NotImplementedException();
         }
 
-        internal override RefKind RefKind
+        public override RefKind RefKind
         {
             get { return RefKind.None; }
         }

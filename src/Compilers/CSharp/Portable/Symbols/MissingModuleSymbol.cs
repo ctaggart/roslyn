@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A <see cref="MissingModuleSymbol"/> is a special kind of <see cref="ModuleSymbol"/> that represents
     /// a module that couldn't be found.
     /// </summary>
-    internal class MissingModuleSymbol : ModuleSymbol
+    public class MissingModuleSymbol : ModuleSymbol
     {
         protected readonly AssemblySymbol assembly;
         protected readonly int ordinal;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             globalNamespace = new MissingNamespaceSymbol(this);
         }
 
-        internal override int Ordinal
+        public override int Ordinal
         {
             get
             {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override Machine Machine
+        public override Machine Machine
         {
             get
             {
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool Bit32Required
+        public override bool Bit32Required
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMissing
+        public sealed override bool IsMissing
         {
             get
             {
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ICollection<string> NamespaceNames
+        public override ICollection<string> NamespaceNames
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ICollection<string> TypeNames
+        public override ICollection<string> TypeNames
         {
             get
             {
@@ -139,53 +139,53 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName)
+        public override NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName)
         {
             return new MissingMetadataTypeSymbol.TopLevel(this, ref emittedName);
         }
 
-        internal override ImmutableArray<AssemblyIdentity> GetReferencedAssemblies()
+        public override ImmutableArray<AssemblyIdentity> GetReferencedAssemblies()
         {
             return ImmutableArray<AssemblyIdentity>.Empty;
         }
 
-        internal override ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols()
+        public override ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols()
         {
             return ImmutableArray<AssemblySymbol>.Empty;
         }
 
-        internal override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly)
+        public override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool HasUnifiedReferences
+        public override bool HasUnifiedReferences
         {
             get { return false; }
         }
 
-        internal override bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType)
+        public override bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override bool HasAssemblyCompilationRelaxationsAttribute
+        public override bool HasAssemblyCompilationRelaxationsAttribute
         {
             get { return false; }
         }
 
-        internal override bool HasAssemblyRuntimeCompatibilityAttribute
+        public override bool HasAssemblyRuntimeCompatibilityAttribute
         {
             get { return false; }
         }
 
-        internal override CharSet? DefaultMarshallingCharSet
+        public override CharSet? DefaultMarshallingCharSet
         {
             get { return null; }
         }
     }
 
-    internal class MissingModuleSymbolWithName : MissingModuleSymbol
+    public class MissingModuleSymbolWithName : MissingModuleSymbol
     {
         private readonly string _name;
 

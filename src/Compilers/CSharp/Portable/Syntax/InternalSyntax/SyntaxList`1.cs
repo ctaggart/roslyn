@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -12,16 +12,16 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial struct SyntaxList<TNode> : IEquatable<SyntaxList<TNode>> where TNode : CSharpSyntaxNode
+    public partial struct SyntaxList<TNode> : IEquatable<SyntaxList<TNode>> where TNode : CSharpSyntaxNode
     {
         private readonly CSharpSyntaxNode _node;
 
-        internal SyntaxList(CSharpSyntaxNode node)
+        public SyntaxList(CSharpSyntaxNode node)
         {
             _node = node;
         }
 
-        internal CSharpSyntaxNode Node
+        public CSharpSyntaxNode Node
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return new Enumerator(this);
         }
 
-        internal void CopyTo(int offset, ArrayElement<CSharpSyntaxNode>[] array, int arrayOffset, int count)
+        public void CopyTo(int offset, ArrayElement<CSharpSyntaxNode>[] array, int arrayOffset, int count)
         {
             for (int i = 0; i < count; i++)
             {

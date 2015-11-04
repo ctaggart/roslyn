@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Applies C#-specific modification and filtering of <see cref="Diagnostic"/>s.
     /// </summary>
-    internal static class CSharpDiagnosticFilter
+    public static class CSharpDiagnosticFilter
     {
         private static readonly ErrorCode[] s_alinkWarnings = { ErrorCode.WRN_ConflictingMachineAssembly,
                                                               ErrorCode.WRN_RefCultureMismatch,
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // Take a warning and return the final deposition of the given warning,
         // based on both command line options and pragmas.
-        internal static ReportDiagnostic GetDiagnosticReport(
+        public static ReportDiagnostic GetDiagnosticReport(
             DiagnosticSeverity severity,
             bool isEnabledByDefault,
             string id,

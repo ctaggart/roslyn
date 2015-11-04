@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// The class to represent all generic type parameters imported from a PE/module.
     /// </summary>
     /// <remarks></remarks>
-    internal sealed class PETypeParameterSymbol
+    public sealed class PETypeParameterSymbol
         : TypeParameterSymbol
     {
         private readonly Symbol _containingSymbol; // Could be PENamedType or a PEMethod
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         private ImmutableArray<CSharpAttributeData> _lazyCustomAttributes;
 
-        internal PETypeParameterSymbol(
+        public PETypeParameterSymbol(
             PEModuleSymbol moduleSymbol,
             PENamedTypeSymbol definingNamedType,
             ushort ordinal,
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         {
         }
 
-        internal PETypeParameterSymbol(
+        public PETypeParameterSymbol(
             PEModuleSymbol moduleSymbol,
             PEMethodSymbol definingMethod,
             ushort ordinal,
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal GenericParameterHandle Handle
+        public GenericParameterHandle Handle
         {
             get
             {
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override void EnsureAllConstraintsAreResolved()
+        public override void EnsureAllConstraintsAreResolved()
         {
             if (ReferenceEquals(_lazyBounds, TypeParameterBounds.Unset))
             {
@@ -265,25 +265,25 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.ConstraintTypes : ImmutableArray<TypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
+        public override ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.Interfaces : ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
+        public override NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.EffectiveBaseClass : this.GetDefaultBaseType();
         }
 
-        internal override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
+        public override TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress)
         {
             var bounds = this.GetBounds(inProgress);
             return (bounds != null) ? bounds.DeducedBaseType : this.GetDefaultBaseType();
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyBounds;
         }
 
-        internal override DiagnosticInfo GetConstraintsUseSiteErrorInfo()
+        public override DiagnosticInfo GetConstraintsUseSiteErrorInfo()
         {
             EnsureAllConstraintsAreResolved();
             Debug.Assert(!ReferenceEquals(_lazyBoundsErrorInfo, CSDiagnosticInfo.EmptyErrorInfo));
@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return this.ContainingAssembly.GetSpecialType(SpecialType.System_Object);
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

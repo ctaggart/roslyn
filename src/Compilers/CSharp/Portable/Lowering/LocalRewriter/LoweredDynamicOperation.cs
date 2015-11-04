@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Most callers just call <see cref="ToExpression"/> to get the combo but some (object and array initializers) 
     /// hoist all call-site initialization code and emit multiple invocations of the same site.
     /// </summary>
-    internal struct LoweredDynamicOperation
+    public struct LoweredDynamicOperation
     {
         private readonly SyntheticBoundNodeFactory _factory;
         private readonly TypeSymbol _resultType;

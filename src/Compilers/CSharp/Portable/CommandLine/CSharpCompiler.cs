@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract class CSharpCompiler : CommonCompiler
+    public abstract class CSharpCompiler : CommonCompiler
     {
-        internal const string ResponseFileName = "csc.rsp";
+        public const string ResponseFileName = "csc.rsp";
 
         private readonly CommandLineDiagnosticFormatter _diagnosticFormatter;
 
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         public override DiagnosticFormatter DiagnosticFormatter { get { return _diagnosticFormatter; } }
-        protected internal new CSharpCommandLineArguments Arguments { get { return (CSharpCommandLineArguments)base.Arguments; } }
+        protected new CSharpCommandLineArguments Arguments { get { return (CSharpCommandLineArguments)base.Arguments; } }
 
         public override Compilation CreateCompilation(TextWriter consoleOutput, TouchedFileLogger touchedFilesLogger, ErrorLogger errorLogger)
         {
@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool SuppressDefaultResponseFile(IEnumerable<string> args)
+        public override bool SuppressDefaultResponseFile(IEnumerable<string> args)
         {
             return args.Any(arg => new[] { "/noconfig", "-noconfig" }.Contains(arg.ToLowerInvariant()));
         }
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             consoleOutput.WriteLine();
         }
 
-        internal override string GetToolName()
+        public override string GetToolName()
         {
             return ErrorFacts.GetMessage(MessageID.IDS_ToolName, Culture);
         }

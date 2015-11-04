@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,13 +6,13 @@ using System.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal class DirectiveParser : SyntaxParser
+    public class DirectiveParser : SyntaxParser
     {
         private const int MAX_DIRECTIVE_IDENTIFIER_WIDTH = 128;
 
         private readonly DirectiveStack _context;
 
-        internal DirectiveParser(Lexer lexer, DirectiveStack context)
+        public DirectiveParser(Lexer lexer, DirectiveStack context)
             : base(lexer, LexerMode.Directive, null, null, false)
         {
             _context = context;

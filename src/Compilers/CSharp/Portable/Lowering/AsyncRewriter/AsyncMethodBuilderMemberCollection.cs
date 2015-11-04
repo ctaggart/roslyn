@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -21,54 +21,54 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// each async method builder type. This avoids having to inspect the return style of the current async method
     /// to pick the right async method builder member during async rewriting.
     /// </summary>
-    internal struct AsyncMethodBuilderMemberCollection
+    public struct AsyncMethodBuilderMemberCollection
     {
         /// <summary>
         /// The builder's constructed type.
         /// </summary>
-        internal readonly NamedTypeSymbol BuilderType;
+        public readonly NamedTypeSymbol BuilderType;
 
         /// <summary>
         /// The result type of the constructed task: T for Task&lt;T&gt;, void otherwise.
         /// </summary>
-        internal readonly TypeSymbol ResultType;
+        public readonly TypeSymbol ResultType;
 
         /// <summary>
         /// Binds an exception to the method builder.
         /// </summary>
-        internal readonly MethodSymbol SetException;
+        public readonly MethodSymbol SetException;
 
         /// <summary>
         /// Marks the method builder as successfully completed, and sets the result if method is Task&lt;T&gt;-returning.
         /// </summary>
-        internal readonly MethodSymbol SetResult;
+        public readonly MethodSymbol SetResult;
 
         /// <summary>
         /// Schedules the state machine to proceed to the next action when the specified awaiter completes.
         /// </summary>
-        internal readonly MethodSymbol AwaitOnCompleted;
+        public readonly MethodSymbol AwaitOnCompleted;
 
         /// <summary>
         /// Schedules the state machine to proceed to the next action when the specified awaiter completes. This method can be called from partially trusted code.
         /// </summary>
-        internal readonly MethodSymbol AwaitUnsafeOnCompleted;
+        public readonly MethodSymbol AwaitUnsafeOnCompleted;
 
         /// <summary>
         /// Begins running the builder with the associated state machine.
         /// </summary>
-        internal readonly MethodSymbol Start;
+        public readonly MethodSymbol Start;
 
         /// <summary>
         /// Associates the builder with the specified state machine.
         /// </summary>
-        internal readonly MethodSymbol SetStateMachine;
+        public readonly MethodSymbol SetStateMachine;
 
         /// <summary>
         /// Get the constructed task for a Task-returning or Task&lt;T&gt;-returning async method.
         /// </summary>
-        internal readonly PropertySymbol Task;
+        public readonly PropertySymbol Task;
 
-        internal AsyncMethodBuilderMemberCollection(
+        public AsyncMethodBuilderMemberCollection(
             NamedTypeSymbol builderType,
             TypeSymbol resultType,
             MethodSymbol setException,
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             Task = task;
         }
 
-        internal static bool TryCreate(SyntheticBoundNodeFactory F, MethodSymbol method, TypeMap typeMap, out AsyncMethodBuilderMemberCollection collection)
+        public static bool TryCreate(SyntheticBoundNodeFactory F, MethodSymbol method, TypeMap typeMap, out AsyncMethodBuilderMemberCollection collection)
         {
             if (method.IsVoidReturningAsync())
             {

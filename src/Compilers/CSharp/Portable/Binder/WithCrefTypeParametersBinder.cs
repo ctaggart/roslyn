@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -12,12 +12,12 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// The scope within a documentation cref.  Contains the implicitly declared type parameters
     /// of the cref (see <see cref="CrefTypeParameterSymbol"/> for details).
     /// </summary>
-    internal sealed class WithCrefTypeParametersBinder : WithTypeParametersBinder
+    public sealed class WithCrefTypeParametersBinder : WithTypeParametersBinder
     {
         private readonly CrefSyntax _crefSyntax;
         private MultiDictionary<string, TypeParameterSymbol> _lazyTypeParameterMap;
 
-        internal WithCrefTypeParametersBinder(CrefSyntax crefSyntax, Binder next)
+        public WithCrefTypeParametersBinder(CrefSyntax crefSyntax, Binder next)
             : base(next)
         {
             _crefSyntax = crefSyntax;

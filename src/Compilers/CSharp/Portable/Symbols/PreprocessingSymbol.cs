@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Roslyn.Utilities;
@@ -8,11 +8,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a preprocessing conditional compilation symbol.
     /// </summary>
-    internal class PreprocessingSymbol : Symbol, IPreprocessingSymbol
+    public class PreprocessingSymbol : Symbol, IPreprocessingSymbol
     {
         private readonly string _name;
 
-        internal PreprocessingSymbol(string name)
+        public PreprocessingSymbol(string name)
         {
             _name = name;
         }
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.Name.GetHashCode();
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument a)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument a)
         {
             throw new System.NotImplementedException();
         }

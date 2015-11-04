@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis
             return nodeOrToken.RawKind == (int)kind;
         }
 
-        internal static SyntaxKind ContextualKind(this SyntaxToken token)
+        public static SyntaxKind ContextualKind(this SyntaxToken token)
         {
             return (object)token.Language == (object)LanguageNames.CSharp ? (SyntaxKind)token.RawContextualKind : SyntaxKind.None;
         }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
             return list.IndexOf(kind) >= 0;
         }
 
-        internal static SyntaxToken FirstOrDefault(this SyntaxTokenList list, SyntaxKind kind)
+        public static SyntaxToken FirstOrDefault(this SyntaxTokenList list, SyntaxKind kind)
         {
             int index = list.IndexOf(kind);
             return (index >= 0) ? list[index] : default(SyntaxToken);
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 {
     public static class CSharpExtensions
     {
-        internal static bool IsCSharpKind(int rawKind)
+        public static bool IsCSharpKind(int rawKind)
         {
             const int FirstVisualBasicKind = (int)SyntaxKind.List + 1;
             const int FirstCSharpKind = (int)SyntaxKind.TildeToken;
@@ -267,17 +267,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             return Syntax.SyntaxReplacer.Replace(token, trivia: new[] { oldTrivia }, computeReplacementTrivia: (o, r) => newTrivia);
         }
 
-        internal static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxNode node, Syntax.InternalSyntax.DirectiveStack stack)
+        public static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxNode node, Syntax.InternalSyntax.DirectiveStack stack)
         {
             return ((Syntax.InternalSyntax.CSharpSyntaxNode)node.Green).ApplyDirectives(stack);
         }
 
-        internal static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxToken token, Syntax.InternalSyntax.DirectiveStack stack)
+        public static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxToken token, Syntax.InternalSyntax.DirectiveStack stack)
         {
             return ((Syntax.InternalSyntax.CSharpSyntaxNode)token.Node).ApplyDirectives(stack);
         }
 
-        internal static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxNodeOrToken nodeOrToken, Syntax.InternalSyntax.DirectiveStack stack)
+        public static Syntax.InternalSyntax.DirectiveStack ApplyDirectives(this SyntaxNodeOrToken nodeOrToken, Syntax.InternalSyntax.DirectiveStack stack)
         {
             if (nodeOrToken.IsToken)
             {
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <typeparam name="TOther">The type of the list elements in the separated list.</typeparam>
         /// <returns></returns>
-        internal static SeparatedSyntaxList<TOther> AsSeparatedList<TOther>(this SyntaxNodeOrTokenList list) where TOther : SyntaxNode
+        public static SeparatedSyntaxList<TOther> AsSeparatedList<TOther>(this SyntaxNodeOrTokenList list) where TOther : SyntaxNode
         {
             var builder = SeparatedSyntaxListBuilder<TOther>.Create();
             foreach (var i in list)
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         #region SyntaxNode 
-        internal static IList<DirectiveTriviaSyntax> GetDirectives(this SyntaxNode node, Func<DirectiveTriviaSyntax, bool> filter = null)
+        public static IList<DirectiveTriviaSyntax> GetDirectives(this SyntaxNode node, Func<DirectiveTriviaSyntax, bool> filter = null)
         {
             return ((CSharpSyntaxNode)node).GetDirectives(filter);
         }
@@ -345,32 +345,32 @@ namespace Microsoft.CodeAnalysis.CSharp
             return (CompilationUnitSyntax)tree.GetRoot(cancellationToken);
         }
 
-        internal static bool HasReferenceDirectives(this SyntaxTree tree)
+        public static bool HasReferenceDirectives(this SyntaxTree tree)
         {
             var csharpTree = tree as CSharpSyntaxTree;
             return csharpTree != null && csharpTree.HasReferenceDirectives;
         }
 
-        internal static bool HasReferenceOrLoadDirectives(this SyntaxTree tree)
+        public static bool HasReferenceOrLoadDirectives(this SyntaxTree tree)
         {
             var csharpTree = tree as CSharpSyntaxTree;
             return csharpTree != null && csharpTree.HasReferenceOrLoadDirectives;
         }
 
-        internal static bool IsAnyPreprocessorSymbolDefined(this SyntaxTree tree, ImmutableArray<string> conditionalSymbols)
+        public static bool IsAnyPreprocessorSymbolDefined(this SyntaxTree tree, ImmutableArray<string> conditionalSymbols)
         {
             var csharpTree = tree as CSharpSyntaxTree;
             return csharpTree != null && csharpTree.IsAnyPreprocessorSymbolDefined(conditionalSymbols);
         }
 
-        internal static bool IsPreprocessorSymbolDefined(this SyntaxTree tree, string symbolName, int position)
+        public static bool IsPreprocessorSymbolDefined(this SyntaxTree tree, string symbolName, int position)
         {
             var csharpTree = tree as CSharpSyntaxTree;
             return csharpTree != null && csharpTree.IsPreprocessorSymbolDefined(symbolName, position);
         }
 
         // Given the error code and the source location, get the warning state based on pragma warning directives.
-        internal static ReportDiagnostic GetPragmaDirectiveWarningState(this SyntaxTree tree, string id, int position)
+        public static ReportDiagnostic GetPragmaDirectiveWarningState(this SyntaxTree tree, string id, int position)
         {
             return ((CSharpSyntaxTree)tree).GetPragmaDirectiveWarningState(id, position);
         }

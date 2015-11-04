@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a property or indexer.
     /// </summary>
-    internal abstract partial class PropertySymbol : Symbol, IPropertySymbol
+    public abstract partial class PropertySymbol : Symbol, IPropertySymbol
     {
         /// <summary>
         /// As a performance optimization, cache parameter types and refkinds - overload resolution uses them a lot.
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // to the VB version.
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        internal PropertySymbol()
+        public PropertySymbol()
         {
         }
 
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Optimization: in many cases, the parameter count (fast) is sufficient and we
         /// don't need the actual parameter symbols (slow).
         /// </summary>
-        internal int ParameterCount
+        public int ParameterCount
         {
             get
             {
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<TypeSymbol> ParameterTypes
+        public ImmutableArray<TypeSymbol> ParameterTypes
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<RefKind> ParameterRefKinds
+        public ImmutableArray<RefKind> ParameterRefKinds
         {
             get
             {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this symbol has a special name (metadata flag SpecialName is set).
         /// </summary>
-        internal abstract bool HasSpecialName { get; }
+        public abstract bool HasSpecialName { get; }
 
         /// <summary>
         /// The 'get' accessor of the property, or null if the property is write-only.
@@ -164,9 +164,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get;
         }
 
-        internal abstract Cci.CallingConvention CallingConvention { get; }
+        public abstract Cci.CallingConvention CallingConvention { get; }
 
-        internal abstract bool MustCallMethodsDirectly { get; }
+        public abstract bool MustCallMethodsDirectly { get; }
 
         /// <summary>
         /// Returns the overridden property, or null.
@@ -188,7 +188,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -196,7 +196,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool HidesBasePropertiesByName
+        public bool HidesBasePropertiesByName
         {
             get
             {
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal PropertySymbol GetLeastOverriddenProperty(NamedTypeSymbol accessingTypeOpt)
+        public PropertySymbol GetLeastOverriddenProperty(NamedTypeSymbol accessingTypeOpt)
         {
             var accessingType = ((object)accessingTypeOpt == null ? this.ContainingType : accessingTypeOpt).OriginalDefinition;
 
@@ -256,7 +256,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Will not always agree with ExplicitInterfaceImplementations.Any()
         /// (e.g. if binding of the type part of the name fails).
         /// </remarks>
-        internal virtual bool IsExplicitInterfaceImplementation
+        public virtual bool IsExplicitInterfaceImplementation
         {
             get { return ExplicitInterfaceImplementations.Any(); }
         }
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Implements visitor pattern.
         /// </summary>
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitProperty(this, argument);
         }
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return visitor.VisitProperty(this);
         }
 
-        internal virtual PropertySymbol AsMember(NamedTypeSymbol newOwner)
+        public virtual PropertySymbol AsMember(NamedTypeSymbol newOwner)
         {
             Debug.Assert(this.IsDefinition);
             Debug.Assert(ReferenceEquals(newOwner.OriginalDefinition, this.ContainingSymbol.OriginalDefinition));
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (this.IsDefinition)
             {
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.OriginalDefinition.GetUseSiteDiagnostic();
         }
 
-        internal bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
+        public bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
         {
             Debug.Assert(this.IsDefinition);
 

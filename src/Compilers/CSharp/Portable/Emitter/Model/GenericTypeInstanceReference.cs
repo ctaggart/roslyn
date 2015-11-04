@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// Represents a reference to a generic type instantiation.
     /// Subclasses represent nested and namespace types.
     /// </summary>
-    internal abstract class GenericTypeInstanceReference : NamedTypeReference, Cci.IGenericTypeInstanceReference
+    public abstract class GenericTypeInstanceReference : NamedTypeReference, Cci.IGenericTypeInstanceReference
     {
         public GenericTypeInstanceReference(NamedTypeSymbol underlyingNamedType)
             : base(underlyingNamedType)

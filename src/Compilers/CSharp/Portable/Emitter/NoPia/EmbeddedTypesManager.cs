@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.Emit.NoPia;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
 {
-    internal sealed class EmbeddedTypesManager :
+    public sealed class EmbeddedTypesManager :
         EmbeddedTypesManager<PEModuleBuilder, ModuleCompilationState, EmbeddedTypesManager, CSharpSyntaxNode, CSharpAttributeData, Symbol, AssemblySymbol, NamedTypeSymbol, FieldSymbol, MethodSymbol, EventSymbol, PropertySymbol, ParameterSymbol, TypeParameterSymbol, EmbeddedType, EmbeddedField, EmbeddedMethod, EmbeddedEvent, EmbeddedProperty, EmbeddedParameter, EmbeddedTypeParameter>
     {
         private readonly ConcurrentDictionary<AssemblySymbol, string> _assemblyGuidMap = new ConcurrentDictionary<AssemblySymbol, string>(ReferenceEqualityComparer.Instance);
@@ -96,12 +96,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return lazyMethod;
         }
 
-        internal override int GetTargetAttributeSignatureIndex(Symbol underlyingSymbol, CSharpAttributeData attrData, AttributeDescription description)
+        public override int GetTargetAttributeSignatureIndex(Symbol underlyingSymbol, CSharpAttributeData attrData, AttributeDescription description)
         {
             return attrData.GetTargetAttributeSignatureIndex(underlyingSymbol, description);
         }
 
-        internal override CSharpAttributeData CreateSynthesizedAttribute(WellKnownMember constructor, CSharpAttributeData attrData, CSharpSyntaxNode syntaxNodeOpt, DiagnosticBag diagnostics)
+        public override CSharpAttributeData CreateSynthesizedAttribute(WellKnownMember constructor, CSharpAttributeData attrData, CSharpSyntaxNode syntaxNodeOpt, DiagnosticBag diagnostics)
         {
             var ctor = GetWellKnownMethod(constructor, syntaxNodeOpt, diagnostics);
             if ((object)ctor == null)
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             }
         }
 
-        internal string GetAssemblyGuidString(AssemblySymbol assembly)
+        public string GetAssemblyGuidString(AssemblySymbol assembly)
         {
             Debug.Assert(!IsFrozen); // After we freeze the set of types, we might add additional assemblies into this map without actual guid values.
 
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
                             underlyingType.ContainingAssembly);
         }
 
-        internal override void ReportIndirectReferencesToLinkedAssemblies(AssemblySymbol a, DiagnosticBag diagnostics)
+        public override void ReportIndirectReferencesToLinkedAssemblies(AssemblySymbol a, DiagnosticBag diagnostics)
         {
             Debug.Assert(IsFrozen);
 
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
         /// assembly, but doesn't meet embeddable type requirements, this function returns false
         /// and reports appropriate diagnostics.
         /// </summary>
-        internal static bool IsValidEmbeddableType(
+        public static bool IsValidEmbeddableType(
             NamedTypeSymbol namedType,
             CSharpSyntaxNode syntaxNodeOpt,
             DiagnosticBag diagnostics,
@@ -276,7 +276,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             }
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntaxOpt, params object[] args)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntaxOpt, params object[] args)
         {
             Error(diagnostics, syntaxOpt, new CSDiagnosticInfo(code, args));
         }
@@ -286,7 +286,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             diagnostics.Add(new CSDiagnostic(info, syntaxOpt == null ? NoLocation.Singleton : syntaxOpt.Location));
         }
 
-        internal Cci.INamedTypeReference EmbedTypeIfNeedTo(
+        public Cci.INamedTypeReference EmbedTypeIfNeedTo(
             NamedTypeSymbol namedType,
             bool fromImplements,
             CSharpSyntaxNode syntaxNodeOpt,
@@ -368,7 +368,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return embedded;
         }
 
-        internal override EmbeddedField EmbedField(
+        public override EmbeddedField EmbedField(
             EmbeddedType type,
             FieldSymbol field,
             CSharpSyntaxNode syntaxNodeOpt,
@@ -404,7 +404,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return embedded;
         }
 
-        internal override EmbeddedMethod EmbedMethod(
+        public override EmbeddedMethod EmbedMethod(
             EmbeddedType type,
             MethodSymbol method,
             CSharpSyntaxNode syntaxNodeOpt,
@@ -465,7 +465,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return embedded;
         }
 
-        internal override EmbeddedProperty EmbedProperty(
+        public override EmbeddedProperty EmbedProperty(
             EmbeddedType type,
             PropertySymbol property,
             CSharpSyntaxNode syntaxNodeOpt,
@@ -499,7 +499,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return embedded;
         }
 
-        internal override EmbeddedEvent EmbedEvent(
+        public override EmbeddedEvent EmbedEvent(
             EmbeddedType type,
             EventSymbol @event,
             CSharpSyntaxNode syntaxNodeOpt,
@@ -559,7 +559,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
             return null;
         }
 
-        internal static ImmutableArray<EmbeddedParameter> EmbedParameters(
+        public static ImmutableArray<EmbeddedParameter> EmbedParameters(
             CommonEmbeddedMember containingPropertyOrMethod,
             ImmutableArray<ParameterSymbol> underlyingParameters)
         {

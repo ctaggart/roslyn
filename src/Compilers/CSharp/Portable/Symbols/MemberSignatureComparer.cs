@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// consistent.
     /// </para>
     /// </summary>
-    internal class MemberSignatureComparer : IEqualityComparer<Symbol>
+    public class MemberSignatureComparer : IEqualityComparer<Symbol>
     {
         /// <summary>
         /// This instance is used when trying to determine if one member explicitly implements another,
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If this returns false, then the real override comparer (whichever one is appropriate for the scenario)
         /// will also return false.
         /// </summary>
-        internal static readonly MemberSignatureComparer SloppyOverrideComparer = new MemberSignatureComparer(
+        public static readonly MemberSignatureComparer SloppyOverrideComparer = new MemberSignatureComparer(
             considerName: false,
             considerExplicitlyImplementedInterfaces: false,
             considerReturnType: false,

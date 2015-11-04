@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract partial class ConversionsBase
+    public abstract partial class ConversionsBase
     {
         public Conversion ClassifyConversionFromExpression(BoundExpression sourceExpression, TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ConversionKind.NoConversion;
         }
 
-        internal static bool HasImplicitConstantExpressionConversion(BoundExpression source, TypeSymbol destination)
+        public static bool HasImplicitConstantExpressionConversion(BoundExpression source, TypeSymbol destination)
         {
             var constantValue = source.ConstantValue;
 
@@ -563,7 +563,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return IsAnonymousFunctionCompatibleWithType((UnboundLambda)source, destination) == LambdaConversionResult.Success;
         }
 
-        internal Conversion ClassifyImplicitUserDefinedConversionForSwitchGoverningType(TypeSymbol sourceType, out TypeSymbol switchGoverningType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public Conversion ClassifyImplicitUserDefinedConversionForSwitchGoverningType(TypeSymbol sourceType, out TypeSymbol switchGoverningType, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             // SPEC:    The governing type of a switch statement is established by the switch expression.
             // SPEC:    1) If the type of the switch expression is sbyte, byte, short, ushort, int, uint,
@@ -595,7 +595,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new Conversion(result, isImplicit: true);
         }
 
-        internal Conversion GetCallerLineNumberConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public Conversion GetCallerLineNumberConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var greenNode = new Syntax.InternalSyntax.LiteralExpressionSyntax(SyntaxKind.NumericLiteralExpression, new Syntax.InternalSyntax.SyntaxToken(SyntaxKind.NumericLiteralToken));
             var syntaxNode = new LiteralExpressionSyntax(greenNode, null, 0);
@@ -605,12 +605,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ClassifyStandardImplicitConversion(intMaxValueLiteral, expectedAttributeType, destination, ref useSiteDiagnostics);
         }
 
-        internal bool HasCallerLineNumberConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool HasCallerLineNumberConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             return GetCallerLineNumberConversion(destination, ref useSiteDiagnostics).Exists;
         }
 
-        internal bool HasCallerInfoStringConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public bool HasCallerInfoStringConversion(TypeSymbol destination, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             TypeSymbol expectedAttributeType = corLibrary.GetSpecialType(SpecialType.System_String);
             Conversion conversion = ClassifyStandardImplicitConversion(expectedAttributeType, destination, ref useSiteDiagnostics);
@@ -618,7 +618,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed class Conversions : ConversionsBase
+    public sealed class Conversions : ConversionsBase
     {
         private readonly Binder _binder;
 

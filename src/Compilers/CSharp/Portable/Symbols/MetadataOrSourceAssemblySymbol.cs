@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Represents source or metadata assembly.
     /// </summary>
     /// <remarks></remarks>
-    internal abstract class MetadataOrSourceAssemblySymbol
+    public abstract class MetadataOrSourceAssemblySymbol
         : NonMissingAssemblySymbol
     {
         /// <summary>
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="type"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        internal override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
+        public override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
         {
 #if DEBUG
             foreach (var module in this.Modules)
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Register declaration of predefined CorLib type in this Assembly.
         /// </summary>
         /// <param name="corType"></param>
-        internal override sealed void RegisterDeclaredSpecialType(NamedTypeSymbol corType)
+        public override sealed void RegisterDeclaredSpecialType(NamedTypeSymbol corType)
         {
             SpecialType typeId = corType.SpecialType;
             Debug.Assert(typeId != SpecialType.None);
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Continue looking for declaration of predefined CorLib type in this Assembly
         /// while symbols for new type declarations are constructed.
         /// </summary>
-        internal override bool KeepLookingForDeclaredSpecialTypes
+        public override bool KeepLookingForDeclaredSpecialTypes
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Lookup member declaration in predefined CorLib type in this Assembly. Only valid if this 
         /// assembly is the Cor Library
         /// </summary>
-        internal override Symbol GetDeclaredSpecialTypeMember(SpecialMember member)
+        public override Symbol GetDeclaredSpecialTypeMember(SpecialMember member)
         {
 #if DEBUG
             foreach (var module in this.Modules)

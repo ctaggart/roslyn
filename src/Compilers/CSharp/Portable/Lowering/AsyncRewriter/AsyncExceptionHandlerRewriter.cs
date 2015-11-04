@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// with surrogate replacements that keep actual handler code in regular code blocks.
     /// That allows these constructs to be further lowered at the async lowering pass.
     /// </summary>
-    internal sealed class AsyncExceptionHandlerRewriter : BoundTreeRewriterWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
+    public sealed class AsyncExceptionHandlerRewriter : BoundTreeRewriterWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
     {
         private readonly bool _generateDebugInfo;
         private readonly CSharpCompilation _compilation;
@@ -724,7 +724,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// <summary>
             /// Returns true if a catch contains awaits
             /// </summary>
-            internal bool CatchContainsAwait(BoundCatchBlock node)
+            public bool CatchContainsAwait(BoundCatchBlock node)
             {
                 return _awaitContainingCatches != null && _awaitContainingCatches.Contains(node);
             }
@@ -741,7 +741,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// Labels reachable from within this frame without invoking its finally. 
             /// null if there are no such labels.
             /// </summary>
-            internal HashSet<LabelSymbol> Labels(BoundTryStatement statement)
+            public HashSet<LabelSymbol> Labels(BoundTryStatement statement)
             {
                 return _labelsInInterestingTry[statement];
             }

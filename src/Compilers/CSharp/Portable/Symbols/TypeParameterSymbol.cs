@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a type parameter in a generic type or generic method.
     /// </summary>
-    internal abstract partial class TypeParameterSymbol : TypeSymbol, ITypeParameterSymbol
+    public abstract partial class TypeParameterSymbol : TypeSymbol, ITypeParameterSymbol
     {
         /// <summary>
         /// The original definition of this symbol. If this symbol is constructed from another
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get;
         }
 
-        internal virtual DiagnosticInfo GetConstraintsUseSiteErrorInfo()
+        public virtual DiagnosticInfo GetConstraintsUseSiteErrorInfo()
         {
             return null;
         }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<TypeSymbol> ConstraintTypesNoUseSiteDiagnostics
+        public ImmutableArray<TypeSymbol> ConstraintTypesNoUseSiteDiagnostics
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<TypeSymbol> ConstraintTypesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<TypeSymbol> ConstraintTypesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = ConstraintTypesNoUseSiteDiagnostics;
 
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitTypeParameter(this, argument);
         }
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Only the compiler can create TypeParameterSymbols.
-        internal TypeParameterSymbol()
+        public TypeParameterSymbol()
         {
         }
 
@@ -247,7 +247,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public sealed override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+        public sealed override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
@@ -272,7 +272,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// the effective base type will be the most derived reference type from which
         /// deduced base type is derived.
         /// </summary>
-        internal NamedTypeSymbol EffectiveBaseClassNoUseSiteDiagnostics
+        public NamedTypeSymbol EffectiveBaseClassNoUseSiteDiagnostics
         {
             get
             {
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal NamedTypeSymbol EffectiveBaseClass(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public NamedTypeSymbol EffectiveBaseClass(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             AppendConstraintsUseSiteErrorInfo(ref useSiteDiagnostics);
             var result = EffectiveBaseClassNoUseSiteDiagnostics;
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// The effective interface set (spec 10.1.5).
         /// </summary>
-        internal ImmutableArray<NamedTypeSymbol> EffectiveInterfacesNoUseSiteDiagnostics
+        public ImmutableArray<NamedTypeSymbol> EffectiveInterfacesNoUseSiteDiagnostics
         {
             get
             {
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// The most encompassed type (spec 6.4.2) from the constraints.
         /// </summary>
-        internal TypeSymbol DeducedBaseTypeNoUseSiteDiagnostics
+        public TypeSymbol DeducedBaseTypeNoUseSiteDiagnostics
         {
             get
             {
@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal TypeSymbol DeducedBaseType(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public TypeSymbol DeducedBaseType(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             AppendConstraintsUseSiteErrorInfo(ref useSiteDiagnostics);
             var result = DeducedBaseTypeNoUseSiteDiagnostics;
@@ -336,7 +336,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// interfaces. This is AllInterfaces excluding interfaces that are
         /// only implemented by the effective base type.
         /// </summary>
-        internal ImmutableArray<NamedTypeSymbol> AllEffectiveInterfacesNoUseSiteDiagnostics
+        public ImmutableArray<NamedTypeSymbol> AllEffectiveInterfacesNoUseSiteDiagnostics
         {
             get
             {
@@ -344,7 +344,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ImmutableArray<NamedTypeSymbol> AllEffectiveInterfacesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public ImmutableArray<NamedTypeSymbol> AllEffectiveInterfacesWithDefinitionUseSiteDiagnostics(ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             var result = AllEffectiveInterfacesNoUseSiteDiagnostics;
 
@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// type or method are resolved in a consistent order, regardless of the
         /// order the callers query individual type parameters.
         /// </summary>
-        internal abstract void EnsureAllConstraintsAreResolved();
+        public abstract void EnsureAllConstraintsAreResolved();
 
         /// <summary>
         /// Helper method to force type parameter constraints to be resolved.
@@ -384,13 +384,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress);
+        public abstract ImmutableArray<TypeSymbol> GetConstraintTypes(ConsList<TypeParameterSymbol> inProgress);
 
-        internal abstract ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress);
+        public abstract ImmutableArray<NamedTypeSymbol> GetInterfaces(ConsList<TypeParameterSymbol> inProgress);
 
-        internal abstract NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress);
+        public abstract NamedTypeSymbol GetEffectiveBaseClass(ConsList<TypeParameterSymbol> inProgress);
 
-        internal abstract TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress);
+        public abstract TypeSymbol GetDeducedBaseType(ConsList<TypeParameterSymbol> inProgress);
 
         private static bool ConstraintImpliesReferenceType(TypeSymbol constraint)
         {
@@ -429,7 +429,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // > Please note that we do not check the gpReferenceTypeConstraint special constraint here
         // > because this property does not propagate up the constraining hierarchy.
         // > (e.g. "class A<S, T> where S : T, where T : class" does not guarantee that S is ObjRef)
-        internal static bool IsReferenceTypeFromConstraintTypes(ImmutableArray<TypeSymbol> constraintTypes)
+        public static bool IsReferenceTypeFromConstraintTypes(ImmutableArray<TypeSymbol> constraintTypes)
         {
             foreach (var constraintType in constraintTypes)
             {
@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal static bool IsValueTypeFromConstraintTypes(ImmutableArray<TypeSymbol> constraintTypes)
+        public static bool IsValueTypeFromConstraintTypes(ImmutableArray<TypeSymbol> constraintTypes)
         {
             foreach (var constraintType in constraintTypes)
             {
@@ -469,7 +469,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsManagedType
+        public sealed override bool IsManagedType
         {
             get
             {
@@ -477,7 +477,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -488,17 +488,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public abstract VarianceKind Variance { get; }
 
-        internal sealed override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public sealed override bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             return false;
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             return this.Equals(t2 as TypeParameterSymbol, ignoreCustomModifiersAndArraySizesAndLowerBounds, ignoreDynamic);
         }
 
-        internal bool Equals(TypeParameterSymbol other)
+        public bool Equals(TypeParameterSymbol other)
         {
             return Equals(other, false, false);
         }
@@ -530,7 +530,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal virtual CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
+        public virtual CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
         {
             return null;
         }

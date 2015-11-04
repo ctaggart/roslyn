@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class ConstantEvaluationHelpers
+    public static class ConstantEvaluationHelpers
     {
         [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-        internal struct FieldInfo
+        public struct FieldInfo
         {
             public readonly SourceFieldSymbolWithSyntaxReference Field;
             public readonly bool StartsCycle;
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// returned should be the same, although some fields may be missing
         /// from the lists in some threads as other threads evaluate fields.
         /// </summary>
-        internal static void OrderAllDependencies(
+        public static void OrderAllDependencies(
             this SourceFieldSymbolWithSyntaxReference field,
             ArrayBuilder<FieldInfo> order,
             bool earlyDecodingWellKnownAttributes)
@@ -417,7 +417,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
             private readonly Dictionary<Compilation, int> _compilationOrdering;
 
-            internal SourceLocationComparer(Dictionary<Compilation, int> compilationOrdering)
+            public SourceLocationComparer(Dictionary<Compilation, int> compilationOrdering)
             {
                 _compilationOrdering = compilationOrdering;
             }

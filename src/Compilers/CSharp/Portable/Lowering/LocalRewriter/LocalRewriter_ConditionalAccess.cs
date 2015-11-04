@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class LocalRewriter
+    public sealed partial class LocalRewriter
     {
         public override BoundNode VisitConditionalAccess(BoundConditionalAccess node)
         {
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // IL gen can generate more compact code for certain conditional accesses 
         // by utilizing stack dup/pop instructions 
-        internal BoundExpression RewriteConditionalAccess(BoundConditionalAccess node, bool used, BoundExpression rewrittenWhenNull = null)
+        public BoundExpression RewriteConditionalAccess(BoundConditionalAccess node, bool used, BoundExpression rewrittenWhenNull = null)
         {
             Debug.Assert(!_inExpressionLambda);
 

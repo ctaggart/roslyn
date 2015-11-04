@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax
 {
-    internal class SyntaxListBuilder
+    public class SyntaxListBuilder
     {
         private ArrayElement<GreenNode>[] _nodes;
         public int Count { get; private set; }
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             AddInternal(item.Green);
         }
 
-        internal void AddInternal(GreenNode item)
+        public void AddInternal(GreenNode item)
         {
             if (item == null)
             {
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             return false;
         }
 
-        internal Syntax.InternalSyntax.CSharpSyntaxNode ToListNode()
+        public Syntax.InternalSyntax.CSharpSyntaxNode ToListNode()
         {
             switch (this.Count)
             {

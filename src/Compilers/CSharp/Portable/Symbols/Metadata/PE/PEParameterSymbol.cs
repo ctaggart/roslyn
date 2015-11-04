@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// The class to represent all method parameters imported from a PE/module.
     /// </summary>
-    internal class PEParameterSymbol : ParameterSymbol
+    public class PEParameterSymbol : ParameterSymbol
     {
         [Flags]
         private enum WellKnownAttributeFlags
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 
         private PackedFlags _packedFlags;
 
-        internal static PEParameterSymbol Create(
+        public static PEParameterSymbol Create(
             PEModuleSymbol moduleSymbol,
             PEMethodSymbol containingSymbol,
             int ordinal,
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// or of the ParamInfo passed in, otherwise).</param>
         /// <param name="isBad" />
         /// <param name="parameter"></param>
-        internal static PEParameterSymbol Create(
+        public static PEParameterSymbol Create(
             PEModuleSymbol moduleSymbol,
             PEPropertySymbol containingSymbol,
             int ordinal,
@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                 }
             }
 
-            internal override ushort CountOfCustomModifiersPrecedingByRef
+            public override ushort CountOfCustomModifiersPrecedingByRef
             {
                 get
                 {
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal ParameterAttributes Flags
+        public ParameterAttributes Flags
         {
             get
             {
@@ -321,7 +321,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
         // might be Nil
-        internal ParameterHandle Handle
+        public ParameterHandle Handle
         {
             get
             {
@@ -337,7 +337,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasMetadataConstantValue
+        public override bool HasMetadataConstantValue
         {
             get
             {
@@ -348,7 +348,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <remarks>
         /// Internal for testing.  Non-test code should use <see cref="ExplicitDefaultConstantValue"/>.
         /// </remarks>
-        internal ConstantValue ImportConstantValue(bool ignoreAttributes = false)
+        public ConstantValue ImportConstantValue(bool ignoreAttributes = false)
         {
             Debug.Assert(!_handle.IsNil);
 
@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return value;
         }
 
-        internal override ConstantValue ExplicitDefaultConstantValue
+        public override ConstantValue ExplicitDefaultConstantValue
         {
             get
             {
@@ -410,7 +410,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return value;
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get
             {
@@ -418,7 +418,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get
             {
@@ -434,7 +434,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get
             {
@@ -498,7 +498,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get
             {
@@ -517,7 +517,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get
             {
@@ -537,7 +537,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get
             {
@@ -574,7 +574,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ushort CountOfCustomModifiersPrecedingByRef
+        public override ushort CountOfCustomModifiersPrecedingByRef
         {
             get
             {
@@ -582,17 +582,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsMetadataIn
+        public override bool IsMetadataIn
         {
             get { return (_flags & ParameterAttributes.In) != 0; }
         }
 
-        internal override bool IsMetadataOut
+        public override bool IsMetadataOut
         {
             get { return (_flags & ParameterAttributes.Out) != 0; }
         }
 
-        internal override bool IsMarshalledExplicitly
+        public override bool IsMarshalledExplicitly
         {
             get
             {
@@ -600,7 +600,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -609,7 +609,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<byte> MarshallingDescriptor
+        public override ImmutableArray<byte> MarshallingDescriptor
         {
             get
             {
@@ -623,7 +623,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override UnmanagedType MarshallingType
+        public override UnmanagedType MarshallingType
         {
             get
             {
@@ -749,7 +749,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyCustomAttributes;
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             foreach (CSharpAttributeData attribute in GetAttributes())
             {
@@ -763,7 +763,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

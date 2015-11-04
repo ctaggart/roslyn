@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class LazyObsoleteDiagnosticInfo : DiagnosticInfo
+    public sealed class LazyObsoleteDiagnosticInfo : DiagnosticInfo
     {
         private DiagnosticInfo _lazyActualObsoleteDiagnostic;
 
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private readonly Symbol _containingSymbol;
         private readonly BinderFlags _binderFlags;
 
-        internal LazyObsoleteDiagnosticInfo(Symbol symbol, Symbol containingSymbol, BinderFlags binderFlags)
+        public LazyObsoleteDiagnosticInfo(Symbol symbol, Symbol containingSymbol, BinderFlags binderFlags)
             : base(CSharp.MessageProvider.Instance, (int)ErrorCode.Unknown)
         {
             _symbol = symbol;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _lazyActualObsoleteDiagnostic = null;
         }
 
-        internal override DiagnosticInfo GetResolvedInfo()
+        public override DiagnosticInfo GetResolvedInfo()
         {
             if (_lazyActualObsoleteDiagnostic == null)
             {

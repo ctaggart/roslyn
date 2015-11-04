@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a module within an assembly. Every assembly contains one or more modules.
     /// </summary>
-    internal abstract class ModuleSymbol : Symbol, IModuleSymbol
+    public abstract class ModuleSymbol : Symbol, IModuleSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override ModuleSymbol ContainingModule
+        public sealed override ModuleSymbol ContainingModule
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitModule(this, argument);
         }
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Only the compiler can create ModuleSymbols.
-        internal ModuleSymbol()
+        public ModuleSymbol()
         {
         }
 
@@ -83,22 +83,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// 0 - for a source module, etc.
         /// -1 - for a module that doesn't have containing assembly, or has it, but is not part of Modules array. 
         /// </summary>
-        internal abstract int Ordinal { get; }
+        public abstract int Ordinal { get; }
 
         /// <summary>
         /// Target architecture of the machine.
         /// </summary>
-        internal abstract Machine Machine { get; }
+        public abstract Machine Machine { get; }
 
         /// <summary>
         /// Indicates that this PE file makes Win32 calls. See CorPEKind.pe32BitRequired for more information (http://msdn.microsoft.com/en-us/library/ms230275.aspx).
         /// </summary>
-        internal abstract bool Bit32Required { get; }
+        public abstract bool Bit32Required { get; }
 
         /// <summary>
         /// Does this symbol represent a missing module.
         /// </summary>
-        internal abstract bool IsMissing
+        public abstract bool IsMissing
         {
             get;
         }
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// The array and its content is provided by ReferenceManager and must not be modified.
         /// </summary>
         /// <returns></returns>
-        internal abstract ImmutableArray<AssemblyIdentity> GetReferencedAssemblies(); // TODO: Remove this method and make ReferencedAssemblies property abstract instead.
+        public abstract ImmutableArray<AssemblyIdentity> GetReferencedAssemblies(); // TODO: Remove this method and make ReferencedAssemblies property abstract instead.
 
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// 
         /// The array and its content is provided by ReferenceManager and must not be modified.
         /// </summary>
-        internal abstract ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols(); // TODO: Remove this method and make ReferencedAssemblySymbols property abstract instead.
+        public abstract ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols(); // TODO: Remove this method and make ReferencedAssemblySymbols property abstract instead.
 
         /// <summary>
         /// A helper method for ReferenceManager to set assembly identities for assemblies 
@@ -256,12 +256,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// this module symbol because the module can be shared across multiple source 
         /// assemblies. This method will only be called for the first one.
         /// </param>
-        internal abstract void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly = null);
+        public abstract void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly = null);
 
         /// <summary>
         /// True if this module has any unified references.
         /// </summary>
-        internal abstract bool HasUnifiedReferences { get; }
+        public abstract bool HasUnifiedReferences { get; }
 
         /// <summary> 
         /// Returns a unification use-site error (if any) for a symbol contained in this module 
@@ -272,7 +272,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// the Assembly Manager might decide to use another reference if it matches except for version 
         /// (it unifies the version with the existing reference).  
         /// </remarks>
-        internal abstract bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType);
+        public abstract bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType);
 
         /// <summary>
         /// Lookup a top level type referenced from metadata, names should be
@@ -285,28 +285,28 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Symbol for the type, or MissingMetadataSymbol if the type isn't found.
         /// </returns>
         /// <remarks></remarks>
-        internal abstract NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName);
+        public abstract NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName);
 
-        internal abstract ICollection<string> TypeNames { get; }
+        public abstract ICollection<string> TypeNames { get; }
 
-        internal abstract ICollection<string> NamespaceNames { get; }
+        public abstract ICollection<string> NamespaceNames { get; }
 
         /// <summary>
         /// Returns true if there is any applied CompilationRelaxationsAttribute assembly attribute for this module.
         /// </summary>
-        internal abstract bool HasAssemblyCompilationRelaxationsAttribute { get; }
+        public abstract bool HasAssemblyCompilationRelaxationsAttribute { get; }
 
         /// <summary>
         /// Returns true if there is any applied RuntimeCompatibilityAttribute assembly attribute for this module.
         /// </summary>
-        internal abstract bool HasAssemblyRuntimeCompatibilityAttribute { get; }
+        public abstract bool HasAssemblyRuntimeCompatibilityAttribute { get; }
 
         /// <summary>
         /// Default char set for contained types, or null if not specified.
         /// </summary>
-        internal abstract CharSet? DefaultMarshallingCharSet { get; }
+        public abstract CharSet? DefaultMarshallingCharSet { get; }
 
-        internal virtual ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
+        public virtual ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
         {
             throw ExceptionUtilities.Unreachable;
         }

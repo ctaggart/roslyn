@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal class SyntaxFirstTokenReplacer : CSharpSyntaxRewriter
+    public class SyntaxFirstTokenReplacer : CSharpSyntaxRewriter
     {
         private readonly SyntaxToken _oldToken;
         private readonly SyntaxToken _newToken;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             _foundOldToken = false;
         }
 
-        internal static TRoot Replace<TRoot>(TRoot root, SyntaxToken oldToken, SyntaxToken newToken, int diagnosticOffsetDelta)
+        public static TRoot Replace<TRoot>(TRoot root, SyntaxToken oldToken, SyntaxToken newToken, int diagnosticOffsetDelta)
             where TRoot : CSharpSyntaxNode
         {
             var replacer = new SyntaxFirstTokenReplacer(oldToken, newToken, diagnosticOffsetDelta);

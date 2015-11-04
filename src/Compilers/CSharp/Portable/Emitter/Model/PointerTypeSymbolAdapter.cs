@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Reflection.Metadata;
 using Microsoft.CodeAnalysis.CSharp.Emit;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Emit;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class PointerTypeSymbol :
+    public partial class PointerTypeSymbol :
         Cci.IPointerTypeReference
     {
         Cci.ITypeReference Cci.IPointerTypeReference.GetTargetType(EmitContext context)

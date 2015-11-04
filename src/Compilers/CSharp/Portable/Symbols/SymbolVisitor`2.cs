@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// </summary>
     /// <typeparam name="TArgument">Additional argument type</typeparam>
     /// <typeparam name="TResult">Result type</typeparam>
-    internal abstract class CSharpSymbolVisitor<TArgument, TResult>
+    public abstract class CSharpSymbolVisitor<TArgument, TResult>
     {
         /// <summary>
         /// Call the correct VisitXXX method in this class based on the particular type of symbol that is passed in.

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -15,7 +15,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class BoundLambda
+    public sealed partial class BoundLambda
     {
         public MessageID MessageID { get { return Syntax.Kind() == SyntaxKind.AnonymousMethodExpression ? MessageID.IDS_AnonMethod : MessageID.IDS_Lambda; } }
 
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class UnboundLambda
+    public partial class UnboundLambda
     {
         public UnboundLambda(
             CSharpSyntaxNode syntax,
@@ -217,7 +217,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public string ParameterName(int index) { return Data.ParameterName(index); }
     }
 
-    internal abstract class UnboundLambdaState
+    public abstract class UnboundLambdaState
     {
         private UnboundLambda _unboundLambda; // we would prefer this readonly, but we have an initialization cycle.
         protected readonly Binder binder;
@@ -276,7 +276,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result;
         }
 
-        internal IEnumerable<TypeSymbol> InferredReturnTypes()
+        public IEnumerable<TypeSymbol> InferredReturnTypes()
         {
             bool any = false;
             HashSet<DiagnosticInfo> useSiteDiagnostics = null;
@@ -692,14 +692,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal class PlainUnboundLambdaState : UnboundLambdaState
+    public class PlainUnboundLambdaState : UnboundLambdaState
     {
         private readonly ImmutableArray<string> _parameterNames;
         private readonly ImmutableArray<TypeSymbol> _parameterTypes;
         private readonly ImmutableArray<RefKind> _parameterRefKinds;
         private readonly bool _isAsync;
 
-        internal PlainUnboundLambdaState(
+        public PlainUnboundLambdaState(
             UnboundLambda unboundLambda,
             Binder binder,
             ImmutableArray<string> parameterNames,

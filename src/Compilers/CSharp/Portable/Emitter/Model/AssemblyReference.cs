@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,12 +10,12 @@ using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal sealed class AssemblyReference : Cci.IAssemblyReference
+    public sealed class AssemblyReference : Cci.IAssemblyReference
     {
         // assembly symbol that represents the target assembly:
         private readonly AssemblySymbol _targetAssembly;
 
-        internal AssemblyReference(AssemblySymbol assemblySymbol)
+        public AssemblyReference(AssemblySymbol assemblySymbol)
         {
             Debug.Assert((object)assemblySymbol != null);
             _targetAssembly = assemblySymbol;

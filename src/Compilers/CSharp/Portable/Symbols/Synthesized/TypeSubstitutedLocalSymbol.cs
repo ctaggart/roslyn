@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class TypeSubstitutedLocalSymbol : LocalSymbol
+    public sealed class TypeSubstitutedLocalSymbol : LocalSymbol
     {
         private readonly LocalSymbol _originalVariable;
         private readonly TypeSymbol _type;
@@ -23,17 +23,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _containingSymbol = containingSymbol;
         }
 
-        internal override bool IsImportedFromMetadata
+        public override bool IsImportedFromMetadata
         {
             get { return _originalVariable.IsImportedFromMetadata; }
         }
 
-        internal override LocalDeclarationKind DeclarationKind
+        public override LocalDeclarationKind DeclarationKind
         {
             get { return _originalVariable.DeclarationKind; }
         }
 
-        internal override SynthesizedLocalKind SynthesizedKind
+        public override SynthesizedLocalKind SynthesizedKind
         {
             get { return _originalVariable.SynthesizedKind; }
         }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalVariable.DeclaringSyntaxReferences; }
         }
 
-        internal override SyntaxNode GetDeclaratorSyntax()
+        public override SyntaxNode GetDeclaratorSyntax()
         {
             return _originalVariable.GetDeclaratorSyntax();
         }
@@ -68,37 +68,37 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _type; }
         }
 
-        internal override SyntaxToken IdentifierToken
+        public override SyntaxToken IdentifierToken
         {
             get { return _originalVariable.IdentifierToken; }
         }
 
-        internal override bool IsCompilerGenerated
+        public override bool IsCompilerGenerated
         {
             get { return _originalVariable.IsCompilerGenerated; }
         }
 
-        internal override bool IsPinned
+        public override bool IsPinned
         {
             get { return _originalVariable.IsPinned; }
         }
 
-        internal override RefKind RefKind
+        public override RefKind RefKind
         {
             get { return _originalVariable.RefKind; }
         }
 
-        internal override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
+        public override ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics)
         {
             return _originalVariable.GetConstantValue(node, inProgress, diagnostics);
         }
 
-        internal override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
+        public override ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue)
         {
             return _originalVariable.GetConstantValueDiagnostics(boundInitValue);
         }
 
-        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
+        public override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
         {
             var origSynthesized = (SynthesizedLocal)_originalVariable;
             return new TypeSubstitutedLocalSymbol(

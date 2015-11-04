@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// Represents a PE custom attribute
     /// </summary>
-    internal sealed class PEAttributeData : CSharpAttributeData
+    public sealed class PEAttributeData : CSharpAttributeData
     {
         private readonly MetadataDecoder _decoder;
         private readonly CustomAttributeHandle _handle;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         private ImmutableArray<KeyValuePair<string, TypedConstant>> _lazyNamedArguments;
         private ThreeState _lazyHasErrors = ThreeState.Unknown;
 
-        internal PEAttributeData(PEModuleSymbol moduleSymbol, CustomAttributeHandle handle)
+        public PEAttributeData(PEModuleSymbol moduleSymbol, CustomAttributeHandle handle)
         {
             _decoder = new MetadataDecoder(moduleSymbol);
             _handle = handle;
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             get { return null; }
         }
 
-        internal protected override ImmutableArray<TypedConstant> CommonConstructorArguments
+        public override ImmutableArray<TypedConstant> CommonConstructorArguments
         {
             get
             {
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal protected override ImmutableArray<KeyValuePair<string, TypedConstant>> CommonNamedArguments
+        public override ImmutableArray<KeyValuePair<string, TypedConstant>> CommonNamedArguments
         {
             get
             {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <param name="namespaceName"></param>
         /// <param name="typeName"></param>
         /// <returns>True if the attribute data matches.</returns>
-        internal override bool IsTargetAttribute(string namespaceName, string typeName)
+        public override bool IsTargetAttribute(string namespaceName, string typeName)
         {
             // Matching an attribute by name should not load the attribute class.
             return _decoder.IsTargetAttribute(_handle, namespaceName, typeName);
@@ -138,13 +138,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// signatures array, -1 if
         /// this is not the target attribute.
         /// </returns>
-        internal override int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description)
+        public override int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description)
         {
             // Matching an attribute by name should not load the attribute class.
             return _decoder.GetTargetAttributeSignatureIndex(_handle, description);
         }
 
-        internal override bool HasErrors
+        public override bool HasErrors
         {
             get
             {

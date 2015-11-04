@@ -1,19 +1,19 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class UnsupportedMetadataTypeSymbol : ErrorTypeSymbol
+    public sealed class UnsupportedMetadataTypeSymbol : ErrorTypeSymbol
     {
         private readonly BadImageFormatException _mrEx;
 
-        internal UnsupportedMetadataTypeSymbol(BadImageFormatException mrEx = null)
+        public UnsupportedMetadataTypeSymbol(BadImageFormatException mrEx = null)
         {
             _mrEx = mrEx;
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {

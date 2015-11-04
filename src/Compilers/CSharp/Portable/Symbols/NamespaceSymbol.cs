@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a namespace.
     /// </summary>
-    internal abstract partial class NamespaceSymbol : NamespaceOrTypeSymbol, INamespaceSymbol
+    public abstract partial class NamespaceSymbol : NamespaceOrTypeSymbol, INamespaceSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract NamespaceExtent Extent { get; }
+        public abstract NamespaceExtent Extent { get; }
 
         /// <summary>
         /// The kind of namespace: Module, Assembly or Compilation.
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         public abstract override AssemblySymbol ContainingAssembly { get; }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Implements visitor pattern.
         /// </summary>
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitNamespace(this, argument);
         }
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Only the compiler can create namespace symbols.
-        internal NamespaceSymbol()
+        public NamespaceSymbol()
         {
         }
 
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns an implicit type symbol for this namespace or null if there is none. This type
         /// wraps misplaced global code.
         /// </summary>
-        internal NamedTypeSymbol ImplicitType
+        public NamedTypeSymbol ImplicitType
         {
             get
             {
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Symbol for the most nested namespace, if found. Nothing 
         /// if namespace or any part of it can not be found.
         /// </returns>
-        internal NamespaceSymbol LookupNestedNamespace(ImmutableArray<string> names)
+        public NamespaceSymbol LookupNestedNamespace(ImmutableArray<string> names)
         {
             NamespaceSymbol scope = this;
 
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return scope;
         }
 
-        internal NamespaceSymbol GetNestedNamespace(string name)
+        public NamespaceSymbol GetNestedNamespace(string name)
         {
             foreach (var sym in this.GetMembers(name))
             {
@@ -284,7 +284,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal NamespaceSymbol GetNestedNamespace(NameSyntax name)
+        public NamespaceSymbol GetNestedNamespace(NameSyntax name)
         {
             switch (name.Kind())
             {
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="nameOpt">Optional method name</param>
         /// <param name="arity">Method arity</param>
         /// <param name="options">Lookup options</param>
-        internal virtual void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
+        public virtual void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
         {
             var assembly = this.ContainingAssembly;
 

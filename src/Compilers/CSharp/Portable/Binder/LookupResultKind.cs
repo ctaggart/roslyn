@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     ///   3) Viable isn't used in CandidateReason, but we need it in LookupResultKind, and there isn't a 
     ///      a way to have internal enumeration values.
     /// </remarks>
-    internal enum LookupResultKind : byte
+    public enum LookupResultKind : byte
     {
         // Note: order is important! High values take precedences over lower values. 
 
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         Viable,
     }
 
-    internal static class LookupResultKindExtensions
+    public static class LookupResultKindExtensions
     {
         /// <summary>
         /// Maps a LookupResultKind to a CandidateReason. Should not be called on LookupResultKind.Viable!

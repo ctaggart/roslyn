@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class ParameterHelpers
+    public static class ParameterHelpers
     {
         public static ImmutableArray<ParameterSymbol> MakeParameters(
             Binder binder,
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool ReportDefaultParameterErrors(
+        public static bool ReportDefaultParameterErrors(
             Binder binder,
             Symbol owner,
             ParameterSyntax parameterSyntax,
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return hasErrors;
         }
 
-        internal static MethodSymbol FindContainingGenericMethod(Symbol symbol)
+        public static MethodSymbol FindContainingGenericMethod(Symbol symbol)
         {
             for (Symbol current = symbol; (object)current != null; current = current.ContainingSymbol)
             {

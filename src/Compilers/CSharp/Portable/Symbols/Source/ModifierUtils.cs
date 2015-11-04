@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class ModifierUtils
+    public static class ModifierUtils
     {
-        internal static DeclarationModifiers MakeAndCheckNontypeMemberModifiers(
+        public static DeclarationModifiers MakeAndCheckNontypeMemberModifiers(
             SyntaxTokenList modifiers,
             DeclarationModifiers defaultAccess,
             DeclarationModifiers allowedModifiers,
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal static DeclarationModifiers CheckModifiers(
+        public static DeclarationModifiers CheckModifiers(
             DeclarationModifiers modifiers,
             DeclarationModifiers allowedModifiers,
             Location errorLocation,
@@ -225,7 +225,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal static CSDiagnosticInfo CheckAccessibility(DeclarationModifiers modifiers)
+        public static CSDiagnosticInfo CheckAccessibility(DeclarationModifiers modifiers)
         {
             if (!IsValidAccessibility(modifiers))
             {
@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         // Returns declared accessibility.
         // In a case of bogus accessibility (i.e. "public private"), defaults to public.
-        internal static Accessibility EffectiveAccessibility(DeclarationModifiers modifiers)
+        public static Accessibility EffectiveAccessibility(DeclarationModifiers modifiers)
         {
             var acc = modifiers & DeclarationModifiers.AccessibilityMask;
             switch (acc)
@@ -263,7 +263,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool IsValidAccessibility(DeclarationModifiers modifiers)
+        public static bool IsValidAccessibility(DeclarationModifiers modifiers)
         {
             var acc = modifiers & DeclarationModifiers.AccessibilityMask;
             switch (acc)

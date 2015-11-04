@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class DocumentationCommentIDVisitor
+    public sealed partial class DocumentationCommentIDVisitor
     {
         /// <summary>
         /// A visitor that generates the part of the documentation comment after the initial type
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private sealed class PartVisitor : CSharpSymbolVisitor<StringBuilder, object>
         {
             // Everyone outside this type uses this one.
-            internal static readonly PartVisitor Instance = new PartVisitor(inParameterOrReturnType: false);
+            public static readonly PartVisitor Instance = new PartVisitor(inParameterOrReturnType: false);
 
             // Select callers within this type use this one.
             private static readonly PartVisitor s_parameterOrReturnTypeInstance = new PartVisitor(inParameterOrReturnType: true);

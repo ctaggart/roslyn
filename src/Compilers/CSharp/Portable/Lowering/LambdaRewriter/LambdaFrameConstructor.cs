@@ -1,12 +1,12 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class LambdaFrameConstructor : SynthesizedInstanceConstructor, ISynthesizedMethodBodyImplementationSymbol
+    public sealed class LambdaFrameConstructor : SynthesizedInstanceConstructor, ISynthesizedMethodBodyImplementationSymbol
     {
-        internal LambdaFrameConstructor(LambdaFrame frame)
+        public LambdaFrameConstructor(LambdaFrame frame)
             : base(frame)
         {
         }

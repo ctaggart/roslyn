@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// one of the analysis results is used it computes that one result and caches it. Each result
     /// is computed using a custom algorithm.
     /// </summary>
-    internal class CSharpDataFlowAnalysis : DataFlowAnalysis
+    public class CSharpDataFlowAnalysis : DataFlowAnalysis
     {
         private readonly RegionAnalysisContext _context;
 
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private HashSet<PrefixUnaryExpressionSyntax> _unassignedVariableAddressOfSyntaxes;
         private bool? _succeeded;
 
-        internal CSharpDataFlowAnalysis(RegionAnalysisContext context)
+        public CSharpDataFlowAnalysis(RegionAnalysisContext context)
         {
             _context = context;
         }
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static ImmutableArray<ISymbol> Sort(IEnumerable<Symbol> data)
+        public static ImmutableArray<ISymbol> Sort(IEnumerable<Symbol> data)
         {
             var builder = ArrayBuilder<Symbol>.GetInstance();
             builder.AddRange(data);

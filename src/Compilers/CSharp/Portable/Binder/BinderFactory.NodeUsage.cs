@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class BinderFactory
+    public partial class BinderFactory
     {
-        internal enum NodeUsage : byte
+        public enum NodeUsage : byte
         {
             Normal = 0,
             MethodTypeParameters = 1 << 0,

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class AsyncMethodToStateMachineRewriter : MethodToStateMachineRewriter
+    public sealed class AsyncMethodToStateMachineRewriter : MethodToStateMachineRewriter
     {
         /// <summary>
         /// The method being rewritten.
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private readonly Dictionary<TypeSymbol, FieldSymbol> _awaiterFields;
         private int _nextAwaiterId;
 
-        internal AsyncMethodToStateMachineRewriter(
+        public AsyncMethodToStateMachineRewriter(
             MethodSymbol method,
             int methodOrdinal,
             AsyncMethodBuilderMemberCollection asyncMethodBuilderMemberCollection,
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Generate the body for <c>MoveNext()</c>.
         /// </summary>
-        internal void GenerateMoveNext(BoundStatement body, MethodSymbol moveNextMethod)
+        public void GenerateMoveNext(BoundStatement body, MethodSymbol moveNextMethod)
         {
             F.CurrentMethod = moveNextMethod;
 

@@ -1,15 +1,15 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal struct SeparatedSyntaxList<TNode> : IEquatable<SeparatedSyntaxList<TNode>> where TNode : CSharpSyntaxNode
+    public struct SeparatedSyntaxList<TNode> : IEquatable<SeparatedSyntaxList<TNode>> where TNode : CSharpSyntaxNode
     {
         private readonly SyntaxList<CSharpSyntaxNode> _list;
 
-        internal SeparatedSyntaxList(SyntaxList<CSharpSyntaxNode> list)
+        public SeparatedSyntaxList(SyntaxList<CSharpSyntaxNode> list)
         {
             Validate(list);
             _list = list;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal CSharpSyntaxNode Node
+        public CSharpSyntaxNode Node
         {
             get
             {

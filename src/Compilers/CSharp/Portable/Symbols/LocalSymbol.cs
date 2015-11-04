@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CodeGen;
@@ -9,35 +9,35 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a local variable in a method body.
     /// </summary>
-    internal abstract class LocalSymbol : Symbol, ILocalSymbolInternal
+    public abstract class LocalSymbol : Symbol, ILocalSymbolInternal
     {
         protected LocalSymbol()
         {
         }
 
-        internal abstract LocalDeclarationKind DeclarationKind
+        public abstract LocalDeclarationKind DeclarationKind
         {
             get;
         }
 
-        internal abstract SynthesizedLocalKind SynthesizedKind
+        public abstract SynthesizedLocalKind SynthesizedKind
         {
             get;
         }
 
-        internal abstract LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax);
+        public abstract LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax);
 
-        internal abstract bool IsImportedFromMetadata
+        public abstract bool IsImportedFromMetadata
         {
             get;
         }
 
-        internal virtual bool CanScheduleToStack
+        public virtual bool CanScheduleToStack
         {
             get { return !IsConst && !IsPinned; }
         }
 
-        internal abstract SyntaxToken IdentifierToken
+        public abstract SyntaxToken IdentifierToken
         {
             get;
         }
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Unfortunately, when we fix a string expression, it is not the declared local (e.g. char*) but a synthesized temp (string)
         /// that is pinned.
         /// </remarks>
-        internal abstract bool IsPinned
+        public abstract bool IsPinned
         {
             get;
         }
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public sealed override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitLocal(this, argument);
         }
@@ -259,9 +259,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// 
         /// The location of the declarator is used to calculate <see cref="LocalDebugId.SyntaxOffset"/> during emit.
         /// </remarks>
-        internal abstract SyntaxNode GetDeclaratorSyntax();
+        public abstract SyntaxNode GetDeclaratorSyntax();
 
-        internal virtual bool IsWritable
+        public virtual bool IsWritable
         {
             get
             {
@@ -317,16 +317,16 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if the local symbol was compiler generated.
         /// </summary>
-        internal abstract bool IsCompilerGenerated
+        public abstract bool IsCompilerGenerated
         {
             get;
         }
 
-        internal abstract ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics = null);
+        public abstract ConstantValue GetConstantValue(SyntaxNode node, LocalSymbol inProgress, DiagnosticBag diagnostics = null);
 
-        internal abstract ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue);
+        public abstract ImmutableArray<Diagnostic> GetConstantValueDiagnostics(BoundExpression boundInitValue);
 
-        internal abstract RefKind RefKind
+        public abstract RefKind RefKind
         {
             get;
         }

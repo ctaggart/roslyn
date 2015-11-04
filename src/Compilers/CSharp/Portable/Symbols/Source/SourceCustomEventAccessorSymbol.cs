@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <remarks>
     /// The accessors are associated with <see cref="SourceCustomEventSymbol"/>.
     /// </remarks>
-    internal sealed class SourceCustomEventAccessorSymbol : SourceEventAccessorSymbol
+    public sealed class SourceCustomEventAccessorSymbol : SourceEventAccessorSymbol
     {
         private readonly ImmutableArray<MethodSymbol> _explicitInterfaceImplementations;
         private readonly string _name;
 
-        internal SourceCustomEventAccessorSymbol(
+        public SourceCustomEventAccessorSymbol(
             SourceEventSymbol @event,
             AccessorDeclarationSyntax syntax,
             EventSymbol explicitlyImplementedEventOpt,
@@ -87,7 +87,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _name = GetOverriddenAccessorName(@event, isAdder) ?? _name;
         }
 
-        internal AccessorDeclarationSyntax GetSyntax()
+        public AccessorDeclarationSyntax GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (AccessorDeclarationSyntax)syntaxReferenceOpt.GetSyntax();
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _explicitInterfaceImplementations; }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             return OneOrMany.Create(GetSyntax().AttributeLists);
         }
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }

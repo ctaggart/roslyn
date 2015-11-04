@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// This pass detects and reports diagnostics that do not affect lambda convertibility.
     /// This part of the partial class focuses on expression and operator warnings.
     /// </summary>
-    internal sealed partial class DiagnosticsPass : BoundTreeWalkerWithStackGuard
+    public sealed partial class DiagnosticsPass : BoundTreeWalkerWithStackGuard
     {
         private void CheckArguments(ImmutableArray<RefKind> argumentRefKindsOpt, ImmutableArray<BoundExpression> arguments, Symbol method)
         {
@@ -81,7 +81,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Based on OutputContext::IsNonAgileField.
         /// </remarks>
-        internal static bool IsNonAgileFieldAccess(BoundFieldAccess fieldAccess, CSharpCompilation compilation)
+        public static bool IsNonAgileFieldAccess(BoundFieldAccess fieldAccess, CSharpCompilation compilation)
         {
             // Warn if taking the address of a non-static field with a receiver other than this (possibly cast)
             // and a type that descends from System.MarshalByRefObject.

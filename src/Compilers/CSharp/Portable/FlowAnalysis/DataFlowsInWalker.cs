@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// variable unassigned on entry to the region would cause the generation of "unassigned" errors
     /// within the region.
     /// </summary>
-    internal class DataFlowsInWalker : AbstractRegionDataFlowPass
+    public class DataFlowsInWalker : AbstractRegionDataFlowPass
     {
         // TODO: normalize the result by removing variables that are unassigned in an unmodified
         // flow analysis.
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
         }
 
-        internal static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion,
+        public static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion,
             HashSet<Symbol> unassignedVariables, HashSet<PrefixUnaryExpressionSyntax> unassignedVariableAddressOfSyntaxes, out bool? succeeded)
         {
             var walker = new DataFlowsInWalker(compilation, member, node, firstInRegion, lastInRegion, unassignedVariables, unassignedVariableAddressOfSyntaxes);

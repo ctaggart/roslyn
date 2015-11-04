@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,11 +15,11 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a parameter of a method or indexer.
     /// </summary>
-    internal abstract partial class ParameterSymbol : Symbol, IParameterSymbol
+    public abstract partial class ParameterSymbol : Symbol, IParameterSymbol
     {
-        internal const string ValueParameterName = "value";
+        public const string ValueParameterName = "value";
 
-        internal ParameterSymbol()
+        public ParameterSymbol()
         {
         }
 
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Null if no specific marshalling information is available for the parameter.
         /// </summary>
         /// <remarks>PE symbols don't provide this information and always return null.</remarks>
-        internal abstract MarshalPseudoCustomAttributeData MarshallingInformation { get; }
+        public abstract MarshalPseudoCustomAttributeData MarshallingInformation { get; }
 
         /// <summary>
         /// Returns the marshalling type of this parameter, or 0 if marshalling information isn't available.
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Since the compiler does only need to know the marshalling type of symbols that aren't emitted 
         /// PE symbols just decode the type from metadata and don't provide full marshalling information.
         /// </remarks>
-        internal virtual UnmanagedType MarshallingType
+        public virtual UnmanagedType MarshallingType
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool IsMarshalAsObject
+        public bool IsMarshalAsObject
         {
             get
             {
@@ -141,17 +141,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if Optional flag is set in metadata.
         /// </summary>
-        internal abstract bool IsMetadataOptional { get; }
+        public abstract bool IsMetadataOptional { get; }
 
         /// <summary>
         /// True if In flag is set in metadata.
         /// </summary>
-        internal abstract bool IsMetadataIn { get; }
+        public abstract bool IsMetadataIn { get; }
 
         /// <summary>
         /// True if Out flag is set in metadata.
         /// </summary>
-        internal abstract bool IsMetadataOut { get; }
+        public abstract bool IsMetadataOut { get; }
 
         /// <summary>
         /// Returns true if the parameter explicitly specifies a default value to be passed
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This is used for emitting.  It does not reflect the language semantics
         /// (i.e. even non-optional parameters can have default values).
         /// </remarks>
-        internal abstract ConstantValue ExplicitDefaultConstantValue { get; }
+        public abstract ConstantValue ExplicitDefaultConstantValue { get; }
 
         /// <summary>
         /// Gets the kind of this symbol.
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Implements visitor pattern. 
         /// </summary>
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitParameter(this, argument);
         }
@@ -354,20 +354,20 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
 
-        internal abstract bool IsIDispatchConstant { get; }
+        public abstract bool IsIDispatchConstant { get; }
 
-        internal abstract bool IsIUnknownConstant { get; }
+        public abstract bool IsIUnknownConstant { get; }
 
-        internal abstract bool IsCallerFilePath { get; }
+        public abstract bool IsCallerFilePath { get; }
 
-        internal abstract bool IsCallerLineNumber { get; }
+        public abstract bool IsCallerLineNumber { get; }
 
-        internal abstract bool IsCallerMemberName { get; }
+        public abstract bool IsCallerMemberName { get; }
 
         protected sealed override int HighestPriorityUseSiteError
         {
@@ -393,7 +393,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// interop scenarios, we need to support such signatures.
         /// Should be 0 for non-ref parameters.
         /// </summary>
-        internal abstract ushort CountOfCustomModifiersPrecedingByRef { get; }
+        public abstract ushort CountOfCustomModifiersPrecedingByRef { get; }
 
         #region IParameterSymbol Members
 

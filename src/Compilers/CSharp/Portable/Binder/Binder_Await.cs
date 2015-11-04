@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// This portion of the binder converts an AwaitExpressionSyntax into a BoundExpression
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
         private BoundExpression BindAwait(AwaitExpressionSyntax node, DiagnosticBag diagnostics)
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Information to be deduced while binding a foreach loop so that the loop can be lowered
     /// to a while over an enumerator.  Not applicable to the array or string forms.
     /// </summary>
-    internal sealed class ForEachEnumeratorInfo
+    public sealed class ForEachEnumeratorInfo
     {
         // Types identified by the algorithm in the spec (8.8.4).
         public readonly TypeSymbol CollectionType;
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Mutable version of ForEachEnumeratorInfo.  Convert to immutable using Build.
-        internal struct Builder
+        public struct Builder
         {
             public TypeSymbol CollectionType;
             public TypeSymbol ElementType;

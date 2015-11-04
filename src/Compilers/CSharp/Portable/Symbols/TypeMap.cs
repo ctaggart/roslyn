@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -15,12 +15,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Utility class for substituting actual type arguments for formal generic type parameters.
     /// </summary>
-    internal sealed class TypeMap : AbstractTypeParameterMap
+    public sealed class TypeMap : AbstractTypeParameterMap
     {
         public static readonly System.Func<TypeSymbol, TypeWithModifiers> TypeSymbolAsTypeWithModifiers = t => new TypeWithModifiers(t);
 
         // Only when the caller passes allowAlpha=true do we tolerate substituted (alpha-renamed) type parameters as keys
-        internal TypeMap(ImmutableArray<TypeParameterSymbol> from, ImmutableArray<TypeWithModifiers> to, bool allowAlpha = false)
+        public TypeMap(ImmutableArray<TypeParameterSymbol> from, ImmutableArray<TypeWithModifiers> to, bool allowAlpha = false)
             : base(ConstructMapping(from, to))
         {
             // mapping contents are read-only hereafter
@@ -28,13 +28,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Only when the caller passes allowAlpha=true do we tolerate substituted (alpha-renamed) type parameters as keys
-        internal TypeMap(ImmutableArray<TypeParameterSymbol> from, ImmutableArray<TypeParameterSymbol> to, bool allowAlpha = false)
+        public TypeMap(ImmutableArray<TypeParameterSymbol> from, ImmutableArray<TypeParameterSymbol> to, bool allowAlpha = false)
             : this(from, to.SelectAsArray(TypeSymbolAsTypeWithModifiers), allowAlpha)
         {
             // mapping contents are read-only hereafter
         }
 
-        internal TypeMap(SmallDictionary<TypeParameterSymbol, TypeWithModifiers> mapping)
+        public TypeMap(SmallDictionary<TypeParameterSymbol, TypeWithModifiers> mapping)
             : base(new SmallDictionary<TypeParameterSymbol, TypeWithModifiers>(mapping, ReferenceEqualityComparer.Instance))
         {
             // mapping contents are read-only hereafter
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 new SmallDictionary<TypeParameterSymbol, TypeWithModifiers>(substituted.TypeSubstitution.Mapping, ReferenceEqualityComparer.Instance) :
                 new SmallDictionary<TypeParameterSymbol, TypeWithModifiers>(ReferenceEqualityComparer.Instance);
         }
-        internal TypeMap(NamedTypeSymbol containingType, ImmutableArray<TypeParameterSymbol> typeParameters, ImmutableArray<TypeWithModifiers> typeArguments)
+        public TypeMap(NamedTypeSymbol containingType, ImmutableArray<TypeParameterSymbol> typeParameters, ImmutableArray<TypeWithModifiers> typeArguments)
             : base(ForType(containingType))
         {
             for (int i = 0; i < typeParameters.Length; i++)
@@ -115,13 +115,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result;
         }
 
-        internal TypeMap WithAlphaRename(NamedTypeSymbol oldOwner, NamedTypeSymbol newOwner, out ImmutableArray<TypeParameterSymbol> newTypeParameters)
+        public TypeMap WithAlphaRename(NamedTypeSymbol oldOwner, NamedTypeSymbol newOwner, out ImmutableArray<TypeParameterSymbol> newTypeParameters)
         {
             Debug.Assert(oldOwner.ConstructedFrom == oldOwner);
             return WithAlphaRename(oldOwner.OriginalDefinition.TypeParameters, newOwner, out newTypeParameters);
         }
 
-        internal TypeMap WithAlphaRename(MethodSymbol oldOwner, Symbol newOwner, out ImmutableArray<TypeParameterSymbol> newTypeParameters)
+        public TypeMap WithAlphaRename(MethodSymbol oldOwner, Symbol newOwner, out ImmutableArray<TypeParameterSymbol> newTypeParameters)
         {
             Debug.Assert(oldOwner.ConstructedFrom == oldOwner);
             return WithAlphaRename(oldOwner.OriginalDefinition.TypeParameters, newOwner, out newTypeParameters);

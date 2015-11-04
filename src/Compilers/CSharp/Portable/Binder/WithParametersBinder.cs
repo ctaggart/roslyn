@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,11 +12,11 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Binder used to place the parameters of a method, property, indexer, or delegate
     /// in scope when binding &lt;param&gt; tags inside of XML documentation comments.
     /// </summary>
-    internal sealed class WithParametersBinder : Binder
+    public sealed class WithParametersBinder : Binder
     {
         private readonly ImmutableArray<ParameterSymbol> _parameters;
 
-        internal WithParametersBinder(ImmutableArray<ParameterSymbol> parameters, Binder next)
+        public WithParametersBinder(ImmutableArray<ParameterSymbol> parameters, Binder next)
             : base(next)
         {
             Debug.Assert(!parameters.IsDefaultOrEmpty);
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override void LookupSymbolsInSingleBinder(
+        public override void LookupSymbolsInSingleBinder(
             LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             if ((options & (LookupOptions.NamespaceAliasesOnly | LookupOptions.MustBeInvocableIfMember)) != 0)

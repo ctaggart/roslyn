@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class BaseTypeAnalysis
+    public static class BaseTypeAnalysis
     {
         // let's keep up to 16 hashsets so that we do not need to allocate them over and over.
         // we do not allocate hashsets recursively, so even for big hierarchies, one hashset is sufficient
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private static readonly ObjectPool<HashSet<Symbol>> s_hsPool =
             new ObjectPool<HashSet<Symbol>>(() => new HashSet<Symbol>(ReferenceEqualityComparer.Instance), 16);
 
-        internal static bool ClassDependsOn(TypeSymbol depends, TypeSymbol on)
+        public static bool ClassDependsOn(TypeSymbol depends, TypeSymbol on)
         {
             if ((object)depends == null || (object)on == null)
             {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool StructDependsOn(TypeSymbol depends, NamedTypeSymbol on)
+        public static bool StructDependsOn(TypeSymbol depends, NamedTypeSymbol on)
         {
             if ((object)depends == null || (object)on == null)
             {
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// be managed even if it had no fields.  e.g. struct S { S s; } is not managed, but struct S { S s; object o; }
         /// is because we can point to object.
         /// </summary>
-        internal static bool IsManagedType(NamedTypeSymbol type)
+        public static bool IsManagedType(NamedTypeSymbol type)
         {
             // If this is a type with an obvious answer, return quickly.
             switch (IsManagedTypeHelper(type))
@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool InterfaceDependsOn(TypeSymbol depends, TypeSymbol on)
+        public static bool InterfaceDependsOn(TypeSymbol depends, TypeSymbol on)
         {
             if ((object)depends == null || (object)on == null)
             {

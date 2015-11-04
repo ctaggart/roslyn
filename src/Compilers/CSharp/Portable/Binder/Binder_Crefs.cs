@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,9 +10,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
-        internal ImmutableArray<Symbol> BindCref(CrefSyntax syntax, out Symbol ambiguityWinner, DiagnosticBag diagnostics)
+        public ImmutableArray<Symbol> BindCref(CrefSyntax syntax, out Symbol ambiguityWinner, DiagnosticBag diagnostics)
         {
             ImmutableArray<Symbol> symbols = BindCrefInternal(syntax, out ambiguityWinner, diagnostics);
             Debug.Assert(!symbols.IsDefault, "Prefer empty to null.");

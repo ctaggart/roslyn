@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     ///     IList&lt;Symbol&gt; SemanticModel.LookupSymbols(CSharpSyntaxNode location, NamespaceOrTypeSymbol container = null, string name = null, int? arity = null, LookupOptions options = LookupOptions.Default, List&lt;Symbol> results = null);
     /// </pre>
     /// </summary>
-    internal sealed class AliasSymbol : Symbol, IAliasSymbol
+    public sealed class AliasSymbol : Symbol, IAliasSymbol
     {
         private readonly SyntaxToken _aliasName;
         private readonly Binder _binder;
@@ -72,13 +72,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _binder = binder;
         }
 
-        internal AliasSymbol(Binder binder, UsingDirectiveSyntax syntax)
+        public AliasSymbol(Binder binder, UsingDirectiveSyntax syntax)
             : this(binder, syntax.Alias.Name.Identifier)
         {
             _aliasTargetName = syntax.Name;
         }
 
-        internal AliasSymbol(Binder binder, ExternAliasDirectiveSyntax syntax)
+        public AliasSymbol(Binder binder, ExternAliasDirectiveSyntax syntax)
             : this(binder, syntax.Identifier)
         {
             _isExtern = true;
@@ -86,18 +86,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         // For the purposes of SemanticModel, it is convenient to have an AliasSymbol for the "global" namespace that "global::" binds
         // to. This alias symbol is returned only when binding "global::" (special case code).
-        internal static AliasSymbol CreateGlobalNamespaceAlias(NamespaceSymbol globalNamespace, Binder globalNamespaceBinder)
+        public static AliasSymbol CreateGlobalNamespaceAlias(NamespaceSymbol globalNamespace, Binder globalNamespaceBinder)
         {
             SyntaxToken aliasName = SyntaxFactory.Identifier(SyntaxFactory.TriviaList(), SyntaxKind.GlobalKeyword, "global", "global", SyntaxFactory.TriviaList());
             return new AliasSymbol(globalNamespaceBinder, globalNamespace, aliasName, ImmutableArray<Location>.Empty);
         }
 
-        internal static AliasSymbol CreateCustomDebugInfoAlias(NamespaceOrTypeSymbol targetSymbol, SyntaxToken aliasToken, Binder binder)
+        public static AliasSymbol CreateCustomDebugInfoAlias(NamespaceOrTypeSymbol targetSymbol, SyntaxToken aliasToken, Binder binder)
         {
             return new AliasSymbol(binder, targetSymbol, aliasToken, ImmutableArray.Create(aliasToken.GetLocation()));
         }
 
-        internal AliasSymbol ToNewSubmission(CSharpCompilation compilation)
+        public AliasSymbol ToNewSubmission(CSharpCompilation compilation)
         {
             Debug.Assert(_binder.Compilation.IsSubmission);
 
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override TResult Accept<TArg, TResult>(CSharpSymbolVisitor<TArg, TResult> visitor, TArg a)
+        public override TResult Accept<TArg, TResult>(CSharpSymbolVisitor<TArg, TResult> visitor, TArg a)
         {
             return visitor.VisitAlias(this, a);
         }
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // basesBeingResolved is only used to break circular references.
-        internal NamespaceOrTypeSymbol GetAliasTarget(ConsList<Symbol> basesBeingResolved)
+        public NamespaceOrTypeSymbol GetAliasTarget(ConsList<Symbol> basesBeingResolved)
         {
             if (!_state.HasComplete(CompletionPart.AliasTarget))
             {
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _aliasTarget;
         }
 
-        internal DiagnosticBag AliasTargetDiagnostics
+        public DiagnosticBag AliasTargetDiagnostics
         {
             get
             {
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void CheckConstraints(DiagnosticBag diagnostics)
+        public void CheckConstraints(DiagnosticBag diagnostics)
         {
             var target = this.Target as TypeSymbol;
             if ((object)target != null && _locations.Length > 0)
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return Name.GetHashCode();
         }
 
-        internal override bool RequiresCompletion
+        public override bool RequiresCompletion
         {
             get { return true; }
         }

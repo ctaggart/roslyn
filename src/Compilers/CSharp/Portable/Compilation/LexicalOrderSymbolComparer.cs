@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// sorting original definition symbols (explicitly or explicitly declared in source  within the same 
     /// container) in lexical order of their declarations. It will not work on  anything that uses non-source locations. 
     /// </summary>        
-    internal class LexicalOrderSymbolComparer : IComparer<Symbol>
+    public class LexicalOrderSymbolComparer : IComparer<Symbol>
     {
         public static readonly LexicalOrderSymbolComparer Instance = new LexicalOrderSymbolComparer();
 

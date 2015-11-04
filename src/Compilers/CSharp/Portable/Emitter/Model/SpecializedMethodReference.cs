@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
     /// A{int}.M()
     /// A.B{int}.C.M()
     /// </summary>
-    internal class SpecializedMethodReference : MethodReference, Cci.ISpecializedMethodReference
+    public class SpecializedMethodReference : MethodReference, Cci.ISpecializedMethodReference
     {
         public SpecializedMethodReference(MethodSymbol underlyingMethod)
             : base(underlyingMethod)

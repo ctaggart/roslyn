@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         #region Bind All Attributes
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         //      [return: A2]
         //      public delegate void Foo();
         // attributesToBind will only contain first attribute syntax.
-        internal static void BindAttributeTypes(ImmutableArray<Binder> binders, ImmutableArray<AttributeSyntax> attributesToBind, Symbol ownerSymbol, NamedTypeSymbol[] boundAttributeTypes, DiagnosticBag diagnostics)
+        public static void BindAttributeTypes(ImmutableArray<Binder> binders, ImmutableArray<AttributeSyntax> attributesToBind, Symbol ownerSymbol, NamedTypeSymbol[] boundAttributeTypes, DiagnosticBag diagnostics)
         {
             Debug.Assert(binders.Any());
             Debug.Assert(attributesToBind.Any());
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Method to bind all attributes (attribute arguments and constructor)
-        internal static void GetAttributes(
+        public static void GetAttributes(
             ImmutableArray<Binder> binders,
             ImmutableArray<AttributeSyntax> attributesToBind,
             ImmutableArray<NamedTypeSymbol> boundAttributeTypes,
@@ -92,14 +92,14 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         #region Bind Single Attribute
 
-        internal CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, DiagnosticBag diagnostics)
+        public CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, DiagnosticBag diagnostics)
         {
             var boundAttribute = BindAttribute(node, boundAttributeType, diagnostics);
 
             return GetAttribute(boundAttribute, diagnostics);
         }
 
-        internal BoundAttribute BindAttribute(AttributeSyntax node, NamedTypeSymbol attributeType, DiagnosticBag diagnostics)
+        public BoundAttribute BindAttribute(AttributeSyntax node, NamedTypeSymbol attributeType, DiagnosticBag diagnostics)
         {
             // If attribute name bound to an error type with a single named type
             // candidate symbol, we want to bind the attribute constructor
@@ -1126,10 +1126,10 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private struct AnalyzedAttributeArguments
         {
-            internal readonly AnalyzedArguments ConstructorArguments;
-            internal readonly ImmutableArray<BoundExpression> NamedArguments;
+            public readonly AnalyzedArguments ConstructorArguments;
+            public readonly ImmutableArray<BoundExpression> NamedArguments;
 
-            internal AnalyzedAttributeArguments(AnalyzedArguments constructorArguments, ImmutableArray<BoundExpression> namedArguments)
+            public AnalyzedAttributeArguments(AnalyzedArguments constructorArguments, ImmutableArray<BoundExpression> namedArguments)
             {
                 this.ConstructorArguments = constructorArguments;
                 this.NamedArguments = namedArguments;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class DataFlowPass : AbstractFlowPass<DataFlowPass.LocalState>
+    public partial class DataFlowPass : AbstractFlowPass<DataFlowPass.LocalState>
     {
         /// <summary>
         /// Some variables that should be considered initially assigned.  Used for region analysis.
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             base.Free();
         }
 
-        internal DataFlowPass(
+        public DataFlowPass(
             CSharpCompilation compilation,
             Symbol member,
             BoundNode node,
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.topLevelMethod = member as MethodSymbol;
         }
 
-        internal DataFlowPass(
+        public DataFlowPass(
             CSharpCompilation compilation,
             Symbol member,
             BoundNode node,
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Constructor to be used for region analysis, for which a struct type should never be considered empty.
         /// </summary>
-        internal DataFlowPass(
+        public DataFlowPass(
             CSharpCompilation compilation,
             Symbol member,
             BoundNode node,
@@ -523,7 +523,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// This reflects the Dev10 compiler's rules for when a variable initialization is considered a "use"
         /// for the purpose of suppressing the warning about unused variables.
         /// </summary>
-        internal static bool WriteConsideredUse(TypeSymbol type, BoundExpression value)
+        public static bool WriteConsideredUse(TypeSymbol type, BoundExpression value)
         {
             if (value == null || value.HasAnyErrors) return true;
             if ((object)type != null && type.IsReferenceType && type.SpecialType != SpecialType.System_String)
@@ -1979,11 +1979,11 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal struct LocalState : AbstractLocalState
+        public struct LocalState : AbstractLocalState
         {
-            internal BitVector Assigned;
+            public BitVector Assigned;
 
-            internal LocalState(BitVector assigned)
+            public LocalState(BitVector assigned)
             {
                 this.Assigned = assigned;
                 Debug.Assert(!assigned.IsNull);

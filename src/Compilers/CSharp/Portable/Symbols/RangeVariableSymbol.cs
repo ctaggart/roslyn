@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -13,13 +13,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A RangeVariableSymbol represents an identifier introduced in a query expression as the
     /// identifier of a "from" clause, an "into" query continuation, a "let" clause, or a "join" clause.
     /// </summary>
-    internal class RangeVariableSymbol : Symbol, IRangeVariableSymbol
+    public class RangeVariableSymbol : Symbol, IRangeVariableSymbol
     {
         private readonly string _name;
         private readonly ImmutableArray<Location> _locations;
         private readonly Symbol _containingSymbol;
 
-        internal RangeVariableSymbol(string Name, Symbol containingSymbol, Location location, bool isTransparent = false)
+        public RangeVariableSymbol(string Name, Symbol containingSymbol, Location location, bool isTransparent = false)
         {
             _name = Name;
             _containingSymbol = containingSymbol;
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             this.IsTransparent = isTransparent;
         }
 
-        internal bool IsTransparent { get; }
+        public bool IsTransparent { get; }
 
         public override string Name
         {
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return visitor.VisitRangeVariable(this);
         }
 
-        internal override TResult Accept<TArg, TResult>(CSharpSymbolVisitor<TArg, TResult> visitor, TArg a)
+        public override TResult Accept<TArg, TResult>(CSharpSymbolVisitor<TArg, TResult> visitor, TArg a)
         {
             return visitor.VisitRangeVariable(this, a);
         }

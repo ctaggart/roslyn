@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class AwaitExpressionSpiller : BoundTreeRewriterWithStackGuard
+    public sealed class AwaitExpressionSpiller : BoundTreeRewriterWithStackGuard
     {
         private const BoundKind SpillSequenceBuilder = BoundKind.SequencePoint; // NOTE: this bound kind is hijacked during this phase to represent BoundSpillSequenceBuilder
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return _statements.SelectAsArray((statement, substituter) => (BoundStatement)substituter.Visit(statement), substituterOpt);
             }
 
-            internal BoundSpillSequenceBuilder Update(BoundExpression value)
+            public BoundSpillSequenceBuilder Update(BoundExpression value)
             {
                 var result = new BoundSpillSequenceBuilder(value);
                 result._locals = _locals;
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 if (_statements != null) _statements.Free();
             }
 
-            internal void Include(BoundSpillSequenceBuilder other)
+            public void Include(BoundSpillSequenceBuilder other)
             {
                 if (other != null)
                 {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _locals.Add(local);
             }
 
-            internal void AddLocals(ImmutableArray<LocalSymbol> locals)
+            public void AddLocals(ImmutableArray<LocalSymbol> locals)
             {
                 if (_locals == null)
                 {
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _statements.Add(statement);
             }
 
-            internal void AddStatements(ImmutableArray<BoundStatement> statements)
+            public void AddStatements(ImmutableArray<BoundStatement> statements)
             {
                 foreach (var statement in statements)
                 {
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 }
             }
 
-            internal void AddExpressions(ImmutableArray<BoundExpression> expressions)
+            public void AddExpressions(ImmutableArray<BoundExpression> expressions)
             {
                 foreach (var expression in expressions)
                 {
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
 #if DEBUG
-            internal override string Dump()
+            public override string Dump()
             {
                 var node = new TreeDumperNode("boundSpillSequenceBuilder", null, new TreeDumperNode[]
                     {
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static BoundStatement Rewrite(BoundStatement body, MethodSymbol method, TypeCompilationState compilationState, DiagnosticBag diagnostics)
+        public static BoundStatement Rewrite(BoundStatement body, MethodSymbol method, TypeCompilationState compilationState, DiagnosticBag diagnostics)
         {
             var tempSubstitution = PooledDictionary<LocalSymbol, LocalSymbol>.GetInstance();
             var spiller = new AwaitExpressionSpiller(method, body.Syntax, compilationState, tempSubstitution, diagnostics);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
@@ -7,17 +7,17 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// so that the set can be passed into the next call to SourceFieldSymbol.ConstantValue (and
     /// its callers).
     /// </summary>
-    internal sealed class ConstantFieldsInProgressBinder : Binder
+    public sealed class ConstantFieldsInProgressBinder : Binder
     {
         private readonly ConstantFieldsInProgress _inProgress;
 
-        internal ConstantFieldsInProgressBinder(ConstantFieldsInProgress inProgress, Binder next)
+        public ConstantFieldsInProgressBinder(ConstantFieldsInProgress inProgress, Binder next)
             : base(next, BinderFlags.FieldInitializer | next.Flags)
         {
             _inProgress = inProgress;
         }
 
-        internal override ConstantFieldsInProgress ConstantFieldsInProgress
+        public override ConstantFieldsInProgress ConstantFieldsInProgress
         {
             get
             {

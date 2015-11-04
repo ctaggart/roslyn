@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -16,34 +16,34 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// </summary>
     public struct Conversion : IEquatable<Conversion>
     {
-        internal static readonly Conversion NoConversion = new Conversion(ConversionKind.NoConversion);
-        internal static readonly Conversion Identity = new Conversion(ConversionKind.Identity);
-        internal static readonly Conversion ImplicitNumeric = new Conversion(ConversionKind.ImplicitNumeric);
-        internal static readonly Conversion ImplicitNullable = new Conversion(ConversionKind.ImplicitNullable);
-        internal static readonly Conversion ImplicitReference = new Conversion(ConversionKind.ImplicitReference);
-        internal static readonly Conversion ImplicitEnumeration = new Conversion(ConversionKind.ImplicitEnumeration);
-        internal static readonly Conversion AnonymousFunction = new Conversion(ConversionKind.AnonymousFunction);
-        internal static readonly Conversion Boxing = new Conversion(ConversionKind.Boxing);
-        internal static readonly Conversion NullLiteral = new Conversion(ConversionKind.NullLiteral);
-        internal static readonly Conversion NullToPointer = new Conversion(ConversionKind.NullToPointer);
-        internal static readonly Conversion PointerToVoid = new Conversion(ConversionKind.PointerToVoid);
-        internal static readonly Conversion PointerToPointer = new Conversion(ConversionKind.PointerToPointer);
-        internal static readonly Conversion PointerToInteger = new Conversion(ConversionKind.PointerToInteger);
-        internal static readonly Conversion IntegerToPointer = new Conversion(ConversionKind.IntegerToPointer);
-        internal static readonly Conversion Unboxing = new Conversion(ConversionKind.Unboxing);
-        internal static readonly Conversion ExplicitReference = new Conversion(ConversionKind.ExplicitReference);
-        internal static readonly Conversion IntPtr = new Conversion(ConversionKind.IntPtr);
-        internal static readonly Conversion ExplicitEnumeration = new Conversion(ConversionKind.ExplicitEnumeration);
-        internal static readonly Conversion ExplicitNullable = new Conversion(ConversionKind.ExplicitNullable);
-        internal static readonly Conversion ExplicitNumeric = new Conversion(ConversionKind.ExplicitNumeric);
-        internal static readonly Conversion ImplicitDynamic = new Conversion(ConversionKind.ImplicitDynamic);
-        internal static readonly Conversion ExplicitDynamic = new Conversion(ConversionKind.ExplicitDynamic);
-        internal static readonly Conversion InterpolatedString = new Conversion(ConversionKind.InterpolatedString);
+        public static readonly Conversion NoConversion = new Conversion(ConversionKind.NoConversion);
+        public static readonly Conversion Identity = new Conversion(ConversionKind.Identity);
+        public static readonly Conversion ImplicitNumeric = new Conversion(ConversionKind.ImplicitNumeric);
+        public static readonly Conversion ImplicitNullable = new Conversion(ConversionKind.ImplicitNullable);
+        public static readonly Conversion ImplicitReference = new Conversion(ConversionKind.ImplicitReference);
+        public static readonly Conversion ImplicitEnumeration = new Conversion(ConversionKind.ImplicitEnumeration);
+        public static readonly Conversion AnonymousFunction = new Conversion(ConversionKind.AnonymousFunction);
+        public static readonly Conversion Boxing = new Conversion(ConversionKind.Boxing);
+        public static readonly Conversion NullLiteral = new Conversion(ConversionKind.NullLiteral);
+        public static readonly Conversion NullToPointer = new Conversion(ConversionKind.NullToPointer);
+        public static readonly Conversion PointerToVoid = new Conversion(ConversionKind.PointerToVoid);
+        public static readonly Conversion PointerToPointer = new Conversion(ConversionKind.PointerToPointer);
+        public static readonly Conversion PointerToInteger = new Conversion(ConversionKind.PointerToInteger);
+        public static readonly Conversion IntegerToPointer = new Conversion(ConversionKind.IntegerToPointer);
+        public static readonly Conversion Unboxing = new Conversion(ConversionKind.Unboxing);
+        public static readonly Conversion ExplicitReference = new Conversion(ConversionKind.ExplicitReference);
+        public static readonly Conversion IntPtr = new Conversion(ConversionKind.IntPtr);
+        public static readonly Conversion ExplicitEnumeration = new Conversion(ConversionKind.ExplicitEnumeration);
+        public static readonly Conversion ExplicitNullable = new Conversion(ConversionKind.ExplicitNullable);
+        public static readonly Conversion ExplicitNumeric = new Conversion(ConversionKind.ExplicitNumeric);
+        public static readonly Conversion ImplicitDynamic = new Conversion(ConversionKind.ImplicitDynamic);
+        public static readonly Conversion ExplicitDynamic = new Conversion(ConversionKind.ExplicitDynamic);
+        public static readonly Conversion InterpolatedString = new Conversion(ConversionKind.InterpolatedString);
 
         private readonly MethodSymbol _methodGroupConversionMethod;
         private readonly UserDefinedConversionResult _conversionResult; //no effect on Equals/GetHashCode
 
-        internal readonly ConversionKind Kind;
+        public readonly ConversionKind Kind;
         private readonly byte _flags;
 
         private const byte IsExtensionMethodMask = 1 << 0;
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal Conversion(UserDefinedConversionResult conversionResult, bool isImplicit)
+        public Conversion(UserDefinedConversionResult conversionResult, bool isImplicit)
             : this()
         {
             this.Kind = conversionResult.Kind == UserDefinedConversionResultKind.NoApplicableOperators
@@ -71,13 +71,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             _conversionResult = conversionResult;
         }
 
-        internal Conversion(ConversionKind kind)
+        public Conversion(ConversionKind kind)
             : this()
         {
             this.Kind = kind;
         }
 
-        internal bool IsExtensionMethod
+        public bool IsExtensionMethod
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool IsArrayIndex
+        public bool IsArrayIndex
         {
             get
             {
@@ -94,13 +94,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 
-        internal Conversion ToArrayIndexConversion()
+        public Conversion ToArrayIndexConversion()
         {
             return new Conversion(this.Kind, this.IsExtensionMethod, true, _conversionResult, _methodGroupConversionMethod);
         }
 
         // For the method group, lambda and anonymous method conversions
-        internal Conversion(ConversionKind kind, MethodSymbol methodGroupConversionMethod, bool isExtensionMethod)
+        public Conversion(ConversionKind kind, MethodSymbol methodGroupConversionMethod, bool isExtensionMethod)
             : this()
         {
             this.Kind = kind;
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // CONSIDER: public?
-        internal bool IsValid
+        public bool IsValid
         {
             get
             {
@@ -406,7 +406,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal MethodSymbol Method
+        public MethodSymbol Method
         {
             get
             {
@@ -437,7 +437,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Empty - found no applicable built-in or user-defined conversions.
         /// OverloadResolutionFailure - found applicable conversions, but no unique best.
         /// </summary>
-        internal LookupResultKind ResultKind
+        public LookupResultKind ResultKind
         {
             get
             {
@@ -470,7 +470,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Conversion applied to operand of the user-defined conversion.
         /// </summary>
-        internal Conversion UserDefinedFromConversion
+        public Conversion UserDefinedFromConversion
         {
             get
             {
@@ -482,7 +482,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Conversion applied to the result of the user-defined conversion.
         /// </summary>
-        internal Conversion UserDefinedToConversion
+        public Conversion UserDefinedToConversion
         {
             get
             {
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// The user-defined operators that were considered when attempting this conversion
         /// (i.e. the arguments to overload resolution).
         /// </summary>
-        internal ImmutableArray<MethodSymbol> OriginalUserDefinedConversions
+        public ImmutableArray<MethodSymbol> OriginalUserDefinedConversions
         {
             get
             {
@@ -528,7 +528,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal UserDefinedConversionAnalysis BestUserDefinedConversionAnalysis
+        public UserDefinedConversionAnalysis BestUserDefinedConversionAnalysis
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Describes anonymous type in terms of fields
     /// </summary>
-    internal struct AnonymousTypeDescriptor : IEquatable<AnonymousTypeDescriptor>
+    public struct AnonymousTypeDescriptor : IEquatable<AnonymousTypeDescriptor>
     {
         /// <summary> Anonymous type location </summary>
         public readonly Location Location;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             this.Key = ComputeKey(fields, f => f.Name);
         }
 
-        internal static string ComputeKey<T>(ImmutableArray<T> fields, Func<T, string> getName)
+        public static string ComputeKey<T>(ImmutableArray<T> fields, Func<T, string> getName)
         {
             var key = PooledStringBuilder.GetInstance();
             foreach (var field in fields)
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         [Conditional("DEBUG")]
-        internal void AssertIsGood()
+        public void AssertIsGood()
         {
             Debug.Assert(!this.Fields.IsDefault);
 
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Compares two anonymous type descriptors, takes into account fields names and types, not locations.
         /// </summary>
-        internal bool Equals(AnonymousTypeDescriptor other, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public bool Equals(AnonymousTypeDescriptor other, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             // Comparing keys ensures field count and field names are the same
             if (this.Key != other.Key)
@@ -105,7 +105,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Creates a new anonymous type descriptor based on 'this' one, 
         /// but having field types passed as an argument.
         /// </summary>
-        internal AnonymousTypeDescriptor WithNewFieldsTypes(ImmutableArray<TypeSymbol> newFieldTypes)
+        public AnonymousTypeDescriptor WithNewFieldsTypes(ImmutableArray<TypeSymbol> newFieldTypes)
         {
             Debug.Assert(!newFieldTypes.IsDefault);
             Debug.Assert(newFieldTypes.Length == this.Fields.Length);

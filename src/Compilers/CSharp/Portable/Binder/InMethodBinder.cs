@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A binder for a method body, which places the method's parameters in scope
     /// and notes if the method is an iterator method.
     /// </summary>
-    internal sealed class InMethodBinder : LocalScopeBinder
+    public sealed class InMethodBinder : LocalScopeBinder
     {
         private readonly MultiDictionary<string, ParameterSymbol> _parameterMap;
         private readonly MethodSymbol _methodSymbol;
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool IsInMethodBody
+        public override bool IsInMethodBody
         {
             get
             {
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void MakeIterator()
+        public void MakeIterator()
         {
             if (_iteratorInfo == null)
             {
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool IsDirectlyInIterator
+        public override bool IsDirectlyInIterator
         {
             get
             {
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool IsIndirectlyInIterator
+        public override bool IsIndirectlyInIterator
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override GeneratedLabelSymbol BreakLabel
+        public override GeneratedLabelSymbol BreakLabel
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override GeneratedLabelSymbol ContinueLabel
+        public override GeneratedLabelSymbol ContinueLabel
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
+        public override TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
         {
             TypeSymbol returnType = _methodSymbol.ReturnType;
 
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal override void LookupSymbolsInSingleBinder(
+        public override void LookupSymbolsInSingleBinder(
             LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert(result.IsClear);
@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static bool ReportConflictWithParameter(Symbol parameter, Symbol newSymbol, string name, Location newLocation, DiagnosticBag diagnostics)
+        public static bool ReportConflictWithParameter(Symbol parameter, Symbol newSymbol, string name, Location newLocation, DiagnosticBag diagnostics)
         {
             var oldLocation = parameter.Locations[0];
             Debug.Assert(oldLocation != newLocation || oldLocation == Location.None, "same nonempty location refers to different symbols?");
@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 
-        internal override bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
+        public override bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
         {
             Symbol existingDeclaration;
             var map = _definitionMap;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.Collections;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal struct SymbolCompletionState
+    public struct SymbolCompletionState
     {
         /// <summary>
         /// This field keeps track of the <see cref="CompletionPart"/>s for which we already retrieved
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         private volatile int _completeParts;
 
-        internal int IncompleteParts
+        public int IncompleteParts
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Used to force (source) symbols to a given state of completion.
         /// </summary>
         /// <param name="symbol">The owning source symbol.</param>
-        internal void DefaultForceComplete(Symbol symbol)
+        public void DefaultForceComplete(Symbol symbol)
         {
             Debug.Assert(symbol.RequiresCompletion);
 
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             NotePartComplete(CompletionPart.All);
         }
 
-        internal bool HasComplete(CompletionPart part)
+        public bool HasComplete(CompletionPart part)
         {
             // completeParts is used as a flag indicating completion of other assignments 
             // Volatile.Read is used to ensure the read is not reordered/optimized to happen 
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (_completeParts & (int)part) == (int)part;
         }
 
-        internal bool NotePartComplete(CompletionPart part)
+        public bool NotePartComplete(CompletionPart part)
         {
             // passing volatile completeParts byref is ok here.
             // ThreadSafeFlagOperations.Set performs interlocked assignments
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 #pragma warning restore 0420
         }
 
-        internal CompletionPart NextIncompletePart
+        public CompletionPart NextIncompletePart
         {
             get
             {
@@ -86,12 +86,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Since this formula is rather opaque, a demonstration of its correctness is
         /// provided in Roslyn.Compilers.CSharp.UnitTests.CompletionTests.TestHasAtMostOneBitSet.
         /// </remarks>
-        internal static bool HasAtMostOneBitSet(int bits)
+        public static bool HasAtMostOneBitSet(int bits)
         {
             return (bits & (bits - 1)) == 0;
         }
 
-        internal void SpinWaitComplete(CompletionPart part, CancellationToken cancellationToken)
+        public void SpinWaitComplete(CompletionPart part, CancellationToken cancellationToken)
         {
             if (HasComplete(part))
             {

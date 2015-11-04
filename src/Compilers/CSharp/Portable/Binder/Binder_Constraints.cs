@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// Return a collection of bound constraint clauses indexed by type parameter
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// for the same type parameter, or constraints for unrecognized type parameters.
         /// Extra constraints are not included in the returned collection however.
         /// </summary>
-        internal ImmutableArray<TypeParameterConstraintClause> BindTypeParameterConstraintClauses(
+        public ImmutableArray<TypeParameterConstraintClause> BindTypeParameterConstraintClauses(
             Symbol containingSymbol,
             ImmutableArray<TypeParameterSymbol> typeParameters,
             SyntaxList<TypeParameterConstraintClauseSyntax> clauses,

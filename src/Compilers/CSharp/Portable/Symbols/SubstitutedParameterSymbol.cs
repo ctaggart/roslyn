@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -7,19 +7,19 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SubstitutedParameterSymbol : WrappedParameterSymbol
+    public sealed class SubstitutedParameterSymbol : WrappedParameterSymbol
     {
         // initially set to map which is only used to get the type, which is once computed is stored here.
         private object _mapOrType;
 
         private readonly Symbol _containingSymbol;
 
-        internal SubstitutedParameterSymbol(MethodSymbol containingSymbol, TypeMap map, ParameterSymbol originalParameter) :
+        public SubstitutedParameterSymbol(MethodSymbol containingSymbol, TypeMap map, ParameterSymbol originalParameter) :
             this((Symbol)containingSymbol, map, originalParameter)
         {
         }
 
-        internal SubstitutedParameterSymbol(PropertySymbol containingSymbol, TypeMap map, ParameterSymbol originalParameter) :
+        public SubstitutedParameterSymbol(PropertySymbol containingSymbol, TypeMap map, ParameterSymbol originalParameter) :
             this((Symbol)containingSymbol, map, originalParameter)
         {
         }

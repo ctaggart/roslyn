@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.CodeAnalysis.CSharp
 {
     [Flags]
-    internal enum UnaryOperatorKind
+    public enum UnaryOperatorKind
     {
         // NOTE: these types should line up with the elements in BinaryOperatorKind
 
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     }
 
     [Flags]
-    internal enum BinaryOperatorKind
+    public enum BinaryOperatorKind
     {
         // NOTE: these types should line up with the elements in UnaryOperatorKind
 

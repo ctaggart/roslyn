@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// This parameter has no source location/syntax, but may have attributes.
     /// Attributes with 'param' target specifier on the accessor must be applied to the this parameter.
     /// </summary>
-    internal sealed class SynthesizedAccessorValueParameterSymbol : SourceComplexParameterSymbol
+    public sealed class SynthesizedAccessorValueParameterSymbol : SourceComplexParameterSymbol
     {
         private readonly ImmutableArray<CustomModifier> _customModifiers;
 
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ushort CountOfCustomModifiersPrecedingByRef
+        public override ushort CountOfCustomModifiersPrecedingByRef
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return (SourceMethodSymbol)this.ContainingSymbol; }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             // Bind the attributes on the accessor's attribute syntax list with "param" target specifier.
             var accessor = (SourceMethodSymbol)this.ContainingSymbol;

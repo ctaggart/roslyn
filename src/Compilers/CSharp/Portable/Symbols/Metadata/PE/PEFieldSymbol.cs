@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// The class to represent all fields imported from a PE/module.
     /// </summary>
-    internal sealed class PEFieldSymbol : FieldSymbol
+    public sealed class PEFieldSymbol : FieldSymbol
     {
         private readonly FieldDefinitionHandle _handle;
         private readonly string _name;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         private NamedTypeSymbol _lazyFixedImplementationType;
         private PEEventSymbol _associatedEventOpt;
 
-        internal PEFieldSymbol(
+        public PEFieldSymbol(
             PEModuleSymbol moduleSymbol,
             PENamedTypeSymbol containingType,
             FieldDefinitionHandle fieldDef)
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal FieldAttributes Flags
+        public FieldAttributes Flags
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasRuntimeSpecialName
+        public override bool HasRuntimeSpecialName
         {
             get
             {
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsNotSerialized
+        public override bool IsNotSerialized
         {
             get
             {
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool IsMarshalledExplicitly
+        public override bool IsMarshalledExplicitly
         {
             get
             {
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override UnmanagedType MarshallingType
+        public override UnmanagedType MarshallingType
         {
             get
             {
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<byte> MarshallingDescriptor
+        public override ImmutableArray<byte> MarshallingDescriptor
         {
             get
             {
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override int? TypeLayoutOffset
+        public override int? TypeLayoutOffset
         {
             get
             {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal FieldDefinitionHandle Handle
+        public FieldDefinitionHandle Handle
         {
             get
             {
@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// The caller will also ensure that it is excluded from the member list of
         /// the containing type (as it would be in source).
         /// </summary>
-        internal void SetAssociatedEvent(PEEventSymbol eventSymbol)
+        public void SetAssociatedEvent(PEEventSymbol eventSymbol)
         {
             Debug.Assert((object)eventSymbol != null);
             Debug.Assert(eventSymbol.ContainingType == _containingType);
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             EnsureSignatureIsLoaded();
             return _lazyType;
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
+        public override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
         {
             EnsureSignatureIsLoaded();
             return _lazyFixedImplementationType;
@@ -331,7 +331,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
+        public override ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes)
         {
             if (_lazyConstantValue == Microsoft.CodeAnalysis.ConstantValue.Unset)
             {
@@ -464,7 +464,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
                    value.Discriminator == ConstantValueTypeDiscriminator.Decimal;
         }
 
-        internal override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
+        public override IEnumerable<CSharpAttributeData> GetCustomAttributesToEmit(ModuleCompilationState compilationState)
         {
             foreach (CSharpAttributeData attribute in GetAttributes())
             {
@@ -485,7 +485,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return PEDocumentationCommentUtils.GetDocumentationComment(this, _containingType.ContainingPEModule, preferredCulture, cancellationToken, ref _lazyDocComment);
         }
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (ReferenceEquals(_lazyUseSiteDiagnostic, CSDiagnosticInfo.EmptyErrorInfo))
             {
@@ -497,7 +497,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyUseSiteDiagnostic;
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -506,7 +506,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

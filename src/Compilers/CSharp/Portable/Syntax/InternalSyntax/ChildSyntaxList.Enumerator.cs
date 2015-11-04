@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial struct ChildSyntaxList
+    public partial struct ChildSyntaxList
     {
-        internal struct Enumerator
+        public struct Enumerator
         {
             private readonly GreenNode _node;
             private int _childIndex;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             private int _listIndex;
             private GreenNode _currentChild;
 
-            internal Enumerator(GreenNode node)
+            public Enumerator(GreenNode node)
             {
                 _node = node;
                 _childIndex = -1;

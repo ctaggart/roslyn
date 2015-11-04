@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,9 +10,9 @@ namespace Microsoft.CodeAnalysis.Diagnostics.CSharp
     /// DiagnosticAnalyzer for C# compiler's syntax/semantic/compilation diagnostics.
     /// </summary>
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    internal sealed class CSharpCompilerDiagnosticAnalyzer : CompilerDiagnosticAnalyzer
+    public sealed class CSharpCompilerDiagnosticAnalyzer : CompilerDiagnosticAnalyzer
     {
-        internal override CommonMessageProvider MessageProvider
+        public override CommonMessageProvider MessageProvider
         {
             get
             {
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics.CSharp
             }
         }
 
-        internal override ImmutableArray<int> GetSupportedErrorCodes()
+        public override ImmutableArray<int> GetSupportedErrorCodes()
         {
             var errorCodes = Enum.GetValues(typeof(ErrorCode));
             var builder = ImmutableArray.CreateBuilder<int>(errorCodes.Length);

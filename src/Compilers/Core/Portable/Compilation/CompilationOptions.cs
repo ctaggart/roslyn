@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis
         /// A set of strings designating experimental compiler features that are to be enabled.
         /// </summary>
         [Obsolete]
-        protected internal ImmutableArray<string> Features
+        public ImmutableArray<string> Features
         {
             get
             {

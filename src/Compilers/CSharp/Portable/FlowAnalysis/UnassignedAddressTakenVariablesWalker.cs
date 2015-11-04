@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,14 +12,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// An analysis that computes the set of variables that may be used
     /// before being assigned anywhere within a method.
     /// </summary>
-    internal class UnassignedAddressTakenVariablesWalker : DataFlowPass
+    public class UnassignedAddressTakenVariablesWalker : DataFlowPass
     {
         private UnassignedAddressTakenVariablesWalker(CSharpCompilation compilation, Symbol member, BoundNode node)
             : base(compilation, member, node)
         {
         }
 
-        internal static HashSet<PrefixUnaryExpressionSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node)
+        public static HashSet<PrefixUnaryExpressionSyntax> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node)
         {
             var walker = new UnassignedAddressTakenVariablesWalker(compilation, member, node);
             try

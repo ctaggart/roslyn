@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// A container synthesized for a lambda, iterator method, async method, or dynamic-sites.
     /// </summary>
-    internal abstract class SynthesizedContainer : NamedTypeSymbol
+    public abstract class SynthesizedContainer : NamedTypeSymbol
     {
         private readonly string _name;
         private readonly TypeMap _typeMap;
@@ -63,22 +63,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return typeParameters.ToImmutableAndFree();
         }
 
-        internal TypeMap TypeMap
+        public TypeMap TypeMap
         {
             get { return _typeMap; }
         }
 
-        internal virtual MethodSymbol Constructor
+        public virtual MethodSymbol Constructor
         {
             get { return null; }
         }
 
-        internal sealed override bool IsInterface
+        public sealed override bool IsInterface
         {
             get { return this.TypeKind == TypeKind.Interface; }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -137,12 +137,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return (object)Constructor == null; }
         }
 
-        internal override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
+        public override ImmutableArray<TypeSymbol> TypeArgumentsNoUseSiteDiagnostics
         {
             get { return StaticCast<TypeSymbol>.From(TypeParameters); }
         }
 
-        internal override bool HasTypeArgumentsCustomModifiers
+        public override bool HasTypeArgumentsCustomModifiers
         {
             get
             {
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
+        public override ImmutableArray<ImmutableArray<CustomModifier>> TypeArgumentsCustomModifiers
         {
             get
             {
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return ((object)ctor != null && name == ctor.Name) ? ImmutableArray.Create<Symbol>(ctor) : ImmutableArray<Symbol>.Empty;
         }
 
-        internal override IEnumerable<FieldSymbol> GetFieldsToEmit()
+        public override IEnumerable<FieldSymbol> GetFieldsToEmit()
         {
             foreach (var m in this.GetMembers())
             {
@@ -183,12 +183,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers()
         {
             return this.GetMembersUnordered();
         }
 
-        internal override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
+        public override ImmutableArray<Symbol> GetEarlyAttributeDecodingMembers(string name)
         {
             return this.GetMembers(name);
         }
@@ -218,27 +218,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> InterfacesNoUseSiteDiagnostics(ConsList<Symbol> basesBeingResolved)
         {
             return ImmutableArray<NamedTypeSymbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+        public override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
         {
             return CalculateInterfacesToEmit();
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get { return ContainingAssembly.GetSpecialType(this.TypeKind == TypeKind.Struct ? SpecialType.System_ValueType : SpecialType.System_Object); }
         }
 
-        internal override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
+        public override NamedTypeSymbol GetDeclaredBaseType(ConsList<Symbol> basesBeingResolved)
         {
             return BaseTypeNoUseSiteDiagnostics;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
+        public override ImmutableArray<NamedTypeSymbol> GetDeclaredInterfaces(ConsList<Symbol> basesBeingResolved)
         {
             return InterfacesNoUseSiteDiagnostics(basesBeingResolved);
         }
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return TypeParameters.Length; }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get { return Arity > 0; }
         }
@@ -263,62 +263,62 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override bool ShouldAddWinRTMembers
+        public override bool ShouldAddWinRTMembers
         {
             get { return false; }
         }
 
-        internal override bool IsWindowsRuntimeImport
+        public override bool IsWindowsRuntimeImport
         {
             get { return false; }
         }
 
-        internal override bool IsComImport
+        public override bool IsComImport
         {
             get { return false; }
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal override CharSet MarshallingCharSet
+        public override CharSet MarshallingCharSet
         {
             get { return DefaultMarshallingCharSet; }
         }
 
-        internal override bool IsSerializable
+        public override bool IsSerializable
         {
             get { return false; }
         }
 
-        internal override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override AttributeUsageInfo GetAttributeUsageInfo()
+        public override AttributeUsageInfo GetAttributeUsageInfo()
         {
             return default(AttributeUsageInfo);
         }
 
-        internal override TypeLayout Layout
+        public override TypeLayout Layout
         {
             get { return default(TypeLayout); }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return false; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class SourceMemberContainerTypeSymbol
+    public partial class SourceMemberContainerTypeSymbol
     {
         /// <summary>
         /// In some circumstances (e.g. implicit implementation of an interface method by a non-virtual method in a 
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// some interface methods.  They don't go in the symbol table, but if we are emitting, then we should
         /// generate code for them.
         /// </summary>
-        internal ImmutableArray<SynthesizedExplicitImplementationForwardingMethod> GetSynthesizedExplicitImplementations(
+        public ImmutableArray<SynthesizedExplicitImplementationForwardingMethod> GetSynthesizedExplicitImplementations(
             CancellationToken cancellationToken)
         {
             if (_lazySynthesizedExplicitImplementations.IsDefault)
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         protected abstract Location GetCorrespondingBaseListLocation(NamedTypeSymbol @base);
 
-        internal Location GetImplementsLocation(NamedTypeSymbol implementedInterface)
+        public Location GetImplementsLocation(NamedTypeSymbol implementedInterface)
         {
             // We ideally want to identify the interface location in the base list with an exact match but
             // will fall back and use the first derived interface if exact interface is not present.
@@ -1130,7 +1130,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal sealed override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
+        public sealed override ImmutableArray<NamedTypeSymbol> GetInterfacesToEmit()
         {
             return CalculateInterfacesToEmit();
         }

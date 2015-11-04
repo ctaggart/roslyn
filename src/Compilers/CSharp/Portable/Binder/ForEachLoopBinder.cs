@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <remarks>
     /// This binder produces BoundForEachStatements.  The lowering described in the spec is performed in ControlFlowRewriter.
     /// </remarks>
-    internal sealed class ForEachLoopBinder : LoopBinder
+    public sealed class ForEachLoopBinder : LoopBinder
     {
         private const string GetEnumeratorMethodName = WellKnownMemberNames.GetEnumeratorMethodName;
         private const string CurrentPropertyName = WellKnownMemberNames.CurrentPropertyName;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Bind the ForEachStatementSyntax at the root of this binder.
         /// </summary>
-        internal override BoundStatement BindForEachParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundStatement BindForEachParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             BoundForEachStatement result = BindForEachPartsWorker(diagnostics, originalBinder);
             return result;
@@ -213,7 +213,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 hasErrors);
         }
 
-        internal TypeSymbol InferCollectionElementType(DiagnosticBag diagnostics, ExpressionSyntax collectionSyntax)
+        public TypeSymbol InferCollectionElementType(DiagnosticBag diagnostics, ExpressionSyntax collectionSyntax)
         {
             // Bind with next to avoid seeing iteration variable
             BoundExpression collectionExpr = this.Next.BindValue(collectionSyntax, diagnostics, BindValueKind.RValue);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Specifies the syntax that a user defined variable comes from.
     /// </summary>
-    internal enum LocalDeclarationKind : byte
+    public enum LocalDeclarationKind : byte
     {
         /// <summary>
         /// The local is not user defined nor it is a copy of a user defined local (e.g. with a substituted type).

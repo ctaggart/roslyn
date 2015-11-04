@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 {
     // Traverses the symbol table processing XML documentation comments and optionally writing them to
     // a provided stream.
-    internal partial class DocumentationCommentCompiler : CSharpSymbolVisitor
+    public partial class DocumentationCommentCompiler : CSharpSymbolVisitor
     {
         private class IncludeElementExpander
         {

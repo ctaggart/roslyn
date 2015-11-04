@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -12,14 +12,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// It only binds those attribute argument syntax which can produce valid attribute arguments, but doesn't report any diagnostics.
     /// Subsequent binding phase will rebind such erroneous attributes and generate appropriate diagnostics.
     /// </summary>
-    internal sealed class EarlyWellKnownAttributeBinder : Binder
+    public sealed class EarlyWellKnownAttributeBinder : Binder
     {
-        internal EarlyWellKnownAttributeBinder(Binder enclosing)
+        public EarlyWellKnownAttributeBinder(Binder enclosing)
             : base(enclosing, enclosing.Flags | BinderFlags.EarlyAttributeBinding)
         {
         }
 
-        internal CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, out bool generatedDiagnostics)
+        public CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, out bool generatedDiagnostics)
         {
             var dummyDiagnosticBag = DiagnosticBag.GetInstance();
             var boundAttribute = base.GetAttribute(node, boundAttributeType, dummyDiagnosticBag);
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // Hide the GetAttribute overload which takes a diagnostic bag.
         // This ensures that diagnostics from the early bound attributes are never preserved.
         [Obsolete("EarlyWellKnownAttributeBinder has a better overload - GetAttribute(AttributeSyntax, NamedTypeSymbol, out bool)", true)]
-        internal new CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, DiagnosticBag diagnostics)
+        public new CSharpAttributeData GetAttribute(AttributeSyntax node, NamedTypeSymbol boundAttributeType, DiagnosticBag diagnostics)
         {
             Debug.Assert(false, "Don't call this overload.");
             return base.GetAttribute(node, boundAttributeType, diagnostics);
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Since this method is expected to be called on every nested expression of the argument, it doesn't
         /// need to recurse (directly).
         /// </remarks>
-        internal static bool CanBeValidAttributeArgument(ExpressionSyntax node, Binder typeBinder)
+        public static bool CanBeValidAttributeArgument(ExpressionSyntax node, Binder typeBinder)
         {
             Debug.Assert(node != null);
             switch (node.Kind())

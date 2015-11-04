@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -13,14 +13,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Its functionality is accessible through the NamedTypeSymbol extension method CheckInterfaceVarianceSafety and
     /// the MethodSymbol extension method CheckMethodVarianceSafety (for checking delegate Invoke).
     /// </summary>
-    internal static class VarianceSafety
+    public static class VarianceSafety
     {
         #region Interface variance safety
 
         /// <summary>
         /// Accumulate diagnostics related to the variance safety of an interface.
         /// </summary>
-        internal static void CheckInterfaceVarianceSafety(this NamedTypeSymbol interfaceType, DiagnosticBag diagnostics)
+        public static void CheckInterfaceVarianceSafety(this NamedTypeSymbol interfaceType, DiagnosticBag diagnostics)
         {
             Debug.Assert((object)interfaceType != null && interfaceType.IsInterface);
 
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Accumulate diagnostics related to the variance safety of a delegate.
         /// </summary>
-        internal static void CheckDelegateVarianceSafety(this SourceDelegateMethodSymbol method, DiagnosticBag diagnostics)
+        public static void CheckDelegateVarianceSafety(this SourceDelegateMethodSymbol method, DiagnosticBag diagnostics)
         {
             method.CheckMethodVarianceSafety(
                 returnTypeLocationProvider: m =>

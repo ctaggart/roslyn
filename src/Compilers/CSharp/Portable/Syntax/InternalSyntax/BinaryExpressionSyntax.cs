@@ -1,13 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.IO;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class BinaryExpressionSyntax
+    public partial class BinaryExpressionSyntax
     {
-        protected internal override void WriteTo(TextWriter writer, bool leading, bool trailing)
+        public override void WriteTo(TextWriter writer, bool leading, bool trailing)
         {
             // Do not blow the stack due to a deep recursion on the left. 
             // This is consistent with Parser.ParseSubExpressionCore implementation.

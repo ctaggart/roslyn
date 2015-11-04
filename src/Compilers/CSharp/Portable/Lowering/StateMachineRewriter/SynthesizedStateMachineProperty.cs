@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,12 +8,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// State machine interface property implementation.
     /// </summary>
-    internal class SynthesizedStateMachineProperty : PropertySymbol, ISynthesizedMethodBodyImplementationSymbol
+    public class SynthesizedStateMachineProperty : PropertySymbol, ISynthesizedMethodBodyImplementationSymbol
     {
         private readonly SynthesizedStateMachineMethod _getter;
         private readonly string _name;
 
-        internal SynthesizedStateMachineProperty(
+        public SynthesizedStateMachineProperty(
             MethodSymbol interfacePropertyGetter,
             StateMachineTypeSymbol stateMachineType)
         {
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return !_getter.Parameters.IsEmpty; }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return false; }
         }
@@ -68,12 +68,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return null; }
         }
 
-        internal override Cci.CallingConvention CallingConvention
+        public override Cci.CallingConvention CallingConvention
         {
             get { return _getter.CallingConvention; }
         }
 
-        internal override bool MustCallMethodsDirectly
+        public override bool MustCallMethodsDirectly
         {
             get { return false; }
         }
@@ -141,7 +141,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }

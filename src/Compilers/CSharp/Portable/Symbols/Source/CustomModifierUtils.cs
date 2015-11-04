@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,13 +8,13 @@ using Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class CustomModifierUtils
+    public static class CustomModifierUtils
     {
         /// <remarks>
         /// Out params are updated by assignment.  If you require thread-safety, pass temps and then
         /// CompareExchange them back into shared memory.
         /// </remarks>
-        internal static void CopyMethodCustomModifiers(
+        public static void CopyMethodCustomModifiers(
             MethodSymbol sourceMethod,
             MethodSymbol destinationMethod,
             out TypeSymbol returnType,
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <param name="refKind"><see cref="RefKind"/> of the parameter of which this is the type (or <see cref="RefKind.None"/> for a return type.</param>
         /// <param name="containingAssembly">The assembly containing the signature referring to the destination type.</param>
         /// <returns><paramref name="destinationType"/> with custom modifiers copied from <paramref name="sourceType"/>.</returns>
-        internal static TypeSymbol CopyTypeCustomModifiers(TypeSymbol sourceType, TypeSymbol destinationType, RefKind refKind, AssemblySymbol containingAssembly)
+        public static TypeSymbol CopyTypeCustomModifiers(TypeSymbol sourceType, TypeSymbol destinationType, RefKind refKind, AssemblySymbol containingAssembly)
         {
             Debug.Assert(sourceType.Equals(destinationType, ignoreCustomModifiersAndArraySizesAndLowerBounds: true, ignoreDynamic: true));
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return resultType;
         }
 
-        internal static ImmutableArray<ParameterSymbol> CopyParameterCustomModifiers(ImmutableArray<ParameterSymbol> sourceParameters, ImmutableArray<ParameterSymbol> destinationParameters, bool alsoCopyParamsModifier)
+        public static ImmutableArray<ParameterSymbol> CopyParameterCustomModifiers(ImmutableArray<ParameterSymbol> sourceParameters, ImmutableArray<ParameterSymbol> destinationParameters, bool alsoCopyParamsModifier)
         {
             Debug.Assert(!destinationParameters.IsDefault);
             Debug.Assert(destinationParameters.All(p => p is SourceParameterSymbolBase));

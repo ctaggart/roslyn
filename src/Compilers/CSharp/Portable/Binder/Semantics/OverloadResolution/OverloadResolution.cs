@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal enum BetterResult
+    public enum BetterResult
     {
         Left,
         Right,
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         Equal
     }
 
-    internal sealed partial class OverloadResolution
+    public sealed partial class OverloadResolution
     {
         private readonly Binder _binder;
 
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             typeArguments.Free();
         }
 
-        internal void MethodOrPropertyOverloadResolution<TMember>(
+        public void MethodOrPropertyOverloadResolution<TMember>(
             ArrayBuilder<TMember> members,
             ArrayBuilder<TypeSymbol> typeArguments,
             AnalyzedArguments arguments,
@@ -2240,10 +2240,10 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private struct EffectiveParameters
         {
-            internal readonly ImmutableArray<TypeSymbol> ParameterTypes;
-            internal readonly ImmutableArray<RefKind> ParameterRefKinds;
+            public readonly ImmutableArray<TypeSymbol> ParameterTypes;
+            public readonly ImmutableArray<RefKind> ParameterRefKinds;
 
-            internal EffectiveParameters(ImmutableArray<TypeSymbol> types, ImmutableArray<RefKind> refKinds)
+            public EffectiveParameters(ImmutableArray<TypeSymbol> types, ImmutableArray<RefKind> refKinds)
             {
                 ParameterTypes = types;
                 ParameterRefKinds = refKinds;
@@ -2390,7 +2390,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new EffectiveParameters(types.ToImmutableAndFree(), refKinds);
         }
 
-        internal MemberResolutionResult<TMember> IsMemberApplicableInNormalForm<TMember>(
+        public MemberResolutionResult<TMember> IsMemberApplicableInNormalForm<TMember>(
             TMember member,                // method or property
             TMember leastOverriddenMember, // method or property
             ArrayBuilder<TypeSymbol> typeArguments,

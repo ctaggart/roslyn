@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// treats assignments in the region as unassigning the variable would
     /// cause "unassigned" errors outside the region.
     /// </summary>
-    internal class DataFlowsOutWalker : AbstractRegionDataFlowPass
+    public class DataFlowsOutWalker : AbstractRegionDataFlowPass
     {
         private readonly ImmutableArray<ISymbol> _dataFlowsIn;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _dataFlowsIn = dataFlowsIn;
         }
 
-        internal static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion, HashSet<Symbol> unassignedVariables, ImmutableArray<ISymbol> dataFlowsIn)
+        public static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion, HashSet<Symbol> unassignedVariables, ImmutableArray<ISymbol> dataFlowsIn)
         {
             var walker = new DataFlowsOutWalker(compilation, member, node, firstInRegion, lastInRegion, unassignedVariables, dataFlowsIn);
             try

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Globalization;
@@ -10,9 +10,9 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.DocumentationComments
 {
-    internal static class PEDocumentationCommentUtils
+    public static class PEDocumentationCommentUtils
     {
-        internal static string GetDocumentationComment(
+        public static string GetDocumentationComment(
             Symbol symbol,
             PEModuleSymbol containingPEModule,
             CultureInfo preferredCulture,

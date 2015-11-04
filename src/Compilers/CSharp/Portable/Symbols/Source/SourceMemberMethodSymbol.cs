@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SourceMemberMethodSymbol : SourceMethodSymbol
+    public sealed class SourceMemberMethodSymbol : SourceMethodSymbol
     {
         private readonly ImmutableArray<TypeParameterSymbol> _typeParameters;
         private readonly TypeSymbol _explicitInterfaceType;
@@ -359,7 +359,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // This is also used for async lambdas.  Probably not the best place to locate this method, but where else could it go?
-        internal static void ReportAsyncParameterErrors(MethodSymbol method, DiagnosticBag diagnostics, Location location)
+        public static void ReportAsyncParameterErrors(MethodSymbol method, DiagnosticBag diagnostics, Location location)
         {
             if (method.IsAsync)
             {
@@ -451,7 +451,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             MethodChecks(syntax, withTypeParamsBinder, diagnostics);
         }
 
-        internal MethodDeclarationSyntax GetSyntax()
+        public MethodDeclarationSyntax GetSyntax()
         {
             Debug.Assert(syntaxReferenceOpt != null);
             return (MethodDeclarationSyntax)syntaxReferenceOpt.GetSyntax();
@@ -462,13 +462,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _typeParameters; }
         }
 
-        internal TypeParameterConstraintKind GetTypeParameterConstraints(int ordinal)
+        public TypeParameterConstraintKind GetTypeParameterConstraints(int ordinal)
         {
             var clause = this.GetTypeParameterConstraintClause(ordinal);
             return (clause != null) ? clause.Constraints : TypeParameterConstraintKind.None;
         }
 
-        internal ImmutableArray<TypeSymbol> GetTypeParameterConstraintTypes(int ordinal)
+        public ImmutableArray<TypeSymbol> GetTypeParameterConstraintTypes(int ordinal)
         {
             var clause = this.GetTypeParameterConstraintClause(ordinal);
             return (clause != null) ? clause.ConstraintTypes : ImmutableArray<TypeSymbol>.Empty;
@@ -545,7 +545,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override int ParameterCount
+        public override int ParameterCount
         {
             get
             {
@@ -571,7 +571,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static void InitializePartialMethodParts(SourceMemberMethodSymbol definition, SourceMemberMethodSymbol implementation)
+        public static void InitializePartialMethodParts(SourceMemberMethodSymbol definition, SourceMemberMethodSymbol implementation)
         {
             Debug.Assert(definition.IsPartialDefinition);
             Debug.Assert(implementation.IsPartialImplementation);
@@ -585,7 +585,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// If this is a partial implementation part returns the definition part and vice versa.
         /// </summary>
-        internal SourceMemberMethodSymbol OtherPartOfPartial
+        public SourceMemberMethodSymbol OtherPartOfPartial
         {
             get { return _otherPartOfPartial; }
         }
@@ -593,7 +593,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this symbol represents a partial method definition (the part that specifies a signature but no body).
         /// </summary>
-        internal bool IsPartialDefinition
+        public bool IsPartialDefinition
         {
             get
             {
@@ -605,7 +605,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if this symbol represents a partial method implementation (the part that specifies both signature and body).
         /// </summary>
-        internal bool IsPartialImplementation
+        public bool IsPartialImplementation
         {
             get
             {
@@ -617,7 +617,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this is a partial method that doesn't have an implementation part.
         /// </summary>
-        internal bool IsPartialWithoutImplementation
+        public bool IsPartialWithoutImplementation
         {
             get
             {
@@ -629,7 +629,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns the implementation part of a partial method definition, 
         /// or null if this is not a partial method or it is the definition part.
         /// </summary>
-        internal SourceMemberMethodSymbol SourcePartialDefinition
+        public SourceMemberMethodSymbol SourcePartialDefinition
         {
             get
             {
@@ -641,7 +641,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns the definition part of a partial method implementation, 
         /// or null if this is not a partial method or it is the implementation part.
         /// </summary>
-        internal SourceMemberMethodSymbol SourcePartialImplementation
+        public SourceMemberMethodSymbol SourcePartialImplementation
         {
             get
             {
@@ -670,7 +670,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return SourceDocumentationCommentUtils.GetAndCacheDocumentationComment(this.SourcePartialImplementation ?? this, expandIncludes, ref lazyDocComment);
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get
             {
@@ -712,7 +712,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public override OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             if ((object)this.SourcePartialImplementation != null)
             {
@@ -738,7 +738,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExpressionBodied
+        public override bool IsExpressionBodied
         {
             get { return _isExpressionBodied; }
         }
@@ -953,7 +953,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -968,7 +968,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             var implementingPart = this.SourcePartialImplementation;
             if ((object)implementingPart != null)
@@ -979,7 +979,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             base.ForceComplete(locationOpt, cancellationToken);
         }
 
-        internal override void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
+        public override void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
         {
             // Check constraints on return type and parameters. Note: Dev10 uses the
             // method name location for any such errors. We'll do the same for return
@@ -1065,7 +1065,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return MemberSignatureComparer.HaveSameConstraints(typeParameters1, typeMap1, typeParameters2, typeMap2);
         }
 
-        internal override bool CallsAreOmitted(SyntaxTree syntaxTree)
+        public override bool CallsAreOmitted(SyntaxTree syntaxTree)
         {
             if (this.IsPartialWithoutImplementation)
             {
@@ -1075,6 +1075,6 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return base.CallsAreOmitted(syntaxTree);
         }
 
-        internal override bool GenerateDebugInfo => !IsAsync && !IsIterator;
+        public override bool GenerateDebugInfo => !IsAsync && !IsIterator;
     }
 }

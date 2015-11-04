@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Symbol
+    public partial class Symbol
     {
         /// <summary>
         /// Gets the attributes for this symbol. Returns an empty <see cref="ImmutableArray&lt;AttributeData&gt;"/> if
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// an invalid AttributeTargets value of 0
         /// </summary>
         /// <returns>AttributeTargets or 0</returns>
-        internal virtual AttributeTargets GetAttributeTarget()
+        public virtual AttributeTargets GetAttributeTarget()
         {
             switch (this.Kind)
             {
@@ -113,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// NOTE: If you are early decoding any new well-known attribute, make sure to update PostEarlyDecodeWellKnownAttributeTypes 
         /// to default initialize this data.
         /// </remarks>
-        internal virtual void EarlyDecodeWellKnownAttributeType(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax)
+        public virtual void EarlyDecodeWellKnownAttributeType(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax)
         {
         }
 
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// This method is called during attribute binding after EarlyDecodeWellKnownAttributeTypes has been executed.
         /// Symbols should default initialize the data for early decoded well-known attributes here.
         /// </summary>
-        internal virtual void PostEarlyDecodeWellKnownAttributeTypes()
+        public virtual void PostEarlyDecodeWellKnownAttributeTypes()
         {
         }
 
@@ -132,12 +132,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Early decoding certain well-known attributes enables the binder to use this decoded information on this symbol
         /// when binding the attribute arguments/attribute constructor without causing attribute binding cycle.
         /// </summary>
-        internal virtual CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public virtual CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             return null;
         }
 
-        internal bool EarlyDecodeDeprecatedOrObsoleteAttribute(
+        public bool EarlyDecodeDeprecatedOrObsoleteAttribute(
             ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments,
             out CSharpAttributeData attributeData,
             out ObsoleteAttributeData obsoleteData)
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// this (base) method.
         /// </para>
         /// </remarks>
-        internal virtual void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public virtual void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
         }
 
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="diagnostics">Diagnostic bag.</param>
         /// <param name="symbolPart">Specific part of the symbol to which the attributes apply, or <see cref="AttributeLocation.None"/> if the attributes apply to the symbol itself.</param>
         /// <param name="decodedData">Decoded well-known attribute data, could be null.</param>
-        internal virtual void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
+        public virtual void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
         {
         }
 
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="symbolPart">Specific part of the symbol to which the attributes apply, or <see cref="AttributeLocation.None"/> if the attributes apply to the symbol itself.</param>
         /// <param name="earlyDecodingOnly">Indicates that only early decoding should be performed.  WARNING: the resulting bag will not be sealed.</param>
         /// <returns>Flag indicating whether lazyCustomAttributes were stored on this thread. Caller should check for this flag and perform NotePartComplete if true.</returns>
-        internal bool LoadAndValidateAttributes(
+        public bool LoadAndValidateAttributes(
             OneOrMany<SyntaxList<AttributeListSyntax>> attributesSyntaxLists,
             ref CustomAttributesBag<CSharpAttributeData> lazyCustomAttributesBag,
             AttributeLocation symbolPart = AttributeLocation.None,
@@ -524,7 +524,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Early decoding certain well-known attributes enables the binder to use this decoded information on this symbol
         /// when binding the attribute arguments/attribute constructor without causing attribute binding cycle.
         /// </summary>
-        internal EarlyWellKnownAttributeData EarlyDecodeWellKnownAttributes(
+        public EarlyWellKnownAttributeData EarlyDecodeWellKnownAttributes(
             ImmutableArray<Binder> binders,
             ImmutableArray<NamedTypeSymbol> boundAttributeTypes,
             ImmutableArray<AttributeSyntax> attributesToBind,
@@ -700,7 +700,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Ensure that attributes are bound and the ObsoleteState of this symbol is known.
         /// </summary>
-        internal void ForceCompleteObsoleteAttribute()
+        public void ForceCompleteObsoleteAttribute()
         {
             if (this.ObsoleteState == ThreeState.Unknown)
             {

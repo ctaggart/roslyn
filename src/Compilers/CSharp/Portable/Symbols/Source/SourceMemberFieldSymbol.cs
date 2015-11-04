@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Emit;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal class SourceMemberFieldSymbol : SourceFieldSymbolWithSyntaxReference
+    public class SourceMemberFieldSymbol : SourceFieldSymbolWithSyntaxReference
     {
         private readonly DeclarationModifiers _modifiers;
         private readonly bool _hasInitializer;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private ImmutableArray<CustomModifier> _lazyCustomModifiers;
 
-        internal SourceMemberFieldSymbol(
+        public SourceMemberFieldSymbol(
             SourceMemberContainerTypeSymbol containingType,
             VariableDeclaratorSyntax declarator,
             DeclarationModifiers modifiers,
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasPointerType
+        public override bool HasPointerType
         {
             get
             {
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal sealed override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
+        public sealed override TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound)
         {
             Debug.Assert(fieldsBeingBound != null);
 
@@ -312,7 +312,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyType;
         }
 
-        internal bool FieldTypeInferred(ConsList<FieldSymbol> fieldsBeingBound)
+        public bool FieldTypeInferred(ConsList<FieldSymbol> fieldsBeingBound)
         {
             if (!ContainingType.IsScriptClass)
             {
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyFieldTypeInferred != 0 || Volatile.Read(ref _lazyFieldTypeInferred) != 0;
         }
 
-        internal override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -376,7 +376,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static DeclarationModifiers MakeModifiers(NamedTypeSymbol containingType, SyntaxToken firstIdentifier, SyntaxTokenList modifiers, DiagnosticBag diagnostics, out bool modifierErrors)
+        public static DeclarationModifiers MakeModifiers(NamedTypeSymbol containingType, SyntaxToken firstIdentifier, SyntaxTokenList modifiers, DiagnosticBag diagnostics, out bool modifierErrors)
         {
             DeclarationModifiers defaultAccess =
                 (containingType.IsInterface) ? DeclarationModifiers.Public : DeclarationModifiers.Private;
@@ -487,7 +487,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public sealed override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             while (true)
             {
@@ -524,13 +524,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
+        public override NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
         {
             Debug.Assert(!this.IsFixed, "Subclasses representing fixed fields must override");
             return null;
         }
 
-        internal override bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
+        public override bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (this.SyntaxTree == tree)
             {

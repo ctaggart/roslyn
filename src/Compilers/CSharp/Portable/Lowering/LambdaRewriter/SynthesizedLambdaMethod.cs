@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,11 +10,11 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A method that results from the translation of a single lambda expression.
     /// </summary>
-    internal sealed class SynthesizedLambdaMethod : SynthesizedMethodBaseSymbol, ISynthesizedMethodBodyImplementationSymbol
+    public sealed class SynthesizedLambdaMethod : SynthesizedMethodBaseSymbol, ISynthesizedMethodBodyImplementationSymbol
     {
         private readonly MethodSymbol _topLevelMethod;
 
-        internal SynthesizedLambdaMethod(
+        public SynthesizedLambdaMethod(
             NamedTypeSymbol containingType,
             ClosureKind closureKind,
             MethodSymbol topLevelMethod,
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 lambdaId.Generation);
         }
 
-        internal override int ParameterCount => this.BaseMethod.ParameterCount;
+        public override int ParameterCount => this.BaseMethod.ParameterCount;
 
         // The lambda symbol might have declared no parameters in the case
         //
@@ -82,11 +82,11 @@ namespace Microsoft.CodeAnalysis.CSharp
         // UNDONE: names from the delegate. Does it really matter?
         protected override ImmutableArray<ParameterSymbol> BaseMethodParameters => this.BaseMethod.Parameters;
 
-        internal override bool GenerateDebugInfo => !this.IsAsync;
-        internal override bool IsExpressionBodied => false;
-        internal MethodSymbol TopLevelMethod => _topLevelMethod;
+        public override bool GenerateDebugInfo => !this.IsAsync;
+        public override bool IsExpressionBodied => false;
+        public MethodSymbol TopLevelMethod => _topLevelMethod;
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             // Syntax offset of a syntax node contained in a lambda body is calculated by the containing top-level method.
             // The offset is thus relative to the top-level method body start.

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Roslyn.Utilities;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class IteratorMethodToStateMachineRewriter
+    public partial class IteratorMethodToStateMachineRewriter
     {
         /// <summary>
         /// Analyses method body for yields in try blocks and labels that they contain.
@@ -47,7 +47,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// Labels reachable from within this frame without invoking its finally. 
             /// null if there are none such labels.
             /// </summary>
-            internal HashSet<LabelSymbol> Labels(BoundTryStatement statement)
+            public HashSet<LabelSymbol> Labels(BoundTryStatement statement)
             {
                 return _labelsInYieldingTrys[statement];
             }
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Analyses method body for labels.
     /// </summary>
-    internal abstract class LabelCollector : BoundTreeWalkerWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
+    public abstract class LabelCollector : BoundTreeWalkerWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
     {
         // transient accumulator.
         protected HashSet<LabelSymbol> currentLabels;

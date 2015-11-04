@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CodeGen;
 using Microsoft.CodeAnalysis.Emit;
@@ -14,9 +14,9 @@ using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal static class EmitHelpers
+    public static class EmitHelpers
     {
-        internal static EmitDifferenceResult EmitDifference(
+        public static EmitDifferenceResult EmitDifference(
             CSharpCompilation compilation,
             EmitBaseline baseline,
             IEnumerable<SemanticEdit> edits,

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static partial class ErrorFacts
+    public static partial class ErrorFacts
     {
         private static readonly string s_titleSuffix = "_Title";
         private static readonly string s_descriptionSuffix = "_Description";
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return map.ToImmutableDictionary();
         }
 
-        internal static DiagnosticSeverity GetSeverity(ErrorCode code)
+        public static DiagnosticSeverity GetSeverity(ErrorCode code)
         {
             if (code == ErrorCode.Void)
             {
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static int GetWarningLevel(ErrorCode code)
+        public static int GetWarningLevel(ErrorCode code)
         {
             if (IsInfo(code) || IsHidden(code))
             {
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <returns>True if seeing the ErrorCode should prevent a delegate conversion
         /// from completing successfully.</returns>
-        internal static bool PreventsSuccessfulDelegateConversion(ErrorCode code)
+        public static bool PreventsSuccessfulDelegateConversion(ErrorCode code)
         {
             if (code == ErrorCode.Void || code == ErrorCode.Unknown)
             {
@@ -362,7 +362,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// WARNING: will resolve lazy diagnostics - do not call this before the member lists are completed
         /// or you could trigger infinite recursion.
         /// </remarks>
-        internal static bool PreventsSuccessfulDelegateConversion(DiagnosticBag diagnostics)
+        public static bool PreventsSuccessfulDelegateConversion(DiagnosticBag diagnostics)
         {
             foreach (Diagnostic diag in diagnostics.AsEnumerable()) // Checking the code would have resolved them anyway.
             {
@@ -375,7 +375,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool PreventsSuccessfulDelegateConversion(ImmutableArray<Diagnostic> diagnostics)
+        public static bool PreventsSuccessfulDelegateConversion(ImmutableArray<Diagnostic> diagnostics)
         {
             foreach (var diag in diagnostics)
             {

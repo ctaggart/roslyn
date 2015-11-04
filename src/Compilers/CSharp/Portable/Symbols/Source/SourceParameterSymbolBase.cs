@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Base class for all parameters that are emitted.
     /// </summary>
-    internal abstract class SourceParameterSymbolBase : ParameterSymbol
+    public abstract class SourceParameterSymbolBase : ParameterSymbol
     {
         private readonly Symbol _containingSymbol;
         private readonly ushort _ordinal;
@@ -55,9 +55,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _containingSymbol.ContainingAssembly; }
         }
 
-        internal abstract ConstantValue DefaultValueFromAttributes { get; }
+        public abstract ConstantValue DefaultValueFromAttributes { get; }
 
-        internal sealed override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public sealed override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             base.AddSynthesizedAttributes(compilationState, ref attributes);
 
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ushort CountOfCustomModifiersPrecedingByRef
+        public override ushort CountOfCustomModifiersPrecedingByRef
         {
             get
             {
@@ -91,6 +91,6 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams);
+        public abstract ParameterSymbol WithCustomModifiersAndParams(TypeSymbol newType, ImmutableArray<CustomModifier> newCustomModifiers, ushort countOfCustomModifiersPrecedingByRef, bool newIsParams);
     }
 }

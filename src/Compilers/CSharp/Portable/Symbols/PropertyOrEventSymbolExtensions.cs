@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,14 +12,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Helper methods that exist to share code between properties and events.
     /// </summary>
-    internal static class PEPropertyOrEventHelpers
+    public static class PEPropertyOrEventHelpers
     {
-        internal static ISet<PropertySymbol> GetPropertiesForExplicitlyImplementedAccessor(MethodSymbol accessor)
+        public static ISet<PropertySymbol> GetPropertiesForExplicitlyImplementedAccessor(MethodSymbol accessor)
         {
             return GetSymbolsForExplicitlyImplementedAccessor<PropertySymbol>(accessor);
         }
 
-        internal static ISet<EventSymbol> GetEventsForExplicitlyImplementedAccessor(MethodSymbol accessor)
+        public static ISet<EventSymbol> GetEventsForExplicitlyImplementedAccessor(MethodSymbol accessor)
         {
             return GetSymbolsForExplicitlyImplementedAccessor<EventSymbol>(accessor);
         }
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // Properties and events from metadata do not have explicit accessibility. Instead,
         // the accessibility reported for the PEPropertySymbol or PEEventSymbol is the most
         // restrictive level that is no more restrictive than the getter/adder and setter/remover.
-        internal static Accessibility GetDeclaredAccessibilityFromAccessors(MethodSymbol accessor1, MethodSymbol accessor2)
+        public static Accessibility GetDeclaredAccessibilityFromAccessors(MethodSymbol accessor1, MethodSymbol accessor2)
         {
             if ((object)accessor1 == null)
             {
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return GetDeclaredAccessibilityFromAccessors(accessor1.DeclaredAccessibility, accessor2.DeclaredAccessibility);
         }
 
-        internal static Accessibility GetDeclaredAccessibilityFromAccessors(Accessibility accessibility1, Accessibility accessibility2)
+        public static Accessibility GetDeclaredAccessibilityFromAccessors(Accessibility accessibility1, Accessibility accessibility2)
         {
             var minAccessibility = (accessibility1 > accessibility2) ? accessibility2 : accessibility1;
             var maxAccessibility = (accessibility1 > accessibility2) ? accessibility1 : accessibility2;

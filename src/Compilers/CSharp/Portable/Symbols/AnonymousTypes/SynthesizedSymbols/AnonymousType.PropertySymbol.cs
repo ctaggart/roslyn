@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -14,7 +14,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed partial class AnonymousTypeManager
+    public sealed partial class AnonymousTypeManager
     {
         /// <summary>
         /// Represents an anonymous type template's property symbol.
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             private readonly AnonymousTypePropertyGetAccessorSymbol _getMethod;
             private readonly FieldSymbol _backingField;
 
-            internal AnonymousTypePropertySymbol(AnonymousTypeTemplateSymbol container, AnonymousTypeField field, TypeSymbol fieldTypeSymbol)
+            public AnonymousTypePropertySymbol(AnonymousTypeTemplateSymbol container, AnonymousTypeField field, TypeSymbol fieldTypeSymbol)
             {
                 _containingType = container;
                 _type = fieldTypeSymbol;
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _backingField = new AnonymousTypeFieldSymbol(this);
             }
 
-            internal AnonymousTypePropertySymbol(AnonymousTypePublicSymbol container, AnonymousTypeField field)
+            public AnonymousTypePropertySymbol(AnonymousTypePublicSymbol container, AnonymousTypeField field)
             {
                 _containingType = container;
                 _type = field.Type;
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return _name; }
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+            public sealed override ObsoleteAttributeData ObsoleteAttributeData
             {
                 get { return null; }
             }
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return ImmutableArray<CustomModifier>.Empty; }
             }
 
-            internal override Microsoft.Cci.CallingConvention CallingConvention
+            public override Microsoft.Cci.CallingConvention CallingConvention
             {
                 get { return Microsoft.Cci.CallingConvention.HasThis; }
             }
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return Accessibility.Public; }
             }
 
-            internal override bool MustCallMethodsDirectly
+            public override bool MustCallMethodsDirectly
             {
                 get { return false; }
             }

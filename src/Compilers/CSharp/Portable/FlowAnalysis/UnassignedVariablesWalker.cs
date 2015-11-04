@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -11,14 +11,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// An analysis that computes the set of variables that may be used
     /// before being assigned anywhere within a method.
     /// </summary>
-    internal class UnassignedVariablesWalker : DataFlowPass
+    public class UnassignedVariablesWalker : DataFlowPass
     {
         private UnassignedVariablesWalker(CSharpCompilation compilation, Symbol member, BoundNode node)
             : base(compilation, member, node, new NeverEmptyStructTypeCache())
         {
         }
 
-        internal static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node,
+        public static HashSet<Symbol> Analyze(CSharpCompilation compilation, Symbol member, BoundNode node,
                                                 bool convertInsufficientExecutionStackExceptionToCancelledByStackGuardException = false)
         {
             var walker = new UnassignedVariablesWalker(compilation, member, node);

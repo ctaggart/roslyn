@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal struct SeparatedSyntaxListBuilder<TNode> where TNode : CSharpSyntaxNode
+    public struct SeparatedSyntaxListBuilder<TNode> where TNode : CSharpSyntaxNode
     {
         private readonly SyntaxListBuilder _builder;
 
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return new SeparatedSyntaxListBuilder<TNode>(8);
         }
 
-        internal SeparatedSyntaxListBuilder(SyntaxListBuilder builder)
+        public SeparatedSyntaxListBuilder(SyntaxListBuilder builder)
         {
             _builder = builder;
         }
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// In order to avoid creating a separate pool of SeparatedSyntaxListBuilders, we expose
         /// our underlying SyntaxListBuilder to SyntaxListPool.
         /// </remarks>
-        internal SyntaxListBuilder UnderlyingBuilder
+        public SyntaxListBuilder UnderlyingBuilder
         {
             get { return _builder; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,13 +10,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class LambdaRewriter
+    public partial class LambdaRewriter
     {
         /// <summary>
         /// Perform a first analysis pass in preparation for removing all lambdas from a method body.  The entry point is Analyze.
         /// The results of analysis are placed in the fields seenLambda, blockParent, variableBlock, captured, and captures.
         /// </summary>
-        internal sealed class Analysis : BoundTreeWalkerWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
+        public sealed class Analysis : BoundTreeWalkerWithStackGuardWithoutRecursionOnTheLeftOfBinaryOperator 
         {
             private readonly MethodSymbol _topLevelMethod;
 
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// <summary>
             /// Create the optimized plan for the location of lambda methods and whether scopes need access to parent scopes
             ///  </summary>
-            internal void ComputeLambdaScopesAndFrameCaptures()
+            public void ComputeLambdaScopesAndFrameCaptures()
             {
                 lambdaScopes = new Dictionary<LambdaSymbol, BoundNode>(ReferenceEqualityComparer.Instance);
                 needsParentFrame = new HashSet<BoundNode>();

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -7,11 +7,11 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal class SynthesizedInstanceConstructor : SynthesizedInstanceMethodSymbol
+    public class SynthesizedInstanceConstructor : SynthesizedInstanceMethodSymbol
     {
         private readonly NamedTypeSymbol _containingType;
 
-        internal SynthesizedInstanceConstructor(NamedTypeSymbol containingType)
+        public SynthesizedInstanceConstructor(NamedTypeSymbol containingType)
         {
             Debug.Assert((object)containingType != null);
             _containingType = containingType;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // Consider overriding when implementing a synthesized subclass.
         //
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return true; }
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ContainingType.IsAbstract ? Accessibility.Protected : Accessibility.Public; }
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -64,12 +64,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return WellKnownMemberNames.InstanceConstructorName; }
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get { return true; }
         }
 
-        internal sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public sealed override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool RequiresSecurityObject
+        public sealed override bool RequiresSecurityObject
         {
             get { return false; }
         }
@@ -98,22 +98,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public sealed override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return null; }
         }
 
-        internal sealed override bool HasDeclarativeSecurity
+        public sealed override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public sealed override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<TypeParameterSymbol>.Empty; }
         }
 
-        internal sealed override LexicalSortKey GetLexicalSortKey()
+        public sealed override LexicalSortKey GetLexicalSortKey()
         {
             //For the sake of matching the metadata output of the native compiler, make synthesized constructors appear last in the metadata.
             //This is not critical, but it makes it easier on tools that are comparing metadata.
@@ -220,12 +220,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
@@ -235,12 +235,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal sealed override Cci.CallingConvention CallingConvention
+        public sealed override Cci.CallingConvention CallingConvention
         {
             get { return Cci.CallingConvention.HasThis; }
         }
 
-        internal sealed override bool IsExplicitInterfaceImplementation
+        public sealed override bool IsExplicitInterfaceImplementation
         {
             get { return false; }
         }
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<MethodSymbol>.Empty; }
         }
 
-        internal sealed override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public sealed override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             var containingType = (SourceMemberContainerTypeSymbol)this.ContainingType;
             return containingType.CalculateSyntaxOffsetInSynthesizedConstructor(localPosition, localTree, isStatic: false);

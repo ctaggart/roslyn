@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,14 +9,14 @@ using Cci = Microsoft.Cci;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit.NoPia
 {
-    internal sealed class EmbeddedMethod : EmbeddedTypesManager.CommonEmbeddedMethod
+    public sealed class EmbeddedMethod : EmbeddedTypesManager.CommonEmbeddedMethod
     {
         public EmbeddedMethod(EmbeddedType containingType, MethodSymbol underlyingMethod) :
             base(containingType, underlyingMethod)
         {
         }
 
-        internal override EmbeddedTypesManager TypeManager
+        public override EmbeddedTypesManager TypeManager
         {
             get
             {

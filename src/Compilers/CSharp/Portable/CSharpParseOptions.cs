@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         public LanguageVersion LanguageVersion { get; private set; }
 
-        internal ImmutableArray<string> PreprocessorSymbols { get; private set; }
+        public ImmutableArray<string> PreprocessorSymbols { get; private set; }
 
         /// <summary>
         /// Gets the names of defined preprocessor symbols.
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal CSharpParseOptions(
+        public CSharpParseOptions(
             LanguageVersion languageVersion,
             DocumentationMode documentationMode,
             SourceCodeKind kind,
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // No validation
-        internal CSharpParseOptions(
+        public CSharpParseOptions(
             LanguageVersion languageVersion,
             DocumentationMode documentationMode,
             SourceCodeKind kind,
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool IsFeatureEnabled(MessageID feature)
+        public bool IsFeatureEnabled(MessageID feature)
         {
             string featureFlag = feature.RequiredFeature();
             if (featureFlag != null)

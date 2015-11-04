@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using System;
@@ -6,9 +6,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal struct CSharpTypeInfo : IEquatable<CSharpTypeInfo>
+    public struct CSharpTypeInfo : IEquatable<CSharpTypeInfo>
     {
-        internal static readonly CSharpTypeInfo None = new CSharpTypeInfo(null, null, Conversion.Identity);
+        public static readonly CSharpTypeInfo None = new CSharpTypeInfo(null, null, Conversion.Identity);
 
         // should be best guess if there is one, or error type if none.
         /// <summary>
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         public readonly Conversion ImplicitConversion;
 
-        internal CSharpTypeInfo(TypeSymbol type, TypeSymbol convertedType, Conversion implicitConversion)
+        public CSharpTypeInfo(TypeSymbol type, TypeSymbol convertedType, Conversion implicitConversion)
         {
             // When constructing the result for the Caas API, we expose the underlying symbols that
             // may have been hidden under error type, if the error type was immediate. We will

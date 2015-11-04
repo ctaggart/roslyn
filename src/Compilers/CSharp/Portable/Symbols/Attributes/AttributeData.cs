@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents an attribute applied to a Symbol.
     /// </summary>
-    internal abstract partial class CSharpAttributeData : AttributeData
+    public abstract partial class CSharpAttributeData : AttributeData
     {
         private ThreeState _lazyIsSecurityAttribute = ThreeState.Unknown;
 
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Compares the namespace and type name with the attribute's namespace and type name.
         /// Returns true if they are the same.
         /// </summary>
-        internal virtual bool IsTargetAttribute(string namespaceName, string typeName)
+        public virtual bool IsTargetAttribute(string namespaceName, string typeName)
         {
             if (!this.AttributeClass.Name.Equals(typeName))
             {
@@ -74,19 +74,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.AttributeClass.HasNameQualifier(namespaceName);
         }
 
-        internal bool IsTargetAttribute(Symbol targetSymbol, AttributeDescription description)
+        public bool IsTargetAttribute(Symbol targetSymbol, AttributeDescription description)
         {
             return GetTargetAttributeSignatureIndex(targetSymbol, description) != -1;
         }
 
-        internal abstract int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description);
+        public abstract int GetTargetAttributeSignatureIndex(Symbol targetSymbol, AttributeDescription description);
 
         /// <summary>
         /// Checks if an applied attribute with the given attributeType matches the namespace name and type name of the given early attribute's description
         /// and the attribute description has a signature with parameter count equal to the given attribute syntax's argument list count.
         /// NOTE: We don't allow early decoded attributes to have optional parameters.
         /// </summary>
-        internal static bool IsTargetEarlyAttribute(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax, AttributeDescription description)
+        public static bool IsTargetEarlyAttribute(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax, AttributeDescription description)
         {
             Debug.Assert(!attributeType.IsErrorType());
 
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // Security attributes, i.e. attributes derived from well-known SecurityAttribute, are matched by type, not constructor signature.
-        internal bool IsSecurityAttribute(CSharpCompilation compilation)
+        public bool IsSecurityAttribute(CSharpCompilation compilation)
         {
             if (_lazyIsSecurityAttribute == ThreeState.Unknown)
             {
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Attribute Decoding
 
-        internal void DecodeSecurityAttribute<T>(Symbol targetSymbol, CSharpCompilation compilation, ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public void DecodeSecurityAttribute<T>(Symbol targetSymbol, CSharpCompilation compilation, ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
             where T : WellKnownAttributeData, ISecurityAttributeTarget, new()
         {
             Debug.Assert(!this.HasErrors);
@@ -464,7 +464,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal void DecodeClassInterfaceAttribute(AttributeSyntax nodeOpt, DiagnosticBag diagnostics)
+        public void DecodeClassInterfaceAttribute(AttributeSyntax nodeOpt, DiagnosticBag diagnostics)
         {
             Debug.Assert(!this.HasErrors);
 
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal void DecodeInterfaceTypeAttribute(AttributeSyntax node, DiagnosticBag diagnostics)
+        public void DecodeInterfaceTypeAttribute(AttributeSyntax node, DiagnosticBag diagnostics)
         {
             Debug.Assert(!this.HasErrors);
 
@@ -517,7 +517,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal string DecodeGuidAttribute(AttributeSyntax nodeOpt, DiagnosticBag diagnostics)
+        public string DecodeGuidAttribute(AttributeSyntax nodeOpt, DiagnosticBag diagnostics)
         {
             Debug.Assert(!this.HasErrors);
 
@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Some attributes appear in symbol model to reflect the source code,
         /// but should not be emitted.
         /// </summary>
-        internal bool ShouldEmitAttribute(Symbol target, bool isReturnType, bool emittingAssemblyAttributesInNetModule)
+        public bool ShouldEmitAttribute(Symbol target, bool isReturnType, bool emittingAssemblyAttributesInNetModule)
         {
             Debug.Assert(target is SourceAssemblySymbol || target.ContainingAssembly is SourceAssemblySymbol);
 
@@ -661,9 +661,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal static class AttributeDataExtensions
+    public static class AttributeDataExtensions
     {
-        internal static int IndexOfAttribute(this ImmutableArray<CSharpAttributeData> attributes, Symbol targetSymbol, AttributeDescription description)
+        public static int IndexOfAttribute(this ImmutableArray<CSharpAttributeData> attributes, Symbol targetSymbol, AttributeDescription description)
         {
             for (int i = 0; i < attributes.Length; i++)
             {
@@ -676,13 +676,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return -1;
         }
 
-        internal static CSharpSyntaxNode GetAttributeArgumentSyntax(this AttributeData attribute, int parameterIndex, AttributeSyntax attributeSyntax)
+        public static CSharpSyntaxNode GetAttributeArgumentSyntax(this AttributeData attribute, int parameterIndex, AttributeSyntax attributeSyntax)
         {
             Debug.Assert(attribute is SourceAttributeData);
             return ((SourceAttributeData)attribute).GetAttributeArgumentSyntax(parameterIndex, attributeSyntax);
         }
 
-        internal static Location GetAttributeArgumentSyntaxLocation(this AttributeData attribute, int parameterIndex, AttributeSyntax attributeSyntaxOpt)
+        public static Location GetAttributeArgumentSyntaxLocation(this AttributeData attribute, int parameterIndex, AttributeSyntax attributeSyntaxOpt)
         {
             if (attributeSyntaxOpt == null)
             {

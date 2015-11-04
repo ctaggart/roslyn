@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class LookupSymbolsInfo : AbstractLookupSymbolsInfo<Symbol>
+    public sealed class LookupSymbolsInfo : AbstractLookupSymbolsInfo<Symbol>
     {
         // TODO: tune pool size.
         private const int poolSize = 64;

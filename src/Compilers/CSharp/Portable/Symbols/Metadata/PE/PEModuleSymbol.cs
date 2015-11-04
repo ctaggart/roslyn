@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// <summary>
     /// Represents a net-module imported from a PE. Can be a primary module of an assembly.
     /// </summary>
-    internal sealed class PEModuleSymbol : NonMissingModuleSymbol
+    public sealed class PEModuleSymbol : NonMissingModuleSymbol
     {
         /// <summary>
         /// Owning AssemblySymbol. This can be a PEAssemblySymbol or a SourceAssemblySymbol.
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// for metadata coming from this module. The map is lazily populated
         /// as we load types from the module.
         /// </summary>
-        internal readonly ConcurrentDictionary<TypeDefinitionHandle, TypeSymbol> TypeHandleToTypeMap =
+        public readonly ConcurrentDictionary<TypeDefinitionHandle, TypeSymbol> TypeHandleToTypeMap =
                                     new ConcurrentDictionary<TypeDefinitionHandle, TypeSymbol>(concurrencyLevel: 2, capacity: DefaultTypeMapCapacity);
 
         /// <summary>
@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// for metadata coming from this module. The map is lazily populated
         /// by <see cref="MetadataDecoder"/> as we resolve TypeRefs from the module.
         /// </summary>
-        internal readonly ConcurrentDictionary<TypeReferenceHandle, TypeSymbol> TypeRefHandleToTypeMap =
+        public readonly ConcurrentDictionary<TypeReferenceHandle, TypeSymbol> TypeRefHandleToTypeMap =
                                     new ConcurrentDictionary<TypeReferenceHandle, TypeSymbol>(concurrencyLevel: 2, capacity: DefaultTypeMapCapacity);
 
-        internal readonly ImmutableArray<MetadataLocation> MetadataLocation;
+        public readonly ImmutableArray<MetadataLocation> MetadataLocation;
 
-        internal readonly MetadataImportOptions ImportOptions;
+        public readonly MetadataImportOptions ImportOptions;
 
         /// <summary>
         /// Module's custom attributes
@@ -88,19 +88,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         // Namespace names from module
         private ICollection<string> _lazyNamespaceNames;
 
-        internal PEModuleSymbol(PEAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
+        public PEModuleSymbol(PEAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
             : this((AssemblySymbol)assemblySymbol, module, importOptions, ordinal)
         {
             Debug.Assert(ordinal >= 0);
         }
 
-        internal PEModuleSymbol(SourceAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
+        public PEModuleSymbol(SourceAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
             : this((AssemblySymbol)assemblySymbol, module, importOptions, ordinal)
         {
             Debug.Assert(ordinal > 0);
         }
 
-        internal PEModuleSymbol(RetargetingAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
+        public PEModuleSymbol(RetargetingAssemblySymbol assemblySymbol, PEModule module, MetadataImportOptions importOptions, int ordinal)
             : this((AssemblySymbol)assemblySymbol, module, importOptions, ordinal)
         {
             Debug.Assert(ordinal > 0);
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             this.MetadataLocation = ImmutableArray.Create<MetadataLocation>(new MetadataLocation(this));
         }
 
-        internal override int Ordinal
+        public override int Ordinal
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override Machine Machine
+        public override Machine Machine
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool Bit32Required
+        public override bool Bit32Required
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal PEModule Module
+        public PEModule Module
         {
             get
             {
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyCustomAttributes;
         }
 
-        internal ImmutableArray<CSharpAttributeData> GetAssemblyAttributes()
+        public ImmutableArray<CSharpAttributeData> GetAssemblyAttributes()
         {
             if (_lazyAssemblyAttributes.IsDefault)
             {
@@ -251,13 +251,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return _lazyAssemblyAttributes;
         }
 
-        internal void LoadCustomAttributes(EntityHandle token, ref ImmutableArray<CSharpAttributeData> customAttributes)
+        public void LoadCustomAttributes(EntityHandle token, ref ImmutableArray<CSharpAttributeData> customAttributes)
         {
             var loaded = GetCustomAttributesForToken(token);
             ImmutableInterlocked.InterlockedInitialize(ref customAttributes, loaded);
         }
 
-        internal void LoadCustomAttributesFilterExtensions(EntityHandle token,
+        public void LoadCustomAttributesFilterExtensions(EntityHandle token,
             ref ImmutableArray<CSharpAttributeData> customAttributes,
             out bool foundExtension)
         {
@@ -265,7 +265,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             ImmutableInterlocked.InterlockedInitialize(ref customAttributes, loadedCustomAttributes);
         }
 
-        internal void LoadCustomAttributesFilterExtensions(EntityHandle token,
+        public void LoadCustomAttributesFilterExtensions(EntityHandle token,
             ref ImmutableArray<CSharpAttributeData> customAttributes)
         {
             // Ignore whether or not extension attributes were found
@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// for the ParamArrayAttribute if any is found and is null otherwise. This allows NoPia to filter
         /// the attribute out for the symbol but still cache it separately for emit.
         /// </summary>
-        internal ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token,
+        public ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token,
             out CustomAttributeHandle filteredOutAttribute1,
             AttributeDescription filterOut1,
             out CustomAttributeHandle filteredOutAttribute2,
@@ -336,7 +336,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return ImmutableArray<CSharpAttributeData>.Empty;
         }
 
-        internal ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token)
+        public ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token)
         {
             // Do not filter anything and therefore ignore the out results
             CustomAttributeHandle ignore1;
@@ -354,7 +354,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <param name="token">The parameter token handle.</param>
         /// <param name="paramArrayAttribute">Set to a ParamArrayAttribute</param>
         /// CustomAttributeHandle if any are found. Nil token otherwise.
-        internal ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token,
+        public ImmutableArray<CSharpAttributeData> GetCustomAttributesForToken(EntityHandle token,
             out CustomAttributeHandle paramArrayAttribute)
         {
             CustomAttributeHandle ignore;
@@ -367,7 +367,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
 
-        internal bool HasAnyCustomAttributes(EntityHandle token)
+        public bool HasAnyCustomAttributes(EntityHandle token)
         {
             try
             {
@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return false;
         }
 
-        internal TypeSymbol TryDecodeAttributeWithTypeArgument(EntityHandle handle, AttributeDescription attributeDescription)
+        public TypeSymbol TryDecodeAttributeWithTypeArgument(EntityHandle handle, AttributeDescription attributeDescription)
         {
             string typeName;
             if (_module.HasStringValuedAttribute(handle, attributeDescription, out typeName))
@@ -399,7 +399,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <param name="token"></param>
         /// <param name="foundExtension">True if we found an extension method, false otherwise.</param>
         /// <returns>The attributes on the token, minus any ExtensionAttributes.</returns>
-        internal ImmutableArray<CSharpAttributeData> GetCustomAttributesFilterExtensions(EntityHandle token, out bool foundExtension)
+        public ImmutableArray<CSharpAttributeData> GetCustomAttributesFilterExtensions(EntityHandle token, out bool foundExtension)
         {
             CustomAttributeHandle extensionAttribute;
             CustomAttributeHandle ignore;
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return result;
         }
 
-        internal void OnNewTypeDeclarationsLoaded(
+        public void OnNewTypeDeclarationsLoaded(
             Dictionary<string, ImmutableArray<PENamedTypeSymbol>> typesDict)
         {
             bool keepLookingForDeclaredCorTypes = (_ordinal == 0 && _assemblySymbol.KeepLookingForDeclaredSpecialTypes);
@@ -436,7 +436,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ICollection<string> TypeNames
+        public override ICollection<string> TypeNames
         {
             get
             {
@@ -449,7 +449,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ICollection<string> NamespaceNames
+        public override ICollection<string> NamespaceNames
         {
             get
             {
@@ -462,12 +462,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
+        public override ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
         {
             return _module.GetHash(algorithmId);
         }
 
-        internal DocumentationProvider DocumentationProvider
+        public DocumentationProvider DocumentationProvider
         {
             get
             {
@@ -484,7 +484,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
 
-        internal NamedTypeSymbol EventRegistrationToken
+        public NamedTypeSymbol EventRegistrationToken
         {
             get
             {
@@ -502,7 +502,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         }
 
 
-        internal NamedTypeSymbol EventRegistrationTokenTable_T
+        public NamedTypeSymbol EventRegistrationTokenTable_T
         {
             get
             {
@@ -519,7 +519,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal NamedTypeSymbol SystemTypeSymbol
+        public NamedTypeSymbol SystemTypeSymbol
         {
             get
             {
@@ -588,7 +588,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return candidate.Kind != SymbolKind.ErrorType || !(candidate is MissingMetadataTypeSymbol);
         }
 
-        internal override bool HasAssemblyCompilationRelaxationsAttribute
+        public override bool HasAssemblyCompilationRelaxationsAttribute
         {
             get
             {
@@ -597,7 +597,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override bool HasAssemblyRuntimeCompatibilityAttribute
+        public override bool HasAssemblyRuntimeCompatibilityAttribute
         {
             get
             {
@@ -606,7 +606,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override CharSet? DefaultMarshallingCharSet
+        public override CharSet? DefaultMarshallingCharSet
         {
             get
             {
@@ -615,12 +615,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }
 
-        internal NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName, out bool isNoPiaLocalType)
+        public NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName, out bool isNoPiaLocalType)
         {
             NamedTypeSymbol result;
             PENamespaceSymbol scope = (PENamespaceSymbol)this.GlobalNamespace.LookupNestedNamespace(emittedName.NamespaceSegments);
@@ -649,7 +649,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <remarks>
         /// The returned assembly may also forward the type.
         /// </remarks>
-        internal AssemblySymbol GetAssemblyForForwardedType(ref MetadataTypeName fullName)
+        public AssemblySymbol GetAssemblyForForwardedType(ref MetadataTypeName fullName)
         {
             try
             {
@@ -663,7 +663,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal IEnumerable<NamedTypeSymbol> GetForwardedTypes()
+        public IEnumerable<NamedTypeSymbol> GetForwardedTypes()
         {
             foreach (KeyValuePair<string, AssemblyReferenceHandle> forwarder in Module.GetForwardedTypes())
             {

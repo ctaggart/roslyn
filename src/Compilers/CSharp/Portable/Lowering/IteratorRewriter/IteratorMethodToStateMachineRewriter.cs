@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class IteratorMethodToStateMachineRewriter : MethodToStateMachineRewriter
+    public sealed partial class IteratorMethodToStateMachineRewriter : MethodToStateMachineRewriter
     {
         /// <summary>
         /// The field of the generated iterator class that underlies the Current property.
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         private int _nextFinalizeState = StateMachineStates.FinishedStateMachine - 1;  // -3
 
-        internal IteratorMethodToStateMachineRewriter(
+        public IteratorMethodToStateMachineRewriter(
             SyntheticBoundNodeFactory F,
             MethodSymbol originalMethod,
             FieldSymbol state,
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _current = current;
         }
 
-        internal void GenerateMoveNextAndDispose(BoundStatement body, SynthesizedImplementationMethod moveNextMethod, SynthesizedImplementationMethod disposeMethod)
+        public void GenerateMoveNextAndDispose(BoundStatement body, SynthesizedImplementationMethod moveNextMethod, SynthesizedImplementationMethod disposeMethod)
         {
             // scan body for yielding try blocks
             _yieldsInTryAnalysis = new YieldsInTryAnalysis(body);

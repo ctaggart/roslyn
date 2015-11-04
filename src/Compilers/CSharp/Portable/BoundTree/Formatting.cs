@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal abstract partial class BoundExpression
+    public abstract partial class BoundExpression
     {
         /// <summary>
         /// Returns a serializable object that is used for displaying this expression in a diagnostic message.
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundArgListOperator
+    public sealed partial class BoundArgListOperator
     {
         public override object Display
         {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundLiteral
+    public sealed partial class BoundLiteral
     {
         public override object Display
         {
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundLambda
+    public sealed partial class BoundLambda
     {
         public override object Display
         {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class UnboundLambda
+    public sealed partial class UnboundLambda
     {
         public override object Display
         {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundMethodGroup
+    public sealed partial class BoundMethodGroup
     {
         public override object Display
         {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundPropertyGroup
+    public sealed partial class BoundPropertyGroup
     {
         public override object Display
         {

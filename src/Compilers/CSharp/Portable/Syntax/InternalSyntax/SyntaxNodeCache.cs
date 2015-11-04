@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 // #define STATS
 
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     ///     and are not likely to be repetitive.
     ///     
     /// </summary>
-    internal class GreenStats
+    public class GreenStats
     {
         // TODO: remove when done tweaking this cache.
 #if STATS
@@ -85,28 +85,28 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             Console.WriteLine("RateOfCacheable: " + (cacheHits * 100 / (cacheableNodes)) + "%");
         }
 #else
-        internal static void NoteGreen(GreenNode node)
+        public static void NoteGreen(GreenNode node)
         {
         }
 
         [Conditional("DEBUG")]
-        internal static void ItemAdded()
+        public static void ItemAdded()
         {
         }
 
         [Conditional("DEBUG")]
-        internal static void ItemCacheable()
+        public static void ItemCacheable()
         {
         }
 
         [Conditional("DEBUG")]
-        internal static void CacheHit()
+        public static void CacheHit()
         {
         }
 #endif
     }
 
-    internal class SyntaxNodeCache
+    public class SyntaxNodeCache
     {
         private const int CacheSizeBits = 16;
         private const int CacheSize = 1 << CacheSizeBits;
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             public readonly int hash;
             public readonly GreenNode node;
 
-            internal Entry(int hash, GreenNode node)
+            public Entry(int hash, GreenNode node)
             {
                 this.hash = hash;
                 this.node = node;
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
         private static readonly Entry[] s_cache = new Entry[CacheSize];
 
-        internal static void AddNode(GreenNode node, int hash)
+        public static void AddNode(GreenNode node, int hash)
         {
             if (AllChildrenInCache(node) && !node.IsMissing)
             {
@@ -181,12 +181,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return true;
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, out int hash)
         {
             return TryGetNode(kind, child1, GetFlags(), out hash);
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, SyntaxFactoryContext context, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, SyntaxFactoryContext context, out int hash)
         {
             return TryGetNode(kind, child1, GetFlags(context), out hash);
         }
@@ -214,12 +214,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return null;
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, out int hash)
         {
             return TryGetNode(kind, child1, child2, GetFlags(), out hash);
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, SyntaxFactoryContext context, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, SyntaxFactoryContext context, out int hash)
         {
             return TryGetNode(kind, child1, child2, GetFlags(context), out hash);
         }
@@ -247,12 +247,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return null;
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, GreenNode child3, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, GreenNode child3, out int hash)
         {
             return TryGetNode(kind, child1, child2, child3, GetFlags(), out hash);
         }
 
-        internal static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, GreenNode child3, SyntaxFactoryContext context, out int hash)
+        public static GreenNode TryGetNode(int kind, GreenNode child1, GreenNode child2, GreenNode child3, SyntaxFactoryContext context, out int hash)
         {
             return TryGetNode(kind, child1, child2, child3, GetFlags(context), out hash);
         }

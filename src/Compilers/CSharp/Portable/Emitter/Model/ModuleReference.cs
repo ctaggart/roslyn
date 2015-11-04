@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,12 +10,12 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal sealed class ModuleReference : Cci.IModuleReference, Cci.IFileReference
+    public sealed class ModuleReference : Cci.IModuleReference, Cci.IFileReference
     {
         private readonly PEModuleBuilder _moduleBeingBuilt;
         private readonly ModuleSymbol _underlyingModule;
 
-        internal ModuleReference(PEModuleBuilder moduleBeingBuilt, ModuleSymbol underlyingModule)
+        public ModuleReference(PEModuleBuilder moduleBeingBuilt, ModuleSymbol underlyingModule)
         {
             Debug.Assert(moduleBeingBuilt != null);
             Debug.Assert((object)underlyingModule != null);

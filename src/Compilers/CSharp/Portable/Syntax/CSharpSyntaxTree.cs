@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// </summary>
     public abstract partial class CSharpSyntaxTree : SyntaxTree
     {
-        internal static readonly SyntaxTree Dummy = new DummySyntaxTree();
+        public static readonly SyntaxTree Dummy = new DummySyntaxTree();
 
         /// <summary>
         /// The options used by the parser to produce the syntax tree.
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SyntaxFactory.AreEquivalent(this, tree, topLevel);
         }
 
-        internal bool HasReferenceDirectives
+        public bool HasReferenceDirectives
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool HasReferenceOrLoadDirectives
+        public bool HasReferenceOrLoadDirectives
         {
             get
             {
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual bool SupportsLocations
+        public virtual bool SupportsLocations
         {
             get { return this.HasCompilationUnitRoot; }
         }
@@ -134,7 +134,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private bool _hasDirectives;
         private InternalSyntax.DirectiveStack _directives;
 
-        internal void SetDirectiveStack(InternalSyntax.DirectiveStack directives)
+        public void SetDirectiveStack(InternalSyntax.DirectiveStack directives)
         {
             _directives = directives;
             _hasDirectives = true;
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _directives;
         }
 
-        internal bool IsAnyPreprocessorSymbolDefined(ImmutableArray<string> conditionalSymbols)
+        public bool IsAnyPreprocessorSymbolDefined(ImmutableArray<string> conditionalSymbols)
         {
             Debug.Assert(conditionalSymbols != null);
 
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal bool IsPreprocessorSymbolDefined(string symbolName)
+        public bool IsPreprocessorSymbolDefined(string symbolName)
         {
             return IsPreprocessorSymbolDefined(GetDirectives(), symbolName);
         }
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         private ImmutableArray<InternalSyntax.DirectiveStack> _preprocessorStates;
 
-        internal bool IsPreprocessorSymbolDefined(string symbolName, int position)
+        public bool IsPreprocessorSymbolDefined(string symbolName, int position)
         {
             if (_preprocessorStateChangePositions.IsDefault)
             {
@@ -331,7 +331,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Creates a new syntax tree from a syntax node with text that should correspond to the syntax node.
         /// </summary>
         /// <remarks>This is used by the ExpressionEvaluator.</remarks>
-        internal static SyntaxTree CreateForDebugger(CSharpSyntaxNode root, SourceText text)
+        public static SyntaxTree CreateForDebugger(CSharpSyntaxNode root, SourceText text)
         {
             Debug.Assert(root != null);
 
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <para>NOTE: This method is only intended to be used from <see cref="CSharpSyntaxNode.SyntaxTree"/> property.</para>
         /// <para>NOTE: Do not use this method elsewhere, instead use <see cref="Create(CSharpSyntaxNode, CSharpParseOptions, string, Encoding)"/> method for creating a syntax tree.</para>
         /// </summary>
-        internal static SyntaxTree CreateWithoutClone(CSharpSyntaxNode root)
+        public static SyntaxTree CreateWithoutClone(CSharpSyntaxNode root)
         {
             Debug.Assert(root != null);
 
@@ -560,7 +560,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="span">The source <see cref="TextSpan" /> to convert.</param>
         /// <param name="isHiddenPosition">When the method returns, contains a boolean value indicating whether this span is considered hidden or not.</param>
         /// <returns>A resulting <see cref="FileLinePositionSpan"/>.</returns>
-        internal override FileLinePositionSpan GetMappedLineSpanAndVisibility(TextSpan span, out bool isHiddenPosition)
+        public override FileLinePositionSpan GetMappedLineSpanAndVisibility(TextSpan span, out bool isHiddenPosition)
         {
             if (_lazyLineDirectiveMap == null)
             {
@@ -591,7 +591,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <param name="id">Error code.</param>
         /// <param name="position">Source location.</param>
-        internal ReportDiagnostic GetPragmaDirectiveWarningState(string id, int position)
+        public ReportDiagnostic GetPragmaDirectiveWarningState(string id, int position)
         {
             if (_lazyPragmaWarningStateMap == null)
             {

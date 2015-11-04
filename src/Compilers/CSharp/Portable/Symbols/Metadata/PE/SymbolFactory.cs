@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 {
-    internal sealed class SymbolFactory : SymbolFactory<PEModuleSymbol, TypeSymbol>
+    public sealed class SymbolFactory : SymbolFactory<PEModuleSymbol, TypeSymbol>
     {
-        internal static readonly SymbolFactory Instance = new SymbolFactory();
+        public static readonly SymbolFactory Instance = new SymbolFactory();
 
-        internal override TypeSymbol GetMDArrayTypeSymbol(PEModuleSymbol moduleSymbol, int rank, TypeSymbol elementType, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers,
+        public override TypeSymbol GetMDArrayTypeSymbol(PEModuleSymbol moduleSymbol, int rank, TypeSymbol elementType, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers,
                                                           ImmutableArray<int> sizes, ImmutableArray<int> lowerBounds)
         {
             if (elementType is UnsupportedMetadataTypeSymbol)
@@ -22,22 +22,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return ArrayTypeSymbol.CreateMDArray(moduleSymbol.ContainingAssembly, elementType, rank, sizes, lowerBounds, CSharpCustomModifier.Convert(customModifiers));
         }
 
-        internal override TypeSymbol GetByRefReturnTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol referencedType, ushort countOfCustomModifiersPrecedingByRef)
+        public override TypeSymbol GetByRefReturnTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol referencedType, ushort countOfCustomModifiersPrecedingByRef)
         {
             return new ByRefReturnErrorTypeSymbol(referencedType, countOfCustomModifiersPrecedingByRef);
         }
 
-        internal override TypeSymbol GetSpecialType(PEModuleSymbol moduleSymbol, SpecialType specialType)
+        public override TypeSymbol GetSpecialType(PEModuleSymbol moduleSymbol, SpecialType specialType)
         {
             return moduleSymbol.ContainingAssembly.GetSpecialType(specialType);
         }
 
-        internal override TypeSymbol GetSystemTypeSymbol(PEModuleSymbol moduleSymbol)
+        public override TypeSymbol GetSystemTypeSymbol(PEModuleSymbol moduleSymbol)
         {
             return moduleSymbol.SystemTypeSymbol;
         }
 
-        internal override TypeSymbol MakePointerTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol type, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
+        public override TypeSymbol MakePointerTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol type, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
         {
             if (type is UnsupportedMetadataTypeSymbol)
             {
@@ -47,22 +47,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return new PointerTypeSymbol(type, CSharpCustomModifier.Convert(customModifiers));
         }
 
-        internal override TypeSymbol GetEnumUnderlyingType(PEModuleSymbol moduleSymbol, TypeSymbol type)
+        public override TypeSymbol GetEnumUnderlyingType(PEModuleSymbol moduleSymbol, TypeSymbol type)
         {
             return type.GetEnumUnderlyingType();
         }
 
-        internal override Cci.PrimitiveTypeCode GetPrimitiveTypeCode(PEModuleSymbol moduleSymbol, TypeSymbol type)
+        public override Cci.PrimitiveTypeCode GetPrimitiveTypeCode(PEModuleSymbol moduleSymbol, TypeSymbol type)
         {
             return type.PrimitiveTypeCode;
         }
 
-        internal override bool IsVolatileModifierType(PEModuleSymbol moduleSymbol, TypeSymbol type)
+        public override bool IsVolatileModifierType(PEModuleSymbol moduleSymbol, TypeSymbol type)
         {
             return type.SpecialType == SpecialType.System_Runtime_CompilerServices_IsVolatile;
         }
 
-        internal override TypeSymbol GetSZArrayTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol elementType, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
+        public override TypeSymbol GetSZArrayTypeSymbol(PEModuleSymbol moduleSymbol, TypeSymbol elementType, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
         {
             if (elementType is UnsupportedMetadataTypeSymbol)
             {
@@ -72,12 +72,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return ArrayTypeSymbol.CreateSZArray(moduleSymbol.ContainingAssembly, elementType, CSharpCustomModifier.Convert(customModifiers));
         }
 
-        internal override TypeSymbol GetUnsupportedMetadataTypeSymbol(PEModuleSymbol moduleSymbol, BadImageFormatException exception)
+        public override TypeSymbol GetUnsupportedMetadataTypeSymbol(PEModuleSymbol moduleSymbol, BadImageFormatException exception)
         {
             return new UnsupportedMetadataTypeSymbol(exception);
         }
 
-        internal override TypeSymbol SubstituteTypeParameters(
+        public override TypeSymbol SubstituteTypeParameters(
             PEModuleSymbol moduleSymbol,
             TypeSymbol genericTypeDef,
             ImmutableArray<KeyValuePair<TypeSymbol, ImmutableArray<ModifierInfo<TypeSymbol>>>> arguments,
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             return constructedType;
         }
 
-        internal override TypeSymbol MakeUnboundIfGeneric(PEModuleSymbol moduleSymbol, TypeSymbol type)
+        public override TypeSymbol MakeUnboundIfGeneric(PEModuleSymbol moduleSymbol, TypeSymbol type)
         {
             var namedType = type as NamedTypeSymbol;
             return ((object)namedType != null && namedType.IsGenericType) ? namedType.AsUnboundGenericType() : type;

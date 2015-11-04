@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -18,12 +18,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// field-like (see <see cref="SourceFieldLikeEventSymbol"/>) or property-like (see
     /// <see cref="SourceCustomEventSymbol"/>).
     /// </summary>
-    internal abstract class SourceEventSymbol : EventSymbol, IAttributeTargetSymbol
+    public abstract class SourceEventSymbol : EventSymbol, IAttributeTargetSymbol
     {
         private readonly Location _location;
         private readonly SyntaxReference _syntaxRef;
         private readonly DeclarationModifiers _modifiers;
-        internal readonly SourceMemberContainerTypeSymbol containingType;
+        public readonly SourceMemberContainerTypeSymbol containingType;
 
         protected SymbolCompletionState state;
         private CustomAttributesBag<CSharpAttributeData> _lazyCustomAttributesBag;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         // TODO: CLSCompliantAttribute
 
-        internal SourceEventSymbol(
+        public SourceEventSymbol(
             SourceMemberContainerTypeSymbol containingType,
             CSharpSyntaxNode syntax,
             SyntaxTokenList modifiers,
@@ -53,17 +53,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             this.CheckAccessibility(_location, diagnostics);
         }
 
-        internal sealed override bool RequiresCompletion
+        public sealed override bool RequiresCompletion
         {
             get { return true; }
         }
 
-        internal sealed override bool HasComplete(CompletionPart part)
+        public sealed override bool HasComplete(CompletionPart part)
         {
             return state.HasComplete(part);
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             state.DefaultForceComplete(this);
         }
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override LexicalSortKey GetLexicalSortKey()
+        public override LexicalSortKey GetLexicalSortKey()
         {
             return new LexicalSortKey(_location, this.DeclaringCompilation);
         }
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the syntax list of custom attributes applied on the event symbol.
         /// </summary>
-        internal SyntaxList<AttributeListSyntax> AttributeDeclarationSyntaxList
+        public SyntaxList<AttributeListSyntax> AttributeDeclarationSyntaxList
         {
             get
             {
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonEventWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public CommonEventWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -221,7 +221,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonEventEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
+        public CommonEventEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
 
@@ -233,7 +233,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return (CommonEventEarlyWellKnownAttributeData)attributesBag.EarlyDecodedWellKnownAttributeData;
         }
 
-        internal override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             CSharpAttributeData boundAttribute;
             ObsoleteAttributeData obsoleteData;
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Returns data decoded from Obsolete attribute or null if there is no Obsolete attribute.
         /// This property returns ObsoleteAttributeData.Uninitialized if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get
             {
@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public sealed override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             var attribute = arguments.Attribute;
             Debug.Assert(!attribute.HasErrors);
@@ -287,7 +287,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool HasSpecialName
+        public sealed override bool HasSpecialName
         {
             get
             {
@@ -331,32 +331,32 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ModifierUtils.EffectiveAccessibility(_modifiers); }
         }
 
-        internal sealed override bool MustCallMethodsDirectly
+        public sealed override bool MustCallMethodsDirectly
         {
             get { return false; } // always false for source events
         }
 
-        internal SyntaxReference SyntaxReference
+        public SyntaxReference SyntaxReference
         {
             get { return _syntaxRef; }
         }
 
-        internal CSharpSyntaxNode CSharpSyntaxNode
+        public CSharpSyntaxNode CSharpSyntaxNode
         {
             get { return (CSharpSyntaxNode)_syntaxRef.GetSyntax(); }
         }
 
-        internal SyntaxTree SyntaxTree
+        public SyntaxTree SyntaxTree
         {
             get { return _syntaxRef.SyntaxTree; }
         }
 
-        internal bool IsNew
+        public bool IsNew
         {
             get { return (_modifiers & DeclarationModifiers.New) != 0; }
         }
 
-        internal DeclarationModifiers Modifiers
+        public DeclarationModifiers Modifiers
         {
             get { return _modifiers; }
         }
@@ -506,7 +506,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -597,7 +597,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.IsCompilationOutputWinMdObj();
         }
 
-        internal static string GetAccessorName(string eventName, bool isAdder)
+        public static string GetAccessorName(string eventName, bool isAdder)
         {
             return (isAdder ? "add_" : "remove_") + eventName;
         }
@@ -612,7 +612,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return binder.BindType(typeSyntax, diagnostics);
         }
 
-        internal override void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
+        public override void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
         {
             this.CheckModifiersAndType(diagnostics);
             this.Type.CheckAllConstraints(conversions, this.Locations[0], diagnostics);

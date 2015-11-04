@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,14 +8,14 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CSharp
 {
     // pooled class used for input to overload resolution
-    internal sealed class MethodGroup
+    public sealed class MethodGroup
     {
-        internal BoundExpression Receiver { get; private set; }
-        internal ArrayBuilder<MethodSymbol> Methods { get; }
-        internal ArrayBuilder<TypeSymbol> TypeArguments { get; }
-        internal bool IsExtensionMethodGroup { get; private set; }
-        internal DiagnosticInfo Error { get; private set; }
-        internal LookupResultKind ResultKind { get; private set; }
+        public BoundExpression Receiver { get; private set; }
+        public ArrayBuilder<MethodSymbol> Methods { get; }
+        public ArrayBuilder<TypeSymbol> TypeArguments { get; }
+        public bool IsExtensionMethodGroup { get; private set; }
+        public DiagnosticInfo Error { get; private set; }
+        public LookupResultKind ResultKind { get; private set; }
 
         private MethodGroup()
         {
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.TypeArguments = new ArrayBuilder<TypeSymbol>();
         }
 
-        internal void PopulateWithSingleMethod(
+        public void PopulateWithSingleMethod(
             BoundExpression receiverOpt,
             MethodSymbol method,
             LookupResultKind resultKind = LookupResultKind.Viable,
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.Methods.Add(method);
         }
 
-        internal void PopulateWithExtensionMethods(
+        public void PopulateWithExtensionMethods(
             BoundExpression receiverOpt,
             ArrayBuilder<Symbol> members,
             ImmutableArray<TypeSymbol> typeArguments,
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void PopulateWithNonExtensionMethods(
+        public void PopulateWithNonExtensionMethods(
             BoundExpression receiverOpt,
             ImmutableArray<MethodSymbol> methods,
             ImmutableArray<TypeSymbol> typeArguments,

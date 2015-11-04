@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Indicates why the compiler accepted or rejected the member during overload resolution.
     /// </summary>
-    internal enum MemberResolutionKind : byte
+    public enum MemberResolutionKind : byte
     {
         /// <summary>
         /// No resolution has (yet) been determined.

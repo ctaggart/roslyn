@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// The base class to represent a namespace imported from a PE/module. Namespaces that differ
     /// only by casing in name are not merged.
     /// </summary>
-    internal abstract class PENamespaceSymbol
+    public abstract class PENamespaceSymbol
         : NamespaceSymbol
     {
         /// <summary>
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// </summary>
         private ImmutableArray<PENamedTypeSymbol> _lazyFlattenedTypes;
 
-        internal sealed override NamespaceExtent Extent
+        public sealed override NamespaceExtent Extent
         {
             get
             {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// Returns PEModuleSymbol containing the namespace.
         /// </summary>
         /// <returns>PEModuleSymbol containing the namespace.</returns>
-        internal abstract PEModuleSymbol ContainingPEModule { get; }
+        public abstract PEModuleSymbol ContainingPEModule { get; }
 
         protected abstract void EnsureAllMembersLoaded();
 
@@ -269,7 +269,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal NamedTypeSymbol LookupMetadataType(ref MetadataTypeName emittedTypeName, out bool isNoPiaLocalType)
+        public NamedTypeSymbol LookupMetadataType(ref MetadataTypeName emittedTypeName, out bool isNoPiaLocalType)
         {
             NamedTypeSymbol result = LookupMetadataType(ref emittedTypeName);
             isNoPiaLocalType = false;

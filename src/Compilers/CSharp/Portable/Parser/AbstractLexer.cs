@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using Microsoft.CodeAnalysis.Text;
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
     // separate out text windowing implementation (keeps scanning & lexing functions from abusing details)
-    internal class AbstractLexer : IDisposable
+    public class AbstractLexer : IDisposable
     {
-        internal readonly SlidingTextWindow TextWindow;
+        public readonly SlidingTextWindow TextWindow;
         private List<SyntaxDiagnosticInfo> _errors;
 
         protected AbstractLexer(SourceText text)

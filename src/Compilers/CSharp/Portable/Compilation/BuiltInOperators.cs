@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Internal cache of built-in operators.
     /// Cache is compilation-specific because it uses compilation-specific SpecialTypes.
     /// </summary>
-    internal class BuiltInOperators
+    public class BuiltInOperators
     {
         private readonly CSharpCompilation _compilation;
 
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private ImmutableArray<UnaryOperatorSignature>[] _builtInUnaryOperators;
         private ImmutableArray<BinaryOperatorSignature>[][] _builtInOperators;
 
-        internal BuiltInOperators(CSharpCompilation compilation)
+        public BuiltInOperators(CSharpCompilation compilation)
         {
             _compilation = compilation;
         }
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return builder.ToImmutableAndFree();
         }
 
-        internal void GetSimpleBuiltInOperators(UnaryOperatorKind kind, ArrayBuilder<UnaryOperatorSignature> operators)
+        public void GetSimpleBuiltInOperators(UnaryOperatorKind kind, ArrayBuilder<UnaryOperatorSignature> operators)
         {
             if (_builtInUnaryOperators == null)
             {
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             operators.AddRange(_builtInUnaryOperators[kind.OperatorIndex()]);
         }
 
-        internal UnaryOperatorSignature GetSignature(UnaryOperatorKind kind)
+        public UnaryOperatorSignature GetSignature(UnaryOperatorKind kind)
         {
             TypeSymbol opType = null;
             if (kind.IsLifted())
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return builder.ToImmutableAndFree();
         }
 
-        internal void GetSimpleBuiltInOperators(BinaryOperatorKind kind, ArrayBuilder<BinaryOperatorSignature> operators)
+        public void GetSimpleBuiltInOperators(BinaryOperatorKind kind, ArrayBuilder<BinaryOperatorSignature> operators)
         {
             if (_builtInOperators == null)
             {
@@ -566,7 +566,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             operators.AddRange(_builtInOperators[kind.IsLogical() ? 1 : 0][kind.OperatorIndex()]);
         }
 
-        internal BinaryOperatorSignature GetSignature(BinaryOperatorKind kind)
+        public BinaryOperatorSignature GetSignature(BinaryOperatorKind kind)
         {
             var left = LeftType(kind);
             switch (kind.Operator())
@@ -714,7 +714,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal static bool IsValidObjectEquality(Conversions Conversions, TypeSymbol leftType, bool leftIsNull, TypeSymbol rightType, bool rightIsNull, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
+        public static bool IsValidObjectEquality(Conversions Conversions, TypeSymbol leftType, bool leftIsNull, TypeSymbol rightType, bool rightIsNull, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             // SPEC: The predefined reference type equality operators require one of the following:
 

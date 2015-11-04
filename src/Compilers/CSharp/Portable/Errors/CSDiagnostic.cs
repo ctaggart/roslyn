@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 
@@ -7,9 +7,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A diagnostic, along with the location where it occurred.
     /// </summary>
-    internal sealed class CSDiagnostic : DiagnosticWithInfo
+    public sealed class CSDiagnostic : DiagnosticWithInfo
     {
-        internal CSDiagnostic(DiagnosticInfo info, Location location, bool isSuppressed = false)
+        public CSDiagnostic(DiagnosticInfo info, Location location, bool isSuppressed = false)
             : base(info, location, isSuppressed)
         {
         }
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return CSharpDiagnosticFormatter.Instance.Format(this);
         }
 
-        internal override Diagnostic WithLocation(Location location)
+        public override Diagnostic WithLocation(Location location)
         {
             if (location == null)
             {
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return this;
         }
 
-        internal override Diagnostic WithSeverity(DiagnosticSeverity severity)
+        public override Diagnostic WithSeverity(DiagnosticSeverity severity)
         {
             if (this.Severity != severity)
             {
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return this;
         }
 
-        internal override Diagnostic WithIsSuppressed(bool isSuppressed)
+        public override Diagnostic WithIsSuppressed(bool isSuppressed)
         {
             if (this.IsSuppressed != isSuppressed)
             {

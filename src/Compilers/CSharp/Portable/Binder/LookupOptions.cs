@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Multiple options can be combined together.  LookupOptions.AreValid checks for valid combinations.
     /// </remarks>
     [Flags]
-    internal enum LookupOptions
+    public enum LookupOptions
     {
         /// <summary>
         /// Consider all symbols, using normal accessibility rules.
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         MustNotBeMethodTypeParameter = 1 << 14,
     }
 
-    internal static class LookupOptionExtensions
+    public static class LookupOptionExtensions
     {
         /// <summary>
         /// Are these options valid in their current combination?
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// - If MustNotBeNamespace is set, neither NamespaceAliasesOnly nor NamespacesOrTypesOnly must be set.
         /// - Otherwise, only one of NamespaceAliasesOnly, NamespacesOrTypesOnly, or AllMethodsOnArityZero must be set.
         /// </remarks>
-        internal static bool AreValid(this LookupOptions options)
+        public static bool AreValid(this LookupOptions options)
         {
             if (options == LookupOptions.Default)
             {
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return OnlyOneBitSet(onlyOptions);
         }
 
-        internal static void ThrowIfInvalid(this LookupOptions options)
+        public static void ThrowIfInvalid(this LookupOptions options)
         {
             if (!options.AreValid())
             {
@@ -161,32 +161,32 @@ namespace Microsoft.CodeAnalysis.CSharp
             return (o & (o - 1)) == 0;
         }
 
-        internal static bool CanConsiderMembers(this LookupOptions options)
+        public static bool CanConsiderMembers(this LookupOptions options)
         {
             return (options & (LookupOptions.NamespaceAliasesOnly | LookupOptions.NamespacesOrTypesOnly | LookupOptions.LabelsOnly)) == 0;
         }
 
-        internal static bool CanConsiderLocals(this LookupOptions options)
+        public static bool CanConsiderLocals(this LookupOptions options)
         {
             return (options & (LookupOptions.NamespaceAliasesOnly | LookupOptions.NamespacesOrTypesOnly | LookupOptions.LabelsOnly)) == 0;
         }
 
-        internal static bool CanConsiderTypes(this LookupOptions options)
+        public static bool CanConsiderTypes(this LookupOptions options)
         {
             return (options & (LookupOptions.NamespaceAliasesOnly | LookupOptions.MustBeInvocableIfMember | LookupOptions.MustBeInstance | LookupOptions.LabelsOnly)) == 0;
         }
 
-        internal static bool CanConsiderNamespaces(this LookupOptions options)
+        public static bool CanConsiderNamespaces(this LookupOptions options)
         {
             return (options & (LookupOptions.MustNotBeNamespace | LookupOptions.MustBeInvocableIfMember | LookupOptions.MustBeInstance | LookupOptions.LabelsOnly)) == 0;
         }
 
-        internal static bool IsAttributeTypeLookup(this LookupOptions options)
+        public static bool IsAttributeTypeLookup(this LookupOptions options)
         {
             return (options & LookupOptions.AttributeTypeOnly) == LookupOptions.AttributeTypeOnly;
         }
 
-        internal static bool IsVerbatimNameAttributeTypeLookup(this LookupOptions options)
+        public static bool IsVerbatimNameAttributeTypeLookup(this LookupOptions options)
         {
             return (options & LookupOptions.VerbatimNameAttributeTypeOnly) == LookupOptions.VerbatimNameAttributeTypeOnly;
         }

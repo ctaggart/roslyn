@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,22 +9,22 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class LocalScopeBinder : Binder
+    public partial class LocalScopeBinder : Binder
     {
         private ImmutableArray<LocalSymbol> _locals;
         private ImmutableArray<LabelSymbol> _labels;
 
-        internal LocalScopeBinder(Binder next)
+        public LocalScopeBinder(Binder next)
             : this(next, next.Flags)
         {
         }
 
-        internal LocalScopeBinder(Binder next, BinderFlags flags)
+        public LocalScopeBinder(Binder next, BinderFlags flags)
             : base(next, flags)
         {
         }
 
-        internal sealed override ImmutableArray<LocalSymbol> Locals
+        public sealed override ImmutableArray<LocalSymbol> Locals
         {
             get
             {
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ImmutableArray<LocalSymbol>.Empty;
         }
 
-        internal sealed override ImmutableArray<LabelSymbol> Labels
+        public sealed override ImmutableArray<LabelSymbol> Labels
         {
             get
             {
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void BuildLabels(MethodSymbol containingMethod, StatementSyntax statement, ref ArrayBuilder<LabelSymbol> labels)
+        public static void BuildLabels(MethodSymbol containingMethod, StatementSyntax statement, ref ArrayBuilder<LabelSymbol> labels)
         {
             while (statement.Kind() == SyntaxKind.LabeledStatement)
             {
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.LookupLocal(nameToken);
         }
 
-        internal override void LookupSymbolsInSingleBinder(
+        public override void LookupSymbolsInSingleBinder(
             LookupResult result, string name, int arity, ConsList<Symbol> basesBeingResolved, LookupOptions options, Binder originalBinder, bool diagnose, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
             Debug.Assert(options.AreValid());
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
 
-        internal virtual bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
+        public virtual bool EnsureSingleDefinition(Symbol symbol, string name, Location location, DiagnosticBag diagnostics)
         {
             LocalSymbol existingLocal;
             var map = this.LocalsMap;
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal override ImmutableArray<LocalSymbol> GetDeclaredLocalsForScope(CSharpSyntaxNode node)
+        public override ImmutableArray<LocalSymbol> GetDeclaredLocalsForScope(CSharpSyntaxNode node)
         {
             throw ExceptionUtilities.Unreachable;
         }

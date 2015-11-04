@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.Emit;
@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal sealed class CSharpSymbolMatcher : SymbolMatcher
+    public sealed class CSharpSymbolMatcher : SymbolMatcher
     {
         private static readonly StringComparer s_nameComparer = StringComparer.Ordinal;
 
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             return null;
         }
 
-        internal bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
+        public bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
         {
             return _symbols.TryGetAnonymousTypeName(template, out name, out index);
         }
@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
                 _otherTypeMembers = new ConcurrentDictionary<NamedTypeSymbol, IReadOnlyDictionary<string, ImmutableArray<Cci.ITypeDefinitionMember>>>();
             }
 
-            internal bool TryGetAnonymousTypeName(NamedTypeSymbol type, out string name, out int index)
+            public bool TryGetAnonymousTypeName(NamedTypeSymbol type, out string name, out int index)
             {
                 AnonymousTypeValue otherType;
                 if (this.TryFindAnonymousType(type, out otherType))
@@ -561,7 +561,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
                     CSharpCustomModifier.CreateRequired(type);
             }
 
-            internal bool TryFindAnonymousType(NamedTypeSymbol type, out AnonymousTypeValue otherType)
+            public bool TryFindAnonymousType(NamedTypeSymbol type, out AnonymousTypeValue otherType)
             {
                 Debug.Assert((object)type.ContainingSymbol == (object)_sourceAssembly.GlobalNamespace);
                 Debug.Assert(AnonymousTypeManager.IsAnonymousTypeTemplate(type));
@@ -797,7 +797,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal sealed class DeepTranslator : CSharpSymbolVisitor<Symbol>
+        public sealed class DeepTranslator : CSharpSymbolVisitor<Symbol>
         {
             private readonly ConcurrentDictionary<Symbol, Symbol> _matches;
             private readonly NamedTypeSymbol _systemObject;

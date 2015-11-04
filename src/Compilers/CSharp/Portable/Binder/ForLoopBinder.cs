@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class ForLoopBinder : LoopBinder
+    public sealed class ForLoopBinder : LoopBinder
     {
         private readonly ForStatementSyntax _syntax;
 
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return locals.ToImmutableAndFree();
         }
 
-        internal override BoundForStatement BindForParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundForStatement BindForParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             BoundForStatement result = BindForParts(_syntax, originalBinder, diagnostics);
             return result;

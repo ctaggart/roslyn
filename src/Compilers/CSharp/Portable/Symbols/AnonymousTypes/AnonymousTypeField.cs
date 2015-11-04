@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Describes anonymous type field in terms of its name, type and other attributes
     /// </summary>
-    internal struct AnonymousTypeField
+    public struct AnonymousTypeField
     {
         /// <summary>Anonymous type field name, not nothing and not empty</summary>
         public readonly string Name;
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         [Conditional("DEBUG")]
-        internal void AssertIsGood()
+        public void AssertIsGood()
         {
             Debug.Assert(this.Name != null && this.Location != null && (object)this.Type != null);
         }

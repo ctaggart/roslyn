@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static class SyntaxNodeExtensions
+    public static class SyntaxNodeExtensions
     {
         public static TNode WithAnnotations<TNode>(this TNode node, params SyntaxAnnotation[] annotations) where TNode : CSharpSyntaxNode
         {
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// default behaviors (e.g. FieldInitializerBinders).  Local binders are
         /// created by LocalBinderFactory.
         /// </summary>
-        internal static bool CanHaveAssociatedLocalBinder(this CSharpSyntaxNode syntax)
+        public static bool CanHaveAssociatedLocalBinder(this CSharpSyntaxNode syntax)
         {
             return syntax.IsAnonymousFunction() ||
                 syntax.Kind() == SyntaxKind.CatchClause ||
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Given an initializer expression infer the name of anonymous property.
         /// Returns default(SyntaxToken) if unsuccessful
         /// </summary>
-        internal static SyntaxToken ExtractAnonymousTypeMemberName(this ExpressionSyntax input)
+        public static SyntaxToken ExtractAnonymousTypeMemberName(this ExpressionSyntax input)
         {
             while (true)
             {

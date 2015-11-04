@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,9 +11,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// <summary>
     /// Represents a retargeting custom attribute
     /// </summary>
-    internal sealed class RetargetingAttributeData : SourceAttributeData
+    public sealed class RetargetingAttributeData : SourceAttributeData
     {
-        internal RetargetingAttributeData(
+        public RetargetingAttributeData(
             SyntaxReference applicationNode,
             NamedTypeSymbol attributeClass,
             MethodSymbol attributeConstructor,
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
         /// </summary>
         /// <param name="targetSymbol">Target symbol on which this attribute is applied.</param>
         /// <returns>Retargeted System.Type type symbol.</returns>
-        internal override TypeSymbol GetSystemType(Symbol targetSymbol)
+        public override TypeSymbol GetSystemType(Symbol targetSymbol)
         {
             var retargetingAssembly = (RetargetingAssemblySymbol)(targetSymbol.Kind == SymbolKind.Assembly ? targetSymbol : targetSymbol.ContainingAssembly);
             var underlyingAssembly = (SourceAssemblySymbol)retargetingAssembly.UnderlyingAssembly;

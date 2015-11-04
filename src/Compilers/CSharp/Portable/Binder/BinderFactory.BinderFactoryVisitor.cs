@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -11,19 +11,19 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class BinderFactory
+    public sealed partial class BinderFactory
     {
         private sealed class BinderFactoryVisitor : CSharpSyntaxVisitor<Binder>
         {
             private int _position;
             private readonly BinderFactory _factory;
 
-            internal BinderFactoryVisitor(BinderFactory factory)
+            public BinderFactoryVisitor(BinderFactory factory)
             {
                 _factory = factory;
             }
 
-            internal int Position
+            public int Position
             {
                 set
                 {
@@ -704,7 +704,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return VisitNamespaceDeclaration(parent, _position, inBody, inUsing);
             }
 
-            internal InContainerBinder VisitNamespaceDeclaration(NamespaceDeclarationSyntax parent, int position, bool inBody, bool inUsing)
+            public InContainerBinder VisitNamespaceDeclaration(NamespaceDeclarationSyntax parent, int position, bool inBody, bool inUsing)
             {
                 Debug.Assert(!inUsing || inBody, "inUsing => inBody");
 
@@ -769,7 +769,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     inScript: InScript);
             }
 
-            internal InContainerBinder VisitCompilationUnit(CompilationUnitSyntax compilationUnit, bool inUsing, bool inScript)
+            public InContainerBinder VisitCompilationUnit(CompilationUnitSyntax compilationUnit, bool inUsing, bool inScript)
             {
                 if (compilationUnit != syntaxTree.GetRoot())
                 {
@@ -1162,7 +1162,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// The CrefSyntax does not actually have to be within the documentation comment on the member - it
         /// could be included from another file.
         /// </remarks>
-        internal static Binder MakeCrefBinder(CrefSyntax crefSyntax, MemberDeclarationSyntax memberSyntax, BinderFactory factory, bool inParameterOrReturnType = false)
+        public static Binder MakeCrefBinder(CrefSyntax crefSyntax, MemberDeclarationSyntax memberSyntax, BinderFactory factory, bool inParameterOrReturnType = false)
         {
             Debug.Assert(crefSyntax != null);
             Debug.Assert(memberSyntax != null);
@@ -1197,7 +1197,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return binder;
         }
 
-        internal static MemberDeclarationSyntax GetAssociatedMemberForXmlSyntax(CSharpSyntaxNode xmlSyntax)
+        public static MemberDeclarationSyntax GetAssociatedMemberForXmlSyntax(CSharpSyntaxNode xmlSyntax)
         {
             Debug.Assert(xmlSyntax is XmlAttributeSyntax || xmlSyntax.Kind() == SyntaxKind.XmlEmptyElement || xmlSyntax.Kind() == SyntaxKind.XmlElementStartTag);
 

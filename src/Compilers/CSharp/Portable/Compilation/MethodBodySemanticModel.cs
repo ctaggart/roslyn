@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class MethodBodySemanticModel : MemberSemanticModel
+    public sealed class MethodBodySemanticModel : MemberSemanticModel
     {
         private MethodBodySemanticModel(CSharpCompilation compilation, Symbol owner, Binder rootBinder, CSharpSyntaxNode syntax, SyntaxTreeSemanticModel parentSemanticModelOpt = null, int speculatedPosition = 0)
             : base(compilation, syntax, owner, rootBinder, parentSemanticModelOpt, speculatedPosition)
@@ -21,13 +21,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Creates a SemanticModel that creates and owns the ExecutableCodeBinder for the method of which it is a model.
         /// </summary>
-        internal static MethodBodySemanticModel Create(CSharpCompilation compilation, MethodSymbol owner, Binder rootBinder, CSharpSyntaxNode syntax)
+        public static MethodBodySemanticModel Create(CSharpCompilation compilation, MethodSymbol owner, Binder rootBinder, CSharpSyntaxNode syntax)
         {
             var executableCodeBinder = new ExecutableCodeBinder(syntax, owner, rootBinder);
             return new MethodBodySemanticModel(compilation, owner, executableCodeBinder, syntax);
         }
 
-        internal override BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
+        public override BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
         {
             if (node.Kind() == SyntaxKind.ArrowExpressionClause)
             {
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.Bind(binder, node, diagnostics);
         }
 
-        internal override BoundNode GetBoundRoot()
+        public override BoundNode GetBoundRoot()
         {
             CSharpSyntaxNode root = this.Root;
             if (root.Kind() == SyntaxKind.ArrowExpressionClause)
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Creates a speculative SemanticModel for a method body that did not appear in the original source code.
         /// </summary>
-        internal static MethodBodySemanticModel CreateSpeculative(SyntaxTreeSemanticModel parentSemanticModel, MethodSymbol owner, StatementSyntax syntax, Binder rootBinder, int position)
+        public static MethodBodySemanticModel CreateSpeculative(SyntaxTreeSemanticModel parentSemanticModel, MethodSymbol owner, StatementSyntax syntax, Binder rootBinder, int position)
         {
             Debug.Assert(parentSemanticModel != null);
             Debug.Assert(syntax != null);
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Creates a speculative SemanticModel for an expression body that did not appear in the original source code.
         /// </summary>
-        internal static MethodBodySemanticModel CreateSpeculative(SyntaxTreeSemanticModel parentSemanticModel, MethodSymbol owner, ArrowExpressionClauseSyntax syntax, Binder rootBinder, int position)
+        public static MethodBodySemanticModel CreateSpeculative(SyntaxTreeSemanticModel parentSemanticModel, MethodSymbol owner, ArrowExpressionClauseSyntax syntax, Binder rootBinder, int position)
         {
             Debug.Assert(parentSemanticModel != null);
             Debug.Assert(syntax != null);
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new MethodBodySemanticModel(parentSemanticModel.Compilation, owner, rootBinder, syntax, parentSemanticModel, position);
         }
 
-        internal override bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, BaseMethodDeclarationSyntax method, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, BaseMethodDeclarationSyntax method, out SemanticModel speculativeModel)
         {
             // CONSIDER: Do we want to ensure that speculated method and the original method have identical signatures?
             return GetSpeculativeSemanticModelForMethodBody(parentModel, position, method.Body, out speculativeModel);
@@ -90,12 +90,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return true;
         }
 
-        internal override bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, AccessorDeclarationSyntax accessor, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, AccessorDeclarationSyntax accessor, out SemanticModel speculativeModel)
         {
             return GetSpeculativeSemanticModelForMethodBody(parentModel, position, accessor.Body, out speculativeModel);
         }
 
-        internal override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, StatementSyntax statement, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, StatementSyntax statement, out SemanticModel speculativeModel)
         {
             position = CheckAndAdjustPosition(position);
 
@@ -119,7 +119,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return true;
         }
 
-        internal override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ArrowExpressionClauseSyntax expressionBody, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ArrowExpressionClauseSyntax expressionBody, out SemanticModel speculativeModel)
         {
             position = CheckAndAdjustPosition(position);
 
@@ -137,13 +137,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             return true;
         }
 
-        internal override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ConstructorInitializerSyntax constructorInitializer, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ConstructorInitializerSyntax constructorInitializer, out SemanticModel speculativeModel)
         {
             speculativeModel = null;
             return false;
         }
 
-        internal override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, EqualsValueClauseSyntax initializer, out SemanticModel speculativeModel)
+        public override bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, EqualsValueClauseSyntax initializer, out SemanticModel speculativeModel)
         {
             speculativeModel = null;
             return false;

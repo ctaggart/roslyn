@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,11 +10,11 @@ using Microsoft.CodeAnalysis.Collections;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class SyntaxAndDeclarationManager : CommonSyntaxAndDeclarationManager
+    public sealed partial class SyntaxAndDeclarationManager : CommonSyntaxAndDeclarationManager
     {
         private State _lazyState;
 
-        internal SyntaxAndDeclarationManager(
+        public SyntaxAndDeclarationManager(
             ImmutableArray<SyntaxTree> externalSyntaxTrees,
             string scriptClassName,
             SourceReferenceResolver resolver,
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _lazyState = state;
         }
 
-        internal State GetLazyState()
+        public State GetLazyState()
         {
             if (_lazyState == null)
             {
@@ -557,12 +557,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                 state);
         }
 
-        internal SyntaxAndDeclarationManager WithExternalSyntaxTrees(ImmutableArray<SyntaxTree> trees)
+        public SyntaxAndDeclarationManager WithExternalSyntaxTrees(ImmutableArray<SyntaxTree> trees)
         {
             return new SyntaxAndDeclarationManager(trees, this.ScriptClassName, this.Resolver, this.MessageProvider, this.IsSubmission, state: null);
         }
 
-        internal static bool IsLoadedSyntaxTree(SyntaxTree tree, ImmutableDictionary<string, SyntaxTree> loadedSyntaxTreeMap)
+        public static bool IsLoadedSyntaxTree(SyntaxTree tree, ImmutableDictionary<string, SyntaxTree> loadedSyntaxTreeMap)
         {
             SyntaxTree loadedTree;
             return loadedSyntaxTreeMap.TryGetValue(tree.FilePath, out loadedTree) && (tree == loadedTree);
@@ -609,7 +609,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             ordinalMapBuilder.Add(tree, ordinalMapBuilder.Count);
         }
 
-        internal bool MayHaveReferenceDirectives()
+        public bool MayHaveReferenceDirectives()
         {
             var state = _lazyState;
             if (state == null)

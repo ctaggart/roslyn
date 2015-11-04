@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// 
         /// The only public entry point of this class is CreateSourceAssembly() method.
         /// </summary>
-        internal sealed class ReferenceManager : CommonReferenceManager<CSharpCompilation, AssemblySymbol>
+        public sealed class ReferenceManager : CommonReferenceManager<CSharpCompilation, AssemblySymbol>
         {
             public ReferenceManager(string simpleAssemblyName, AssemblyIdentityComparer identityComparer, Dictionary<MetadataReference, MetadataOrDiagnostic> observedMetadata)
                 : base(simpleAssemblyName, identityComparer, observedMetadata)
@@ -818,7 +818,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     _referencedAssemblies = referencedAssemblies;
                 }
 
-                internal abstract AssemblySymbol CreateAssemblySymbol();
+                public abstract AssemblySymbol CreateAssemblySymbol();
 
                 public override AssemblyIdentity Identity
                 {
@@ -915,12 +915,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                     _sourceAssemblySimpleName = sourceAssemblySimpleName;
                 }
 
-                internal override AssemblySymbol CreateAssemblySymbol()
+                public override AssemblySymbol CreateAssemblySymbol()
                 {
                     return new PEAssemblySymbol(Assembly, DocumentationProvider, this.IsLinked, this.EffectiveImportOptions);
                 }
 
-                internal bool InternalsMayBeVisibleToCompilation
+                public bool InternalsMayBeVisibleToCompilation
                 {
                     get
                     {
@@ -934,7 +934,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     }
                 }
 
-                internal MetadataImportOptions EffectiveImportOptions
+                public MetadataImportOptions EffectiveImportOptions
                 {
                     get
                     {
@@ -1056,7 +1056,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return result.ToImmutableAndFree();
                 }
 
-                internal override AssemblySymbol CreateAssemblySymbol()
+                public override AssemblySymbol CreateAssemblySymbol()
                 {
                     return new RetargetingAssemblySymbol(Compilation.SourceAssembly, this.IsLinked);
                 }
@@ -1113,7 +1113,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// <summary>
             /// For testing purposes only.
             /// </summary>
-            internal static bool IsSourceAssemblySymbolCreated(CSharpCompilation compilation)
+            public static bool IsSourceAssemblySymbolCreated(CSharpCompilation compilation)
             {
                 return (object)compilation._lazyAssemblySymbol != null;
             }
@@ -1121,7 +1121,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             /// <summary>
             /// For testing purposes only.
             /// </summary>
-            internal static bool IsReferenceManagerInitialized(CSharpCompilation compilation)
+            public static bool IsReferenceManagerInitialized(CSharpCompilation compilation)
             {
                 return compilation._referenceManager.IsBound;
             }

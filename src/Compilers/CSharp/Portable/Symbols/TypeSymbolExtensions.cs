@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static partial class TypeSymbolExtensions
+    public static partial class TypeSymbolExtensions
     {
         public static bool ImplementsInterface(this TypeSymbol subType, TypeSymbol superInterface, ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
@@ -752,7 +752,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// available, but there won't be a good way to "re-substitute" back up
         /// to the level of the specified type.
         /// </remarks>
-        internal static TypeSymbol GetNonErrorGuess(this TypeSymbol type)
+        public static TypeSymbol GetNonErrorGuess(this TypeSymbol type)
         {
             var result = ExtendedErrorTypeSymbol.ExtractNonErrorType(type);
             Debug.Assert((object)result == null || !result.IsErrorType());
@@ -763,7 +763,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Guess the non-error type kind that the given type was intended to represent,
         /// if possible. If not, return TypeKind.Error.
         /// </summary>
-        internal static TypeKind GetNonErrorTypeKindGuess(this TypeSymbol type)
+        public static TypeKind GetNonErrorTypeKindGuess(this TypeSymbol type)
         {
             return ExtendedErrorTypeSymbol.ExtractNonErrorTypeKind(type);
         }
@@ -771,7 +771,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true if the type is a valid switch expression type.
         /// </summary>
-        internal static bool IsValidSwitchGoverningType(this TypeSymbol type, bool isTargetTypeOfUserDefinedOp = false)
+        public static bool IsValidSwitchGoverningType(this TypeSymbol type, bool isTargetTypeOfUserDefinedOp = false)
         {
             // SPEC:    The governing type of a switch statement is established by the switch expression.
             // SPEC:    1) If the type of the switch expression is sbyte, byte, short, ushort, int, uint,
@@ -822,7 +822,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <see cref="T:System.ArgIterator"/>, or <see cref="T:System.RuntimeArgumentHandle"/>.
         /// </summary>
 #pragma warning restore RS0010
-        internal static bool IsRestrictedType(this TypeSymbol type)
+        public static bool IsRestrictedType(this TypeSymbol type)
         {
             // See Dev10 C# compiler, "type.cpp", bool Type::isSpecialByRefType() const
             Debug.Assert((object)type != null);
@@ -852,13 +852,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return type is PointerTypeSymbol;
         }
 
-        internal static int FixedBufferElementSizeInBytes(this TypeSymbol type)
+        public static int FixedBufferElementSizeInBytes(this TypeSymbol type)
         {
             return type.SpecialType.FixedBufferElementSizeInBytes();
         }
 
         // check that its type is allowed for Volatile
-        internal static bool IsValidVolatileFieldType(this TypeSymbol type)
+        public static bool IsValidVolatileFieldType(this TypeSymbol type)
         {
             switch (type.TypeKind)
             {
@@ -901,7 +901,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return checkedTypes.Add(type);
         }
 
-        internal static bool IsUnsafe(this TypeSymbol type)
+        public static bool IsUnsafe(this TypeSymbol type)
         {
             while (true)
             {
@@ -921,7 +921,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool IsVoidPointer(this TypeSymbol type)
+        public static bool IsVoidPointer(this TypeSymbol type)
         {
             return type.IsPointerType() && ((PointerTypeSymbol)type).PointedAtType.SpecialType == SpecialType.System_Void;
         }
@@ -930,7 +930,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// These special types are structs that contain fields of the same type
         /// (e.g. <see cref="System.Int32"/> contains an instance field of type <see cref="System.Int32"/>).
         /// </summary>
-        internal static bool IsPrimitiveRecursiveStruct(this TypeSymbol t)
+        public static bool IsPrimitiveRecursiveStruct(this TypeSymbol t)
         {
             return t.SpecialType.IsPrimitiveRecursiveStruct();
         }
@@ -939,7 +939,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Compute a hash code for the constructed type. The return value will be
         /// non-zero so callers can used zero to represent an uninitialized value.
         /// </summary>
-        internal static int ComputeHashCode(this NamedTypeSymbol type)
+        public static int ComputeHashCode(this NamedTypeSymbol type)
         {
             int code = type.OriginalDefinition.GetHashCode();
             code = Hash.Combine(type.ContainingType, code);
@@ -998,7 +998,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Type variables are never considered reference types by the verifier.
         /// </summary>
-        internal static bool IsVerifierReference(this TypeSymbol type)
+        public static bool IsVerifierReference(this TypeSymbol type)
         {
             return type.IsReferenceType && type.TypeKind != TypeKind.TypeParameter;
         }
@@ -1006,12 +1006,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Type variables are never considered value types by the verifier.
         /// </summary>
-        internal static bool IsVerifierValue(this TypeSymbol type)
+        public static bool IsVerifierValue(this TypeSymbol type)
         {
             return type.IsValueType && type.TypeKind != TypeKind.TypeParameter;
         }
 
-        internal static void AddUseSiteDiagnostics(
+        public static void AddUseSiteDiagnostics(
             this TypeSymbol type,
             ref HashSet<DiagnosticInfo> useSiteDiagnostics)
         {
@@ -1032,7 +1032,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Return all of the type parameters in this type and enclosing types,
         /// from outer-most to inner-most type.
         /// </summary>
-        internal static ImmutableArray<TypeParameterSymbol> GetAllTypeParameters(this NamedTypeSymbol type)
+        public static ImmutableArray<TypeParameterSymbol> GetAllTypeParameters(this NamedTypeSymbol type)
         {
             // Avoid allocating a builder in the common case.
             if ((object)type.ContainingType == null)
@@ -1049,7 +1049,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Return all of the type parameters in this type and enclosing types,
         /// from outer-most to inner-most type.
         /// </summary>
-        internal static void GetAllTypeParameters(this NamedTypeSymbol type, ArrayBuilder<TypeParameterSymbol> result)
+        public static void GetAllTypeParameters(this NamedTypeSymbol type, ArrayBuilder<TypeParameterSymbol> result)
         {
             var containingType = type.ContainingType;
             if ((object)containingType != null)
@@ -1064,7 +1064,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Return the nearest type parameter with the given name in
         /// this type or any enclosing type.
         /// </summary>
-        internal static TypeParameterSymbol FindEnclosingTypeParameter(this NamedTypeSymbol type, string name)
+        public static TypeParameterSymbol FindEnclosingTypeParameter(this NamedTypeSymbol type, string name)
         {
             var allTypeParameters = ArrayBuilder<TypeParameterSymbol>.GetInstance();
             type.GetAllTypeParameters(allTypeParameters);
@@ -1089,7 +1089,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// matches the given name. This method avoids string concatenations
         /// in the common case where the type is a top-level type.
         /// </summary>
-        internal static bool HasNameQualifier(this NamedTypeSymbol type, string qualifiedName)
+        public static bool HasNameQualifier(this NamedTypeSymbol type, string qualifiedName)
         {
             const StringComparison comparison = StringComparison.Ordinal;
 

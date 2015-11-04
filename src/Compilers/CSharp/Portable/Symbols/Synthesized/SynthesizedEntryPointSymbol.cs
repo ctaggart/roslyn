@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,15 +11,15 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents an interactive code entry point that is inserted into the compilation if there is not an existing one. 
     /// </summary>
-    internal abstract class SynthesizedEntryPointSymbol : MethodSymbol
+    public abstract class SynthesizedEntryPointSymbol : MethodSymbol
     {
-        internal const string MainName = "<Main>";
-        internal const string FactoryName = "<Factory>";
+        public const string MainName = "<Main>";
+        public const string FactoryName = "<Factory>";
 
         private readonly NamedTypeSymbol _containingType;
         private readonly TypeSymbol _returnType;
 
-        internal static SynthesizedEntryPointSymbol Create(SynthesizedInteractiveInitializerMethod initializerMethod, DiagnosticBag diagnostics)
+        public static SynthesizedEntryPointSymbol Create(SynthesizedInteractiveInitializerMethod initializerMethod, DiagnosticBag diagnostics)
         {
             var containingType = initializerMethod.ContainingType;
             var compilation = containingType.DeclaringCompilation;
@@ -63,12 +63,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _returnType = returnType;
         }
 
-        internal override bool GenerateDebugInfo
+        public override bool GenerateDebugInfo
         {
             get { return false; }
         }
 
-        internal abstract BoundBlock CreateBody();
+        public abstract BoundBlock CreateBody();
 
         public override Symbol ContainingSymbol
         {
@@ -80,17 +80,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get;
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get { return true; }
         }
 
-        internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+        public override System.Reflection.MethodImplAttributes ImplementationAttributes
         {
             get { return default(System.Reflection.MethodImplAttributes); }
         }
 
-        internal override bool RequiresSecurityObject
+        public override bool RequiresSecurityObject
         {
             get { return false; }
         }
@@ -203,17 +203,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal sealed override ObsoleteAttributeData ObsoleteAttributeData
+        public sealed override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return null; }
         }
 
-        internal override Cci.CallingConvention CallingConvention
+        public override Cci.CallingConvention CallingConvention
         {
             get { return 0; }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return false; }
         }
@@ -223,17 +223,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<MethodSymbol>.Empty; }
         }
 
-        internal sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+        public sealed override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
         {
             return false;
         }
 
-        internal override bool IsMetadataFinal
+        public override bool IsMetadataFinal
         {
             get
             {
@@ -251,27 +251,27 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+        public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
         {
             get { return null; }
         }
 
-        internal override bool HasDeclarativeSecurity
+        public override bool HasDeclarativeSecurity
         {
             get { return false; }
         }
 
-        internal override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
+        public override IEnumerable<Cci.SecurityAttribute> GetSecurityInformation()
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
+        public sealed override ImmutableArray<string> GetAppliedConditionalSymbols()
         {
             return ImmutableArray<string>.Empty;
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             throw ExceptionUtilities.Unreachable;
         }
@@ -324,7 +324,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             private readonly MethodSymbol _getAwaiterMethod;
             private readonly MethodSymbol _getResultMethod;
 
-            internal ScriptEntryPoint(NamedTypeSymbol containingType, TypeSymbol returnType, MethodSymbol getAwaiterMethod, MethodSymbol getResultMethod) :
+            public ScriptEntryPoint(NamedTypeSymbol containingType, TypeSymbol returnType, MethodSymbol getAwaiterMethod, MethodSymbol getResultMethod) :
                 base(containingType, returnType)
             {
                 Debug.Assert(containingType.IsScriptClass);
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             //     var script = new Script();
             //     script.<Initialize>().GetAwaiter().GetResult();
             // }
-            internal override BoundBlock CreateBody()
+            public override BoundBlock CreateBody()
             {
                 // CreateBody should only be called if no errors.
                 Debug.Assert((object)_getAwaiterMethod != null);
@@ -413,7 +413,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
             private readonly ImmutableArray<ParameterSymbol> _parameters;
 
-            internal SubmissionEntryPoint(NamedTypeSymbol containingType, TypeSymbol returnType, TypeSymbol submissionArrayType) :
+            public SubmissionEntryPoint(NamedTypeSymbol containingType, TypeSymbol returnType, TypeSymbol submissionArrayType) :
                 base(containingType, returnType)
             {
                 Debug.Assert(containingType.IsSubmissionClass);
@@ -436,7 +436,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             //     var submission = new Submission#N(submissionArray);
             //     return submission.<Initialize>();
             // }
-            internal override BoundBlock CreateBody()
+            public override BoundBlock CreateBody()
             {
                 var syntax = this.GetSyntax();
 

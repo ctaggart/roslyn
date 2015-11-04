@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class SourceNamespaceSymbol : NamespaceSymbol
+    public partial class SourceNamespaceSymbol : NamespaceSymbol
     {
         private readonly SourceModuleSymbol _module;
         private readonly Symbol _container;
@@ -32,14 +32,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         private LexicalSortKey _lazyLexicalSortKey = LexicalSortKey.NotInitialized;
 
-        internal SourceNamespaceSymbol(SourceModuleSymbol module, Symbol container, MergedNamespaceDeclaration mergedDeclaration)
+        public SourceNamespaceSymbol(SourceModuleSymbol module, Symbol container, MergedNamespaceDeclaration mergedDeclaration)
         {
             _module = module;
             _container = container;
             _mergedDeclaration = mergedDeclaration;
         }
 
-        internal MergedNamespaceDeclaration MergedDeclaration
+        public MergedNamespaceDeclaration MergedDeclaration
         {
             get { return _mergedDeclaration; }
         }
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal IEnumerable<Imports> GetBoundImportsMerged()
+        public IEnumerable<Imports> GetBoundImportsMerged()
         {
             var compilation = this.DeclaringCompilation;
             foreach (var declaration in _mergedDeclaration.Declarations)
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override LexicalSortKey GetLexicalSortKey()
+        public override LexicalSortKey GetLexicalSortKey()
         {
             if (!_lazyLexicalSortKey.IsInitialized)
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _mergedDeclaration.Declarations.SelectAsArray(s_declaringSyntaxReferencesSelector);
         }
 
-        internal override ImmutableArray<Symbol> GetMembersUnordered()
+        public override ImmutableArray<Symbol> GetMembersUnordered()
         {
             var result = _lazyAllMembers;
 
@@ -186,7 +186,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 : ImmutableArray<Symbol>.Empty;
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             if (_lazyTypeMembersUnordered.IsDefault)
             {
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return GetTypeMembers(name).WhereAsArray(s => s.Arity == arity);
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override NamespaceExtent Extent
+        public override NamespaceExtent Extent
         {
             get
             {
@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
+        public override bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (this.IsGlobalNamespace)
             {

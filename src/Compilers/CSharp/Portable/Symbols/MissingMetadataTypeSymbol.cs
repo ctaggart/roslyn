@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     ///   c) The metadata file was referenced, contained the correct outer type, but
     ///      didn't contains a nested type in that outer type.
     /// </summary>
-    internal abstract class MissingMetadataTypeSymbol : ErrorTypeSymbol
+    public abstract class MissingMetadataTypeSymbol : ErrorTypeSymbol
     {
         protected readonly string name;
         protected readonly int arity;
@@ -39,7 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return name; }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return arity; }
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Represents not nested missing type.
         /// </summary>
-        internal class TopLevel : MissingMetadataTypeSymbol
+        public class TopLevel : MissingMetadataTypeSymbol
         {
             private readonly string _namespaceName;
             private readonly ModuleSymbol _containingModule;
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return _namespaceName; }
             }
 
-            internal override ModuleSymbol ContainingModule
+            public override ModuleSymbol ContainingModule
             {
                 get
                 {
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 }
             }
 
-            internal override DiagnosticInfo ErrorInfo
+            public override DiagnosticInfo ErrorInfo
             {
                 get
                 {
@@ -301,7 +301,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return Hash.Combine(MetadataName, Hash.Combine(_containingModule, Hash.Combine(_namespaceName, arity)));
             }
 
-            internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+            public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
             {
                 if (ReferenceEquals(this, t2))
                 {
@@ -327,7 +327,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal class TopLevelWithCustomErrorInfo : TopLevel
+        public class TopLevelWithCustomErrorInfo : TopLevel
         {
             private readonly DiagnosticInfo _errorInfo;
 
@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 _errorInfo = errorInfo;
             }
 
-            internal override DiagnosticInfo ErrorInfo
+            public override DiagnosticInfo ErrorInfo
             {
                 get
                 {
@@ -357,7 +357,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Represents nested missing type.
         /// </summary>
-        internal class Nested : MissingMetadataTypeSymbol
+        public class Nested : MissingMetadataTypeSymbol
         {
             private readonly NamedTypeSymbol _containingType;
 
@@ -404,7 +404,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return Hash.Combine(_containingType, Hash.Combine(MetadataName, arity));
             }
 
-            internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+            public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
             {
                 if (ReferenceEquals(this, t2))
                 {

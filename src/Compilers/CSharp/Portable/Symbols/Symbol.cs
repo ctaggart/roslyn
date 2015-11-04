@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// exposed by the compiler.
     /// </summary>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal abstract partial class Symbol : ISymbol, IMessageSerializable
+    public abstract partial class Symbol : ISymbol, IMessageSerializable
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version of Symbol.
@@ -34,18 +34,18 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// True if this Symbol should be completed by calling ForceComplete.
         /// Intuitively, true for source entities (from any compilation).
         /// </summary>
-        internal virtual bool RequiresCompletion
+        public virtual bool RequiresCompletion
         {
             get { return false; }
         }
 
-        internal virtual void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public virtual void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             // must be overridden by source symbols, no-op for other symbols
             Debug.Assert(!this.RequiresCompletion);
         }
 
-        internal virtual bool HasComplete(CompletionPart part)
+        public virtual bool HasComplete(CompletionPart part)
         {
             // must be overridden by source symbols, no-op for other symbols
             Debug.Assert(!this.RequiresCompletion);
@@ -170,7 +170,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// 
         /// Remarks, not "ContainingCompilation" because it isn't transitive.
         /// </remarks>
-        internal virtual CSharpCompilation DeclaringCompilation
+        public virtual CSharpCompilation DeclaringCompilation
         {
             get
             {
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns the module containing this symbol. If this symbol is shared across multiple
         /// modules, or doesn't belong to a module, returns null.
         /// </summary>
-        internal virtual ModuleSymbol ContainingModule
+        public virtual ModuleSymbol ContainingModule
         {
             get
             {
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// need implement this function if they want to do so for efficiency.
         /// </para>
         /// </summary>
-        internal virtual LexicalSortKey GetLexicalSortKey()
+        public virtual LexicalSortKey GetLexicalSortKey()
         {
             var locations = this.Locations;
             var declaringCompilation = this.DeclaringCompilation;
@@ -292,7 +292,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Helper for implementing <see cref="DeclaringSyntaxReferences"/> for derived classes that store a location but not a 
         /// <see cref="CSharpSyntaxNode"/> or <see cref="SyntaxReference"/>.
         /// </summary>
-        internal static ImmutableArray<SyntaxReference> GetDeclaringSyntaxReferenceHelper<TNode>(ImmutableArray<Location> locations)
+        public static ImmutableArray<SyntaxReference> GetDeclaringSyntaxReferenceHelper<TNode>(ImmutableArray<Location> locations)
             where TNode : CSharpSyntaxNode
         {
             if (locations.IsEmpty)
@@ -486,7 +486,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// This property exists purely for performance reasons.
         /// </remarks>
-        internal bool CanBeReferencedByNameIgnoringIllegalCharacters
+        public bool CanBeReferencedByNameIgnoringIllegalCharacters
         {
             get
             {
@@ -514,7 +514,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Perform additional checks after the member has been
         /// added to the member list of the containing type.
         /// </summary>
-        internal virtual void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
+        public virtual void AfterAddingTypeMembersChecks(ConversionsBase conversions, DiagnosticBag diagnostics)
         {
         }
 
@@ -607,24 +607,24 @@ namespace Microsoft.CodeAnalysis.CSharp
         // ---- End of Public Definition ---
 
         // Must override this in derived classes for visitor pattern.
-        internal abstract TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument a);
+        public abstract TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument a);
 
         // Prevent anyone else from deriving from this class.
-        internal Symbol()
+        public Symbol()
         {
         }
 
         /// <summary>
         /// Build and add synthesized attributes for this symbol.
         /// </summary>
-        internal virtual void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public virtual void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
         }
 
         /// <summary>
         /// Convenience helper called by subclasses to add a synthesized attribute to a collection of attributes.
         /// </summary>
-        internal static void AddSynthesizedAttribute(ref ArrayBuilder<SynthesizedAttributeData> attributes, SynthesizedAttributeData attribute)
+        public static void AddSynthesizedAttribute(ref ArrayBuilder<SynthesizedAttributeData> attributes, SynthesizedAttributeData attribute)
         {
             if (attribute != null)
             {
@@ -644,14 +644,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Determined based upon value specified via <see cref="DefaultCharSetAttribute"/> applied on the containing module.
         /// </remarks>
-        internal CharSet? GetEffectiveDefaultMarshallingCharSet()
+        public CharSet? GetEffectiveDefaultMarshallingCharSet()
         {
             Debug.Assert(this.Kind == SymbolKind.NamedType || this.Kind == SymbolKind.Method);
             return this.ContainingModule.DefaultMarshallingCharSet;
         }
 
 
-        internal bool IsFromCompilation(CSharpCompilation compilation)
+        public bool IsFromCompilation(CSharpCompilation compilation)
         {
             Debug.Assert(compilation != null);
             return compilation == this.DeclaringCompilation;
@@ -672,12 +672,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// true for retargeting symbols.
         /// </para>
         /// </remarks>
-        internal bool Dangerous_IsFromSomeCompilation
+        public bool Dangerous_IsFromSomeCompilation
         {
             get { return this.DeclaringCompilation != null; }
         }
 
-        internal virtual bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
+        public virtual bool IsDefinedInSourceTree(SyntaxTree tree, TextSpan? definedWithinSpan, CancellationToken cancellationToken = default(CancellationToken))
         {
             var declaringReferences = this.DeclaringSyntaxReferences;
             if (this.IsImplicitlyDeclared && declaringReferences.Length == 0)
@@ -699,7 +699,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static void ForceCompleteMemberByLocation(SourceLocation locationOpt, Symbol member, CancellationToken cancellationToken)
+        public static void ForceCompleteMemberByLocation(SourceLocation locationOpt, Symbol member, CancellationToken cancellationToken)
         {
             if (locationOpt == null || member.IsDefinedInSourceTree(locationOpt.SourceTree, locationOpt.SourceSpan, cancellationToken))
             {
@@ -746,12 +746,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return "";
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return $"{this.Kind} {this.ToDisplayString(SymbolDisplayFormat.TestFormat)}";
         }
 
-        internal void AddDeclarationDiagnostics(DiagnosticBag diagnostics)
+        public void AddDeclarationDiagnostics(DiagnosticBag diagnostics)
         {
             if (!diagnostics.IsEmptyWithoutResolution)
             {
@@ -766,7 +766,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// True if the symbol has a use-site diagnostic with error severity.
         /// </summary>
-        internal bool HasUseSiteError
+        public bool HasUseSiteError
         {
             get
             {
@@ -778,7 +778,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns diagnostic info that should be reported at the use site of the symbol, or null if there is none.
         /// </summary>
-        internal virtual DiagnosticInfo GetUseSiteDiagnostic()
+        public virtual DiagnosticInfo GetUseSiteDiagnostic()
         {
             return null;
         }
@@ -822,7 +822,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal DiagnosticInfo GetUseSiteDiagnosticForSymbolOrContainingType()
+        public DiagnosticInfo GetUseSiteDiagnosticForSymbolOrContainingType()
         {
             var info = this.GetUseSiteDiagnostic();
             if (info != null && info.Severity == DiagnosticSeverity.Error)
@@ -836,7 +836,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Merges given diagnostic to the existing result diagnostic.
         /// </summary>
-        internal bool MergeUseSiteDiagnostics(ref DiagnosticInfo result, DiagnosticInfo info)
+        public bool MergeUseSiteDiagnostics(ref DiagnosticInfo result, DiagnosticInfo info)
         {
             if (info == null)
             {
@@ -870,7 +870,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// may be the place where to add more use-site location post-processing.
         /// </remarks>
         /// <returns>True if the diagnostic has error severity.</returns>
-        internal static bool ReportUseSiteDiagnostic(DiagnosticInfo info, DiagnosticBag diagnostics, Location location)
+        public static bool ReportUseSiteDiagnostic(DiagnosticInfo info, DiagnosticBag diagnostics, Location location)
         {
             // Unlike VB the C# Dev11 compiler reports only a single unification error/warning.
             // By dropping the location we effectively merge all unification use-site errors that have the same error code into a single error.
@@ -889,7 +889,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Derive error info from a type symbol.
         /// </summary>
-        internal bool DeriveUseSiteDiagnosticFromType(ref DiagnosticInfo result, TypeSymbol type)
+        public bool DeriveUseSiteDiagnosticFromType(ref DiagnosticInfo result, TypeSymbol type)
         {
             DiagnosticInfo info = type.GetUseSiteDiagnostic();
             if (info != null)
@@ -911,13 +911,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             return MergeUseSiteDiagnostics(ref result, info);
         }
 
-        internal bool DeriveUseSiteDiagnosticFromParameter(ref DiagnosticInfo result, ParameterSymbol param)
+        public bool DeriveUseSiteDiagnosticFromParameter(ref DiagnosticInfo result, ParameterSymbol param)
         {
             return DeriveUseSiteDiagnosticFromType(ref result, param.Type) ||
                    DeriveUseSiteDiagnosticFromCustomModifiers(ref result, param.CustomModifiers);
         }
 
-        internal bool DeriveUseSiteDiagnosticFromParameters(ref DiagnosticInfo result, ImmutableArray<ParameterSymbol> parameters)
+        public bool DeriveUseSiteDiagnosticFromParameters(ref DiagnosticInfo result, ImmutableArray<ParameterSymbol> parameters)
         {
             foreach (ParameterSymbol param in parameters)
             {
@@ -930,7 +930,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal bool DeriveUseSiteDiagnosticFromCustomModifiers(ref DiagnosticInfo result, ImmutableArray<CustomModifier> customModifiers)
+        public bool DeriveUseSiteDiagnosticFromCustomModifiers(ref DiagnosticInfo result, ImmutableArray<CustomModifier> customModifiers)
         {
             foreach (CustomModifier modifier in customModifiers)
             {
@@ -951,7 +951,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool GetUnificationUseSiteDiagnosticRecursive<T>(ref DiagnosticInfo result, ImmutableArray<T> types, Symbol owner, ref HashSet<TypeSymbol> checkedTypes) where T : TypeSymbol
+        public static bool GetUnificationUseSiteDiagnosticRecursive<T>(ref DiagnosticInfo result, ImmutableArray<T> types, Symbol owner, ref HashSet<TypeSymbol> checkedTypes) where T : TypeSymbol
         {
             foreach (var t in types)
             {
@@ -964,7 +964,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<CustomModifier> modifiers, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<CustomModifier> modifiers, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             foreach (var modifier in modifiers)
             {
@@ -977,7 +977,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<ParameterSymbol> parameters, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<ParameterSymbol> parameters, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             foreach (var parameter in parameters)
             {
@@ -991,7 +991,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<TypeParameterSymbol> typeParameters, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
+        public static bool GetUnificationUseSiteDiagnosticRecursive(ref DiagnosticInfo result, ImmutableArray<TypeParameterSymbol> typeParameters, Symbol owner, ref HashSet<TypeSymbol> checkedTypes)
         {
             foreach (var typeParameter in typeParameters)
             {
@@ -1010,7 +1010,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// True if this symbol has been marked with the <see cref="ObsoleteAttribute"/> attribute. 
         /// This property returns <see cref="ThreeState.Unknown"/> if the <see cref="ObsoleteAttribute"/> attribute hasn't been cracked yet.
         /// </summary>
-        internal ThreeState ObsoleteState
+        public ThreeState ObsoleteState
         {
             get
             {
@@ -1034,14 +1034,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns data decoded from <see cref="ObsoleteAttribute"/> attribute or null if there is no <see cref="ObsoleteAttribute"/> attribute.
         /// This property returns <see cref="Microsoft.CodeAnalysis.ObsoleteAttributeData.Uninitialized"/> if attribute arguments haven't been decoded yet.
         /// </summary>
-        internal abstract ObsoleteAttributeData ObsoleteAttributeData { get; }
+        public abstract ObsoleteAttributeData ObsoleteAttributeData { get; }
 
         /// <summary>
         /// Returns true and a <see cref="string"/> from the first <see cref="GuidAttribute"/> on the symbol, 
         /// the string might be null or an invalid guid representation. False, 
         /// if there is no <see cref="GuidAttribute"/> with string argument.
         /// </summary>
-        internal bool GetGuidStringDefaultImplementation(out string guidString)
+        public bool GetGuidStringDefaultImplementation(out string guidString)
         {
             foreach (var attrData in this.GetAttributes())
             {

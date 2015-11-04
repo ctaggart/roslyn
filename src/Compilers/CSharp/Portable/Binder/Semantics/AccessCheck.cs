@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// Contains the code for determining C# accessibility rules.
     /// </summary>
-    internal static class AccessCheck
+    public static class AccessCheck
     {
         /// <summary>
         /// Checks if 'symbol' is accessible from within assembly 'within'.  
@@ -493,7 +493,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Does the assembly has internal accessibility to "toAssembly"?
-        internal static bool HasInternalAccessTo(this AssemblySymbol assembly, AssemblySymbol toAssembly)
+        public static bool HasInternalAccessTo(this AssemblySymbol assembly, AssemblySymbol toAssembly)
         {
             if (Equals(assembly, toAssembly))
             {
@@ -514,7 +514,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return false;
         }
 
-        internal static ErrorCode GetProtectedMemberInSealedTypeError(NamedTypeSymbol containingType)
+        public static ErrorCode GetProtectedMemberInSealedTypeError(NamedTypeSymbol containingType)
         {
             return containingType.TypeKind == TypeKind.Struct ? ErrorCode.ERR_ProtectedInStruct : ErrorCode.WRN_ProtectedInSealed;
         }

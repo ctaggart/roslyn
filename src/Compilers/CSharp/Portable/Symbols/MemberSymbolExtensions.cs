@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// SymbolExtensions for member symbols.
     /// </summary>
-    internal static partial class SymbolExtensions
+    public static partial class SymbolExtensions
     {
-        internal static bool HasParamsParameter(this Symbol member)
+        public static bool HasParamsParameter(this Symbol member)
         {
             var @params = member.GetParameters();
             return !@params.IsEmpty && @params.Last().IsParams;
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get the parameters of a member symbol.  Should be a method, property, or event.
         /// </summary>
-        internal static ImmutableArray<ParameterSymbol> GetParameters(this Symbol member)
+        public static ImmutableArray<ParameterSymbol> GetParameters(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get the types of the parameters of a member symbol.  Should be a method, property, or event.
         /// </summary>
-        internal static ImmutableArray<TypeSymbol> GetParameterTypes(this Symbol member)
+        public static ImmutableArray<TypeSymbol> GetParameterTypes(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool GetIsVararg(this Symbol member)
+        public static bool GetIsVararg(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Get the ref kinds of the parameters of a member symbol.  Should be a method, property, or event.
         /// </summary>
-        internal static ImmutableArray<RefKind> GetParameterRefKinds(this Symbol member)
+        public static ImmutableArray<RefKind> GetParameterRefKinds(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static int GetParameterCount(this Symbol member)
+        public static int GetParameterCount(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool HasUnsafeParameter(this Symbol member)
+        public static bool HasUnsafeParameter(this Symbol member)
         {
             foreach (TypeSymbol parameterType in member.GetParameterTypes())
             {
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return count;
         }
 
-        internal static Symbol SymbolAsMember(this Symbol s, NamedTypeSymbol newOwner)
+        public static Symbol SymbolAsMember(this Symbol s, NamedTypeSymbol newOwner)
         {
             switch (s.Kind)
             {
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Return the arity of a member.
         /// </summary>
-        internal static int GetMemberArity(this Symbol symbol)
+        public static int GetMemberArity(this Symbol symbol)
         {
             switch (symbol.Kind)
             {
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static NamespaceOrTypeSymbol OfMinimalArity(this IEnumerable<NamespaceOrTypeSymbol> symbols)
+        public static NamespaceOrTypeSymbol OfMinimalArity(this IEnumerable<NamespaceOrTypeSymbol> symbols)
         {
             NamespaceOrTypeSymbol minAritySymbol = null;
             int minArity = Int32.MaxValue;
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return minAritySymbol;
         }
 
-        internal static ImmutableArray<TypeParameterSymbol> GetMemberTypeParameters(this Symbol symbol)
+        public static ImmutableArray<TypeParameterSymbol> GetMemberTypeParameters(this Symbol symbol)
         {
             switch (symbol.Kind)
             {
@@ -299,7 +299,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static ImmutableArray<TypeSymbol> GetMemberTypeArgumentsNoUseSiteDiagnostics(this Symbol symbol)
+        public static ImmutableArray<TypeSymbol> GetMemberTypeArgumentsNoUseSiteDiagnostics(this Symbol symbol)
         {
             switch (symbol.Kind)
             {
@@ -320,7 +320,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// NOTE: every struct has a public parameterless constructor either used-defined or default one
         /// </summary>
-        internal static bool IsParameterlessConstructor(this MethodSymbol method)
+        public static bool IsParameterlessConstructor(this MethodSymbol method)
         {
             return method.MethodKind == MethodKind.Constructor && method.ParameterCount == 0;
         }
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// its own parameterless public constructor.
         /// We do not emit this constructor and do not call it 
         /// </summary>
-        internal static bool IsDefaultValueTypeConstructor(this MethodSymbol method)
+        public static bool IsDefaultValueTypeConstructor(this MethodSymbol method)
         {
             if (!method.ContainingType.IsValueType)
             {
@@ -365,7 +365,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This method exists to mimic the behavior of GetOwnOrInheritedGetMethod, but it
         /// should only ever look at the overridden event in error scenarios.
         /// </remarks>
-        internal static MethodSymbol GetOwnOrInheritedAddMethod(this EventSymbol @event)
+        public static MethodSymbol GetOwnOrInheritedAddMethod(this EventSymbol @event)
         {
             while ((object)@event != null)
             {
@@ -389,7 +389,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This method exists to mimic the behavior of GetOwnOrInheritedSetMethod, but it
         /// should only ever look at the overridden event in error scenarios.
         /// </remarks>
-        internal static MethodSymbol GetOwnOrInheritedRemoveMethod(this EventSymbol @event)
+        public static MethodSymbol GetOwnOrInheritedRemoveMethod(this EventSymbol @event)
         {
             while ((object)@event != null)
             {
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal static bool IsExplicitInterfaceImplementation(this Symbol member)
+        public static bool IsExplicitInterfaceImplementation(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -420,25 +420,25 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool IsPartialMethod(this Symbol member)
+        public static bool IsPartialMethod(this Symbol member)
         {
             var sms = member as SourceMethodSymbol;
             return (object)sms != null && sms.IsPartial;
         }
 
-        internal static bool IsPartialImplementation(this Symbol member)
+        public static bool IsPartialImplementation(this Symbol member)
         {
             var sms = member as SourceMemberMethodSymbol;
             return (object)sms != null && sms.IsPartialImplementation;
         }
 
-        internal static bool IsPartialDefinition(this Symbol member)
+        public static bool IsPartialDefinition(this Symbol member)
         {
             var sms = member as SourceMemberMethodSymbol;
             return (object)sms != null && sms.IsPartialDefinition;
         }
 
-        internal static ImmutableArray<Symbol> GetExplicitInterfaceImplementations(this Symbol member)
+        public static ImmutableArray<Symbol> GetExplicitInterfaceImplementations(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -453,7 +453,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static TypeSymbol GetTypeOrReturnType(this Symbol member)
+        public static TypeSymbol GetTypeOrReturnType(this Symbol member)
         {
             TypeSymbol returnType;
             ImmutableArray<CustomModifier> returnTypeCustomModifiers;
@@ -461,7 +461,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return returnType;
         }
 
-        internal static void GetTypeOrReturnType(this Symbol member, out TypeSymbol returnType, out ImmutableArray<CustomModifier> returnTypeCustomModifiers)
+        public static void GetTypeOrReturnType(this Symbol member, out TypeSymbol returnType, out ImmutableArray<CustomModifier> returnTypeCustomModifiers)
         {
             switch (member.Kind)
             {
@@ -490,7 +490,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static Symbol GetOverriddenMember(this Symbol member)
+        public static Symbol GetOverriddenMember(this Symbol member)
         {
             switch (member.Kind)
             {
@@ -505,7 +505,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static Symbol GetLeastOverriddenMember(this Symbol member, NamedTypeSymbol accessingTypeOpt)
+        public static Symbol GetLeastOverriddenMember(this Symbol member, NamedTypeSymbol accessingTypeOpt)
         {
             switch (member.Kind)
             {
@@ -526,7 +526,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static bool IsFieldOrFieldLikeEvent(this Symbol member, out FieldSymbol field)
+        public static bool IsFieldOrFieldLikeEvent(this Symbol member, out FieldSymbol field)
         {
             switch (member.Kind)
             {
@@ -542,7 +542,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static string GetMemberCallerName(this Symbol member)
+        public static string GetMemberCallerName(this Symbol member)
         {
             if (member.Kind == SymbolKind.Method)
             {

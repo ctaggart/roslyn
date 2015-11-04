@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +12,7 @@ using System;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
 {
-    internal sealed class PEGlobalNamespaceSymbol
+    public sealed class PEGlobalNamespaceSymbol
         : PENamespaceSymbol
     {
         /// <summary>
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// <remarks></remarks>
         private readonly PEModuleSymbol _moduleSymbol;
 
-        internal PEGlobalNamespaceSymbol(PEModuleSymbol moduleSymbol)
+        public PEGlobalNamespaceSymbol(PEModuleSymbol moduleSymbol)
         {
             Debug.Assert((object)moduleSymbol != null);
             _moduleSymbol = moduleSymbol;
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override PEModuleSymbol ContainingPEModule
+        public override PEModuleSymbol ContainingPEModule
         {
             get
             {
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class SingleTypeDeclaration : SingleNamespaceOrTypeDeclaration
+    public sealed class SingleTypeDeclaration : SingleNamespaceOrTypeDeclaration
     {
         private readonly DeclarationKind _kind;
         private readonly TypeDeclarationFlags _flags;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private readonly ICollection<string> _memberNames;
 
         [Flags]
-        internal enum TypeDeclarationFlags : byte
+        public enum TypeDeclarationFlags : byte
         {
             None = 0,
             AnyMemberHasExtensionMethodSyntax = 1 << 1,
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             HasAnyNontypeMembers = 1 << 5,
         }
 
-        internal SingleTypeDeclaration(
+        public SingleTypeDeclaration(
             DeclarationKind kind,
             string name,
             int arity,
@@ -137,7 +137,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return StaticCast<SingleNamespaceOrTypeDeclaration>.From(_children);
         }
 
-        internal TypeDeclarationIdentity Identity
+        public TypeDeclarationIdentity Identity
         {
             get
             {
@@ -147,11 +147,11 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // identity that is used when collecting all declarations 
         // of same type across multiple containers
-        internal struct TypeDeclarationIdentity : IEquatable<TypeDeclarationIdentity>
+        public struct TypeDeclarationIdentity : IEquatable<TypeDeclarationIdentity>
         {
             private readonly SingleTypeDeclaration _decl;
 
-            internal TypeDeclarationIdentity(SingleTypeDeclaration decl)
+            public TypeDeclarationIdentity(SingleTypeDeclaration decl)
             {
                 _decl = decl;
             }

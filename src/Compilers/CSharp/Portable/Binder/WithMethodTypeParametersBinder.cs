@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Threading;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -9,18 +9,18 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A binder that places method type parameters in scope.
     /// </summary>
-    internal sealed class WithMethodTypeParametersBinder : WithTypeParametersBinder
+    public sealed class WithMethodTypeParametersBinder : WithTypeParametersBinder
     {
         private readonly MethodSymbol _methodSymbol;
         private MultiDictionary<string, TypeParameterSymbol> _lazyTypeParameterMap;
 
-        internal WithMethodTypeParametersBinder(MethodSymbol methodSymbol, Binder next)
+        public WithMethodTypeParametersBinder(MethodSymbol methodSymbol, Binder next)
             : base(next)
         {
             _methodSymbol = methodSymbol;
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get
             {

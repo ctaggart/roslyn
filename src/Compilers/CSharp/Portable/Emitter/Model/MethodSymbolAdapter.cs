@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal partial class MethodSymbol :
+    public partial class MethodSymbol :
         Cci.ITypeMemberReference,
         Cci.IMethodReference,
         Cci.IGenericMethodInstanceReference,
@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsAccessCheckedOnOverride
+        public virtual bool IsAccessCheckedOnOverride
         {
             get
             {
@@ -395,7 +395,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsExternal
+        public virtual bool IsExternal
         {
             get
             {
@@ -438,7 +438,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// requirements.
         /// NOTE: Not ignoring changes can only result in a value that is more true.
         /// </summary>
-        internal abstract bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false);
+        public abstract bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false);
 
         bool Cci.IMethodDefinition.IsPlatformInvoke
         {
@@ -473,7 +473,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool HasRuntimeSpecialName
+        public virtual bool HasRuntimeSpecialName
         {
             get
             {
@@ -492,7 +492,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool IsMetadataFinal
+        public virtual bool IsMetadataFinal
         {
             get
             {
@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// requirements.
         /// NOTE: Not ignoring changes can only result in a value that is more true.
         /// </summary>
-        internal abstract bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false);
+        public abstract bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false);
 
         ImmutableArray<Cci.IParameterDefinition> Cci.IMethodDefinition.Parameters
         {
@@ -601,7 +601,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual bool ReturnValueIsMarshalledExplicitly
+        public virtual bool ReturnValueIsMarshalledExplicitly
         {
             get
             {
@@ -628,7 +628,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual ImmutableArray<byte> ReturnValueMarshallingDescriptor
+        public virtual ImmutableArray<byte> ReturnValueMarshallingDescriptor
         {
             get
             {

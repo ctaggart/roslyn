@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     /// <summary>
     /// Set of well-known SyntaxTokens commonly found within XML doc comments.
     /// </summary>
-    internal static class DocumentationCommentXmlTokens
+    public static class DocumentationCommentXmlTokens
     {
         // Well-known tags that typically have no leading trivia
         private static readonly SyntaxToken s_seeToken = Identifier(DocumentationCommentXmlNames.SeeElementName);

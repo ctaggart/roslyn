@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         //
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 
-        internal static readonly ParallelOptions DefaultParallelOptions = new ParallelOptions();
+        public static readonly ParallelOptions DefaultParallelOptions = new ParallelOptions();
 
         private readonly CSharpCompilationOptions _options;
         private readonly Lazy<Imports> _globalImports;
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private ImmutableArray<Diagnostic> _lazyClsComplianceDiagnostics;
 
         private Conversions _conversions;
-        internal Conversions Conversions
+        public Conversions Conversions
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private NamespaceSymbol _lazyGlobalNamespace;
 
-        internal readonly BuiltInOperators builtInOperators;
+        public readonly BuiltInOperators builtInOperators;
 
         /// <summary>
         /// The <see cref="SourceAssemblySymbol"/> for this compilation. Do not access directly, use Assembly property
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal AnonymousTypeManager AnonymousTypeManager
+        public AnonymousTypeManager AnonymousTypeManager
         {
             get
             {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override CommonAnonymousTypeManager CommonAnonymousTypeManager
+        public override CommonAnonymousTypeManager CommonAnonymousTypeManager
         {
             get
             {
@@ -159,7 +159,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// in some cases even at the expense of full compatibility. Such differences typically arise when
         /// earlier versions of the compiler failed to enforce the full language specification.
         /// </summary>
-        internal bool FeatureStrictEnabled => Feature("strict") != null;
+        public bool FeatureStrictEnabled => Feature("strict") != null;
 
         /// <summary>
         /// The language version that was used to parse the syntax trees of this compilation.
@@ -327,7 +327,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             if (EventQueue != null) EventQueue.Enqueue(new CompilationStartedEvent(this));
         }
 
-        internal override void ValidateDebugEntryPoint(IMethodSymbol debugEntryPoint, DiagnosticBag diagnostics)
+        public override void ValidateDebugEntryPoint(IMethodSymbol debugEntryPoint, DiagnosticBag diagnostics)
         {
             Debug.Assert(debugEntryPoint != null);
 
@@ -514,7 +514,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns a new compilation with a given event queue.
         /// </summary>
-        internal override Compilation WithEventQueue(AsyncQueue<CompilationEvent> eventQueue)
+        public override Compilation WithEventQueue(AsyncQueue<CompilationEvent> eventQueue)
         {
             return new CSharpCompilation(
                 this.AssemblyName,
@@ -535,11 +535,11 @@ namespace Microsoft.CodeAnalysis.CSharp
         #region Submission
 
         public new CSharpScriptCompilationInfo ScriptCompilationInfo { get; }
-        internal override ScriptCompilationInfo CommonScriptCompilationInfo => ScriptCompilationInfo;
+        public override ScriptCompilationInfo CommonScriptCompilationInfo => ScriptCompilationInfo;
 
-        internal CSharpCompilation PreviousSubmission => ScriptCompilationInfo?.PreviousScriptCompilation;
+        public CSharpCompilation PreviousSubmission => ScriptCompilationInfo?.PreviousScriptCompilation;
 
-        internal override bool HasSubmissionResult()
+        public override bool HasSubmissionResult()
         {
             Debug.Assert(IsSubmission);
 
@@ -806,7 +806,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return Update(_referenceManager, reuseReferenceManager, syntaxAndDeclarations);
         }
 
-        internal override int GetSyntaxTreeOrdinal(SyntaxTree tree)
+        public override int GetSyntaxTreeOrdinal(SyntaxTree tree)
         {
             Debug.Assert(this.ContainsSyntaxTree(tree));
             return _syntaxAndDeclarations.GetLazyState().OrdinalMap[tree];
@@ -816,12 +816,12 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         #region References
 
-        internal override CommonReferenceManager CommonGetBoundReferenceManager()
+        public override CommonReferenceManager CommonGetBoundReferenceManager()
         {
             return GetBoundReferenceManager();
         }
 
-        internal new ReferenceManager GetBoundReferenceManager()
+        public new ReferenceManager GetBoundReferenceManager()
         {
             if ((object)_lazyAssemblySymbol == null)
             {
@@ -835,7 +835,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // for testing only:
-        internal bool ReferenceManagerEquals(CSharpCompilation other)
+        public bool ReferenceManagerEquals(CSharpCompilation other)
         {
             return ReferenceEquals(_referenceManager, other._referenceManager);
         }
@@ -848,7 +848,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap
+        public override IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap
         {
             get
             {
@@ -857,7 +857,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // for testing purposes
-        internal IEnumerable<string> ExternAliases
+        public IEnumerable<string> ExternAliases
         {
             get
             {
@@ -872,7 +872,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Uses object identity when comparing two references. 
         /// </remarks>
-        internal new Symbol GetAssemblyOrModuleSymbol(MetadataReference reference)
+        public new Symbol GetAssemblyOrModuleSymbol(MetadataReference reference)
         {
             if (reference == null)
             {
@@ -902,7 +902,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// All reference directives used in this compilation.
         /// </summary>
-        internal override IEnumerable<ReferenceDirective> ReferenceDirectives
+        public override IEnumerable<ReferenceDirective> ReferenceDirectives
         {
             get { return this.Declarations.ReferenceDirectives; }
         }
@@ -1001,7 +1001,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         ///   2) /r:Foo=A.dll /r:B.dll -> B
         ///   3) /r:Foo=A.dll /r:A.dll -> A
         /// </summary>
-        internal void GetUnaliasedReferencedAssemblies(ArrayBuilder<AssemblySymbol> assemblies)
+        public void GetUnaliasedReferencedAssemblies(ArrayBuilder<AssemblySymbol> assemblies)
         {
             var referenceManager = GetBoundReferenceManager();
 
@@ -1029,7 +1029,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The AssemblySymbol that represents the assembly being created.
         /// </summary>
-        internal SourceAssemblySymbol SourceAssembly
+        public SourceAssemblySymbol SourceAssembly
         {
             get
             {
@@ -1041,7 +1041,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The AssemblySymbol that represents the assembly being created.
         /// </summary>
-        internal new AssemblySymbol Assembly
+        public new AssemblySymbol Assembly
         {
             get
             {
@@ -1054,7 +1054,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// By getting the GlobalNamespace property of that module, all of the namespaces and types
         /// defined in source code can be obtained.
         /// </summary>
-        internal new ModuleSymbol SourceModule
+        public new ModuleSymbol SourceModule
         {
             get
             {
@@ -1066,7 +1066,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Gets the root namespace that contains all namespaces and types defined in source code or in 
         /// referenced metadata, merged into a single namespace hierarchy.
         /// </summary>
-        internal new NamespaceSymbol GlobalNamespace
+        public new NamespaceSymbol GlobalNamespace
         {
             get
             {
@@ -1099,7 +1099,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// with contributions for the namespaceSymbol).  Can return null if no corresponding
         /// namespace can be bound in this compilation with the same name.
         /// </summary>
-        internal new NamespaceSymbol GetCompilationNamespace(INamespaceSymbol namespaceSymbol)
+        public new NamespaceSymbol GetCompilationNamespace(INamespaceSymbol namespaceSymbol)
         {
             if (namespaceSymbol is NamespaceSymbol &&
                 namespaceSymbol.NamespaceKind == NamespaceKind.Compilation &&
@@ -1125,7 +1125,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private ConcurrentDictionary<string, NamespaceSymbol> _externAliasTargets;
 
-        internal bool GetExternAliasTarget(string aliasName, out NamespaceSymbol @namespace)
+        public bool GetExternAliasTarget(string aliasName, out NamespaceSymbol @namespace)
         {
             if (_externAliasTargets == null)
             {
@@ -1167,7 +1167,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// A symbol representing the implicit Script class. This is null if the class is not
         /// defined in the compilation.
         /// </summary>
-        internal new NamedTypeSymbol ScriptClass
+        public new NamedTypeSymbol ScriptClass
         {
             get { return _scriptClass.Value; }
         }
@@ -1188,7 +1188,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return namespaceOrType as ImplicitNamedTypeSymbol;
         }
 
-        internal bool IsSubmissionSyntaxTree(SyntaxTree tree)
+        public bool IsSubmissionSyntaxTree(SyntaxTree tree)
         {
             Debug.Assert(tree != null);
             Debug.Assert(!this.IsSubmission || _syntaxAndDeclarations.ExternalSyntaxTrees.Length <= 1);
@@ -1198,14 +1198,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Global imports (including those from previous submissions, if there are any).
         /// </summary>
-        internal Imports GlobalImports => _globalImports.Value;
+        public Imports GlobalImports => _globalImports.Value;
 
         private Imports BindGlobalImports() => Imports.FromGlobalUsings(this);
 
         /// <summary>
         /// Imports declared by this submission (null if this isn't one).
         /// </summary>
-        internal Imports GetSubmissionImports()
+        public Imports GetSubmissionImports()
         {
             Debug.Assert(this.IsSubmission);
             Debug.Assert(_syntaxAndDeclarations.ExternalSyntaxTrees.Length <= 1);
@@ -1224,7 +1224,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Imports from all previous submissions.
         /// </summary>
-        internal Imports GetPreviousSubmissionImports() => _previousSubmissionImports.Value;
+        public Imports GetPreviousSubmissionImports() => _previousSubmissionImports.Value;
 
         private Imports ExpandPreviousSubmissionImports()
         {
@@ -1240,7 +1240,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 Imports.ExpandPreviousSubmissionImports(previous.GetSubmissionImports(), this));
         }
 
-        internal AliasSymbol GlobalNamespaceAlias
+        public AliasSymbol GlobalNamespaceAlias
         {
             get
             {
@@ -1251,7 +1251,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the symbol for the predefined type from the COR Library referenced by this compilation.
         /// </summary>
-        internal new NamedTypeSymbol GetSpecialType(SpecialType specialType)
+        public new NamedTypeSymbol GetSpecialType(SpecialType specialType)
         {
             if (specialType <= SpecialType.None || specialType > SpecialType.Count)
             {
@@ -1266,12 +1266,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the symbol for the predefined type member from the COR Library referenced by this compilation.
         /// </summary>
-        internal Symbol GetSpecialTypeMember(SpecialMember specialMember)
+        public Symbol GetSpecialTypeMember(SpecialMember specialMember)
         {
             return Assembly.GetSpecialTypeMember(specialMember);
         }
 
-        internal TypeSymbol GetTypeByReflectionType(Type type, DiagnosticBag diagnostics)
+        public TypeSymbol GetTypeByReflectionType(Type type, DiagnosticBag diagnostics)
         {
             var result = Assembly.GetTypeByReflectionType(type, includeReferences: true);
             if ((object)result == null)
@@ -1298,7 +1298,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // The type of host object model if available.
         private TypeSymbol _lazyHostObjectTypeSymbol;
 
-        internal TypeSymbol GetHostObjectTypeSymbol()
+        public TypeSymbol GetHostObjectTypeSymbol()
         {
             if (HostObjectType != null && (object)_lazyHostObjectTypeSymbol == null)
             {
@@ -1323,7 +1323,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return _lazyHostObjectTypeSymbol;
         }
 
-        internal SynthesizedInteractiveInitializerMethod GetSubmissionInitializer()
+        public SynthesizedInteractiveInitializerMethod GetSubmissionInitializer()
         {
             return (IsSubmission && (object)ScriptClass != null) ?
                 ScriptClass.GetScriptInitializer() :
@@ -1334,7 +1334,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Gets the type within the compilation's assembly and all referenced assemblies (other than
         /// those that can only be referenced via an extern alias) using its canonical CLR metadata name.
         /// </summary>
-        internal new NamedTypeSymbol GetTypeByMetadataName(string fullyQualifiedMetadataName)
+        public new NamedTypeSymbol GetTypeByMetadataName(string fullyQualifiedMetadataName)
         {
             return this.Assembly.GetTypeByMetadataName(fullyQualifiedMetadataName, includeReferences: true, isWellKnownType: false);
         }
@@ -1342,7 +1342,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The TypeSymbol for the type 'dynamic' in this Compilation.
         /// </summary>
-        internal new TypeSymbol DynamicType
+        public new TypeSymbol DynamicType
         {
             get
             {
@@ -1354,7 +1354,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// The NamedTypeSymbol for the .NET System.Object type, which could have a TypeKind of
         /// Error if there was no COR Library in this Compilation.
         /// </summary>
-        internal new NamedTypeSymbol ObjectType
+        public new NamedTypeSymbol ObjectType
         {
             get
             {
@@ -1362,7 +1362,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool DeclaresTheObjectClass
+        public bool DeclaresTheObjectClass
         {
             get
             {
@@ -1370,13 +1370,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal new MethodSymbol GetEntryPoint(CancellationToken cancellationToken)
+        public new MethodSymbol GetEntryPoint(CancellationToken cancellationToken)
         {
             EntryPoint entryPoint = GetEntryPointAndDiagnostics(cancellationToken);
             return entryPoint == null ? null : entryPoint.MethodSymbol;
         }
 
-        internal EntryPoint GetEntryPointAndDiagnostics(CancellationToken cancellationToken)
+        public EntryPoint GetEntryPointAndDiagnostics(CancellationToken cancellationToken)
         {
             if (!this.Options.OutputKind.IsApplication() && ((object)this.ScriptClass == null))
             {
@@ -1527,7 +1527,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal class EntryPoint
+        public class EntryPoint
         {
             public readonly MethodSymbol MethodSymbol;
             public readonly ImmutableArray<Diagnostic> Diagnostics;
@@ -1539,7 +1539,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal bool MightContainNoPiaLocalTypes()
+        public bool MightContainNoPiaLocalTypes()
         {
             return SourceAssembly.MightContainNoPiaLocalTypes();
         }
@@ -1577,7 +1577,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Returns a new ArrayTypeSymbol representing an array type tied to the base types of the
         /// COR Library in this Compilation.
         /// </summary>
-        internal ArrayTypeSymbol CreateArrayTypeSymbol(TypeSymbol elementType, int rank = 1)
+        public ArrayTypeSymbol CreateArrayTypeSymbol(TypeSymbol elementType, int rank = 1)
         {
             if ((object)elementType == null)
             {
@@ -1590,7 +1590,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns a new PointerTypeSymbol representing a pointer type tied to a type in this Compilation.
         /// </summary>
-        internal PointerTypeSymbol CreatePointerTypeSymbol(TypeSymbol elementType)
+        public PointerTypeSymbol CreatePointerTypeSymbol(TypeSymbol elementType)
         {
             if ((object)elementType == null)
             {
@@ -1631,7 +1631,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // to be recycled.
         private WeakReference<BinderFactory>[] _binderFactories;
 
-        internal BinderFactory GetBinderFactory(SyntaxTree syntaxTree)
+        public BinderFactory GetBinderFactory(SyntaxTree syntaxTree)
         {
             var treeNum = GetSyntaxTreeOrdinal(syntaxTree);
             var binderFactories = _binderFactories;
@@ -1672,12 +1672,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal Binder GetBinder(SyntaxReference reference)
+        public Binder GetBinder(SyntaxReference reference)
         {
             return GetBinderFactory(reference.SyntaxTree).GetBinder((CSharpSyntaxNode)reference.GetSyntax());
         }
 
-        internal Binder GetBinder(CSharpSyntaxNode syntax)
+        public Binder GetBinder(CSharpSyntaxNode syntax)
         {
             return GetBinderFactory(syntax.SyntaxTree).GetBinder(syntax);
         }
@@ -1685,7 +1685,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns imported symbols for the given declaration.
         /// </summary>
-        internal Imports GetImports(SingleNamespaceDeclaration declaration)
+        public Imports GetImports(SingleNamespaceDeclaration declaration)
         {
             return GetBinderFactory(declaration.SyntaxReference.SyntaxTree).GetImportsBinder((CSharpSyntaxNode)declaration.SyntaxReference.GetSyntax()).GetImports(basesBeingResolved: null);
         }
@@ -1725,7 +1725,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void ReportUnusedImports(DiagnosticBag diagnostics, CancellationToken cancellationToken, SyntaxTree filterTree = null)
+        public void ReportUnusedImports(DiagnosticBag diagnostics, CancellationToken cancellationToken, SyntaxTree filterTree = null)
         {
             if (_lazyImportInfos != null)
             {
@@ -1767,12 +1767,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void RecordImport(UsingDirectiveSyntax syntax)
+        public void RecordImport(UsingDirectiveSyntax syntax)
         {
             RecordImportInternal(syntax);
         }
 
-        internal void RecordImport(ExternAliasDirectiveSyntax syntax)
+        public void RecordImport(ExternAliasDirectiveSyntax syntax)
         {
             RecordImportInternal(syntax);
         }
@@ -1819,7 +1819,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         #region Diagnostics
 
-        internal override CommonMessageProvider MessageProvider
+        public override CommonMessageProvider MessageProvider
         {
             get { return _syntaxAndDeclarations.MessageProvider; }
         }
@@ -1827,7 +1827,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The bag in which semantic analysis should deposit its diagnostics.
         /// </summary>
-        internal DiagnosticBag DeclarationDiagnostics
+        public DiagnosticBag DeclarationDiagnostics
         {
             get
             {
@@ -1859,7 +1859,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// A bag in which diagnostics that should be reported after code gen can be deposited.
         /// </summary>
-        internal DiagnosticBag AdditionalCodegenWarnings
+        public DiagnosticBag AdditionalCodegenWarnings
         {
             get
             {
@@ -1869,7 +1869,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private readonly DiagnosticBag _additionalCodegenWarnings = new DiagnosticBag();
 
-        internal DeclarationTable Declarations
+        public DeclarationTable Declarations
         {
             get
             {
@@ -1912,7 +1912,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetDiagnostics(DefaultDiagnosticsStage, true, cancellationToken);
         }
 
-        internal ImmutableArray<Diagnostic> GetDiagnostics(CompilationStage stage, bool includeEarlierStages, CancellationToken cancellationToken)
+        public ImmutableArray<Diagnostic> GetDiagnostics(CompilationStage stage, bool includeEarlierStages, CancellationToken cancellationToken)
         {
             var builder = DiagnosticBag.GetInstance();
 
@@ -2066,7 +2066,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// 'incoming' is freed.
         /// </summary>
         /// <returns>True when there is no error or warning treated as an error.</returns>
-        internal override bool FilterAndAppendAndFreeDiagnostics(DiagnosticBag accumulator, ref DiagnosticBag incoming)
+        public override bool FilterAndAppendAndFreeDiagnostics(DiagnosticBag accumulator, ref DiagnosticBag incoming)
         {
             bool result = FilterAndAppendDiagnostics(accumulator, incoming.AsEnumerableWithoutResolution());
             incoming.Free();
@@ -2162,7 +2162,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal ImmutableArray<Diagnostic> GetDiagnosticsForSyntaxTree(
+        public ImmutableArray<Diagnostic> GetDiagnosticsForSyntaxTree(
             CompilationStage stage,
             SyntaxTree syntaxTree,
             TextSpan? filterSpanWithinTree,
@@ -2244,19 +2244,19 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         #region Emit
 
-        internal override byte LinkerMajorVersion => 0x30;
+        public override byte LinkerMajorVersion => 0x30;
 
-        internal override bool IsDelaySigned
+        public override bool IsDelaySigned
         {
             get { return SourceAssembly.IsDelaySigned; }
         }
 
-        internal override StrongNameKeys StrongNameKeys
+        public override StrongNameKeys StrongNameKeys
         {
             get { return SourceAssembly.StrongNameKeys; }
         }
 
-        internal override CommonPEModuleBuilder CreateModuleBuilder(
+        public override CommonPEModuleBuilder CreateModuleBuilder(
             EmitOptions emitOptions,
             IMethodSymbol debugEntryPoint,
             IEnumerable<ResourceDescription> manifestResources,
@@ -2314,7 +2314,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return moduleBeingBuilt;
         }
 
-        internal override bool CompileImpl(
+        public override bool CompileImpl(
             CommonPEModuleBuilder moduleBuilder,
             Stream win32Resources,
             Stream xmlDocStream,
@@ -2486,7 +2486,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override EmitDifferenceResult EmitDifference(
+        public override EmitDifferenceResult EmitDifference(
             EmitBaseline baseline,
             IEnumerable<SemanticEdit> edits,
             Func<ISymbol, bool> isAddedSymbol,
@@ -2510,7 +2510,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 cancellationToken);
         }
 
-        internal string GetRuntimeMetadataVersion(EmitOptions emitOptions, DiagnosticBag diagnostics)
+        public string GetRuntimeMetadataVersion(EmitOptions emitOptions, DiagnosticBag diagnostics)
         {
             string runtimeMDVersion = GetRuntimeMetadataVersion(emitOptions);
             if (runtimeMDVersion != null)
@@ -2661,7 +2661,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override bool HasCodeToEmit()
+        public override bool HasCodeToEmit()
         {
             foreach (var syntaxTree in this.SyntaxTrees)
             {
@@ -2812,7 +2812,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return this.GetEntryPoint(cancellationToken);
         }
 
-        internal override int CompareSourceLocations(Location loc1, Location loc2)
+        public override int CompareSourceLocations(Location loc1, Location loc2)
         {
             Debug.Assert(loc1.IsInSource);
             Debug.Assert(loc2.IsInSource);
@@ -2869,19 +2869,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// dynamic types.
         /// </summary>
         /// <returns></returns>
-        internal bool HasDynamicEmitAttributes()
+        public bool HasDynamicEmitAttributes()
         {
             return
                 (object)GetWellKnownTypeMember(WellKnownMember.System_Runtime_CompilerServices_DynamicAttribute__ctor) != null &&
                 (object)GetWellKnownTypeMember(WellKnownMember.System_Runtime_CompilerServices_DynamicAttribute__ctorTransformFlags) != null;
         }
 
-        internal override AnalyzerDriver AnalyzerForLanguage(ImmutableArray<DiagnosticAnalyzer> analyzers, AnalyzerManager analyzerManager)
+        public override AnalyzerDriver AnalyzerForLanguage(ImmutableArray<DiagnosticAnalyzer> analyzers, AnalyzerManager analyzerManager)
         {
             return new AnalyzerDriver<SyntaxKind>(analyzers, n => n.Kind(), analyzerManager);
         }
 
-        internal void SymbolDeclaredEvent(Symbol symbol)
+        public void SymbolDeclaredEvent(Symbol symbol)
         {
             if (EventQueue != null) EventQueue.Enqueue(new SymbolDeclaredCompilationEvent(this, symbol));
         }
@@ -2895,7 +2895,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// This is fixed in 4.5 thus enabling block array initialization for a very common case.
         /// We look for the presence of <see cref="System.Runtime.GCLatencyMode.SustainedLowLatency"/> which was introduced in .Net 4.5
         /// </remarks>
-        internal bool EnableEnumArrayBlockInitialization
+        public bool EnableEnumArrayBlockInitialization
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,12 +6,12 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal class SyntaxDiagnosticInfo : DiagnosticInfo
+    public class SyntaxDiagnosticInfo : DiagnosticInfo
     {
-        internal readonly int Offset;
-        internal readonly int Width;
+        public readonly int Offset;
+        public readonly int Width;
 
-        internal SyntaxDiagnosticInfo(int offset, int width, ErrorCode code, params object[] args)
+        public SyntaxDiagnosticInfo(int offset, int width, ErrorCode code, params object[] args)
             : base(CSharp.MessageProvider.Instance, (int)code, args)
         {
             Debug.Assert(width >= 0);
@@ -19,17 +19,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.Width = width;
         }
 
-        internal SyntaxDiagnosticInfo(int offset, int width, ErrorCode code)
+        public SyntaxDiagnosticInfo(int offset, int width, ErrorCode code)
             : this(offset, width, code, SpecializedCollections.EmptyObjects)
         {
         }
 
-        internal SyntaxDiagnosticInfo(ErrorCode code, params object[] args)
+        public SyntaxDiagnosticInfo(ErrorCode code, params object[] args)
             : this(0, 0, code, args)
         {
         }
 
-        internal SyntaxDiagnosticInfo(ErrorCode code)
+        public SyntaxDiagnosticInfo(ErrorCode code)
             : this(0, 0, code)
         {
         }

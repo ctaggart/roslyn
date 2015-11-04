@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// exhibit reference-equality.  
     /// </para>
     /// </remarks>
-    internal abstract class CSharpSemanticModel : SemanticModel
+    public abstract class CSharpSemanticModel : SemanticModel
     {
         /// <summary>
         /// The compilation this object was obtained from.
@@ -48,12 +48,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The root node of the syntax tree that this binding is based on.
         /// </summary>
-        internal abstract CSharpSyntaxNode Root { get; }
+        public abstract CSharpSyntaxNode Root { get; }
 
 
         // Is this node one that could be successfully interrogated by GetSymbolInfo/GetTypeInfo/GetMemberGroup/GetConstantValue?
         // WARN: If isSpeculative is true, then don't look at .Parent - there might not be one.
-        internal static bool CanGetSemanticInfo(CSharpSyntaxNode node, bool allowNamedArgumentName = false, bool isSpeculative = false)
+        public static bool CanGetSemanticInfo(CSharpSyntaxNode node, bool allowNamedArgumentName = false, bool isSpeculative = false)
         {
             Debug.Assert(node != null);
 
@@ -129,14 +129,14 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="options">Options to control behavior.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        internal abstract SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract SymbolInfo GetSymbolInfoWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets symbol information about the 'Add' method corresponding to an expression syntax <paramref name="node"/> within collection initializer.
         /// This is the worker function that is overridden in various derived kinds of Semantic Models. It can assume that 
         /// CheckSyntaxNode has already been called and the <paramref name="node"/> is in the right place in the syntax tree.
         /// </summary>
-        internal abstract SymbolInfo GetCollectionInitializerSymbolInfoWorker(InitializerExpressionSyntax collectionInitializer, ExpressionSyntax node, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract SymbolInfo GetCollectionInitializerSymbolInfoWorker(InitializerExpressionSyntax collectionInitializer, ExpressionSyntax node, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets type information about a syntax node. This is overridden by various specializations of SemanticModel.
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        internal abstract CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract CSharpTypeInfo GetTypeInfoWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets a list of method or indexed property symbols for a syntax node. This is overridden by various specializations of SemanticModel.
@@ -155,7 +155,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="options"></param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        internal abstract ImmutableArray<Symbol> GetMemberGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract ImmutableArray<Symbol> GetMemberGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets a list of indexer symbols for a syntax node. This is overridden by various specializations of SemanticModel.
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="options"></param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        internal abstract ImmutableArray<PropertySymbol> GetIndexerGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract ImmutableArray<PropertySymbol> GetIndexerGroupWorker(CSharpSyntaxNode node, SymbolInfoOptions options, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the constant value for a syntax node. This is overridden by various specializations of SemanticModel.
@@ -174,13 +174,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        internal abstract Optional<object> GetConstantValueWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract Optional<object> GetConstantValueWorker(CSharpSyntaxNode node, CancellationToken cancellationToken = default(CancellationToken));
 
         #endregion Abstract worker methods
 
         #region Helpers for speculative binding
 
-        internal Binder GetSpeculativeBinder(int position, ExpressionSyntax expression, SpeculativeBindingOption bindingOption)
+        public Binder GetSpeculativeBinder(int position, ExpressionSyntax expression, SpeculativeBindingOption bindingOption)
         {
             Debug.Assert(expression != null);
 
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return boundNode;
         }
 
-        internal static ImmutableArray<Symbol> BindCref(CrefSyntax crefSyntax, Binder binder)
+        public static ImmutableArray<Symbol> BindCref(CrefSyntax crefSyntax, Binder binder)
         {
             var unusedDiagnostics = DiagnosticBag.GetInstance();
             Symbol unusedAmbiguityWinner;
@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return symbols;
         }
 
-        internal SymbolInfo GetCrefSymbolInfo(int position, CrefSyntax crefSyntax, SymbolInfoOptions options, bool hasParameterList)
+        public SymbolInfo GetCrefSymbolInfo(int position, CrefSyntax crefSyntax, SymbolInfoOptions options, bool hasParameterList)
         {
             var binder = this.GetEnclosingBinder(position);
             if (binder?.InCref == true)
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SymbolInfo.None;
         }
 
-        internal static bool HasParameterList(CrefSyntax crefSyntax)
+        public static bool HasParameterList(CrefSyntax crefSyntax)
         {
             while (crefSyntax.Kind() == SyntaxKind.QualifiedCref)
             {
@@ -819,7 +819,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return GetSpeculativeTypeInfoWorker(position, expression, bindingOption);
         }
 
-        internal CSharpTypeInfo GetSpeculativeTypeInfoWorker(int position, ExpressionSyntax expression, SpeculativeBindingOption bindingOption)
+        public CSharpTypeInfo GetSpeculativeTypeInfoWorker(int position, ExpressionSyntax expression, SpeculativeBindingOption bindingOption)
         {
             if (!CanGetSemanticInfo(expression, isSpeculative: true))
             {
@@ -994,21 +994,21 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Gets the binder that encloses the position.
         /// </summary>
-        internal Binder GetEnclosingBinder(int position)
+        public Binder GetEnclosingBinder(int position)
         {
             Binder result = GetEnclosingBinderInternal(position);
             Debug.Assert(result == null || result.IsSemanticModelBinder);
             return result;
         }
 
-        internal abstract Binder GetEnclosingBinderInternal(int position);
+        public abstract Binder GetEnclosingBinderInternal(int position);
 
         /// <summary>
         /// Gets the MemberSemanticModel that contains the node.
         /// </summary>
-        internal abstract MemberSemanticModel GetMemberModel(CSharpSyntaxNode node);
+        public abstract MemberSemanticModel GetMemberModel(CSharpSyntaxNode node);
 
-        internal bool IsInTree(CSharpSyntaxNode node)
+        public bool IsInTree(CSharpSyntaxNode node)
         {
             return node.SyntaxTree == this.SyntaxTree;
         }
@@ -1625,7 +1625,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // highestBoundNode: The highest node in the bound tree associated with node
         // boundNodeForSyntacticParent: The lowest node in the bound tree associated with node.Parent.
         // binderOpt: If this is null, then the one enclosing the bound node's syntax will be used (unsafe during speculative binding).
-        internal SymbolInfo GetSymbolInfoForNode(
+        public SymbolInfo GetSymbolInfoForNode(
             SymbolInfoOptions options,
             BoundNode lowestBoundNode,
             BoundNode highestBoundNode,
@@ -1745,7 +1745,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // lowestBoundNode: The lowest node in the bound tree associated with node
         // highestBoundNode: The highest node in the bound tree associated with node
         // boundNodeForSyntacticParent: The lowest node in the bound tree associated with node.Parent.
-        internal CSharpTypeInfo GetTypeInfoForNode(
+        public CSharpTypeInfo GetTypeInfoForNode(
             BoundNode lowestBoundNode,
             BoundNode highestBoundNode,
             BoundNode boundNodeForSyntacticParent)
@@ -1867,7 +1867,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // lowestBoundNode: The lowest node in the bound tree associated with node
         // highestBoundNode: The highest node in the bound tree associated with node
         // boundNodeForSyntacticParent: The lowest node in the bound tree associated with node.Parent.
-        internal ImmutableArray<Symbol> GetMemberGroupForNode(
+        public ImmutableArray<Symbol> GetMemberGroupForNode(
             SymbolInfoOptions options,
             BoundNode lowestBoundNode,
             BoundNode boundNodeForSyntacticParent,
@@ -1891,7 +1891,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         // lowestBoundNode: The lowest node in the bound tree associated with node
         // highestBoundNode: The highest node in the bound tree associated with node
         // boundNodeForSyntacticParent: The lowest node in the bound tree associated with node.Parent.
-        internal ImmutableArray<PropertySymbol> GetIndexerGroupForNode(
+        public ImmutableArray<PropertySymbol> GetIndexerGroupForNode(
             BoundNode lowestBoundNode,
             Binder binderOpt)
         {
@@ -1906,7 +1906,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // Gets symbol info for a type or namespace or alias reference. It is assumed that any error cases will come in
         // as a type whose OriginalDefinition is an error symbol from which the ResultKind can be retrieved.
-        internal static SymbolInfo GetSymbolInfoForSymbol(Symbol symbol, SymbolInfoOptions options)
+        public static SymbolInfo GetSymbolInfoForSymbol(Symbol symbol, SymbolInfoOptions options)
         {
             Debug.Assert((object)symbol != null);
 
@@ -1944,7 +1944,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Gets TypeInfo for a type or namespace or alias reference.
-        internal static CSharpTypeInfo GetTypeInfoForSymbol(Symbol symbol)
+        public static CSharpTypeInfo GetTypeInfoForSymbol(Symbol symbol)
         {
             Debug.Assert((object)symbol != null);
 
@@ -1987,7 +1987,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // This is used by other binding APIs to invoke the right binder API
-        virtual internal BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
+        virtual public BoundNode Bind(Binder binder, CSharpSyntaxNode node, DiagnosticBag diagnostics)
         {
             var expression = node as ExpressionSyntax;
             if (expression != null)
@@ -2095,7 +2095,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelForMethodBodyCore((SyntaxTreeSemanticModel)this, position, method, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, BaseMethodDeclarationSyntax method, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, BaseMethodDeclarationSyntax method, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with a method body that did not appear in this source code.
@@ -2120,7 +2120,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelForMethodBodyCore((SyntaxTreeSemanticModel)this, position, accessor, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, AccessorDeclarationSyntax accessor, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelForMethodBodyCore(SyntaxTreeSemanticModel parentModel, int position, AccessorDeclarationSyntax accessor, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with a type syntax node that did not appear in
@@ -2147,7 +2147,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, type, bindingOption, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, TypeSyntax type, SpeculativeBindingOption bindingOption, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, TypeSyntax type, SpeculativeBindingOption bindingOption, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with a statement that did not appear in
@@ -2171,7 +2171,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, statement, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, StatementSyntax statement, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, StatementSyntax statement, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with an initializer that did not appear in
@@ -2196,7 +2196,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, initializer, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, EqualsValueClauseSyntax initializer, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, EqualsValueClauseSyntax initializer, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with an expression body that did not appear in
@@ -2221,7 +2221,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, expressionBody, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ArrowExpressionClauseSyntax expressionBody, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ArrowExpressionClauseSyntax expressionBody, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with a constructor initializer that did not appear in
@@ -2249,7 +2249,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, constructorInitializer, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ConstructorInitializerSyntax constructorInitializer, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, ConstructorInitializerSyntax constructorInitializer, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with a cref that did not appear in
@@ -2277,7 +2277,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return TryGetSpeculativeSemanticModelCore((SyntaxTreeSemanticModel)this, position, crefSyntax, out speculativeModel);
         }
 
-        internal abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, CrefSyntax crefSyntax, out SemanticModel speculativeModel);
+        public abstract bool TryGetSpeculativeSemanticModelCore(SyntaxTreeSemanticModel parentModel, int position, CrefSyntax crefSyntax, out SemanticModel speculativeModel);
 
         /// <summary>
         /// Get a SemanticModel object that is associated with an attribute that did not appear in
@@ -2411,7 +2411,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Conversion object with a false "Exists" property is returned.</returns>
         /// <remarks>To determine the conversion between two types (instead of an expression and a
         /// type), use Compilation.ClassifyConversion.</remarks>
-        internal abstract Conversion ClassifyConversionForCast(ExpressionSyntax expression, TypeSymbol destination);
+        public abstract Conversion ClassifyConversionForCast(ExpressionSyntax expression, TypeSymbol destination);
 
         /// <summary>
         /// Determines what type of conversion, if any, would be used if a given expression was
@@ -2427,7 +2427,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Conversion object with a false "Exists" property is returned.</returns>
         /// <remarks>To determine the conversion between two types (instead of an expression and a
         /// type), use Compilation.ClassifyConversion.</remarks>
-        internal Conversion ClassifyConversionForCast(int position, ExpressionSyntax expression, TypeSymbol destination)
+        public Conversion ClassifyConversionForCast(int position, ExpressionSyntax expression, TypeSymbol destination)
         {
             if ((object)destination == null)
             {
@@ -2647,7 +2647,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="declarationSyntax">The syntax node that declares one or more fields or events.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The symbols that were declared.</returns>
-        internal abstract ImmutableArray<ISymbol> GetDeclaredSymbols(BaseFieldDeclarationSyntax declarationSyntax, CancellationToken cancellationToken = default(CancellationToken));
+        public abstract ImmutableArray<ISymbol> GetDeclaredSymbols(BaseFieldDeclarationSyntax declarationSyntax, CancellationToken cancellationToken = default(CancellationToken));
 
         protected ParameterSymbol GetParameterSymbol(
             ImmutableArray<ParameterSymbol> parameters,
@@ -2679,7 +2679,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <param name="typeParameter"></param>
         public abstract ITypeParameterSymbol GetDeclaredSymbol(TypeParameterSyntax typeParameter, CancellationToken cancellationToken = default(CancellationToken));
 
-        internal BinderFlags GetSemanticModelBinderFlags()
+        public BinderFlags GetSemanticModelBinderFlags()
         {
             return this.IgnoresAccessibility
                 ? BinderFlags.SemanticModel | BinderFlags.IgnoreAccessibility
@@ -3898,7 +3898,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        internal static ImmutableArray<MethodSymbol> GetReducedAndFilteredMethodGroupSymbols(Binder binder, BoundMethodGroup node)
+        public static ImmutableArray<MethodSymbol> GetReducedAndFilteredMethodGroupSymbols(Binder binder, BoundMethodGroup node)
         {
             var methods = ArrayBuilder<MethodSymbol>.GetInstance();
             var filteredMethods = ArrayBuilder<MethodSymbol>.GetInstance();
@@ -4164,7 +4164,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Options to control the internal working of GetSymbolInfoWorker. Not currently exposed
         /// to public clients, but could be if desired.
         /// </summary>
-        internal enum SymbolInfoOptions
+        public enum SymbolInfoOptions
         {
             /// <summary>
             /// When binding "C" new C(...), return the type C and do not return information about
@@ -4193,7 +4193,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             DefaultOptions = PreferConstructorsToType | ResolveAliases
         }
 
-        internal static void ValidateSymbolInfoOptions(SymbolInfoOptions options)
+        public static void ValidateSymbolInfoOptions(SymbolInfoOptions options)
         {
             Debug.Assert(((options & SymbolInfoOptions.PreferConstructorsToType) != 0) !=
                          ((options & SymbolInfoOptions.PreferTypeToConstructors) != 0), "Options are mutually exclusive");
@@ -4511,17 +4511,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ImmutableArray.Create<ISymbol>();
         }
 
-        internal override void ComputeDeclarationsInSpan(TextSpan span, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken)
+        public override void ComputeDeclarationsInSpan(TextSpan span, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken)
         {
             CSharpDeclarationComputer.ComputeDeclarationsInSpan(this, span, getSymbol, builder, cancellationToken);
         }
 
-        internal override void ComputeDeclarationsInNode(SyntaxNode node, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken, int? levelsToCompute = null)
+        public override void ComputeDeclarationsInNode(SyntaxNode node, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken, int? levelsToCompute = null)
         {
             CSharpDeclarationComputer.ComputeDeclarationsInNode(this, node, getSymbol, builder, cancellationToken, levelsToCompute);
         }
 
-        protected internal override SyntaxNode GetTopmostNodeForDiagnosticAnalysis(ISymbol symbol, SyntaxNode declaringSyntax)
+        public override SyntaxNode GetTopmostNodeForDiagnosticAnalysis(ISymbol symbol, SyntaxNode declaringSyntax)
         {
             switch (symbol.Kind)
             {

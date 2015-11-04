@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -16,19 +16,19 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// Encapsulates the MakeOverriddenOrHiddenMembers functionality for methods, properties (including indexers), 
     /// and events.
     /// </summary>
-    internal static class OverriddenOrHiddenMembersHelpers
+    public static class OverriddenOrHiddenMembersHelpers
     {
-        internal static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this MethodSymbol member)
+        public static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this MethodSymbol member)
         {
             return MakeOverriddenOrHiddenMembersWorker(member);
         }
 
-        internal static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this PropertySymbol member)
+        public static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this PropertySymbol member)
         {
             return MakeOverriddenOrHiddenMembersWorker(member);
         }
 
-        internal static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this EventSymbol member)
+        public static OverriddenOrHiddenMembersResult MakeOverriddenOrHiddenMembers(this EventSymbol member)
         {
             return MakeOverriddenOrHiddenMembersWorker(member);
         }
@@ -854,7 +854,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // CONSIDER: we could cache this on MethodSymbol
-        internal static bool RequiresExplicitOverride(this MethodSymbol method)
+        public static bool RequiresExplicitOverride(this MethodSymbol method)
         {
             if (method.IsOverride)
             {
@@ -887,7 +887,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// be computed, then it is important to pass ignoreInterfaceImplementationChanges: true
         /// (see MethodSymbol.IsMetadataVirtual for details).
         /// </remarks>
-        internal static MethodSymbol GetFirstRuntimeOverriddenMethodIgnoringNewSlot(this MethodSymbol method, bool ignoreInterfaceImplementationChanges)
+        public static MethodSymbol GetFirstRuntimeOverriddenMethodIgnoringNewSlot(this MethodSymbol method, bool ignoreInterfaceImplementationChanges)
         {
             if (!method.IsMetadataVirtual(ignoreInterfaceImplementationChanges))
             {

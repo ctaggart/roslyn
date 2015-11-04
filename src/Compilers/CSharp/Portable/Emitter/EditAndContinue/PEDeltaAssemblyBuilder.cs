@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Emit
 {
-    internal sealed class PEDeltaAssemblyBuilder : PEAssemblyBuilderBase, IPEDeltaAssemblyBuilder
+    public sealed class PEDeltaAssemblyBuilder : PEAssemblyBuilderBase, IPEDeltaAssemblyBuilder
     {
         private readonly EmitBaseline _previousGeneration;
         private readonly CSharpDefinitionMap _previousDefinitions;
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
 
         public override int CurrentGenerationOrdinal => _previousGeneration.Ordinal + 1;
 
-        internal override Cci.ITypeReference EncTranslateLocalVariableType(TypeSymbol type, DiagnosticBag diagnostics)
+        public override Cci.ITypeReference EncTranslateLocalVariableType(TypeSymbol type, DiagnosticBag diagnostics)
         {
             // Note: The translator is not aware of synthesized types. If type is a synthesized type it won't get mapped.
             // In such case use the type itself. This can only happen for variables storing lambda display classes.
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
         }
 
         // internal for testing
-        internal static IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> GetAnonymousTypeMapFromMetadata(MetadataReader reader, MetadataDecoder metadataDecoder)
+        public static IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> GetAnonymousTypeMapFromMetadata(MetadataReader reader, MetadataDecoder metadataDecoder)
         {
             var result = new Dictionary<AnonymousTypeKey, AnonymousTypeValue>();
             foreach (var handle in reader.TypeDefinitions)
@@ -164,17 +164,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             return true;
         }
 
-        internal EmitBaseline PreviousGeneration
+        public EmitBaseline PreviousGeneration
         {
             get { return _previousGeneration; }
         }
 
-        internal CSharpDefinitionMap PreviousDefinitions
+        public CSharpDefinitionMap PreviousDefinitions
         {
             get { return _previousDefinitions; }
         }
 
-        internal override bool SupportsPrivateImplClass
+        public override bool SupportsPrivateImplClass
         {
             get
             {
@@ -192,33 +192,33 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             return anonymousTypes;
         }
 
-        internal override VariableSlotAllocator TryCreateVariableSlotAllocator(MethodSymbol method, MethodSymbol topLevelMethod)
+        public override VariableSlotAllocator TryCreateVariableSlotAllocator(MethodSymbol method, MethodSymbol topLevelMethod)
         {
             return _previousDefinitions.TryCreateVariableSlotAllocator(_previousGeneration, method, topLevelMethod);
         }
 
-        internal override ImmutableArray<AnonymousTypeKey> GetPreviousAnonymousTypes()
+        public override ImmutableArray<AnonymousTypeKey> GetPreviousAnonymousTypes()
         {
             return ImmutableArray.CreateRange(_previousGeneration.AnonymousTypeMap.Keys);
         }
 
-        internal override int GetNextAnonymousTypeIndex()
+        public override int GetNextAnonymousTypeIndex()
         {
             return _previousGeneration.GetNextAnonymousTypeIndex();
         }
 
-        internal override bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
+        public override bool TryGetAnonymousTypeName(NamedTypeSymbol template, out string name, out int index)
         {
             Debug.Assert(this.Compilation == template.DeclaringCompilation);
             return _previousDefinitions.TryGetAnonymousTypeName(template, out name, out index);
         }
 
-        internal SymbolChanges Changes
+        public SymbolChanges Changes
         {
             get { return _changes; }
         }
 
-        internal override IEnumerable<Cci.INamespaceTypeDefinition> GetTopLevelTypesCore(EmitContext context)
+        public override IEnumerable<Cci.INamespaceTypeDefinition> GetTopLevelTypesCore(EmitContext context)
         {
             return _changes.GetTopLevelTypes(context);
         }
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Emit
             }
         }
 
-        internal override bool IsEncDelta
+        public override bool IsEncDelta
         {
             get { return true; }
         }

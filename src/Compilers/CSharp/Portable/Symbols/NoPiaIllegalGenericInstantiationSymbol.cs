@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A NoPiaIllegalGenericInstantiationSymbol is a special kind of ErrorSymbol that represents a
     /// generic type instantiation that cannot cross assembly boundaries according to NoPia rules.
     /// </summary>
-    internal class NoPiaIllegalGenericInstantiationSymbol : ErrorTypeSymbol
+    public class NoPiaIllegalGenericInstantiationSymbol : ErrorTypeSymbol
     {
         private readonly ModuleSymbol _exposingModule;
         private readonly NamedTypeSymbol _underlyingSymbol;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _underlyingSymbol = underlyingSymbol;
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get
             {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get
             {
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return RuntimeHelpers.GetHashCode(this);
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             return ReferenceEquals(this, t2);
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Threading;
@@ -8,12 +8,12 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal class ParameterSignature
+    public class ParameterSignature
     {
-        internal readonly ImmutableArray<TypeSymbol> parameterTypes;
-        internal readonly ImmutableArray<RefKind> parameterRefKinds;
+        public readonly ImmutableArray<TypeSymbol> parameterTypes;
+        public readonly ImmutableArray<RefKind> parameterRefKinds;
 
-        internal static readonly ParameterSignature NoParams =
+        public static readonly ParameterSignature NoParams =
             new ParameterSignature(ImmutableArray<TypeSymbol>.Empty, default(ImmutableArray<RefKind>));
 
         private ParameterSignature(ImmutableArray<TypeSymbol> parameterTypes,
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return new ParameterSignature(types.ToImmutableAndFree(), refKinds);
         }
 
-        internal static void PopulateParameterSignature(ImmutableArray<ParameterSymbol> parameters, ref ParameterSignature lazySignature)
+        public static void PopulateParameterSignature(ImmutableArray<ParameterSymbol> parameters, ref ParameterSignature lazySignature)
         {
             if (lazySignature == null)
             {

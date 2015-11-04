@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         /// <summary>
         /// True if we are currently in an unsafe region (type, member, or block).
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Does not imply that this compilation allows unsafe regions (could be in an error recovery scenario).
         /// To determine that, check this.Compilation.Options.AllowUnsafe.
         /// </remarks>
-        internal bool InUnsafeRegion
+        public bool InUnsafeRegion
         {
             get { return this.Flags.Includes(BinderFlags.UnsafeRegion); }
         }
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         /// <returns>True if a diagnostic was reported, or would have been reported if not for
         /// the suppress flag.</returns>
-        internal bool ReportUnsafeIfNotAllowed(Location location, DiagnosticBag diagnostics)
+        public bool ReportUnsafeIfNotAllowed(Location location, DiagnosticBag diagnostics)
         {
             return ReportUnsafeIfNotAllowed(location, sizeOfTypeOpt: null, diagnostics: diagnostics);
         }

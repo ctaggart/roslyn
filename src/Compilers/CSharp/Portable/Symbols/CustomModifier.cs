@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a custom modifier (modopt/modreq).
     /// </summary>
-    internal abstract partial class CSharpCustomModifier : CustomModifier
+    public abstract partial class CSharpCustomModifier : CustomModifier
     {
         protected readonly NamedTypeSymbol modifier;
 
@@ -33,17 +33,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         public abstract override bool Equals(object obj);
 
-        internal static CustomModifier CreateOptional(NamedTypeSymbol modifier)
+        public static CustomModifier CreateOptional(NamedTypeSymbol modifier)
         {
             return new OptionalCustomModifier(modifier);
         }
 
-        internal static CustomModifier CreateRequired(NamedTypeSymbol modifier)
+        public static CustomModifier CreateRequired(NamedTypeSymbol modifier)
         {
             return new RequiredCustomModifier(modifier);
         }
 
-        internal static ImmutableArray<CustomModifier> Convert(ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
+        public static ImmutableArray<CustomModifier> Convert(ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
         {
             if (customModifiers.IsDefault)
             {

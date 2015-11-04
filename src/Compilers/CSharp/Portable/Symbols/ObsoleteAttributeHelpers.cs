@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Reflection.Metadata;
@@ -7,13 +7,13 @@ using Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static class ObsoleteAttributeHelpers
+    public static class ObsoleteAttributeHelpers
     {
         /// <summary>
         /// Initialize the ObsoleteAttributeData by fetching attributes and decoding ObsoleteAttributeData. This can be 
         /// done for Metadata symbol easily whereas trying to do this for source symbols could result in cycles.
         /// </summary>
-        internal static void InitializeObsoleteDataFromMetadata(ref ObsoleteAttributeData data, EntityHandle token, PEModuleSymbol containingModule)
+        public static void InitializeObsoleteDataFromMetadata(ref ObsoleteAttributeData data, EntityHandle token, PEModuleSymbol containingModule)
         {
             if (ReferenceEquals(data, ObsoleteAttributeData.Uninitialized))
             {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Get the ObsoleteAttributeData by fetching attributes and decoding ObsoleteAttributeData. This can be 
         /// done for Metadata symbol easily whereas trying to do this for source symbols could result in cycles.
         /// </summary>
-        internal static ObsoleteAttributeData GetObsoleteDataFromMetadata(EntityHandle token, PEModuleSymbol containingModule)
+        public static ObsoleteAttributeData GetObsoleteDataFromMetadata(EntityHandle token, PEModuleSymbol containingModule)
         {
             ObsoleteAttributeData obsoleteAttributeData;
             bool isObsolete = containingModule.Module.HasDeprecatedOrObsoleteAttribute(token, out obsoleteAttributeData);
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// symbol's Obsoleteness is Unknown. False, if we are certain that no symbol in the parent
         /// hierarchy is Obsolete.
         /// </returns>
-        internal static ThreeState GetObsoleteContextState(Symbol symbol, bool forceComplete = false)
+        public static ThreeState GetObsoleteContextState(Symbol symbol, bool forceComplete = false)
         {
             if ((object)symbol == null)
                 return ThreeState.False;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Create a diagnostic for the given symbol. This could be an error or a warning based on
         /// the ObsoleteAttribute's arguments.
         /// </summary>
-        internal static DiagnosticInfo CreateObsoleteDiagnostic(Symbol symbol, BinderFlags location)
+        public static DiagnosticInfo CreateObsoleteDiagnostic(Symbol symbol, BinderFlags location)
         {
             var data = symbol.ObsoleteAttributeData;
 

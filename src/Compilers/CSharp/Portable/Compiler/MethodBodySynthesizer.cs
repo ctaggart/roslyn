@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -12,9 +12,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Contains methods related to synthesizing bound nodes in initial binding 
     /// form that needs lowering, primarily method bodies for compiler-generated methods.
     /// </summary>
-    internal static class MethodBodySynthesizer
+    public static class MethodBodySynthesizer
     {
-        internal static ImmutableArray<BoundStatement> ConstructScriptConstructorBody(
+        public static ImmutableArray<BoundStatement> ConstructScriptConstructorBody(
             BoundStatement loweredBody,
             MethodSymbol constructor,
             SynthesizedSubmissionFields previousSubmissionFields,
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Construct a body for an auto-property accessor (updating or returning the backing field).
         /// </summary>
-        internal static BoundBlock ConstructAutoPropertyAccessorBody(SourceMethodSymbol accessor)
+        public static BoundBlock ConstructAutoPropertyAccessorBody(SourceMethodSymbol accessor)
         {
             Debug.Assert(accessor.MethodKind == MethodKind.PropertyGet || accessor.MethodKind == MethodKind.PropertySet);
 
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Generate an accessor for a field-like event.
         /// </summary>
-        internal static BoundBlock ConstructFieldLikeEventAccessorBody(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
+        public static BoundBlock ConstructFieldLikeEventAccessorBody(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
         {
             Debug.Assert(eventSymbol.HasAssociatedField);
             return eventSymbol.IsWindowsRuntimeEvent
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// Remove:
         ///   EventRegistrationTokenTable&lt;Event&gt;.GetOrCreateEventRegistrationTokenTable(ref _tokenTable).RemoveEventHandler(value);
         /// </summary>
-        internal static BoundBlock ConstructFieldLikeEventAccessorBody_WinRT(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
+        public static BoundBlock ConstructFieldLikeEventAccessorBody_WinRT(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
         {
             CSharpSyntaxNode syntax = eventSymbol.CSharpSyntaxNode;
 
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// _event = (DelegateType)Delegate.Combine(_event, value); //Remove for -=
         /// 
         /// </summary>
-        internal static BoundBlock ConstructFieldLikeEventAccessorBody_Regular(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
+        public static BoundBlock ConstructFieldLikeEventAccessorBody_Regular(SourceEventSymbol eventSymbol, bool isAddMethod, CSharpCompilation compilation, DiagnosticBag diagnostics)
         {
             CSharpSyntaxNode syntax = eventSymbol.CSharpSyntaxNode;
 
@@ -516,7 +516,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             { WasCompilerGenerated = true };
         }
 
-        internal static BoundBlock ConstructDestructorBody(MethodSymbol method, BoundBlock block)
+        public static BoundBlock ConstructDestructorBody(MethodSymbol method, BoundBlock block)
         {
             var syntax = block.Syntax;
 

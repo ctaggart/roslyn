@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// A helper class for synthesizing quantities of code.
     /// </summary>
-    internal sealed class SyntheticBoundNodeFactory
+    public sealed class SyntheticBoundNodeFactory
     {
         /// <summary>
         /// Thrown by the bound node factory when there is a failure to synthesize code.
@@ -90,7 +90,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         private Binder _binder;
 
-        internal BoundExpression MakeInvocationExpression(
+        public BoundExpression MakeInvocationExpression(
             BinderFlags flags,
             CSharpSyntaxNode node,
             BoundExpression receiver,
@@ -122,13 +122,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         private sealed class SyntheticBinderImpl : BuckStopsHereBinder
         {
             private readonly SyntheticBoundNodeFactory _factory;
-            internal SyntheticBinderImpl(SyntheticBoundNodeFactory factory) : base(factory.Compilation)
+            public SyntheticBinderImpl(SyntheticBoundNodeFactory factory) : base(factory.Compilation)
             {
                 _factory = factory;
             }
 
-            internal override Symbol ContainingMemberOrLambda { get { return _factory.CurrentMethod; } }
-            internal override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
+            public override Symbol ContainingMemberOrLambda { get { return _factory.CurrentMethod; } }
+            public override bool IsAccessibleHelper(Symbol symbol, TypeSymbol accessThroughType, out bool failedThroughTypeCheck, ref HashSet<DiagnosticInfo> useSiteDiagnostics, ConsList<Symbol> basesBeingResolved)
             {
                 return AccessCheck.IsSymbolAccessible(symbol, _factory.CurrentType, accessThroughType, out failedThroughTypeCheck, ref useSiteDiagnostics, basesBeingResolved);
             }
@@ -910,7 +910,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundSizeOfOperator(Syntax, Type(type), Binder.GetConstantSizeOf(type), SpecialType(Microsoft.CodeAnalysis.SpecialType.System_Int32)) { WasCompilerGenerated = true };
         }
 
-        internal BoundExpression ConstructorInfo(MethodSymbol ctor)
+        public BoundExpression ConstructorInfo(MethodSymbol ctor)
         {
             return new BoundMethodInfo(
                 Syntax,
@@ -1021,12 +1021,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                 Compilation.CreateArrayTypeSymbol(elementType));
         }
 
-        internal BoundExpression Default(TypeSymbol type)
+        public BoundExpression Default(TypeSymbol type)
         {
             return new BoundDefaultOperator(Syntax, type) { WasCompilerGenerated = true };
         }
 
-        internal BoundStatement Try(
+        public BoundStatement Try(
             BoundBlock tryBlock,
             ImmutableArray<BoundCatchBlock> catchBlocks,
             BoundBlock finallyBlock = null)
@@ -1034,13 +1034,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundTryStatement(Syntax, tryBlock, catchBlocks, finallyBlock) { WasCompilerGenerated = true };
         }
 
-        internal ImmutableArray<BoundCatchBlock> CatchBlocks(
+        public ImmutableArray<BoundCatchBlock> CatchBlocks(
             params BoundCatchBlock[] catchBlocks)
         {
             return catchBlocks.AsImmutableOrNull();
         }
 
-        internal BoundCatchBlock Catch(
+        public BoundCatchBlock Catch(
             LocalSymbol local,
             BoundBlock block)
         {
@@ -1048,24 +1048,24 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundCatchBlock(Syntax, local, source, source.Type, exceptionFilterOpt: null, body: block, isSynthesizedAsyncCatchAll: false);
         }
 
-        internal BoundCatchBlock Catch(
+        public BoundCatchBlock Catch(
             BoundExpression source,
             BoundBlock block)
         {
             return new BoundCatchBlock(Syntax, null, source, source.Type, exceptionFilterOpt: null, body: block, isSynthesizedAsyncCatchAll: false);
         }
 
-        internal BoundTryStatement Fault(BoundBlock tryBlock, BoundBlock faultBlock)
+        public BoundTryStatement Fault(BoundBlock tryBlock, BoundBlock faultBlock)
         {
             return new BoundTryStatement(Syntax, tryBlock, ImmutableArray<BoundCatchBlock>.Empty, faultBlock, preferFaultHandler: true);
         }
 
-        internal BoundExpression NullOrDefault(TypeSymbol typeSymbol)
+        public BoundExpression NullOrDefault(TypeSymbol typeSymbol)
         {
             return typeSymbol.IsValueType ? Default(typeSymbol) : Null(typeSymbol);
         }
 
-        internal BoundExpression Not(
+        public BoundExpression Not(
             BoundExpression expression)
         {
             return new BoundUnaryOperator(expression.Syntax, UnaryOperatorKind.BoolLogicalNegation, expression, null, null, LookupResultKind.Viable, expression.Type);
@@ -1117,7 +1117,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return local;
         }
 
-        internal BoundStatement NoOp(NoOpStatementFlavor noOpStatementFlavor)
+        public BoundStatement NoOp(NoOpStatementFlavor noOpStatementFlavor)
         {
             return new BoundNoOpStatement(Syntax, noOpStatementFlavor);
         }

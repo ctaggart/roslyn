@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// A source parameter, potentially with a default value, attributes, etc.
     /// </summary>
-    internal class SourceComplexParameterSymbol : SourceParameterSymbol, IAttributeTargetSymbol
+    public class SourceComplexParameterSymbol : SourceParameterSymbol, IAttributeTargetSymbol
     {
         [Flags]
         private enum ParameterSyntaxKind : byte
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private ThreeState _lazyHasOptionalAttribute;
         private ConstantValue _lazyDefaultSyntaxValue;
 
-        internal SourceComplexParameterSymbol(
+        public SourceComplexParameterSymbol(
             Symbol owner,
             int ordinal,
             TypeSymbol parameterType,
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             _lazyDefaultSyntaxValue = defaultSyntaxValue;
         }
 
-        internal override SyntaxReference SyntaxReference
+        public override SyntaxReference SyntaxReference
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal ParameterSyntax CSharpSyntaxNode
+        public ParameterSyntax CSharpSyntaxNode
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal SyntaxTree SyntaxTree
+        public SyntaxTree SyntaxTree
         {
             get
             {
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ConstantValue ExplicitDefaultConstantValue
+        public override ConstantValue ExplicitDefaultConstantValue
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ConstantValue DefaultValueFromAttributes
+        public override ConstantValue DefaultValueFromAttributes
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get
             {
@@ -129,7 +129,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get
             {
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get
             {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get
             {
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get
             {
@@ -323,7 +323,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override SyntaxList<AttributeListSyntax> AttributeDeclarationList
+        public sealed override SyntaxList<AttributeListSyntax> AttributeDeclarationList
         {
             get
             {
@@ -335,7 +335,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Gets the syntax list of custom attributes that declares attributes for this parameter symbol.
         /// </summary>
-        internal virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
+        public virtual OneOrMany<SyntaxList<AttributeListSyntax>> GetAttributeDeclarations()
         {
             // C# spec:
             // The attributes on the parameters of the resulting method declaration
@@ -382,7 +382,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal CommonParameterWellKnownAttributeData GetDecodedWellKnownAttributeData()
+        public CommonParameterWellKnownAttributeData GetDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsDecodedWellKnownAttributeDataComputed)
@@ -399,7 +399,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal ParameterEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
+        public ParameterEarlyWellKnownAttributeData GetEarlyDecodedWellKnownAttributeData()
         {
             var attributesBag = _lazyCustomAttributesBag;
             if (attributesBag == null || !attributesBag.IsEarlyDecodedWellKnownAttributeDataComputed)
@@ -416,7 +416,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <remarks>
         /// Forces binding and decoding of attributes.
         /// </remarks>
-        internal sealed override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
+        public sealed override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
         {
             if (_lazyCustomAttributesBag == null || !_lazyCustomAttributesBag.IsSealed)
             {
@@ -446,7 +446,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return _lazyCustomAttributesBag;
         }
 
-        internal override void EarlyDecodeWellKnownAttributeType(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax)
+        public override void EarlyDecodeWellKnownAttributeType(NamedTypeSymbol attributeType, AttributeSyntax attributeSyntax)
         {
             Debug.Assert(!attributeType.IsErrorType());
 
@@ -458,7 +458,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void PostEarlyDecodeWellKnownAttributeTypes()
+        public override void PostEarlyDecodeWellKnownAttributeTypes()
         {
             if (_lazyHasOptionalAttribute == ThreeState.Unknown)
             {
@@ -468,7 +468,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             base.PostEarlyDecodeWellKnownAttributeTypes();
         }
 
-        internal override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
+        public override CSharpAttributeData EarlyDecodeWellKnownAttribute(ref EarlyDecodeWellKnownAttributeArguments<EarlyWellKnownAttributeBinder, NamedTypeSymbol, AttributeSyntax, AttributeLocation> arguments)
         {
             if (CSharpAttributeData.IsTargetEarlyAttribute(arguments.AttributeType, arguments.AttributeSyntax, AttributeDescription.DefaultParameterValueAttribute))
             {
@@ -529,7 +529,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return !hasAnyDiagnostics ? attribute : null;
         }
 
-        internal override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
+        public override void DecodeWellKnownAttribute(ref DecodeWellKnownAttributeArguments<AttributeSyntax, CSharpAttributeData, AttributeLocation> arguments)
         {
             Debug.Assert((object)arguments.AttributeSyntaxOpt != null);
 
@@ -884,7 +884,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             diagnostics.Add(node.Name.Location, useSiteDiagnostics);
         }
 
-        internal override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
+        public override void PostDecodeWellKnownAttributes(ImmutableArray<CSharpAttributeData> boundAttributes, ImmutableArray<AttributeSyntax> allAttributeSyntaxNodes, DiagnosticBag diagnostics, AttributeLocation symbolPart, WellKnownAttributeData decodedData)
         {
             Debug.Assert(!boundAttributes.IsDefault);
             Debug.Assert(!allAttributeSyntaxNodes.IsDefault);
@@ -909,7 +909,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if the parameter has default argument syntax.
         /// </summary>
-        internal override bool HasDefaultArgumentSyntax
+        public override bool HasDefaultArgumentSyntax
         {
             get
             {
@@ -920,7 +920,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if the parameter is marked by <see cref="System.Runtime.InteropServices.OptionalAttribute"/>.
         /// </summary>
-        internal sealed override bool HasOptionalAttribute
+        public sealed override bool HasOptionalAttribute
         {
             get
             {
@@ -957,7 +957,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get
             {
@@ -968,7 +968,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMetadataIn
+        public sealed override bool IsMetadataIn
         {
             get
             {
@@ -977,7 +977,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override bool IsMetadataOut
+        public sealed override bool IsMetadataOut
         {
             get
             {
@@ -991,7 +991,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal sealed override MarshalPseudoCustomAttributeData MarshallingInformation
+        public sealed override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get
             {
@@ -1008,7 +1008,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExtensionMethodThis
+        public override bool IsExtensionMethodThis
         {
             get
             {
@@ -1024,7 +1024,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ushort CountOfCustomModifiersPrecedingByRef
+        public override ushort CountOfCustomModifiersPrecedingByRef
         {
             get
             {
@@ -1032,7 +1032,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
+        public override void ForceComplete(SourceLocation locationOpt, CancellationToken cancellationToken)
         {
             base.ForceComplete(locationOpt, cancellationToken);
 
@@ -1041,12 +1041,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal sealed class SourceComplexParameterSymbolWithCustomModifiers : SourceComplexParameterSymbol
+    public sealed class SourceComplexParameterSymbolWithCustomModifiers : SourceComplexParameterSymbol
     {
         private readonly ImmutableArray<CustomModifier> _customModifiers;
         private readonly ushort _countOfCustomModifiersPrecedingByRef;
 
-        internal SourceComplexParameterSymbolWithCustomModifiers(
+        public SourceComplexParameterSymbolWithCustomModifiers(
             Symbol owner,
             int ordinal,
             TypeSymbol parameterType,
@@ -1078,7 +1078,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override ushort CountOfCustomModifiersPrecedingByRef
+        public override ushort CountOfCustomModifiersPrecedingByRef
         {
             get
             {

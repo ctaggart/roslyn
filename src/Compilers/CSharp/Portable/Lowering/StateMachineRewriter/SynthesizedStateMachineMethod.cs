@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// State machine interface method implementation.
     /// </summary>
-    internal abstract class SynthesizedStateMachineMethod : SynthesizedImplementationMethod, ISynthesizedMethodBodyImplementationSymbol
+    public abstract class SynthesizedStateMachineMethod : SynthesizedImplementationMethod, ISynthesizedMethodBodyImplementationSymbol
     {
         private readonly bool _hasMethodBodyDependency;
 
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             get { return StateMachineType.KickoffMethod; }
         }
 
-        internal override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
+        public override int CalculateLocalSyntaxOffset(int localPosition, SyntaxTree localTree)
         {
             return this.StateMachineType.KickoffMethod.CalculateLocalSyntaxOffset(localPosition, localTree);
         }
@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Represents a state machine MoveNext method.
     /// Handles special behavior around inheriting some attributes from the original async/iterator method.
     /// </summary>
-    internal sealed class SynthesizedStateMachineMoveNextMethod : SynthesizedStateMachineMethod
+    public sealed class SynthesizedStateMachineMoveNextMethod : SynthesizedStateMachineMethod
     {
         private ImmutableArray<CSharpAttributeData> _attributes;
 
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Represents a state machine method other than a MoveNext method.
     /// All such methods are considered debugger hidden. 
     /// </summary>
-    internal sealed class SynthesizedStateMachineDebuggerHiddenMethod : SynthesizedStateMachineMethod
+    public sealed class SynthesizedStateMachineDebuggerHiddenMethod : SynthesizedStateMachineMethod
     {
         public SynthesizedStateMachineDebuggerHiddenMethod(
             string name,
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
         }
 
-        internal sealed override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
+        public sealed override void AddSynthesizedAttributes(ModuleCompilationState compilationState, ref ArrayBuilder<SynthesizedAttributeData> attributes)
         {
             var compilation = this.DeclaringCompilation;
             AddSynthesizedAttribute(ref attributes, compilation.TrySynthesizeAttribute(WellKnownMember.System_Diagnostics_DebuggerHiddenAttribute__ctor));

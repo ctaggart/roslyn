@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SynthesizedDelegateSymbol : SynthesizedContainer
+    public sealed class SynthesizedDelegateSymbol : SynthesizedContainer
     {
         private readonly NamespaceOrTypeSymbol _containingSymbol;
         private readonly MethodSymbol _constructor;
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return TypeKind.Delegate; }
         }
 
-        internal override MethodSymbol Constructor
+        public override MethodSymbol Constructor
         {
             get { return _constructor; }
         }
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return true; }
         }
 
-        internal override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
+        public override NamedTypeSymbol BaseTypeNoUseSiteDiagnostics
         {
             get { return ContainingAssembly.GetSpecialType(SpecialType.System_MulticastDelegate); }
         }
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             private readonly TypeSymbol _containingType;
             private readonly TypeSymbol _returnType;
 
-            internal InvokeMethod(SynthesizedDelegateSymbol containingType, BitVector byRefParameters, TypeSymbol voidReturnTypeOpt)
+            public InvokeMethod(SynthesizedDelegateSymbol containingType, BitVector byRefParameters, TypeSymbol voidReturnTypeOpt)
             {
                 var typeParams = containingType.TypeParameters;
 
@@ -128,17 +128,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return WellKnownMemberNames.DelegateInvokeName; }
             }
 
-            internal override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
+            public override bool IsMetadataNewSlot(bool ignoreInterfaceImplementationChanges = false)
             {
                 return true;
             }
 
-            internal override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
+            public override bool IsMetadataVirtual(bool ignoreInterfaceImplementationChanges = false)
             {
                 return true;
             }
 
-            internal override bool IsMetadataFinal
+            public override bool IsMetadataFinal
             {
                 get
                 {
@@ -161,17 +161,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return false; }
             }
 
-            internal override bool HasSpecialName
+            public override bool HasSpecialName
             {
                 get { return false; }
             }
 
-            internal override System.Reflection.MethodImplAttributes ImplementationAttributes
+            public override System.Reflection.MethodImplAttributes ImplementationAttributes
             {
                 get { return System.Reflection.MethodImplAttributes.Runtime; }
             }
 
-            internal override bool HasDeclarativeSecurity
+            public override bool HasDeclarativeSecurity
             {
                 get { return false; }
             }
@@ -181,17 +181,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 return null;
             }
 
-            internal override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
+            public override IEnumerable<Microsoft.Cci.SecurityAttribute> GetSecurityInformation()
             {
                 throw ExceptionUtilities.Unreachable;
             }
 
-            internal override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
+            public override MarshalPseudoCustomAttributeData ReturnValueMarshallingInformation
             {
                 get { return null; }
             }
 
-            internal override bool RequiresSecurityObject
+            public override bool RequiresSecurityObject
             {
                 get { return false; }
             }
@@ -251,17 +251,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 get { return null; }
             }
 
-            internal override ImmutableArray<string> GetAppliedConditionalSymbols()
+            public override ImmutableArray<string> GetAppliedConditionalSymbols()
             {
                 return ImmutableArray<string>.Empty;
             }
 
-            internal override Microsoft.Cci.CallingConvention CallingConvention
+            public override Microsoft.Cci.CallingConvention CallingConvention
             {
                 get { return Microsoft.Cci.CallingConvention.HasThis; }
             }
 
-            internal override bool GenerateDebugInfo
+            public override bool GenerateDebugInfo
             {
                 get { return false; }
             }

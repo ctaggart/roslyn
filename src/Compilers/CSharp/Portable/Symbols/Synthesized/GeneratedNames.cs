@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -9,26 +9,26 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal static partial class GeneratedNames
+    public static partial class GeneratedNames
     {
-        internal const string SynthesizedLocalNamePrefix = "CS$";
-        internal const char DotReplacementInTypeNames = '-';
+        public const string SynthesizedLocalNamePrefix = "CS$";
+        public const char DotReplacementInTypeNames = '-';
         private const string SuffixSeparator = "__";
         private const char IdSeparator = '_';
         private const char GenerationSeparator = '#';
 
-        internal static bool IsGeneratedMemberName(string memberName)
+        public static bool IsGeneratedMemberName(string memberName)
         {
             return memberName.Length > 0 && memberName[0] == '<';
         }
 
-        internal static string MakeBackingFieldName(string propertyName)
+        public static string MakeBackingFieldName(string propertyName)
         {
             Debug.Assert((char)GeneratedNameKind.AutoPropertyBackingField == 'k');
             return "<" + propertyName + ">k__BackingField";
         }
 
-        internal static string MakeIteratorFinallyMethodName(int iteratorState)
+        public static string MakeIteratorFinallyMethodName(int iteratorState)
         {
             // we can pick any name, but we will try to do
             // <>m__Finally1
@@ -40,12 +40,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return "<>m__Finally" + StringExtensions.GetNumeral(Math.Abs(iteratorState + 2));
         }
 
-        internal static string MakeStaticLambdaDisplayClassName(int methodOrdinal, int generation)
+        public static string MakeStaticLambdaDisplayClassName(int methodOrdinal, int generation)
         {
             return MakeMethodScopedSynthesizedName(GeneratedNameKind.LambdaDisplayClass, methodOrdinal, generation);
         }
 
-        internal static string MakeLambdaDisplayClassName(int methodOrdinal, int generation, int closureOrdinal, int closureGeneration)
+        public static string MakeLambdaDisplayClassName(int methodOrdinal, int generation, int closureOrdinal, int closureGeneration)
         {
             // -1 for singleton static lambdas
             Debug.Assert(closureOrdinal >= -1);
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return MakeMethodScopedSynthesizedName(GeneratedNameKind.LambdaDisplayClass, methodOrdinal, generation, suffix: "DisplayClass", entityOrdinal: closureOrdinal, entityGeneration: closureGeneration, isTypeName: true);
         }
 
-        internal static string MakeAnonymousTypeTemplateName(int index, int submissionSlotIndex, string moduleId)
+        public static string MakeAnonymousTypeTemplateName(int index, int submissionSlotIndex, string moduleId)
         {
             var name = "<" + moduleId + ">f__AnonymousType" + StringExtensions.GetNumeral(index);
             if (submissionSlotIndex >= 0)
@@ -65,9 +65,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return name;
         }
 
-        internal const string AnonymousNamePrefix = "<>f__AnonymousType";
+        public const string AnonymousNamePrefix = "<>f__AnonymousType";
 
-        internal static bool TryParseAnonymousTypeTemplateName(string name, out int index)
+        public static bool TryParseAnonymousTypeTemplateName(string name, out int index)
         {
             // No callers require anonymous types from net modules,
             // so names with module id are ignored.
@@ -83,17 +83,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal static string MakeAnonymousTypeBackingFieldName(string propertyName)
+        public static string MakeAnonymousTypeBackingFieldName(string propertyName)
         {
             return "<" + propertyName + ">i__Field";
         }
 
-        internal static string MakeAnonymousTypeParameterName(string propertyName)
+        public static string MakeAnonymousTypeParameterName(string propertyName)
         {
             return "<" + propertyName + ">j__TPar";
         }
 
-        internal static bool TryParseAnonymousTypeParameterName(string typeParameterName, out string propertyName)
+        public static bool TryParseAnonymousTypeParameterName(string typeParameterName, out string propertyName)
         {
             if (typeParameterName.StartsWith("<", StringComparison.Ordinal) &&
                 typeParameterName.EndsWith(">j__TPar", StringComparison.Ordinal))
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal static string MakeStateMachineTypeName(string methodName, int methodOrdinal, int generation)
+        public static string MakeStateMachineTypeName(string methodName, int methodOrdinal, int generation)
         {
             Debug.Assert(generation >= 0);
             Debug.Assert(methodOrdinal >= -1);
@@ -114,13 +114,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return MakeMethodScopedSynthesizedName(GeneratedNameKind.StateMachineType, methodOrdinal, generation, methodName, isTypeName: true);
         }
 
-        internal static string MakeBaseMethodWrapperName(int uniqueId)
+        public static string MakeBaseMethodWrapperName(int uniqueId)
         {
             Debug.Assert((char)GeneratedNameKind.BaseMethodWrapper == 'n');
             return "<>n__" + StringExtensions.GetNumeral(uniqueId);
         }
 
-        internal static string MakeLambdaMethodName(string methodName, int methodOrdinal, int methodGeneration, int lambdaOrdinal, int lambdaGeneration)
+        public static string MakeLambdaMethodName(string methodName, int methodOrdinal, int methodGeneration, int lambdaOrdinal, int lambdaGeneration)
         {
             Debug.Assert(methodOrdinal >= -1);
             Debug.Assert(methodGeneration >= 0);
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return MakeMethodScopedSynthesizedName(GeneratedNameKind.LambdaMethod, methodOrdinal, methodGeneration, methodName, entityOrdinal: lambdaOrdinal, entityGeneration: lambdaGeneration);
         }
 
-        internal static string MakeLambdaCacheFieldName(int methodOrdinal, int generation, int lambdaOrdinal, int lambdaGeneration)
+        public static string MakeLambdaCacheFieldName(int methodOrdinal, int generation, int lambdaOrdinal, int lambdaGeneration)
         {
             Debug.Assert(methodOrdinal >= -1);
             Debug.Assert(lambdaOrdinal >= 0);
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return result.ToStringAndFree();
         }
 
-        internal static string MakeHoistedLocalFieldName(SynthesizedLocalKind kind, int slotIndex, string localNameOpt = null)
+        public static string MakeHoistedLocalFieldName(SynthesizedLocalKind kind, int slotIndex, string localNameOpt = null)
         {
             Debug.Assert((localNameOpt != null) == (kind == SynthesizedLocalKind.UserDefined));
             Debug.Assert(slotIndex >= 0);
@@ -260,7 +260,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         // The type of generated name. See TryParseGeneratedName.
-        internal static GeneratedNameKind GetKind(string name)
+        public static GeneratedNameKind GetKind(string name)
         {
             GeneratedNameKind kind;
             int openBracketOffset;
@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // generated names, where [middle] and [__[suffix]] are optional,
         // and where c is a single character in [1-9a-z]
         // (csharp\LanguageAnalysis\LIB\SpecialName.cpp).
-        internal static bool TryParseGeneratedName(
+        public static bool TryParseGeneratedName(
             string name,
             out GeneratedNameKind kind,
             out int openBracketOffset,
@@ -309,7 +309,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal static bool TryParseSourceMethodNameFromGeneratedName(string generatedName, GeneratedNameKind requiredKind, out string methodName)
+        public static bool TryParseSourceMethodNameFromGeneratedName(string generatedName, GeneratedNameKind requiredKind, out string methodName)
         {
             int openBracketOffset;
             int closeBracketOffset;
@@ -336,7 +336,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return true;
         }
 
-        internal static string AsyncAwaiterFieldName(int slotIndex)
+        public static string AsyncAwaiterFieldName(int slotIndex)
         {
             Debug.Assert((char)GeneratedNameKind.AwaiterField == 'u');
             return "<>u__" + StringExtensions.GetNumeral(slotIndex + 1);
@@ -345,7 +345,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // Extracts the slot index from a name of a field that stores hoisted variables or awaiters.
         // Such a name ends with "__{slot index + 1}". 
         // Returned slot index is >= 0.
-        internal static bool TryParseSlotIndex(string fieldName, out int slotIndex)
+        public static bool TryParseSlotIndex(string fieldName, out int slotIndex)
         {
             int lastUnder = fieldName.LastIndexOf('_');
             if (lastUnder - 1 < 0 || lastUnder == fieldName.Length || fieldName[lastUnder - 1] != '_')
@@ -364,13 +364,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return false;
         }
 
-        internal static string MakeCachedFrameInstanceFieldName()
+        public static string MakeCachedFrameInstanceFieldName()
         {
             Debug.Assert((char)GeneratedNameKind.LambdaCacheField == '9');
             return "<>9";
         }
 
-        internal static string MakeSynthesizedLocalName(SynthesizedLocalKind kind, ref int uniqueId)
+        public static string MakeSynthesizedLocalName(SynthesizedLocalKind kind, ref int uniqueId)
         {
             Debug.Assert(kind.IsLongLived());
 
@@ -383,85 +383,85 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return null;
         }
 
-        internal static string MakeLambdaDisplayLocalName(int uniqueId)
+        public static string MakeLambdaDisplayLocalName(int uniqueId)
         {
             Debug.Assert((char)GeneratedNameKind.DisplayClassLocalOrField == '8');
             return SynthesizedLocalNamePrefix + "<>8__locals" + StringExtensions.GetNumeral(uniqueId);
         }
 
-        internal static bool IsSynthesizedLocalName(string name)
+        public static bool IsSynthesizedLocalName(string name)
         {
             return name.StartsWith(SynthesizedLocalNamePrefix, StringComparison.Ordinal);
         }
 
-        internal static string MakeFixedFieldImplementationName(string fieldName)
+        public static string MakeFixedFieldImplementationName(string fieldName)
         {
             // the native compiler adds numeric digits at the end.  Roslyn does not.
             Debug.Assert((char)GeneratedNameKind.FixedBufferField == 'e');
             return "<" + fieldName + ">e__FixedBuffer";
         }
 
-        internal static string MakeStateMachineStateFieldName()
+        public static string MakeStateMachineStateFieldName()
         {
             // Microsoft.VisualStudio.VIL.VisualStudioHost.AsyncReturnStackFrame depends on this name.
             Debug.Assert((char)GeneratedNameKind.StateMachineStateField == '1');
             return "<>1__state";
         }
 
-        internal static string MakeIteratorCurrentFieldName()
+        public static string MakeIteratorCurrentFieldName()
         {
             Debug.Assert((char)GeneratedNameKind.IteratorCurrentBackingField == '2');
             return "<>2__current";
         }
 
-        internal static string MakeIteratorCurrentThreadIdFieldName()
+        public static string MakeIteratorCurrentThreadIdFieldName()
         {
             Debug.Assert((char)GeneratedNameKind.IteratorCurrentThreadIdField == 'l');
             return "<>l__initialThreadId";
         }
 
-        internal static string ThisProxyFieldName()
+        public static string ThisProxyFieldName()
         {
             Debug.Assert((char)GeneratedNameKind.ThisProxyField == '4');
             return "<>4__this";
         }
 
-        internal static string StateMachineThisParameterProxyName()
+        public static string StateMachineThisParameterProxyName()
         {
             return StateMachineParameterProxyFieldName(ThisProxyFieldName());
         }
 
-        internal static string StateMachineParameterProxyFieldName(string parameterName)
+        public static string StateMachineParameterProxyFieldName(string parameterName)
         {
             Debug.Assert((char)GeneratedNameKind.StateMachineParameterProxyField == '3');
             return "<>3__" + parameterName;
         }
 
-        internal static string MakeDynamicCallSiteContainerName(int methodOrdinal, int generation)
+        public static string MakeDynamicCallSiteContainerName(int methodOrdinal, int generation)
         {
             return MakeMethodScopedSynthesizedName(GeneratedNameKind.DynamicCallSiteContainerType, methodOrdinal, generation, isTypeName: true);
         }
 
-        internal static string MakeDynamicCallSiteFieldName(int uniqueId)
+        public static string MakeDynamicCallSiteFieldName(int uniqueId)
         {
             Debug.Assert((char)GeneratedNameKind.DynamicCallSiteField == 'p');
             return "<>p__" + StringExtensions.GetNumeral(uniqueId);
         }
 
-        internal static string AsyncBuilderFieldName()
+        public static string AsyncBuilderFieldName()
         {
             // Microsoft.VisualStudio.VIL.VisualStudioHost.AsyncReturnStackFrame depends on this name.
             Debug.Assert((char)GeneratedNameKind.AsyncBuilderField == 't');
             return "<>t__builder";
         }
 
-        internal static string ReusableHoistedLocalFieldName(int number)
+        public static string ReusableHoistedLocalFieldName(int number)
         {
             Debug.Assert((char)GeneratedNameKind.ReusableHoistedLocalField == '7');
             return "<>7__wrap" + StringExtensions.GetNumeral(number);
         }
 
-        internal static string LambdaCopyParameterName(ParameterSymbol sourceParameter)
+        public static string LambdaCopyParameterName(ParameterSymbol sourceParameter)
         {
             return "<" + sourceParameter.Name + ">";
         }

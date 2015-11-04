@@ -1,19 +1,19 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxList
+    public partial class SyntaxList
     {
-        internal class WithThreeChildren : SyntaxList
+        public class WithThreeChildren : SyntaxList
         {
             private readonly CSharpSyntaxNode _child0;
             private readonly CSharpSyntaxNode _child1;
             private readonly CSharpSyntaxNode _child2;
 
-            internal WithThreeChildren(CSharpSyntaxNode child0, CSharpSyntaxNode child1, CSharpSyntaxNode child2)
+            public WithThreeChildren(CSharpSyntaxNode child0, CSharpSyntaxNode child1, CSharpSyntaxNode child2)
             {
                 this.SlotCount = 3;
                 this.AdjustFlagsAndWidth(child0);
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 _child2 = child2;
             }
 
-            internal WithThreeChildren(ObjectReader reader)
+            public WithThreeChildren(ObjectReader reader)
                 : base(reader)
             {
                 this.SlotCount = 3;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 this.AdjustFlagsAndWidth(_child2);
             }
 
-            internal override void WriteTo(ObjectWriter writer)
+            public override void WriteTo(ObjectWriter writer)
             {
                 base.WriteTo(writer);
                 writer.WriteValue(_child0);
@@ -44,12 +44,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 writer.WriteValue(_child2);
             }
 
-            internal override Func<ObjectReader, object> GetReader()
+            public override Func<ObjectReader, object> GetReader()
             {
                 return r => new WithThreeChildren(r);
             }
 
-            internal override GreenNode GetSlot(int index)
+            public override GreenNode GetSlot(int index)
             {
                 switch (index)
                 {
@@ -64,14 +64,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 }
             }
 
-            internal override void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset)
+            public override void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset)
             {
                 array[offset].Value = _child0;
                 array[offset + 1].Value = _child1;
                 array[offset + 2].Value = _child2;
             }
 
-            internal override SyntaxNode CreateRed(SyntaxNode parent, int position)
+            public override SyntaxNode CreateRed(SyntaxNode parent, int position)
             {
                 return new CSharp.Syntax.SyntaxList.WithThreeChildren(this, parent, position);
             }

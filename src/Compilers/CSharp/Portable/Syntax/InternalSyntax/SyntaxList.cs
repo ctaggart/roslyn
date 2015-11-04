@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -9,24 +9,24 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal abstract partial class SyntaxList : CSharpSyntaxNode
+    public abstract partial class SyntaxList : CSharpSyntaxNode
     {
-        internal SyntaxList()
+        public SyntaxList()
             : base(SyntaxKind.List)
         {
         }
 
-        internal SyntaxList(ObjectReader reader)
+        public SyntaxList(ObjectReader reader)
             : base(reader)
         {
         }
 
-        internal static CSharpSyntaxNode List(CSharpSyntaxNode child)
+        public static CSharpSyntaxNode List(CSharpSyntaxNode child)
         {
             return child;
         }
 
-        internal static WithTwoChildren List(CSharpSyntaxNode child0, CSharpSyntaxNode child1)
+        public static WithTwoChildren List(CSharpSyntaxNode child0, CSharpSyntaxNode child1)
         {
             Debug.Assert(child0 != null);
             Debug.Assert(child1 != null);
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return result;
         }
 
-        internal static WithThreeChildren List(CSharpSyntaxNode child0, CSharpSyntaxNode child1, CSharpSyntaxNode child2)
+        public static WithThreeChildren List(CSharpSyntaxNode child0, CSharpSyntaxNode child1, CSharpSyntaxNode child2)
         {
             Debug.Assert(child0 != null);
             Debug.Assert(child1 != null);
@@ -65,12 +65,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return result;
         }
 
-        internal static CSharpSyntaxNode List(CSharpSyntaxNode[] nodes)
+        public static CSharpSyntaxNode List(CSharpSyntaxNode[] nodes)
         {
             return List(nodes, nodes.Length);
         }
 
-        internal static CSharpSyntaxNode List(CSharpSyntaxNode[] nodes, int count)
+        public static CSharpSyntaxNode List(CSharpSyntaxNode[] nodes, int count)
         {
             var array = new ArrayElement<CSharpSyntaxNode>[count];
             for (int i = 0; i < count; i++)
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return List(array);
         }
 
-        internal static SyntaxList List(ArrayElement<CSharpSyntaxNode>[] children)
+        public static SyntaxList List(ArrayElement<CSharpSyntaxNode>[] children)
         {
             // "WithLotsOfChildren" list will allocate a separate array to hold
             // precomputed node offsets. It may not be worth it for smallish lists.
@@ -96,7 +96,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal static CSharpSyntaxNode List(SyntaxListBuilder builder)
+        public static CSharpSyntaxNode List(SyntaxListBuilder builder)
         {
             if (builder != null)
             {
@@ -106,9 +106,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             return null;
         }
 
-        internal abstract void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset);
+        public abstract void CopyTo(ArrayElement<CSharpSyntaxNode>[] array, int offset);
 
-        internal static CSharpSyntaxNode Concat(CSharpSyntaxNode left, CSharpSyntaxNode right)
+        public static CSharpSyntaxNode Concat(CSharpSyntaxNode left, CSharpSyntaxNode right)
         {
             if (left == null)
             {
@@ -152,12 +152,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
+        public override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
         {
             throw ExceptionUtilities.Unreachable;
         }
 
-        internal override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
+        public override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
         {
             throw ExceptionUtilities.Unreachable;
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Collections;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class Lexer
+    public partial class Lexer
     {
         private void ScanStringLiteral(ref TokenInfo info, bool allowEscapes = true)
         {
@@ -241,7 +241,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             this.AddError(error);
         }
 
-        internal void ScanInterpolatedStringLiteralTop(ArrayBuilder<Interpolation> interpolations, bool isVerbatim, ref TokenInfo info, ref SyntaxDiagnosticInfo error, out bool closeQuoteMissing)
+        public void ScanInterpolatedStringLiteralTop(ArrayBuilder<Interpolation> interpolations, bool isVerbatim, ref TokenInfo info, ref SyntaxDiagnosticInfo error, out bool closeQuoteMissing)
         {
             var subScanner = new InterpolatedStringScanner(this, isVerbatim);
             subScanner.ScanInterpolatedStringLiteralTop(interpolations, ref info, out closeQuoteMissing);
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             info.Text = TextWindow.GetText(false);
         }
 
-        internal struct Interpolation
+        public struct Interpolation
         {
             public readonly int OpenBracePosition;
             public readonly int ColonPosition;
@@ -272,7 +272,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// Turn a (parsed) interpolated string nonterminal into an interpolated string token.
         /// </summary>
         /// <param name="interpolatedString"></param>
-        static internal SyntaxToken RescanInterpolatedString(InterpolatedStringExpressionSyntax interpolatedString)
+        static public SyntaxToken RescanInterpolatedString(InterpolatedStringExpressionSyntax interpolatedString)
         {
             var text = interpolatedString.ToString();
             var kind = SyntaxKind.InterpolatedStringToken;
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                     (ch == SlidingTextWindow.InvalidCharacter && lexer.TextWindow.IsReallyAtEnd());
             }
 
-            internal void ScanInterpolatedStringLiteralTop(ArrayBuilder<Interpolation> interpolations, ref TokenInfo info, out bool closeQuoteMissing)
+            public void ScanInterpolatedStringLiteralTop(ArrayBuilder<Interpolation> interpolations, ref TokenInfo info, out bool closeQuoteMissing)
             {
                 Debug.Assert(lexer.TextWindow.PeekChar() == '$');
                 lexer.TextWindow.AdvanceChar(); // $

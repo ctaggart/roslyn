@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
@@ -16,12 +16,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// type.  For consistency with parameters and locals, we should have a bit on the
     /// signature (i.e. on the MethodSymbol).
     /// </remarks>
-    internal sealed class ByRefReturnErrorTypeSymbol : ErrorTypeSymbol
+    public sealed class ByRefReturnErrorTypeSymbol : ErrorTypeSymbol
     {
         private readonly TypeSymbol _referencedType;
         private readonly ushort _countOfCustomModifiersPrecedingByRef;
 
-        internal ByRefReturnErrorTypeSymbol(TypeSymbol referencedType, ushort countOfCustomModifiersPrecedingByRef)
+        public ByRefReturnErrorTypeSymbol(TypeSymbol referencedType, ushort countOfCustomModifiersPrecedingByRef)
         {
             Debug.Assert((object)referencedType != null && !(referencedType is ByRefReturnErrorTypeSymbol));
             _referencedType = referencedType;
@@ -30,12 +30,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Defining characteristics of this type
 
-        internal TypeSymbol ReferencedType
+        public TypeSymbol ReferencedType
         {
             get { return _referencedType; }
         }
 
-        internal override TypeWithModifiers Substitute(AbstractTypeMap typeMap)
+        public override TypeWithModifiers Substitute(AbstractTypeMap typeMap)
         {
             TypeWithModifiers substitutedReferencedType = typeMap.SubstituteType(_referencedType);
             return substitutedReferencedType.Is(_referencedType) ?
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                                              substitutedReferencedType.CustomModifiers);
         }
 
-        internal override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
+        public override bool Equals(TypeSymbol t2, bool ignoreCustomModifiersAndArraySizesAndLowerBounds, bool ignoreDynamic)
         {
             if ((object)this == (object)t2)
             {
@@ -66,12 +66,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Abstract in ErrorTypeSymbol
 
-        internal override DiagnosticInfo ErrorInfo
+        public override DiagnosticInfo ErrorInfo
         {
             get { return new CSDiagnosticInfo(ErrorCode.ERR_ByRefReturnUnsupported, _referencedType); }
         }
 
-        internal override bool MangleName
+        public override bool MangleName
         {
             get { return false; }
         }
@@ -97,7 +97,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsManagedType
+        public override bool IsManagedType
         {
             get
             {

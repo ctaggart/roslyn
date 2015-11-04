@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             return GetReferenceDirectives(null);
         }
 
-        internal IList<ReferenceDirectiveTriviaSyntax> GetReferenceDirectives(Func<ReferenceDirectiveTriviaSyntax, bool> filter)
+        public IList<ReferenceDirectiveTriviaSyntax> GetReferenceDirectives(Func<ReferenceDirectiveTriviaSyntax, bool> filter)
         {
             // #r directives are always on the first token of the compilation unit.
             var firstToken = (SyntaxNodeOrToken)this.GetFirstToken(includeZeroWidth: true);
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             return firstToken.GetDirectives<LoadDirectiveTriviaSyntax>(filter: null);
         }
 
-        internal Syntax.InternalSyntax.DirectiveStack GetConditionalDirectivesStack()
+        public Syntax.InternalSyntax.DirectiveStack GetConditionalDirectivesStack()
         {
             IEnumerable<DirectiveTriviaSyntax> directives = this.GetDirectives(filter: IsActiveConditionalDirective);
             var directiveStack = Syntax.InternalSyntax.DirectiveStack.Empty;

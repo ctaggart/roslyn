@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Roslyn.Utilities;
@@ -6,28 +6,28 @@ using System.Globalization;
 
 namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 {
-    internal partial class SyntaxToken
+    public partial class SyntaxToken
     {
-        internal class SyntaxTokenWithValue<T> : SyntaxToken
+        public class SyntaxTokenWithValue<T> : SyntaxToken
         {
             protected readonly string TextField;
             protected readonly T ValueField;
 
-            internal SyntaxTokenWithValue(SyntaxKind kind, string text, T value)
+            public SyntaxTokenWithValue(SyntaxKind kind, string text, T value)
                 : base(kind, text.Length)
             {
                 this.TextField = text;
                 this.ValueField = value;
             }
 
-            internal SyntaxTokenWithValue(SyntaxKind kind, string text, T value, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
+            public SyntaxTokenWithValue(SyntaxKind kind, string text, T value, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)
                 : base(kind, text.Length, diagnostics, annotations)
             {
                 this.TextField = text;
                 this.ValueField = value;
             }
 
-            internal SyntaxTokenWithValue(ObjectReader reader)
+            public SyntaxTokenWithValue(ObjectReader reader)
                 : base(reader)
             {
                 this.TextField = reader.ReadString();
@@ -35,12 +35,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 this.ValueField = (T)reader.ReadValue();
             }
 
-            internal override Func<ObjectReader, object> GetReader()
+            public override Func<ObjectReader, object> GetReader()
             {
                 return r => new SyntaxTokenWithValue<T>(r);
             }
 
-            internal override void WriteTo(ObjectWriter writer)
+            public override void WriteTo(ObjectWriter writer)
             {
                 base.WriteTo(writer);
                 writer.WriteString(this.TextField);
@@ -71,22 +71,22 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 }
             }
 
-            internal override SyntaxToken WithLeadingTrivia(CSharpSyntaxNode trivia)
+            public override SyntaxToken WithLeadingTrivia(CSharpSyntaxNode trivia)
             {
                 return new SyntaxTokenWithValueAndTrivia<T>(this.Kind, this.TextField, this.ValueField, trivia, null, this.GetDiagnostics(), this.GetAnnotations());
             }
 
-            internal override SyntaxToken WithTrailingTrivia(CSharpSyntaxNode trivia)
+            public override SyntaxToken WithTrailingTrivia(CSharpSyntaxNode trivia)
             {
                 return new SyntaxTokenWithValueAndTrivia<T>(this.Kind, this.TextField, this.ValueField, null, trivia, this.GetDiagnostics(), this.GetAnnotations());
             }
 
-            internal override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
+            public override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)
             {
                 return new SyntaxTokenWithValue<T>(this.Kind, this.TextField, this.ValueField, diagnostics, this.GetAnnotations());
             }
 
-            internal override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
+            public override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)
             {
                 return new SyntaxTokenWithValue<T>(this.Kind, this.TextField, this.ValueField, this.GetDiagnostics(), annotations);
             }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     /// decide to "keep" the lexeme by erasing the marker, or abandon the current
     /// lexeme by moving the offset back to the marker.
     /// </summary>
-    internal sealed class SlidingTextWindow : IDisposable
+    public sealed class SlidingTextWindow : IDisposable
     {
         /// <summary>
         /// In many cases, e.g. PeekChar, we need the ability to indicate that there are
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
         /// Comments and string literals are allowed to contain any Unicode character.
         /// </summary>
         /// <returns></returns>
-        internal bool IsReallyAtEnd()
+        public bool IsReallyAtEnd()
         {
             return _offset >= _characterWindowCount && Position >= _textEnd;
         }
@@ -705,7 +705,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
             }
         }
 
-        internal static char GetCharsFromUtf32(uint codepoint, out char lowSurrogate)
+        public static char GetCharsFromUtf32(uint codepoint, out char lowSurrogate)
         {
             if (codepoint < (uint)0x00010000)
             {

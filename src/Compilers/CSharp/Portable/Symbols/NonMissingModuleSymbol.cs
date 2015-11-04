@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A <see cref="NonMissingModuleSymbol"/> is a special kind of <see cref="ModuleSymbol"/> that represents
     /// a module that is not missing, i.e. the "real" thing.
     /// </summary>
-    internal abstract class NonMissingModuleSymbol : ModuleSymbol
+    public abstract class NonMissingModuleSymbol : ModuleSymbol
     {
         /// <summary>
         /// An array of <see cref="AssemblySymbol"/> objects corresponding to assemblies directly referenced by this module.
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Does this symbol represent a missing module.
         /// </summary>
-        internal sealed override bool IsMissing
+        public sealed override bool IsMissing
         {
             get
             {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Items at the same position from GetReferencedAssemblies and from GetReferencedAssemblySymbols 
         /// should correspond to each other.
         /// </summary>
-        internal sealed override ImmutableArray<AssemblyIdentity> GetReferencedAssemblies()
+        public sealed override ImmutableArray<AssemblyIdentity> GetReferencedAssemblies()
         {
             AssertReferencesInitialized();
             return _moduleReferences.Identities;
@@ -53,24 +53,24 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// not resolved by compiler, GetReferencedAssemblySymbols returns MissingAssemblySymbol in the
         /// corresponding item.
         /// </summary>
-        internal sealed override ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols()
+        public sealed override ImmutableArray<AssemblySymbol> GetReferencedAssemblySymbols()
         {
             AssertReferencesInitialized();
             return _moduleReferences.Symbols;
         }
 
-        internal ImmutableArray<UnifiedAssembly<AssemblySymbol>> GetUnifiedAssemblies()
+        public ImmutableArray<UnifiedAssembly<AssemblySymbol>> GetUnifiedAssemblies()
         {
             AssertReferencesInitialized();
             return _moduleReferences.UnifiedAssemblies;
         }
 
-        internal override bool HasUnifiedReferences
+        public override bool HasUnifiedReferences
         {
             get { return GetUnifiedAssemblies().Length > 0; }
         }
 
-        internal override bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType)
+        public override bool GetUnificationUseSiteDiagnostic(ref DiagnosticInfo result, TypeSymbol dependentType)
         {
             AssertReferencesInitialized();
 
@@ -147,7 +147,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// A helper method for ReferenceManager to set assembly identities for assemblies 
         /// referenced by this module and corresponding AssemblySymbols.
         /// </summary>
-        internal override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly = null)
+        public override void SetReferences(ModuleReferences<AssemblySymbol> moduleReferences, SourceAssemblySymbol originatingSourceAssemblyDebugOnly = null)
         {
             Debug.Assert(moduleReferences != null);
 
@@ -157,13 +157,13 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
 
         [Conditional("DEBUG")]
-        internal void AssertReferencesUninitialized()
+        public void AssertReferencesUninitialized()
         {
             Debug.Assert(_moduleReferences == null);
         }
 
         [Conditional("DEBUG")]
-        internal void AssertReferencesInitialized()
+        public void AssertReferencesInitialized()
         {
             Debug.Assert(_moduleReferences != null);
         }
@@ -179,7 +179,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Symbol for the type, or MissingMetadataSymbol if the type isn't found.
         /// </returns>
         /// <remarks></remarks>
-        internal sealed override NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName)
+        public sealed override NamedTypeSymbol LookupTopLevelMetadataType(ref MetadataTypeName emittedName)
         {
             NamedTypeSymbol result;
             NamespaceSymbol scope = this.GlobalNamespace.LookupNestedNamespace(emittedName.NamespaceSegments);

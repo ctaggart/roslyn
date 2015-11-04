@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// A source parameter that has no default value, no attributes,
     /// and is not params.
     /// </summary>
-    internal sealed class SourceSimpleParameterSymbol : SourceParameterSymbol
+    public sealed class SourceSimpleParameterSymbol : SourceParameterSymbol
     {
         public SourceSimpleParameterSymbol(
             Symbol owner,
@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         {
         }
 
-        internal override ConstantValue ExplicitDefaultConstantValue
+        public override ConstantValue ExplicitDefaultConstantValue
         {
             get { return null; }
         }
 
-        internal override bool IsMetadataOptional
+        public override bool IsMetadataOptional
         {
             get { return false; }
         }
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return false; }
         }
 
-        internal override bool HasDefaultArgumentSyntax
+        public override bool HasDefaultArgumentSyntax
         {
             get { return false; }
         }
@@ -53,73 +53,73 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return ImmutableArray<CustomModifier>.Empty; }
         }
 
-        internal override SyntaxReference SyntaxReference
+        public override SyntaxReference SyntaxReference
         {
             get { return null; }
         }
 
-        internal override bool IsExtensionMethodThis
+        public override bool IsExtensionMethodThis
         {
             get { return false; }
         }
 
-        internal override bool IsMetadataIn
+        public override bool IsMetadataIn
         {
             get { return false; }
         }
 
-        internal override bool IsMetadataOut
+        public override bool IsMetadataOut
         {
             get { return RefKind == RefKind.Out; }
         }
 
-        internal override bool IsIDispatchConstant
+        public override bool IsIDispatchConstant
         {
             get { return false; }
         }
 
-        internal override bool IsIUnknownConstant
+        public override bool IsIUnknownConstant
         {
             get { return false; }
         }
 
-        internal override bool IsCallerFilePath
+        public override bool IsCallerFilePath
         {
             get { return false; }
         }
 
-        internal override bool IsCallerLineNumber
+        public override bool IsCallerLineNumber
         {
             get { return false; }
         }
 
-        internal override bool IsCallerMemberName
+        public override bool IsCallerMemberName
         {
             get { return false; }
         }
 
-        internal override MarshalPseudoCustomAttributeData MarshallingInformation
+        public override MarshalPseudoCustomAttributeData MarshallingInformation
         {
             get { return null; }
         }
 
-        internal override bool HasOptionalAttribute
+        public override bool HasOptionalAttribute
         {
             get { return false; }
         }
 
-        internal override SyntaxList<AttributeListSyntax> AttributeDeclarationList
+        public override SyntaxList<AttributeListSyntax> AttributeDeclarationList
         {
             get { return default(SyntaxList<AttributeListSyntax>); }
         }
 
-        internal override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
+        public override CustomAttributesBag<CSharpAttributeData> GetAttributesBag()
         {
             state.NotePartComplete(CompletionPart.Attributes);
             return CustomAttributesBag<CSharpAttributeData>.Empty;
         }
 
-        internal override ConstantValue DefaultValueFromAttributes
+        public override ConstantValue DefaultValueFromAttributes
         {
             get { return ConstantValue.NotAvailable; }
         }

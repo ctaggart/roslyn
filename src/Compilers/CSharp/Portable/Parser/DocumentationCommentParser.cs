@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -26,18 +26,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
     // trying to understand them, e.g. like comments or CDATA, so that they are available
     // to whoever processes these comments and do not produce an error. 
 
-    internal class DocumentationCommentParser : SyntaxParser
+    public class DocumentationCommentParser : SyntaxParser
     {
         private readonly SyntaxListPool _pool = new SyntaxListPool();
         private bool _isDelimited;
 
-        internal DocumentationCommentParser(Lexer lexer, LexerMode modeflags)
+        public DocumentationCommentParser(Lexer lexer, LexerMode modeflags)
             : base(lexer, LexerMode.XmlDocComment | LexerMode.XmlDocCommentLocationStart | modeflags, null, null, true)
         {
             _isDelimited = (modeflags & LexerMode.XmlDocCommentStyleDelimited) != 0;
         }
 
-        internal void ReInitialize(LexerMode modeflags)
+        public void ReInitialize(LexerMode modeflags)
         {
             base.ReInitialize();
             this.Mode = LexerMode.XmlDocComment | LexerMode.XmlDocCommentLocationStart | modeflags;

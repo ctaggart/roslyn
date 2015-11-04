@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,11 +14,11 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// This portion of the binder converts a QueryExpressionSyntax into a BoundExpression
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
         private const string transparentIdentifierPrefix = "<>h__TransparentIdentifier";
 
-        internal BoundExpression BindQuery(QueryExpressionSyntax node, DiagnosticBag diagnostics)
+        public BoundExpression BindQuery(QueryExpressionSyntax node, DiagnosticBag diagnostics)
         {
             var fromClause = node.FromClause;
             var boundFromExpression = BindLeftOfPotentialColorColorMemberAccess(fromClause.Expression, diagnostics);

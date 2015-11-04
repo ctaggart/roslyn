@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,14 +10,14 @@ using Microsoft.CodeAnalysis.Collections;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal partial class Binder
+    public partial class Binder
     {
         private bool ValidateLambdaParameterNameConflictsInScope(Location location, string name, DiagnosticBag diagnostics)
         {
             return ValidateNameConflictsInScope(null, location, name, diagnostics);
         }
 
-        internal bool ValidateDeclarationNameConflictsInScope(Symbol symbol, DiagnosticBag diagnostics)
+        public bool ValidateDeclarationNameConflictsInScope(Symbol symbol, DiagnosticBag diagnostics)
         {
             Location location = GetLocation(symbol);
             return ValidateNameConflictsInScope(symbol, location, symbol.Name, diagnostics);
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return locations.Length != 0 ? locations[0] : symbol.ContainingSymbol.Locations[0];
         }
 
-        internal void ValidateParameterNameConflicts(
+        public void ValidateParameterNameConflicts(
             ImmutableArray<TypeParameterSymbol> typeParameters,
             ImmutableArray<ParameterSymbol> parameters,
             DiagnosticBag diagnostics)

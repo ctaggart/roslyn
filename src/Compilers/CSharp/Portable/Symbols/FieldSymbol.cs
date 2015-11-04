@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents a field in a class, struct or enum
     /// </summary>
-    internal abstract partial class FieldSymbol : Symbol, IFieldSymbol
+    public abstract partial class FieldSymbol : Symbol, IFieldSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // to the VB version.
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        internal FieldSymbol()
+        public FieldSymbol()
         {
         }
 
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound);
+        public abstract TypeSymbol GetFieldType(ConsList<FieldSymbol> fieldsBeingBound);
 
         /// <summary>
         /// Gets the list of custom modifiers, if any, associated with the field.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// If this.IsFixed is true, returns the underlying implementation type for the
         /// fixed-size buffer when emitted.  Otherwise returns null.
         /// </summary>
-        internal virtual NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
+        public virtual NamedTypeSymbol FixedImplementationType(PEModuleBuilder emitModule)
         {
             return null;
         }
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Returns true when field is a backing field for a captured frame pointer (typically "this").
         /// </summary>
-        internal virtual bool IsCapturedFrame { get { return false; } }
+        public virtual bool IsCapturedFrame { get { return false; } }
 
         /// <summary>
         /// Returns true if this field was declared as "const" (i.e. is a constant declaration).
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal abstract ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes);
+        public abstract ConstantValue GetConstantValue(ConstantFieldsInProgress inProgress, bool earlyDecodingWellKnownAttributes);
 
         /// <summary>
         /// Gets the kind of this symbol.
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitField(this, argument);
         }
@@ -246,17 +246,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this symbol has a special name (metadata flag SpecialName is set).
         /// </summary>
-        internal abstract bool HasSpecialName { get; }
+        public abstract bool HasSpecialName { get; }
 
         /// <summary>
         /// True if this symbol has a runtime-special name (metadata flag RuntimeSpecialName is set).
         /// </summary>
-        internal abstract bool HasRuntimeSpecialName { get; }
+        public abstract bool HasRuntimeSpecialName { get; }
 
         /// <summary>
         /// True if this field is not serialized (metadata flag NotSerialized is set).
         /// </summary>
-        internal abstract bool IsNotSerialized { get; }
+        public abstract bool IsNotSerialized { get; }
 
         /// <summary>
         /// True if this field has a pointer type.
@@ -268,7 +268,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Fortunately in those cases we do not need to force binding of the field's type 
         /// and can just check the declaration syntax if the field type is not yet known.
         /// </remarks>
-        internal virtual bool HasPointerType
+        public virtual bool HasPointerType
         {
             get
             {
@@ -281,7 +281,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Null if no specific marshalling information is available for the field.
         /// </summary>
         /// <remarks>PE symbols don't provide this information and always return null.</remarks>
-        internal abstract MarshalPseudoCustomAttributeData MarshallingInformation { get; }
+        public abstract MarshalPseudoCustomAttributeData MarshallingInformation { get; }
 
         /// <summary>
         /// Returns the marshalling type of this field, or 0 if marshalling information isn't available.
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Since the compiler does only need to know the marshalling type of symbols that aren't emitted 
         /// PE symbols just decode the type from metadata and don't provide full marshalling information.
         /// </remarks>
-        internal virtual UnmanagedType MarshallingType
+        public virtual UnmanagedType MarshallingType
         {
             get
             {
@@ -304,9 +304,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Offset assigned to the field when the containing type is laid out by the VM.
         /// Null if unspecified.
         /// </summary>
-        internal abstract int? TypeLayoutOffset { get; }
+        public abstract int? TypeLayoutOffset { get; }
 
-        internal FieldSymbol AsMember(NamedTypeSymbol newOwner)
+        public FieldSymbol AsMember(NamedTypeSymbol newOwner)
         {
             Debug.Assert(this.IsDefinition);
             Debug.Assert(ReferenceEquals(newOwner.OriginalDefinition, this.ContainingSymbol.OriginalDefinition));
@@ -315,7 +315,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (this.IsDefinition)
             {
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.OriginalDefinition.GetUseSiteDiagnostic();
         }
 
-        internal bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
+        public bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
         {
             Debug.Assert(IsDefinition);
 

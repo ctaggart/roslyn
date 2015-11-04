@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// <summary>
     /// An enumerator for diagnostic lists.
     /// </summary>
-    internal struct SyntaxTreeDiagnosticEnumerator
+    public struct SyntaxTreeDiagnosticEnumerator
     {
         private readonly SyntaxTree _syntaxTree;
         private NodeIterationStack _stack;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private int _position;
         private const int DefaultStackCapacity = 8;
 
-        internal SyntaxTreeDiagnosticEnumerator(SyntaxTree syntaxTree, GreenNode node, int position)
+        public SyntaxTreeDiagnosticEnumerator(SyntaxTree syntaxTree, GreenNode node, int position)
         {
             _syntaxTree = null;
             _current = null;
@@ -114,11 +114,11 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private struct NodeIteration
         {
-            internal readonly GreenNode Node;
-            internal int DiagnosticIndex;
-            internal int SlotIndex;
+            public readonly GreenNode Node;
+            public int DiagnosticIndex;
+            public int SlotIndex;
 
-            internal NodeIteration(GreenNode node)
+            public NodeIteration(GreenNode node)
             {
                 this.Node = node;
                 this.SlotIndex = -1;
@@ -131,14 +131,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             private NodeIteration[] _stack;
             private int _count;
 
-            internal NodeIterationStack(int capacity)
+            public NodeIterationStack(int capacity)
             {
                 Debug.Assert(capacity > 0);
                 _stack = new NodeIteration[capacity];
                 _count = 0;
             }
 
-            internal void PushNodeOrToken(GreenNode node)
+            public void PushNodeOrToken(GreenNode node)
             {
                 var token = node as Syntax.InternalSyntax.SyntaxToken;
                 if (token != null)
@@ -180,17 +180,17 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _count++;
             }
 
-            internal void Pop()
+            public void Pop()
             {
                 _count--;
             }
 
-            internal bool Any()
+            public bool Any()
             {
                 return _count > 0;
             }
 
-            internal NodeIteration Top
+            public NodeIteration Top
             {
                 get
                 {
@@ -208,14 +208,14 @@ namespace Microsoft.CodeAnalysis.CSharp
                 }
             }
 
-            internal void UpdateSlotIndexForStackTop(int slotIndex)
+            public void UpdateSlotIndexForStackTop(int slotIndex)
             {
                 Debug.Assert(_stack != null);
                 Debug.Assert(_count > 0);
                 _stack[_count - 1].SlotIndex = slotIndex;
             }
 
-            internal void UpdateDiagnosticIndexForStackTop(int diagnosticIndex)
+            public void UpdateDiagnosticIndexForStackTop(int diagnosticIndex)
             {
                 Debug.Assert(_stack != null);
                 Debug.Assert(_count > 0);

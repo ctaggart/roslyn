@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// This wrinkle is specifically not publicly exposed.
         /// </remarks>
-        internal static bool IsPreprocessorContextualKeyword(SyntaxKind kind)
+        public static bool IsPreprocessorContextualKeyword(SyntaxKind kind)
         {
             switch (kind)
             {
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return kind >= SyntaxKind.TildeToken && kind <= SyntaxKind.EndOfFileToken;
         }
 
-        internal static bool IsLiteral(SyntaxKind kind)
+        public static bool IsLiteral(SyntaxKind kind)
         {
             switch (kind)
             {

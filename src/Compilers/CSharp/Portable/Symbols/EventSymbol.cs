@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// <summary>
     /// Represents an event.
     /// </summary>
-    internal abstract partial class EventSymbol : Symbol, IEventSymbol
+    public abstract partial class EventSymbol : Symbol, IEventSymbol
     {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Changes to the public interface of this class should remain synchronized with the VB version.
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         // to the VB version.
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-        internal EventSymbol()
+        public EventSymbol()
         {
         }
 
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// </summary>
         public abstract MethodSymbol RemoveMethod { get; }
 
-        internal bool HasAssociatedField
+        public bool HasAssociatedField
         {
             get
             {
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// True if this symbol has a special name (metadata flag SpecialName is set).
         /// </summary>
-        internal abstract bool HasSpecialName { get; }
+        public abstract bool HasSpecialName { get; }
 
         /// <summary>
         /// Gets the attributes on event's associated field, if any.
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 this.AssociatedField.GetAttributes();
         }
 
-        internal virtual FieldSymbol AssociatedField
+        public virtual FieldSymbol AssociatedField
         {
             get
             {
@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public virtual OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal bool HidesBaseEventsByName
+        public bool HidesBaseEventsByName
         {
             get
             {
@@ -145,7 +145,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal EventSymbol GetLeastOverriddenEvent(NamedTypeSymbol accessingTypeOpt)
+        public EventSymbol GetLeastOverriddenEvent(NamedTypeSymbol accessingTypeOpt)
         {
             var accessingType = ((object)accessingTypeOpt == null ? this.ContainingType : accessingTypeOpt).OriginalDefinition;
 
@@ -193,7 +193,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// Will not always agree with ExplicitInterfaceImplementations.Any()
         /// (e.g. if binding of the type part of the name fails).
         /// </remarks>
-        internal virtual bool IsExplicitInterfaceImplementation
+        public virtual bool IsExplicitInterfaceImplementation
         {
             get
             {
@@ -223,7 +223,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// <summary>
         /// Implements visitor pattern.
         /// </summary>
-        internal override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
+        public override TResult Accept<TArgument, TResult>(CSharpSymbolVisitor<TArgument, TResult> visitor, TArgument argument)
         {
             return visitor.VisitEvent(this, argument);
         }
@@ -238,18 +238,18 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return visitor.VisitEvent(this);
         }
 
-        internal EventSymbol AsMember(NamedTypeSymbol newOwner)
+        public EventSymbol AsMember(NamedTypeSymbol newOwner)
         {
             Debug.Assert(this.IsDefinition);
             Debug.Assert(ReferenceEquals(newOwner.OriginalDefinition, this.ContainingSymbol.OriginalDefinition));
             return (newOwner == this.ContainingSymbol) ? this : new SubstitutedEventSymbol(newOwner as SubstitutedNamedTypeSymbol, this);
         }
 
-        internal abstract bool MustCallMethodsDirectly { get; }
+        public abstract bool MustCallMethodsDirectly { get; }
 
         #region Use-Site Diagnostics
 
-        internal override DiagnosticInfo GetUseSiteDiagnostic()
+        public override DiagnosticInfo GetUseSiteDiagnostic()
         {
             if (this.IsDefinition)
             {
@@ -259,7 +259,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             return this.OriginalDefinition.GetUseSiteDiagnostic();
         }
 
-        internal bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
+        public bool CalculateUseSiteDiagnostic(ref DiagnosticInfo result)
         {
             Debug.Assert(this.IsDefinition);
 

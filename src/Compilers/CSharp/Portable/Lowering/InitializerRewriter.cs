@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -9,9 +9,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal static class InitializerRewriter
+    public static class InitializerRewriter
     {
-        internal static BoundTypeOrInstanceInitializers RewriteConstructor(ImmutableArray<BoundInitializer> boundInitializers, MethodSymbol method)
+        public static BoundTypeOrInstanceInitializers RewriteConstructor(ImmutableArray<BoundInitializer> boundInitializers, MethodSymbol method)
         {
             Debug.Assert(!boundInitializers.IsDefault);
             Debug.Assert((method.MethodKind == MethodKind.Constructor) || (method.MethodKind == MethodKind.StaticConstructor));
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundTypeOrInstanceInitializers(syntax, boundInitializers.SelectAsArray(RewriteInitializersAsStatements));
         }
 
-        internal static BoundTypeOrInstanceInitializers RewriteScriptInitializer(ImmutableArray<BoundInitializer> boundInitializers, SynthesizedInteractiveInitializerMethod method, out bool hasTrailingExpression)
+        public static BoundTypeOrInstanceInitializers RewriteScriptInitializer(ImmutableArray<BoundInitializer> boundInitializers, SynthesizedInteractiveInitializerMethod method, out bool hasTrailingExpression)
         {
             Debug.Assert(!boundInitializers.IsDefault);
 
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns the expression if the statement is actually an expression (ExpressionStatementSyntax with no trailing semicolon).
         /// </summary>
-        internal static BoundExpression GetTrailingScriptExpression(BoundStatement statement)
+        public static BoundExpression GetTrailingScriptExpression(BoundStatement statement)
         {
             return (statement.Kind == BoundKind.ExpressionStatement) && ((ExpressionStatementSyntax)statement.Syntax).SemicolonToken.IsMissing ?
                 ((BoundExpressionStatement)statement).Expression :

@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     {
         public static CSharpCommandLineParser Default { get; } = new CSharpCommandLineParser();
 
-        internal static CSharpCommandLineParser ScriptRunner { get; } = new CSharpCommandLineParser(isScriptRunner: true);
+        public static CSharpCommandLineParser ScriptRunner { get; } = new CSharpCommandLineParser(isScriptRunner: true);
 
-        internal CSharpCommandLineParser(bool isScriptRunner = false)
+        public CSharpCommandLineParser(bool isScriptRunner = false)
             : base(CSharp.MessageProvider.Instance, isScriptRunner)
         {
         }
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         protected override string RegularFileExtension { get { return ".cs"; } }
         protected override string ScriptFileExtension { get { return ".csx"; } }
 
-        internal sealed override CommandLineArguments CommonParse(IEnumerable<string> args, string baseDirectory, string sdkDirectoryOpt, string additionalReferenceDirectories)
+        public sealed override CommandLineArguments CommonParse(IEnumerable<string> args, string baseDirectory, string sdkDirectoryOpt, string additionalReferenceDirectories)
         {
             return Parse(args, baseDirectory, sdkDirectoryOpt, additionalReferenceDirectories);
         }
@@ -1556,7 +1556,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static ResourceDescription ParseResourceDescription(
+        public static ResourceDescription ParseResourceDescription(
             string arg,
             string resourceDescriptor,
             string baseDirectory,
@@ -1707,7 +1707,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             AddDiagnostic(diagnostics, ErrorCode.WRN_UnimplementedCommandLineSwitch, "/" + switchName + ":" + value);
         }
 
-        internal override void GenerateErrorForNoFilesFoundInRecurse(string path, IList<Diagnostic> diagnostics)
+        public override void GenerateErrorForNoFilesFoundInRecurse(string path, IList<Diagnostic> diagnostics)
         {
             //  no error in csc.exe
         }

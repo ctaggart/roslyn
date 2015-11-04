@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -8,7 +8,7 @@ using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class WhileBinder : LoopBinder
+    public sealed class WhileBinder : LoopBinder
     {
         private readonly StatementSyntax _syntax;
 
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             _syntax = syntax;
         }
 
-        internal override BoundWhileStatement BindWhileParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundWhileStatement BindWhileParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             var node = (WhileStatementSyntax)_syntax;
 
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundWhileStatement(node, condition, body, this.BreakLabel, this.ContinueLabel);
         }
 
-        internal override BoundDoStatement BindDoParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundDoStatement BindDoParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             var node = (DoStatementSyntax)_syntax;
 

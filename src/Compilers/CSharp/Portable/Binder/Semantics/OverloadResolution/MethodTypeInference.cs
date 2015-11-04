@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -49,7 +49,7 @@ Initially each type variable Xi is unfixed with an empty set of bounds.
 namespace Microsoft.CodeAnalysis.CSharp
 {
     // Method type inference can fail, but we still might have some best guesses. 
-    internal struct MethodTypeInferenceResult
+    public struct MethodTypeInferenceResult
     {
         public readonly ImmutableArray<TypeSymbol> InferredTypeArguments;
         public readonly bool Success;
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed class MethodTypeInferrer
+    public sealed class MethodTypeInferrer
     {
         private enum InferenceResult
         {
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
 #if DEBUG
 
-        internal string Dump()
+        public string Dump()
         {
             var sb = new System.Text.StringBuilder();
             sb.AppendLine("Method type inference internal state");

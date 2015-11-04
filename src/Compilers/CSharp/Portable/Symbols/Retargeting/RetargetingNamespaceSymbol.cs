@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
     /// another NamespaceSymbol that is responsible for retargeting symbols from one assembly to another. 
     /// It can retarget symbols for multiple assemblies at the same time.
     /// </summary>
-    internal sealed class RetargetingNamespaceSymbol
+    public sealed class RetargetingNamespaceSymbol
         : NamespaceSymbol
     {
         /// <summary>
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override NamespaceExtent Extent
+        public override NamespaceExtent Extent
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return builder.ToImmutableAndFree();
         }
 
-        internal override ImmutableArray<Symbol> GetMembersUnordered()
+        public override ImmutableArray<Symbol> GetMembersUnordered()
         {
             return RetargetMembers(_underlyingNamespace.GetMembersUnordered());
         }
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return RetargetMembers(_underlyingNamespace.GetMembers(name));
         }
 
-        internal override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
+        public override ImmutableArray<NamedTypeSymbol> GetTypeMembersUnordered()
         {
             return RetargetTypeMembers(_underlyingNamespace.GetTypeMembersUnordered());
         }
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return _underlyingNamespace.GetDocumentationCommentXml(preferredCulture, expandIncludes, cancellationToken);
         }
 
-        internal override NamedTypeSymbol LookupMetadataType(ref MetadataTypeName typeName)
+        public override NamedTypeSymbol LookupMetadataType(ref MetadataTypeName typeName)
         {
             // This method is invoked when looking up a type by metadata type
             // name through a RetargetingAssemblySymbol. For instance, in
@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             return this.RetargetingTranslator.Retarget(underlying, RetargetOptions.RetargetPrimitiveTypesByName);
         }
 
-        internal override void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
+        public override void GetExtensionMethods(ArrayBuilder<MethodSymbol> methods, string nameOpt, int arity, LookupOptions options)
         {
             var underlyingMethods = ArrayBuilder<MethodSymbol>.GetInstance();
             _underlyingNamespace.GetExtensionMethods(underlyingMethods, nameOpt, arity, options);
@@ -227,7 +227,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Retargeting
             underlyingMethods.Free();
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

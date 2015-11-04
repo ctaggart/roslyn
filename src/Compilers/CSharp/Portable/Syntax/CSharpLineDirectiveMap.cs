@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
     /// <summary>
     /// Adds C# specific parts to the line directive map.
     /// </summary>
-    internal class CSharpLineDirectiveMap : LineDirectiveMap<DirectiveTriviaSyntax>
+    public class CSharpLineDirectiveMap : LineDirectiveMap<DirectiveTriviaSyntax>
     {
         public CSharpLineDirectiveMap(SyntaxTree syntaxTree)
             : base(syntaxTree)
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
             }
         }
 
-        internal override FileLinePositionSpan TranslateSpanAndVisibility(SourceText sourceText, string treeFilePath, TextSpan span, out bool isHiddenPosition)
+        public override FileLinePositionSpan TranslateSpanAndVisibility(SourceText sourceText, string treeFilePath, TextSpan span, out bool isHiddenPosition)
         {
             var lines = sourceText.Lines;
             var unmappedStartPos = lines.GetLinePosition(span.Start);

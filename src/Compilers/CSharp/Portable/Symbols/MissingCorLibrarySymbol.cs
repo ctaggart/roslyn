@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -13,9 +13,9 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     /// The symbol is created by ReferenceManager on as needed basis and is shared by all compilations
     /// with missing CorLibraries.
     /// </summary>
-    internal sealed class MissingCorLibrarySymbol : MissingAssemblySymbol
+    public sealed class MissingCorLibrarySymbol : MissingAssemblySymbol
     {
-        internal static readonly MissingCorLibrarySymbol Instance = new MissingCorLibrarySymbol();
+        public static readonly MissingCorLibrarySymbol Instance = new MissingCorLibrarySymbol();
 
         /// <summary>
         /// An array of cached Cor types defined in this assembly.
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// called if it is know that this is the Cor Library (mscorlib).
         /// </summary>
         /// <param name="type"></param>
-        internal override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
+        public override NamedTypeSymbol GetDeclaredSpecialType(SpecialType type)
         {
 #if DEBUG
             foreach (var module in this.Modules)

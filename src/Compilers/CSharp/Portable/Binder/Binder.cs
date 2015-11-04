@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,14 +14,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A Binder converts names in to symbols and syntax nodes into bound trees. It is context
     /// dependent, relative to a location in source code.
     /// </summary>
-    internal partial class Binder
+    public partial class Binder
     {
-        internal CSharpCompilation Compilation { get; }
+        public CSharpCompilation Compilation { get; }
         private readonly Binder _next;
 
-        internal readonly BinderFlags Flags;
+        public readonly BinderFlags Flags;
 
-        internal Binder(Binder next)
+        public Binder(Binder next)
         {
             Debug.Assert(next != null);
             _next = next;
@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.Compilation = next.Compilation;
         }
 
-        internal Binder(CSharpCompilation compilation)
+        public Binder(CSharpCompilation compilation)
         {
             Debug.Assert(compilation != null);
             this.Flags = BinderFlags.None;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.Compilation = next.Compilation;
         }
 
-        internal bool IsSemanticModelBinder
+        public bool IsSemanticModelBinder
         {
             get
             {
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // IsEarlyAttributeBinder is called relatively frequently so we want fast code here.
-        internal bool IsEarlyAttributeBinder
+        public bool IsEarlyAttributeBinder
         {
             get
             {
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get the next binder in which to look up a name, if not found by this binder.
         /// </summary>
-        internal protected Binder Next
+        public Binder Next
         {
             get
             {
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// is explicitly placed in an unchecked context, overflows that occur during the compile-time 
         /// evaluation of the expression always cause compile-time errors.
         /// </remarks>
-        internal bool CheckOverflowAtCompileTime
+        public bool CheckOverflowAtCompileTime
         {
             get
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Some nodes have special binder's for their contents (like Block's)
         /// </summary>
-        internal virtual Binder GetBinder(CSharpSyntaxNode node)
+        public virtual Binder GetBinder(CSharpSyntaxNode node)
         {
             return this.Next.GetBinder(node);
         }
@@ -152,7 +152,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Get locals declared immediately in scope represented by the node.
         /// </summary>
-        internal virtual ImmutableArray<LocalSymbol> GetDeclaredLocalsForScope(CSharpSyntaxNode node)
+        public virtual ImmutableArray<LocalSymbol> GetDeclaredLocalsForScope(CSharpSyntaxNode node)
         {
             return this.Next.GetDeclaredLocalsForScope(node);
         }
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// The member containing the binding context.  Note that for the purposes of the compiler,
         /// a lambda expression is considered a "member" of its enclosing method, field, or lambda.
         /// </summary>
-        internal virtual Symbol ContainingMemberOrLambda
+        public virtual Symbol ContainingMemberOrLambda
         {
             get
             {
@@ -176,7 +176,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// May be false in lambdas that are outside of member method bodies, e.g. lambdas in
         /// field initializers.
         /// </remarks>
-        internal virtual bool IsInMethodBody
+        public virtual bool IsInMethodBody
         {
             get
             {
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Will be false in a lambda in an iterator.
         /// </remarks>
-        internal virtual bool IsDirectlyInIterator
+        public virtual bool IsDirectlyInIterator
         {
             get
             {
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <remarks>
         /// Will be true in a lambda in an iterator.
         /// </remarks>
-        internal virtual bool IsIndirectlyInIterator
+        public virtual bool IsIndirectlyInIterator
         {
             get
             {
@@ -218,7 +218,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// returns the <see cref="GeneratedLabelSymbol"/> that a break statement would branch to.
         /// Returns null otherwise.
         /// </summary>
-        internal virtual GeneratedLabelSymbol BreakLabel
+        public virtual GeneratedLabelSymbol BreakLabel
         {
             get
             {
@@ -231,7 +231,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// returns the <see cref="GeneratedLabelSymbol"/> that a continue statement would branch to.
         /// Returns null otherwise.
         /// </summary>
-        internal virtual GeneratedLabelSymbol ContinueLabel
+        public virtual GeneratedLabelSymbol ContinueLabel
         {
             get
             {
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// inside a lambda expression"</param>
         /// <param name="diagnostics">Where to place any diagnostics</param>
         /// <returns>Element type of the current iterator, or an error type.</returns>
-        internal virtual TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
+        public virtual TypeSymbol GetIteratorElementType(YieldStatementSyntax node, DiagnosticBag diagnostics)
         {
             return Next.GetIteratorElementType(node, diagnostics);
         }
@@ -262,7 +262,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The Imports for all containing namespace declarations (innermost-to-outermost, including global).
         /// </summary>
-        internal virtual ImportChain ImportChain
+        public virtual ImportChain ImportChain
         {
             get
             {
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual Imports GetImports(ConsList<Symbol> basesBeingResolved)
+        public virtual Imports GetImports(ConsList<Symbol> basesBeingResolved)
         {
             return _next.GetImports(basesBeingResolved);
         }
@@ -278,7 +278,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// The type containing the binding context
         /// </summary>
-        internal NamedTypeSymbol ContainingType
+        public NamedTypeSymbol ContainingType
         {
             get
             {
@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Returns true if the binder is binding top-level script code.
         /// </summary>
-        internal bool BindingTopLevelScriptCode
+        public bool BindingTopLevelScriptCode
         {
             get
             {
@@ -317,7 +317,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual ConstantFieldsInProgress ConstantFieldsInProgress
+        public virtual ConstantFieldsInProgress ConstantFieldsInProgress
         {
             get
             {
@@ -325,7 +325,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual ConsList<FieldSymbol> FieldsBeingBound
+        public virtual ConsList<FieldSymbol> FieldsBeingBound
         {
             get
             {
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual LocalSymbol LocalInProgress
+        public virtual LocalSymbol LocalInProgress
         {
             get
             {
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal virtual BoundExpression ConditionalReceiverExpression
+        public virtual BoundExpression ConditionalReceiverExpression
         {
             get
             {
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         private Conversions _lazyConversions;
-        internal Conversions Conversions
+        public Conversions Conversions
         {
             get
             {
@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         private OverloadResolution _lazyOverloadResolution;
-        internal OverloadResolution OverloadResolution
+        public OverloadResolution OverloadResolution
         {
             get
             {
@@ -377,52 +377,52 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void Error(DiagnosticBag diagnostics, DiagnosticInfo info, CSharpSyntaxNode syntax)
+        public static void Error(DiagnosticBag diagnostics, DiagnosticInfo info, CSharpSyntaxNode syntax)
         {
             diagnostics.Add(new CSDiagnostic(info, syntax.Location));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, DiagnosticInfo info, Location location)
+        public static void Error(DiagnosticBag diagnostics, DiagnosticInfo info, Location location)
         {
             diagnostics.Add(new CSDiagnostic(info, location));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntax)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntax)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code), syntax.Location));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntax, params object[] args)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, CSharpSyntaxNode syntax, params object[] args)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code, args), syntax.Location));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxToken token)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxToken token)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code), token.GetLocation()));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxToken token, params object[] args)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxToken token, params object[] args)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code, args), token.GetLocation()));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxNodeOrToken syntax)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxNodeOrToken syntax)
         {
             Error(diagnostics, code, syntax.GetLocation());
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxNodeOrToken syntax, params object[] args)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, SyntaxNodeOrToken syntax, params object[] args)
         {
             Error(diagnostics, code, syntax.GetLocation(), args);
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, Location location)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, Location location)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code), location));
         }
 
-        internal static void Error(DiagnosticBag diagnostics, ErrorCode code, Location location, params object[] args)
+        public static void Error(DiagnosticBag diagnostics, ErrorCode code, Location location, params object[] args)
         {
             diagnostics.Add(new CSDiagnostic(new CSDiagnosticInfo(code, args), location));
         }
@@ -432,7 +432,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// information to report diagnostics, then store the symbols so that diagnostics
         /// can be reported at a later stage.
         /// </summary>
-        internal void ReportDiagnosticsIfObsolete(DiagnosticBag diagnostics, Symbol symbol, SyntaxNodeOrToken node, bool hasBaseReceiver)
+        public void ReportDiagnosticsIfObsolete(DiagnosticBag diagnostics, Symbol symbol, SyntaxNodeOrToken node, bool hasBaseReceiver)
         {
             switch (symbol.Kind)
             {
@@ -446,7 +446,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal void ReportDiagnosticsIfObsolete(DiagnosticBag diagnostics, Conversion conversion, SyntaxNodeOrToken node, bool hasBaseReceiver)
+        public void ReportDiagnosticsIfObsolete(DiagnosticBag diagnostics, Conversion conversion, SyntaxNodeOrToken node, bool hasBaseReceiver)
         {
             if (conversion.IsValid && (object)conversion.Method != null)
             {
@@ -454,7 +454,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal static void ReportDiagnosticsIfObsolete(
+        public static void ReportDiagnosticsIfObsolete(
             DiagnosticBag diagnostics,
             Symbol symbol,
             SyntaxNodeOrToken node,
@@ -577,7 +577,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ThreeState.True;
         }
 
-        internal void ResolveOverloads<TMember>(
+        public void ResolveOverloads<TMember>(
             ImmutableArray<TMember> members,
             ImmutableArray<TypeSymbol> typeArguments,
             ImmutableArray<ArgumentSyntax> arguments,
@@ -614,7 +614,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             unusedDiagnostics.Free();
         }
 
-        internal bool IsSymbolAccessibleConditional(
+        public bool IsSymbolAccessibleConditional(
             Symbol symbol,
             AssemblySymbol within,
             ref HashSet<DiagnosticInfo> useSiteDiagnostics)
@@ -622,7 +622,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return AccessCheck.IsSymbolAccessible(symbol, within, ref useSiteDiagnostics);
         }
 
-        internal bool IsSymbolAccessibleConditional(
+        public bool IsSymbolAccessibleConditional(
             Symbol symbol,
             NamedTypeSymbol within,
             ref HashSet<DiagnosticInfo> useSiteDiagnostics,
@@ -631,7 +631,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return this.Flags.Includes(BinderFlags.IgnoreAccessibility) || AccessCheck.IsSymbolAccessible(symbol, within, ref useSiteDiagnostics, throughTypeOpt);
         }
 
-        internal bool IsSymbolAccessibleConditional(
+        public bool IsSymbolAccessibleConditional(
             Symbol symbol,
             NamedTypeSymbol within,
             TypeSymbol throughTypeOpt,
@@ -651,7 +651,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Expression lvalue and rvalue requirements.
         /// </summary>
-        internal enum BindValueKind : byte
+        public enum BindValueKind : byte
         {
             /// <summary>
             /// Expression is the RHS of an assignment operation.
@@ -705,7 +705,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// Report diagnostics that should be reported when using a synthesized attribute. 
         /// </summary>
-        internal static void ReportUseSiteDiagnosticForSynthesizedAttribute(
+        public static void ReportUseSiteDiagnosticForSynthesizedAttribute(
             CSharpCompilation compilation,
             WellKnownMember attributeMember,
             DiagnosticBag diagnostics,
@@ -723,7 +723,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
 #if DEBUG
         // Helper to allow displaying the binder hierarchy in the debugger.
-        internal Binder[] GetAllBinders()
+        public Binder[] GetAllBinders()
         {
             var binders = ArrayBuilder<Binder>.GetInstance();
             for (var binder = this; binder != null; binder = binder.Next)

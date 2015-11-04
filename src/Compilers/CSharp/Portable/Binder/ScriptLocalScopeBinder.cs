@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -6,16 +6,16 @@ using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class ScriptLocalScopeBinder : LocalScopeBinder
+    public sealed class ScriptLocalScopeBinder : LocalScopeBinder
     {
         private readonly Labels _labels;
 
-        internal ScriptLocalScopeBinder(Labels labels, Binder next) : base(next)
+        public ScriptLocalScopeBinder(Labels labels, Binder next) : base(next)
         {
             _labels = labels;
         }
 
-        internal override Symbol ContainingMemberOrLambda
+        public override Symbol ContainingMemberOrLambda
         {
             get { return _labels.ScriptInitializer; }
         }
@@ -26,24 +26,24 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         // Labels potentially shared across multiple ScriptLocalScopeBinder instances.
-        new internal sealed class Labels
+        new public sealed class Labels
         {
             private readonly SynthesizedInteractiveInitializerMethod _scriptInitializer;
             private readonly CompilationUnitSyntax _syntax;
             private ImmutableArray<LabelSymbol> _lazyLabels;
 
-            internal Labels(SynthesizedInteractiveInitializerMethod scriptInitializer, CompilationUnitSyntax syntax)
+            public Labels(SynthesizedInteractiveInitializerMethod scriptInitializer, CompilationUnitSyntax syntax)
             {
                 _scriptInitializer = scriptInitializer;
                 _syntax = syntax;
             }
 
-            internal SynthesizedInteractiveInitializerMethod ScriptInitializer
+            public SynthesizedInteractiveInitializerMethod ScriptInitializer
             {
                 get { return _scriptInitializer; }
             }
 
-            internal ImmutableArray<LabelSymbol> GetLabels()
+            public ImmutableArray<LabelSymbol> GetLabels()
             {
                 if (_lazyLabels == null)
                 {

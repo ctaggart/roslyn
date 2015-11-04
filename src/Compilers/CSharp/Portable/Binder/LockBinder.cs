@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed class LockBinder : LockOrUsingBinder
+    public sealed class LockBinder : LockOrUsingBinder
     {
         private readonly LockStatementSyntax _syntax;
 
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        internal override BoundStatement BindLockStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
+        public override BoundStatement BindLockStatementParts(DiagnosticBag diagnostics, Binder originalBinder)
         {
             // Allow method groups during binding and then rule them out when we check that the expression has
             // a reference type.

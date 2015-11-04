@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
     /// Namespaces that differ only by casing in name are not merged.
     /// </summary>
     /// <remarks></remarks>
-    internal sealed class PENestedNamespaceSymbol
+    public sealed class PENestedNamespaceSymbol
         : PENamespaceSymbol
     {
         /// <summary>
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
         /// immediately contained within Global namespace. Therefore, all types in this namespace, if any, 
         /// will be in several first IGroupings.
         /// </param>
-        internal PENestedNamespaceSymbol(
+        public PENestedNamespaceSymbol(
             string name,
             PENamespaceSymbol containingNamespace,
             IEnumerable<IGrouping<string, TypeDefinitionHandle>> typesByNS)
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             get { return _containingNamespaceSymbol; }
         }
 
-        internal override PEModuleSymbol ContainingPEModule
+        public override PEModuleSymbol ContainingPEModule
         {
             get { return _containingNamespaceSymbol.ContainingPEModule; }
         }
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal override ModuleSymbol ContainingModule
+        public override ModuleSymbol ContainingModule
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols.Metadata.PE
             }
         }
 
-        internal sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
+        public sealed override CSharpCompilation DeclaringCompilation // perf, not correctness
         {
             get { return null; }
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 
@@ -8,9 +8,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// A region analysis walker that computes whether or not the region completes normally.  It does this by determining
     /// if the point at which the region ends is reachable.
     /// </summary>
-    internal class RegionReachableWalker : AbstractRegionControlFlowPass
+    public class RegionReachableWalker : AbstractRegionControlFlowPass
     {
-        internal static void Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion,
+        public static void Analyze(CSharpCompilation compilation, Symbol member, BoundNode node, BoundNode firstInRegion, BoundNode lastInRegion,
             out bool startPointIsReachable, out bool endPointIsReachable)
         {
             var walker = new RegionReachableWalker(compilation, member, node, firstInRegion, lastInRegion);

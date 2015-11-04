@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp
 {
-    internal sealed partial class BoundFieldAccess
+    public sealed partial class BoundFieldAccess
     {
         public BoundFieldAccess(
             CSharpSyntaxNode syntax,
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundCall
+    public partial class BoundCall
     {
         public static BoundCall ErrorCall(
             CSharpSyntaxNode node,
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundObjectCreationExpression
+    public sealed partial class BoundObjectCreationExpression
     {
         public BoundObjectCreationExpression(CSharpSyntaxNode syntax, MethodSymbol constructor, params BoundExpression[] arguments)
             : this(syntax, constructor, ImmutableArray.Create<BoundExpression>(arguments), default(ImmutableArray<string>), default(ImmutableArray<RefKind>), false, default(ImmutableArray<int>), null, null, constructor.ContainingType)
@@ -143,7 +143,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundIndexerAccess
+    public partial class BoundIndexerAccess
     {
         public static BoundIndexerAccess ErrorAccess(
             CSharpSyntaxNode node,
@@ -171,7 +171,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundConversion
+    public sealed partial class BoundConversion
     {
         /// <remarks>
         /// This method is intended for passes other than the LocalRewriter.
@@ -256,9 +256,9 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundUnaryOperator
+    public sealed partial class BoundUnaryOperator
     {
-        internal BoundUnaryOperator(
+        public BoundUnaryOperator(
             CSharpSyntaxNode syntax,
             UnaryOperatorKind operatorKind,
             BoundExpression operand,
@@ -282,7 +282,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundIncrementOperator
+    public sealed partial class BoundIncrementOperator
     {
         public BoundIncrementOperator(
             CSharpSyntaxNode syntax,
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundBinaryOperator
+    public sealed partial class BoundBinaryOperator
     {
         public BoundBinaryOperator(
             CSharpSyntaxNode syntax,
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundUserDefinedConditionalLogicalOperator
+    public sealed partial class BoundUserDefinedConditionalLogicalOperator
     {
         public BoundUserDefinedConditionalLogicalOperator(
             CSharpSyntaxNode syntax,
@@ -371,7 +371,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     }
 
 
-    internal sealed partial class BoundCompoundAssignmentOperator
+    public sealed partial class BoundCompoundAssignmentOperator
     {
         public BoundCompoundAssignmentOperator(
             CSharpSyntaxNode syntax,
@@ -399,7 +399,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundParameter
+    public sealed partial class BoundParameter
     {
         public BoundParameter(CSharpSyntaxNode syntax, ParameterSymbol parameterSymbol, bool hasErrors = false)
             : this(syntax, parameterSymbol, parameterSymbol.Type, hasErrors)
@@ -412,7 +412,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundTypeExpression
+    public sealed partial class BoundTypeExpression
     {
         public BoundTypeExpression(CSharpSyntaxNode syntax, AliasSymbol aliasOpt, TypeSymbol type, bool hasErrors = false)
             : this(syntax, aliasOpt, false, null, type, hasErrors)
@@ -430,7 +430,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundNamespaceExpression
+    public sealed partial class BoundNamespaceExpression
     {
         public BoundNamespaceExpression(CSharpSyntaxNode syntax, NamespaceSymbol namespaceSymbol, bool hasErrors = false)
             : this(syntax, namespaceSymbol, null, hasErrors)
@@ -448,7 +448,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundAssignmentOperator
+    public sealed partial class BoundAssignmentOperator
     {
         public BoundAssignmentOperator(CSharpSyntaxNode syntax, BoundExpression left, BoundExpression right,
             TypeSymbol type, RefKind refKind = RefKind.None, bool hasErrors = false)
@@ -457,7 +457,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundBadExpression
+    public sealed partial class BoundBadExpression
     {
         public BoundBadExpression(CSharpSyntaxNode syntax, LookupResultKind resultKind, ImmutableArray<Symbol> symbols, ImmutableArray<BoundNode> childBoundNodes, TypeSymbol type)
             : this(syntax, resultKind, symbols, childBoundNodes, type, true)
@@ -466,7 +466,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundStatementList
+    public partial class BoundStatementList
     {
         public static BoundStatementList Synthesized(CSharpSyntaxNode syntax, params BoundStatement[] statements)
         {
@@ -489,7 +489,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundReturnStatement
+    public sealed partial class BoundReturnStatement
     {
         public static BoundReturnStatement Synthesized(CSharpSyntaxNode syntax, BoundExpression expression, bool hasErrors = false)
         {
@@ -497,7 +497,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundYieldBreakStatement
+    public sealed partial class BoundYieldBreakStatement
     {
         public static BoundYieldBreakStatement Synthesized(CSharpSyntaxNode syntax, bool hasErrors = false)
         {
@@ -505,7 +505,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundGotoStatement
+    public sealed partial class BoundGotoStatement
     {
         public BoundGotoStatement(CSharpSyntaxNode syntax, LabelSymbol label, bool hasErrors = false)
             : this(syntax, label, caseExpressionOpt: null, labelExpressionOpt: null, hasErrors: hasErrors)
@@ -513,7 +513,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal sealed partial class BoundSwitchLabel
+    public sealed partial class BoundSwitchLabel
     {
         public BoundSwitchLabel(CSharpSyntaxNode syntax, LabelSymbol label, bool hasErrors = false)
             : this(syntax, label, expressionOpt: null, hasErrors: hasErrors)
@@ -521,7 +521,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundBlock
+    public partial class BoundBlock
     {
         public static BoundBlock SynthesizedNoLocals(CSharpSyntaxNode syntax, BoundStatement statement)
         {
@@ -543,7 +543,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundDefaultOperator
+    public partial class BoundDefaultOperator
     {
         public BoundDefaultOperator(CSharpSyntaxNode syntax, TypeSymbol type)
             : this(syntax, type.GetDefaultValue(), type)
@@ -551,7 +551,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
-    internal partial class BoundTryStatement
+    public partial class BoundTryStatement
     {
         public BoundTryStatement(CSharpSyntaxNode syntax, BoundBlock tryBlock, ImmutableArray<BoundCatchBlock> catchBlocks, BoundBlock finallyBlockOpt)
             : this(syntax, tryBlock, catchBlocks, finallyBlockOpt, preferFaultHandler: false, hasErrors: false)

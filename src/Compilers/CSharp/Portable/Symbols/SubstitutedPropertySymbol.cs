@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Globalization;
@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class SubstitutedPropertySymbol : PropertySymbol
+    public sealed class SubstitutedPropertySymbol : PropertySymbol
     {
         private readonly PropertySymbol _originalDefinition;
         private readonly SubstitutedNamedTypeSymbol _containingType;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         private TypeSymbol _lazyType;
         private ImmutableArray<ParameterSymbol> _lazyParameters;
 
-        internal SubstitutedPropertySymbol(SubstitutedNamedTypeSymbol containingType, PropertySymbol originalDefinition)
+        public SubstitutedPropertySymbol(SubstitutedNamedTypeSymbol containingType, PropertySymbol originalDefinition)
         {
             _containingType = containingType;
             _originalDefinition = originalDefinition;
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool HasSpecialName
+        public override bool HasSpecialName
         {
             get
             {
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             get { return _originalDefinition.IsImplicitlyDeclared; }
         }
 
-        internal override ObsoleteAttributeData ObsoleteAttributeData
+        public override ObsoleteAttributeData ObsoleteAttributeData
         {
             get { return _originalDefinition.ObsoleteAttributeData; }
         }
@@ -187,7 +187,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override bool IsExplicitInterfaceImplementation
+        public override bool IsExplicitInterfaceImplementation
         {
             get { return _originalDefinition.IsExplicitInterfaceImplementation; }
         }
@@ -212,12 +212,12 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override Microsoft.Cci.CallingConvention CallingConvention
+        public override Microsoft.Cci.CallingConvention CallingConvention
         {
             get { return _originalDefinition.CallingConvention; }
         }
 
-        internal override bool MustCallMethodsDirectly
+        public override bool MustCallMethodsDirectly
         {
             get { return _originalDefinition.MustCallMethodsDirectly; }
         }
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
+        public override OverriddenOrHiddenMembersResult OverriddenOrHiddenMembers
         {
             get
             {

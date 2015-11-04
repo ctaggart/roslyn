@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -9,14 +9,14 @@ namespace Microsoft.CodeAnalysis.CSharp
     /// Represents a reference to another C# compilation. 
     /// </summary>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal sealed class CSharpCompilationReference : CompilationReference
+    public sealed class CSharpCompilationReference : CompilationReference
     {
         /// <summary>
         /// Returns the referenced Compilation.
         /// </summary>
         public new CSharpCompilation Compilation { get; }
 
-        internal override Compilation CompilationCore
+        public override Compilation CompilationCore
         {
             get { return this.Compilation; }
         }
@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             this.Compilation = compilation;
         }
 
-        internal override CompilationReference WithPropertiesImpl(MetadataReferenceProperties properties)
+        public override CompilationReference WithPropertiesImpl(MetadataReferenceProperties properties)
         {
             return new CSharpCompilationReference(Compilation, properties);
         }

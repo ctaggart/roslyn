@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp.Symbols
 {
-    internal sealed class EvaluatedConstant
+    public sealed class EvaluatedConstant
     {
         public readonly ConstantValue Value;
         public readonly ImmutableArray<Diagnostic> Diagnostics;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         }
     }
 
-    internal static class ConstantValueUtils
+    public static class ConstantValueUtils
     {
         public static ConstantValue EvaluateFieldConstant(
             SourceFieldSymbol symbol,
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             }
         }
 
-        internal static ConstantValue GetAndValidateConstantValue(
+        public static ConstantValue GetAndValidateConstantValue(
             BoundExpression boundValue,
             Symbol thisSymbol,
             TypeSymbol typeSymbol,
