@@ -78,11 +78,11 @@ namespace CSharpSyntaxGenerator
             if (node is AbstractNode)
             {
                 AbstractNode nd = (AbstractNode)node;
-                WriteLine("  internal abstract partial class {0} : {1}", node.Name, node.Base);
+                WriteLine("  public abstract partial class {0} : {1}", node.Name, node.Base);
                 WriteLine("  {");
 
                 // ctor with diagnostics and annotations
-                WriteLine("    internal {0}(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)", node.Name);
+                WriteLine("    public {0}(SyntaxKind kind, DiagnosticInfo[] diagnostics, SyntaxAnnotation[] annotations)", node.Name);
                 WriteLine("      : base(kind, diagnostics, annotations)");
                 WriteLine("    {");
                 if (node.Name == "DirectiveTriviaSyntax")
@@ -92,7 +92,7 @@ namespace CSharpSyntaxGenerator
                 WriteLine("    }");
 
                 // ctor without diagnostics and annotations
-                WriteLine("    internal {0}(SyntaxKind kind)", node.Name);
+                WriteLine("    public {0}(SyntaxKind kind)", node.Name);
                 WriteLine("      : base(kind)");
                 WriteLine("    {");
                 if (node.Name == "DirectiveTriviaSyntax")
@@ -140,7 +140,7 @@ namespace CSharpSyntaxGenerator
             {
                 Node nd = (Node)node;
 
-                WriteLine("  internal sealed partial class {0} : {1}", node.Name, node.Base);
+                WriteLine("  public sealed partial class {0} : {1}", node.Name, node.Base);
                 WriteLine("  {");
 
                 var valueFields = nd.Fields.Where(n => !IsNodeOrNodeList(n.Type)).ToList();
@@ -150,18 +150,18 @@ namespace CSharpSyntaxGenerator
                 {
                     var field = nodeFields[i];
                     var type = GetFieldType(field);
-                    WriteLine("    internal readonly {0} {1};", type, CamelCase(field.Name));
+                    WriteLine("    public readonly {0} {1};", type, CamelCase(field.Name));
                 }
 
                 for (int i = 0, n = valueFields.Count; i < n; i++)
                 {
                     var field = valueFields[i];
-                    WriteLine("    internal readonly {0} {1};", field.Type, CamelCase(field.Name));
+                    WriteLine("    public readonly {0} {1};", field.Type, CamelCase(field.Name));
                 }
 
                 // write constructor with diagnostics and annotations
                 WriteLine();
-                Write("    internal {0}(SyntaxKind kind", node.Name);
+                Write("    public {0}(SyntaxKind kind", node.Name);
 
                 WriteGreenNodeConstructorArgs(nodeFields, valueFields);
 
@@ -174,7 +174,7 @@ namespace CSharpSyntaxGenerator
 
                 // write constructor with async
                 WriteLine();
-                Write("    internal {0}(SyntaxKind kind", node.Name);
+                Write("    public {0}(SyntaxKind kind", node.Name);
 
                 WriteGreenNodeConstructorArgs(nodeFields, valueFields);
 
@@ -188,7 +188,7 @@ namespace CSharpSyntaxGenerator
 
                 // write constructor without diagnostics and annotations
                 WriteLine();
-                Write("    internal {0}(SyntaxKind kind", node.Name);
+                Write("    public {0}(SyntaxKind kind", node.Name);
 
                 WriteGreenNodeConstructorArgs(nodeFields, valueFields);
 
@@ -241,7 +241,7 @@ namespace CSharpSyntaxGenerator
 
                 // GetSlot
                 WriteLine();
-                WriteLine("    internal override GreenNode GetSlot(int index)");
+                WriteLine("    public override GreenNode GetSlot(int index)");
                 WriteLine("    {");
                 WriteLine("        switch (index)");
                 WriteLine("        {");
@@ -255,7 +255,7 @@ namespace CSharpSyntaxGenerator
                 WriteLine("    }");
 
                 WriteLine();
-                WriteLine("    internal override SyntaxNode CreateRed(SyntaxNode parent, int position)");
+                WriteLine("    public override SyntaxNode CreateRed(SyntaxNode parent, int position)");
                 WriteLine("    {");
                 WriteLine("      return new CSharp.Syntax.{0}(this, parent, position);", node.Name);
                 WriteLine("    }");
@@ -294,7 +294,7 @@ namespace CSharpSyntaxGenerator
 
             // object reader constructor
             WriteLine();
-            WriteLine("    internal {0}(ObjectReader reader)", node.Name);
+            WriteLine("    public {0}(ObjectReader reader)", node.Name);
             WriteLine("        : base(reader)");
             WriteLine("    {");
 
@@ -323,7 +323,7 @@ namespace CSharpSyntaxGenerator
 
             // IWritable 
             WriteLine();
-            WriteLine("    internal override void WriteTo(ObjectWriter writer)");
+            WriteLine("    public override void WriteTo(ObjectWriter writer)");
             WriteLine("    {");
             WriteLine("      base.WriteTo(writer);");
 
@@ -345,7 +345,7 @@ namespace CSharpSyntaxGenerator
 
             // IReadable
             WriteLine();
-            WriteLine("    internal override Func<ObjectReader, object> GetReader()");
+            WriteLine("    public override Func<ObjectReader, object> GetReader()");
             WriteLine("    {");
             WriteLine("       return r => new {0}(r);", node.Name);
             WriteLine("    }");
@@ -406,7 +406,7 @@ namespace CSharpSyntaxGenerator
         private void WriteSetAnnotations(Node node)
         {
             WriteLine();
-            WriteLine("    internal override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)");
+            WriteLine("    public override GreenNode SetAnnotations(SyntaxAnnotation[] annotations)");
             WriteLine("    {");
 
             Write("         return new {0}(", node.Name);
@@ -425,7 +425,7 @@ namespace CSharpSyntaxGenerator
         private void WriteSetDiagnostics(Node node)
         {
             WriteLine();
-            WriteLine("    internal override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)");
+            WriteLine("    public override GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics)");
             WriteLine("    {");
 
             Write("         return new {0}(", node.Name);
@@ -474,7 +474,7 @@ namespace CSharpSyntaxGenerator
             var nodes = Tree.Types.Where(n => !(n is PredefinedNode)).ToList();
 
             WriteLine();
-            WriteLine("  internal partial class CSharpSyntaxVisitor" + (withResult ? "<" + (withArgument ? "TArgument, " : "") + "TResult>" : ""));
+            WriteLine("  public partial class CSharpSyntaxVisitor" + (withResult ? "<" + (withArgument ? "TArgument, " : "") + "TResult>" : ""));
             WriteLine("  {");
             int nWritten = 0;
             for (int i = 0, n = nodes.Count; i < n; i++)
@@ -566,7 +566,7 @@ namespace CSharpSyntaxGenerator
             var nodes = Tree.Types.Where(n => !(n is PredefinedNode)).ToList();
 
             WriteLine();
-            WriteLine("  internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNode>");
+            WriteLine("  public partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNode>");
             WriteLine("  {");
             int nWritten = 0;
             for (int i = 0, n = nodes.Count; i < n; i++)
@@ -626,7 +626,7 @@ namespace CSharpSyntaxGenerator
         {
             var nodes = Tree.Types.Where(n => !(n is PredefinedNode) && !(n is AbstractNode)).ToList();
             WriteLine();
-            WriteLine("  internal class ContextAwareSyntax");
+            WriteLine("  public class ContextAwareSyntax");
             WriteLine("  {");
 
             WriteLine();
@@ -648,7 +648,7 @@ namespace CSharpSyntaxGenerator
         {
             var nodes = Tree.Types.Where(n => !(n is PredefinedNode) && !(n is AbstractNode)).ToList();
             WriteLine();
-            WriteLine("  internal static partial class SyntaxFactory");
+            WriteLine("  public static partial class SyntaxFactory");
             WriteLine("  {");
 
             WriteGreenFactories(nodes);
@@ -672,7 +672,7 @@ namespace CSharpSyntaxGenerator
         private void WriteGreenTypeList()
         {
             WriteLine();
-            WriteLine("    internal static IEnumerable<Type> GetNodeTypes()");
+            WriteLine("    public static IEnumerable<Type> GetNodeTypes()");
             WriteLine("    {");
             WriteLine("        return new Type[] {");
 
@@ -887,7 +887,7 @@ namespace CSharpSyntaxGenerator
                 AbstractNode nd = (AbstractNode)node;
                 WriteLine("  public abstract partial class {0} : {1}", node.Name, node.Base);
                 WriteLine("  {");
-                WriteLine("    internal {0}(Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)", node.Name);
+                WriteLine("    public {0}(Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)", node.Name);
                 WriteLine("      : base(green, parent, position)");
                 WriteLine("    {");
                 WriteLine("    }");
@@ -948,7 +948,7 @@ namespace CSharpSyntaxGenerator
 
                 // write constructor
                 WriteLine();
-                WriteLine("    internal {0}(Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)", node.Name);
+                WriteLine("    public {0}(Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax.CSharpSyntaxNode green, SyntaxNode parent, int position)", node.Name);
                 WriteLine("        : base(green, parent, position)");
                 WriteLine("    {");
                 WriteLine("    }");
@@ -1047,7 +1047,7 @@ namespace CSharpSyntaxGenerator
                 }
 
                 //GetNodeSlot forces creation of a red node.
-                WriteLine("    internal override SyntaxNode GetNodeSlot(int index)");
+                WriteLine("    public override SyntaxNode GetNodeSlot(int index)");
                 WriteLine("    {");
                 WriteLine("        switch (index)");
                 WriteLine("        {");
@@ -1072,7 +1072,7 @@ namespace CSharpSyntaxGenerator
                 WriteLine("    }");
 
                 //GetCachedSlot returns a red node if we have it.
-                WriteLine("    internal override SyntaxNode GetCachedSlot(int index)");
+                WriteLine("    public override SyntaxNode GetCachedSlot(int index)");
                 WriteLine("    {");
                 WriteLine("        switch (index)");
                 WriteLine("        {");

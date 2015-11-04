@@ -10,7 +10,7 @@
     <ProjectGuid>{B501A547-C911-4A05-AC6E-274A50DFF30E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Microsoft.CodeAnalysis.CSharp</RootNamespace>
-    <AssemblyName>Microsoft.CodeAnalysis.CSharp</AssemblyName>
+    <AssemblyName>Roslyn.CodeAnalysis.CSharp</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CSharpSyntaxGeneratorToolPath>$(OutDir)CSharpSyntaxGenerator.exe</CSharpSyntaxGeneratorToolPath>
     <BoundTreeGeneratorToolPath>$(OutDir)BoundTreeGenerator.exe</BoundTreeGeneratorToolPath>

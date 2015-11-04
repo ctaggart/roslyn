@@ -236,7 +236,7 @@ namespace BoundTreeGenerator
             switch (_targetLang)
             {
                 case TargetLanguage.CSharp:
-                    WriteLine("internal enum BoundKind: byte");
+                    WriteLine("public enum BoundKind: byte");
                     Brace();
                     foreach (var node in _tree.Types.OfType<Node>())
                         WriteLine("{0},", FixKeyword(StripBound(node.Name)));
@@ -283,7 +283,7 @@ namespace BoundTreeGenerator
                             abstr = "abstract ";
                         else if (CanBeSealed(node))
                             abstr = "sealed ";
-                        WriteLine("internal {2}partial class {0} : {1}", node.Name, node.Base, abstr);
+                        WriteLine("public {2}partial class {0} : {1}", node.Name, node.Base, abstr);
                         Brace();
                         break;
                     }
@@ -992,12 +992,12 @@ namespace BoundTreeGenerator
                 case TargetLanguage.CSharp:
 
                     Blank();
-                    WriteLine("internal abstract partial class BoundTreeVisitor<A,R>");
+                    WriteLine("public abstract partial class BoundTreeVisitor<A,R>");
                     Brace();
 
                     Blank();
                     WriteLine("[MethodImpl(MethodImplOptions.NoInlining)]");
-                    WriteLine("internal R VisitInternal(BoundNode node, A arg)");
+                    WriteLine("public R VisitInternal(BoundNode node, A arg)");
                     Brace();
                     WriteLine("switch (node.Kind)");
                     Brace();
@@ -1038,7 +1038,7 @@ namespace BoundTreeGenerator
                     //Unbrace(); // end class
 
                     Blank();
-                    WriteLine("internal abstract partial class BoundTreeVisitor<A,R>");
+                    WriteLine("public abstract partial class BoundTreeVisitor<A,R>");
                     Brace();
                     foreach (var node in _tree.Types.OfType<Node>())
                     {
@@ -1050,7 +1050,7 @@ namespace BoundTreeGenerator
                     Unbrace();
 
                     Blank();
-                    WriteLine("internal abstract partial class BoundTreeVisitor");
+                    WriteLine("public abstract partial class BoundTreeVisitor");
                     Brace();
                     foreach (var node in _tree.Types.OfType<Node>())
                     {
@@ -1159,7 +1159,7 @@ namespace BoundTreeGenerator
             {
                 case TargetLanguage.CSharp:
                     Blank();
-                    WriteLine("internal abstract partial class BoundTreeWalker: BoundTreeVisitor");
+                    WriteLine("public abstract partial class BoundTreeWalker: BoundTreeVisitor");
                     Brace();
                     foreach (var node in _tree.Types.OfType<Node>())
                     {
@@ -1211,7 +1211,7 @@ namespace BoundTreeGenerator
             {
                 case TargetLanguage.CSharp:
                     Blank();
-                    WriteLine("internal sealed class BoundTreeDumperNodeProducer : BoundTreeVisitor<object, TreeDumperNode>");
+                    WriteLine("public sealed class BoundTreeDumperNodeProducer : BoundTreeVisitor<object, TreeDumperNode>");
                     Brace();
                     WriteLine("private BoundTreeDumperNodeProducer()");
                     Brace();
@@ -1334,7 +1334,7 @@ namespace BoundTreeGenerator
                 case TargetLanguage.CSharp:
                     {
                         Blank();
-                        WriteLine("internal abstract partial class BoundTreeRewriter : BoundTreeVisitor");
+                        WriteLine("public abstract partial class BoundTreeRewriter : BoundTreeVisitor");
                         Brace();
                         foreach (var node in _tree.Types.OfType<Node>())
                         {

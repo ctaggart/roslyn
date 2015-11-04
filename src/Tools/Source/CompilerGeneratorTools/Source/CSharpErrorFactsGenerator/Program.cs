@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Internal.CSharpErrorFactsGenerator
             var outputText = new StringBuilder();
             outputText.AppendLine("namespace Microsoft.CodeAnalysis.CSharp");
             outputText.AppendLine("{");
-            outputText.AppendLine("    internal static partial class ErrorFacts");
+            outputText.AppendLine("    public static partial class ErrorFacts");
             outputText.AppendLine("    {");
 
             var warningCodeNames = new List<string>();
