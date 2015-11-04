@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A metadata custom attribute.
     /// </summary>
-    internal interface ICustomAttribute
+    public interface ICustomAttribute
     {
         /// <summary>
         /// Zero or more positional arguments for the attribute constructor.

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
-    internal partial struct SwitchIntegralJumpTableEmitter
+    public partial struct SwitchIntegralJumpTableEmitter
     {
         private struct SwitchBucket
         {
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 _allLabels = allLabels;
             }
 
-            internal uint LabelsCount
+            public uint LabelsCount
             {
                 get
                 {
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal ulong BucketSize
+            public ulong BucketSize
             {
                 get
                 {
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
             // Relative cost of the bucket
             // roughly proportional to the number of compares it needs in the success case.
-            internal int BucketCost
+            public int BucketCost
             {
                 get
                 {
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                     || GetBucketSize(startConstant, endConstant) > Int32.MaxValue;
             }
 
-            internal int StartLabelIndex
+            public int StartLabelIndex
             {
                 get
                 {
@@ -138,7 +138,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal int EndLabelIndex
+            public int EndLabelIndex
             {
                 get
                 {
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal ConstantValue StartConstant
+            public ConstantValue StartConstant
             {
                 get
                 {
@@ -154,7 +154,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal ConstantValue EndConstant
+            public ConstantValue EndConstant
             {
                 get
                 {
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 return bucketSize >= labelsCount * 2;
             }
 
-            internal static bool MergeIsAdvantageous(SwitchBucket bucket1, SwitchBucket bucket2)
+            public static bool MergeIsAdvantageous(SwitchBucket bucket1, SwitchBucket bucket2)
             {
                 var startConstant = bucket1.StartConstant;
                 var endConstant = bucket2.EndConstant;
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// If merge results in a better bucket than two original ones, merge and return true.
             /// Else don't merge and return false.
             /// </summary>
-            internal bool TryMergeWith(SwitchBucket prevBucket)
+            public bool TryMergeWith(SwitchBucket prevBucket)
             {
                 Debug.Assert(prevBucket._endLabelIndex + 1 == _startLabelIndex);
                 if (MergeIsAdvantageous(prevBucket, this))

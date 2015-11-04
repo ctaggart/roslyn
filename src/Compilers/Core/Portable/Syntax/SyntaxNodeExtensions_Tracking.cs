@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly ConditionalWeakTable<SyntaxNode, CurrentNodes> s_rootToCurrentNodesMap
             = new ConditionalWeakTable<SyntaxNode, CurrentNodes>();
 
-        internal const string IdAnnotationKind = "Id";
+        public const string IdAnnotationKind = "Id";
 
         /// <summary>
         /// Creates a new tree of nodes with the specified nodes being tracked.

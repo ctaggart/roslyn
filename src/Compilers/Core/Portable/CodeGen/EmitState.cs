@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
-    internal partial class ILBuilder
+    public partial class ILBuilder
     {
         /// <summary>
         /// Abstract Execution state. 
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             private int _curStack;
             private int _instructionsEmitted;
 
-            internal int InstructionsEmitted
+            public int InstructionsEmitted
             {
                 get
                 {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal void InstructionAdded()
+            public void InstructionAdded()
             {
                 _instructionsEmitted += 1;
             }
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Eval stack's high watermark.
             /// </summary>
-            internal int MaxStack
+            public int MaxStack
             {
                 get
                 {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Current evaluation stack depth.
             /// </summary>
-            internal int CurStack
+            public int CurStack
             {
                 get
                 {
@@ -68,7 +68,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Record effects of that currently emitted instruction on the eval stack.
             /// </summary>
-            internal void AdjustStack(int count)
+            public void AdjustStack(int count)
             {
                 CurStack += count;
                 MaxStack = Math.Max(MaxStack, CurStack);

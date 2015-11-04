@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// Guarded by <see cref="CommonReferenceManager.SymbolCacheAndReferenceManagerStateGuard"/>.
         /// </remarks>
-        internal readonly WeakList<IAssemblySymbol> CachedSymbols = new WeakList<IAssemblySymbol>();
+        public readonly WeakList<IAssemblySymbol> CachedSymbols = new WeakList<IAssemblySymbol>();
 
         // creates a copy
         private AssemblyMetadata(AssemblyMetadata other)
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis
             return CreateFromFile(ModuleMetadata.CreateFromFile(path), path);
         }
 
-        internal static AssemblyMetadata CreateFromFile(ModuleMetadata manifestModule, string path)
+        public static AssemblyMetadata CreateFromFile(ModuleMetadata manifestModule, string path)
         {
             return new AssemblyMetadata(manifestModule, moduleName => ModuleMetadata.CreateFromFile(Path.Combine(Path.GetDirectoryName(path), moduleName)));
         }
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis
         /// This is used, for example, when a metadata cache needs to return the cached metadata to its users
         /// while keeping the ownership of the cached metadata object.
         /// </remarks>
-        internal new AssemblyMetadata Copy()
+        public new AssemblyMetadata Copy()
         {
             return new AssemblyMetadata(this);
         }
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis
         /// <exception cref="BadImageFormatException">The PE image format is invalid.</exception>
         /// <exception cref="IOException">IO error while reading the metadata. See <see cref="Exception.InnerException"/> for details.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
-        internal PEAssembly GetAssembly()
+        public PEAssembly GetAssembly()
         {
             return GetOrCreateData().Assembly;
         }
@@ -398,7 +398,7 @@ namespace Microsoft.CodeAnalysis
         /// <exception cref="BadImageFormatException">The PE image format is invalid.</exception>
         /// <exception cref="IOException">IO error reading the metadata. See <see cref="Exception.InnerException"/> for details.</exception>
         /// <exception cref="ObjectDisposedException">The object has been disposed.</exception>
-        internal bool IsValidAssembly()
+        public bool IsValidAssembly()
         {
             var modules = GetModules();
 

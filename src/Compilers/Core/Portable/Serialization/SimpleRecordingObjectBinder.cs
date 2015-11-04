@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Roslyn.Utilities
     /// <summary>
     /// A binder that gathers type/reader mappings during object writing
     /// </summary>
-    internal sealed class SimpleRecordingObjectBinder : RecordingObjectBinder
+    public sealed class SimpleRecordingObjectBinder : RecordingObjectBinder
     {
         private readonly Dictionary<TypeKey, Type> _typeMap =
             new Dictionary<TypeKey, Type>();

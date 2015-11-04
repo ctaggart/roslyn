@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
 namespace Roslyn.Utilities
 {
-    internal static class BitArithmeticUtilities
+    public static class BitArithmeticUtilities
     {
         public static int CountBits(int v)
         {
@@ -46,7 +46,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static uint Align(uint position, uint alignment)
+        public static uint Align(uint position, uint alignment)
         {
             Debug.Assert(CountBits(alignment) == 1);
 
@@ -59,7 +59,7 @@ namespace Roslyn.Utilities
             return result + alignment;
         }
 
-        internal static int Align(int position, int alignment)
+        public static int Align(int position, int alignment)
         {
             Debug.Assert(position >= 0 && alignment > 0);
             Debug.Assert(CountBits(alignment) == 1);

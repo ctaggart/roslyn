@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A range of CLR IL operations that comprise a lexical scope.
     /// </summary>
-    internal struct LocalScope
+    public struct LocalScope
     {
         /// <summary>
         /// The offset of the first operation in the scope.

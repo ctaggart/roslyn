@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Linq;
 using System.Collections.Immutable;
@@ -6,13 +6,13 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract class CommonSyntaxAndDeclarationManager
+    public abstract class CommonSyntaxAndDeclarationManager
     {
-        internal readonly ImmutableArray<SyntaxTree> ExternalSyntaxTrees;
-        internal readonly string ScriptClassName;
-        internal readonly SourceReferenceResolver Resolver;
-        internal readonly CommonMessageProvider MessageProvider;
-        internal readonly bool IsSubmission;
+        public readonly ImmutableArray<SyntaxTree> ExternalSyntaxTrees;
+        public readonly string ScriptClassName;
+        public readonly SourceReferenceResolver Resolver;
+        public readonly CommonMessageProvider MessageProvider;
+        public readonly bool IsSubmission;
 
         private ImmutableDictionary<SyntaxTree, ImmutableArray<Diagnostic>> _syntaxTreeLoadDirectiveMap;
         // This ImmutableDictionary will use default (case-sensitive) comparison

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -281,8 +281,8 @@ namespace Microsoft.CodeAnalysis
             return (TRoot)root.RemoveNodesCore(nodes, options);
         }
 
-        internal const string DefaultIndentation = "    ";
-        internal const string DefaultEOL = "\r\n";
+        public const string DefaultIndentation = "    ";
+        public const string DefaultEOL = "\r\n";
 
         /// <summary>
         /// Creates a new syntax node with all whitespace and end of line trivia replaced with

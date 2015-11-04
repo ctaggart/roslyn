@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     /// which allows to defer building strings and doing many other things (like loading metadata) 
     /// associated with that until the error message is actually requested.
     /// </summary>
-    internal sealed class FormattedSymbol : IMessageSerializable
+    public sealed class FormattedSymbol : IMessageSerializable
     {
         private readonly ISymbol _symbol;
         private readonly SymbolDisplayFormat _symbolDisplayFormat;

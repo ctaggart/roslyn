@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
 
 namespace Microsoft.Cci
 {
-    internal struct ContentId
+    public struct ContentId
     {
         public const int Size = 20;
 
@@ -22,7 +22,7 @@ namespace Microsoft.Cci
 
         public bool IsDefault => Guid == null && Stamp == null;
 
-        internal static ContentId FromHash(ImmutableArray<byte> hashCode)
+        public static ContentId FromHash(ImmutableArray<byte> hashCode)
         {
             Debug.Assert(hashCode.Length >= 20);
             var guid = new byte[16];

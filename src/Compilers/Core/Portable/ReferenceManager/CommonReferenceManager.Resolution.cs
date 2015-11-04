@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis
     /// </summary>
     /// <typeparam name="TCompilation">Language specific representation for a compilation</typeparam>
     /// <typeparam name="TAssemblySymbol">Language specific representation for an assembly symbol.</typeparam>
-    internal abstract partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
+    public abstract partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
         where TCompilation : Compilation
         where TAssemblySymbol : class, IAssemblySymbol
     {
@@ -525,9 +525,9 @@ namespace Microsoft.CodeAnalysis
         /// Determines whether references are the same. Compilation references are the same if they refer to the same compilation.
         /// Otherwise, references are represented by their object identities.
         /// </summary>
-        internal sealed class MetadataReferenceEqualityComparer : IEqualityComparer<MetadataReference>
+        public sealed class MetadataReferenceEqualityComparer : IEqualityComparer<MetadataReference>
         {
-            internal static readonly MetadataReferenceEqualityComparer Instance = new MetadataReferenceEqualityComparer();
+            public static readonly MetadataReferenceEqualityComparer Instance = new MetadataReferenceEqualityComparer();
 
             public bool Equals(MetadataReference x, MetadataReference y)
             {
@@ -832,7 +832,7 @@ namespace Microsoft.CodeAnalysis
             return references[0];
         }
 
-        internal static AssemblyReferenceBinding[] ResolveReferencedAssemblies(
+        public static AssemblyReferenceBinding[] ResolveReferencedAssemblies(
             ImmutableArray<AssemblyIdentity> references,
             ImmutableArray<AssemblyData> definitions,
             int definitionStartIndex,
@@ -857,7 +857,7 @@ namespace Microsoft.CodeAnalysis
         /// <returns>
         /// Returns an index the reference is bound.
         /// </returns>
-        internal static AssemblyReferenceBinding ResolveReferencedAssembly(
+        public static AssemblyReferenceBinding ResolveReferencedAssembly(
             AssemblyIdentity reference,
             ImmutableArray<AssemblyData> definitions,
             int definitionStartIndex,

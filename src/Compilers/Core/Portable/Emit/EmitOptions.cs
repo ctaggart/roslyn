@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Roslyn.Utilities;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Emit
     /// </summary>
     public sealed class EmitOptions : IEquatable<EmitOptions>
     {
-        internal static readonly EmitOptions Default = new EmitOptions();
+        public static readonly EmitOptions Default = new EmitOptions();
 
         /// <summary>
         /// True to emit an assembly excluding executable code such as method bodies.
@@ -178,7 +178,7 @@ namespace Microsoft.CodeAnalysis.Emit
             return !object.Equals(left, right);
         }
 
-        internal void ValidateOptions(DiagnosticBag diagnostics, CommonMessageProvider messageProvider)
+        public void ValidateOptions(DiagnosticBag diagnostics, CommonMessageProvider messageProvider)
         {
             if (!DebugInformationFormat.IsValid())
             {
@@ -205,7 +205,7 @@ namespace Microsoft.CodeAnalysis.Emit
             }
         }
 
-        internal static bool IsValidFileAlignment(int value)
+        public static bool IsValidFileAlignment(int value)
         {
             switch (value)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Contains helper methods for switch statement label constants
     /// </summary>
-    internal static class SwitchConstantValueHelper
+    public static class SwitchConstantValueHelper
     {
         public static bool IsValidSwitchCaseLabelConstant(ConstantValue constant)
         {

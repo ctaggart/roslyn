@@ -1,15 +1,15 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.Diagnostics.Telemetry
 {
     /// <summary>
     /// Contains the counts of registered actions for an analyzer.
     /// </summary>
-    internal class AnalyzerActionCounts
+    public class AnalyzerActionCounts
     {
-        internal static AnalyzerActionCounts Empty = new AnalyzerActionCounts(AnalyzerActions.Empty);
+        public static AnalyzerActionCounts Empty = new AnalyzerActionCounts(AnalyzerActions.Empty);
 
-        internal static AnalyzerActionCounts Create(AnalyzerActions analyzerActions)
+        public static AnalyzerActionCounts Create(AnalyzerActions analyzerActions)
         {
             if (analyzerActions == null)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
 
 namespace Microsoft.Cci
 {
-    internal sealed class ModifiedTypeReference : IModifiedTypeReference
+    public sealed class ModifiedTypeReference : IModifiedTypeReference
     {
         private readonly ITypeReference _modifiedType;
         private readonly ImmutableArray<ICustomModifier> _customModifiers;

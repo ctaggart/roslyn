@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Roslyn.Utilities
     /// <remarks>
     /// Used when a collection usually contains a single item but sometimes might contain multiple.
     /// </remarks>
-    internal struct OneOrMany<T>
+    public struct OneOrMany<T>
     {
         private readonly T _one;
         private readonly ImmutableArray<T> _many;
@@ -64,7 +64,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal static class OneOrMany
+    public static class OneOrMany
     {
         public static OneOrMany<T> Create<T>(T one)
         {

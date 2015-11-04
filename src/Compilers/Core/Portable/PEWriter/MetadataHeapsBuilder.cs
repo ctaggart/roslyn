@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a value on #String heap that has not been serialized yet.
     /// </summary>
-    internal struct StringIdx : IEquatable<StringIdx>
+    public struct StringIdx : IEquatable<StringIdx>
     {
         // index in _stringIndexToHeapPositionMap
         public readonly int MapIndex;
@@ -55,7 +55,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a value on #Blob heap that has not been serialized yet.
     /// </summary>
-    internal struct BlobIdx : IEquatable<BlobIdx>
+    public struct BlobIdx : IEquatable<BlobIdx>
     {
         // The position of the blob on heap relative to the start of the heap.
         // In EnC deltas this value is not the same as the value stored in blob token.
@@ -92,7 +92,7 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class MetadataHeapsBuilder
+    public sealed class MetadataHeapsBuilder
     {
         // #US heap
         private readonly Dictionary<string, int> _userStrings = new Dictionary<string, int>();
@@ -143,13 +143,13 @@ namespace Microsoft.Cci
             _guidWriter.WriteBytes(0, guidHeapStartOffset);
         }
 
-        internal BlobIdx GetBlobIndex(BlobBuilder builder)
+        public BlobIdx GetBlobIndex(BlobBuilder builder)
         {
             // TODO: avoid making a copy if the blob exists in the index
             return GetBlobIndex(builder.ToImmutableArray());
         }
 
-        internal BlobIdx GetBlobIndex(ImmutableArray<byte> blob)
+        public BlobIdx GetBlobIndex(ImmutableArray<byte> blob)
         {
             BlobIdx index;
             if (!_blobs.TryGetValue(blob, out index))

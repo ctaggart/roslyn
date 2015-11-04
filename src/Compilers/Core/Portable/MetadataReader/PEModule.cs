@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis
     /// This type is not responsible for managing the underlying storage
     /// backing the PE image.
     /// </summary>
-    internal sealed class PEModule : IDisposable
+    public sealed class PEModule : IDisposable
     {
         // Either we have PEReader or we have pointer and size of the metadata blob:
         private readonly PEReader _peReaderOpt;
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis
                 _peReader = peReader;
             }
 
-            internal unsafe override ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm)
+            public unsafe override ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm)
             {
                 PEMemoryBlock block = _peReader.GetEntireImage();
                 byte[] hash;
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsDisposed
+        public bool IsDisposed
         {
             get
             {
@@ -132,7 +132,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // for testing
-        internal PEReader PEReaderOpt
+        public PEReader PEReaderOpt
         {
             get
             {
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal MetadataReader MetadataReader
+        public MetadataReader MetadataReader
         {
             get
             {
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Module level properties and methods
 
-        internal bool IsManifestModule
+        public bool IsManifestModule
         {
             get
             {
@@ -211,7 +211,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsLinkedModule
+        public bool IsLinkedModule
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsCOFFOnly
+        public bool IsCOFFOnly
         {
             get
             {
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Target architecture of the machine.
         /// </summary>
-        internal Machine Machine
+        public Machine Machine
         {
             get
             {
@@ -253,7 +253,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Indicates that this PE file makes Win32 calls. See CorPEKind.pe32BitRequired for more information (http://msdn.microsoft.com/en-us/library/ms230275.aspx).
         /// </summary>
-        internal bool Bit32Required
+        public bool Bit32Required
         {
             get
             {
@@ -267,7 +267,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
+        public ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
         {
             Debug.Assert(_hashesOpt != null);
             return _hashesOpt.GetHash(algorithmId);
@@ -277,7 +277,7 @@ namespace Microsoft.CodeAnalysis
 
         #region ModuleDef helpers
 
-        internal string Name
+        public string Name
         {
             get
             {
@@ -291,7 +291,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal Guid GetModuleVersionIdOrThrow()
+        public Guid GetModuleVersionIdOrThrow()
         {
             return MetadataReader.GetModuleVersionIdOrThrow();
         }
@@ -304,7 +304,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns the names of linked managed modules.
         /// </summary>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal ImmutableArray<string> GetMetadataModuleNamesOrThrow()
+        public ImmutableArray<string> GetMetadataModuleNamesOrThrow()
         {
             var builder = ArrayBuilder<string>.GetInstance();
             try
@@ -338,7 +338,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns names of referenced modules.
         /// </summary>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal IEnumerable<string> GetReferencedManagedModulesOrThrow()
+        public IEnumerable<string> GetReferencedManagedModulesOrThrow()
         {
             HashSet<EntityHandle> nameTokens = new HashSet<EntityHandle>();
             foreach (var handle in MetadataReader.TypeReferences)
@@ -357,7 +357,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<EmbeddedResource> GetEmbeddedResourcesOrThrow()
+        public ImmutableArray<EmbeddedResource> GetEmbeddedResourcesOrThrow()
         {
             if (MetadataReader.ManifestResources.Count == 0)
             {
@@ -406,7 +406,7 @@ namespace Microsoft.CodeAnalysis
 
         #region PE Header helpers
 
-        internal string MetadataVersion
+        public string MetadataVersion
         {
             get { return MetadataReader.MetadataVersion; }
         }
@@ -416,13 +416,13 @@ namespace Microsoft.CodeAnalysis
         #region Heaps
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobReader GetMemoryReaderOrThrow(BlobHandle blob)
+        public BlobReader GetMemoryReaderOrThrow(BlobHandle blob)
         {
             return MetadataReader.GetBlobReader(blob);
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal string GetFullNameOrThrow(StringHandle namespaceHandle, StringHandle nameHandle)
+        public string GetFullNameOrThrow(StringHandle namespaceHandle, StringHandle nameHandle)
         {
             var attributeTypeName = MetadataReader.GetString(nameHandle);
             var attributeTypeNamespaceName = MetadataReader.GetString(namespaceHandle);
@@ -435,7 +435,7 @@ namespace Microsoft.CodeAnalysis
         #region AssemblyDef helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal AssemblyIdentity ReadAssemblyIdentityOrThrow()
+        public AssemblyIdentity ReadAssemblyIdentityOrThrow()
         {
             return MetadataReader.ReadAssemblyIdentityOrThrow();
         }
@@ -528,7 +528,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal bool IsNestedTypeDefOrThrow(TypeDefinitionHandle typeDef)
+        public bool IsNestedTypeDefOrThrow(TypeDefinitionHandle typeDef)
         {
             return IsNestedTypeDefOrThrow(MetadataReader, typeDef);
         }
@@ -540,15 +540,15 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal bool IsInterfaceOrThrow(TypeDefinitionHandle typeDef)
+        public bool IsInterfaceOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).Attributes.IsInterface();
         }
 
         private struct TypeDefToNamespace
         {
-            internal readonly TypeDefinitionHandle TypeDef;
-            internal readonly NamespaceDefinitionHandle NamespaceHandle;
+            public readonly TypeDefinitionHandle TypeDef;
+            public readonly NamespaceDefinitionHandle NamespaceHandle;
 
             internal TypeDefToNamespace(TypeDefinitionHandle typeDef, NamespaceDefinitionHandle namespaceHandle)
             {
@@ -589,7 +589,7 @@ namespace Microsoft.CodeAnalysis
         /// </param>
         /// <returns>A sorted list of TypeDef row ids, grouped by fully-qualified namespace name.</returns>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal IEnumerable<IGrouping<string, TypeDefinitionHandle>> GroupTypesByNamespaceOrThrow(StringComparer nameComparer)
+        public IEnumerable<IGrouping<string, TypeDefinitionHandle>> GroupTypesByNamespaceOrThrow(StringComparer nameComparer)
         {
             // TODO: Consider if we should cache the result (not the IEnumerable, but the actual values).
 
@@ -802,13 +802,13 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal ImmutableArray<TypeDefinitionHandle> GetNestedTypeDefsOrThrow(TypeDefinitionHandle container)
+        public ImmutableArray<TypeDefinitionHandle> GetNestedTypeDefsOrThrow(TypeDefinitionHandle container)
         {
             return MetadataReader.GetTypeDefinition(container).GetNestedTypes();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal MethodImplementationHandleCollection GetMethodImplementationsOrThrow(TypeDefinitionHandle typeDef)
+        public MethodImplementationHandleCollection GetMethodImplementationsOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetMethodImplementations();
         }
@@ -817,42 +817,42 @@ namespace Microsoft.CodeAnalysis
         /// Returns a collection of interfaces implemented by given type.
         /// </summary>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal InterfaceImplementationHandleCollection GetInterfaceImplementationsOrThrow(TypeDefinitionHandle typeDef)
+        public InterfaceImplementationHandleCollection GetInterfaceImplementationsOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetInterfaceImplementations();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal MethodDefinitionHandleCollection GetMethodsOfTypeOrThrow(TypeDefinitionHandle typeDef)
+        public MethodDefinitionHandleCollection GetMethodsOfTypeOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetMethods();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal PropertyDefinitionHandleCollection GetPropertiesOfTypeOrThrow(TypeDefinitionHandle typeDef)
+        public PropertyDefinitionHandleCollection GetPropertiesOfTypeOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetProperties();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal EventDefinitionHandleCollection GetEventsOfTypeOrThrow(TypeDefinitionHandle typeDef)
+        public EventDefinitionHandleCollection GetEventsOfTypeOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetEvents();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal FieldDefinitionHandleCollection GetFieldsOfTypeOrThrow(TypeDefinitionHandle typeDef)
+        public FieldDefinitionHandleCollection GetFieldsOfTypeOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).GetFields();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal EntityHandle GetBaseTypeOfTypeOrThrow(TypeDefinitionHandle typeDef)
+        public EntityHandle GetBaseTypeOfTypeOrThrow(TypeDefinitionHandle typeDef)
         {
             return MetadataReader.GetTypeDefinition(typeDef).BaseType;
         }
 
-        internal TypeLayout GetTypeLayout(TypeDefinitionHandle typeDef)
+        public TypeLayout GetTypeLayout(TypeDefinitionHandle typeDef)
         {
             try
             {
@@ -904,65 +904,65 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsNoPiaLocalType(TypeDefinitionHandle typeDef)
+        public bool IsNoPiaLocalType(TypeDefinitionHandle typeDef)
         {
             AttributeInfo attributeInfo;
             return IsNoPiaLocalType(typeDef, out attributeInfo);
         }
 
-        internal bool HasParamsAttribute(EntityHandle token)
+        public bool HasParamsAttribute(EntityHandle token)
         {
             return FindTargetAttribute(token, AttributeDescription.ParamArrayAttribute).HasValue;
         }
 
-        internal bool HasExtensionAttribute(EntityHandle token, bool ignoreCase)
+        public bool HasExtensionAttribute(EntityHandle token, bool ignoreCase)
         {
             return FindTargetAttribute(token, ignoreCase ? AttributeDescription.CaseInsensitiveExtensionAttribute : AttributeDescription.CaseSensitiveExtensionAttribute).HasValue;
         }
 
-        internal bool HasVisualBasicEmbeddedAttribute(EntityHandle token)
+        public bool HasVisualBasicEmbeddedAttribute(EntityHandle token)
         {
             return FindTargetAttribute(token, AttributeDescription.VisualBasicEmbeddedAttribute).HasValue;
         }
 
-        internal bool HasDefaultMemberAttribute(EntityHandle token, out string memberName)
+        public bool HasDefaultMemberAttribute(EntityHandle token, out string memberName)
         {
             return HasStringValuedAttribute(token, AttributeDescription.DefaultMemberAttribute, out memberName);
         }
 
-        internal bool HasGuidAttribute(EntityHandle token, out string guidValue)
+        public bool HasGuidAttribute(EntityHandle token, out string guidValue)
         {
             return HasStringValuedAttribute(token, AttributeDescription.GuidAttribute, out guidValue);
         }
 
-        internal bool HasFixedBufferAttribute(EntityHandle token, out string elementTypeName, out int bufferSize)
+        public bool HasFixedBufferAttribute(EntityHandle token, out string elementTypeName, out int bufferSize)
         {
             return HasStringAndIntValuedAttribute(token, AttributeDescription.FixedBufferAttribute, out elementTypeName, out bufferSize);
         }
 
-        internal bool HasAccessedThroughPropertyAttribute(EntityHandle token, out string propertyName)
+        public bool HasAccessedThroughPropertyAttribute(EntityHandle token, out string propertyName)
         {
             return HasStringValuedAttribute(token, AttributeDescription.AccessedThroughPropertyAttribute, out propertyName);
         }
 
-        internal bool HasRequiredAttributeAttribute(EntityHandle token)
+        public bool HasRequiredAttributeAttribute(EntityHandle token)
         {
             return FindTargetAttribute(token, AttributeDescription.RequiredAttributeAttribute).HasValue;
         }
 
-        internal bool HasAttribute(EntityHandle token, AttributeDescription description)
+        public bool HasAttribute(EntityHandle token, AttributeDescription description)
         {
             return FindTargetAttribute(token, description).HasValue;
         }
 
-        internal CustomAttributeHandle GetAttributeHandle(EntityHandle token, AttributeDescription description)
+        public CustomAttributeHandle GetAttributeHandle(EntityHandle token, AttributeDescription description)
         {
             return FindTargetAttribute(token, description).Handle;
         }
 
         private static readonly ImmutableArray<bool> s_simpleDynamicTransforms = ImmutableArray.Create(true);
 
-        internal bool HasDynamicAttribute(EntityHandle token, out ImmutableArray<bool> dynamicTransforms)
+        public bool HasDynamicAttribute(EntityHandle token, out ImmutableArray<bool> dynamicTransforms)
         {
             AttributeInfo info = FindTargetAttribute(token, AttributeDescription.DynamicAttribute);
             Debug.Assert(!info.HasValue || info.SignatureIndex == 0 || info.SignatureIndex == 1);
@@ -982,7 +982,7 @@ namespace Microsoft.CodeAnalysis
             return TryExtractBoolArrayValueFromAttribute(info.Handle, out dynamicTransforms);
         }
 
-        internal bool HasDeprecatedOrObsoleteAttribute(EntityHandle token, out ObsoleteAttributeData obsoleteData)
+        public bool HasDeprecatedOrObsoleteAttribute(EntityHandle token, out ObsoleteAttributeData obsoleteData)
         {
             AttributeInfo info;
 
@@ -1002,14 +1002,14 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal CustomAttributeHandle GetAttributeUsageAttributeHandle(EntityHandle token)
+        public CustomAttributeHandle GetAttributeUsageAttributeHandle(EntityHandle token)
         {
             AttributeInfo info = FindTargetAttribute(token, AttributeDescription.AttributeUsageAttribute);
             Debug.Assert(info.SignatureIndex == 0);
             return info.Handle;
         }
 
-        internal bool HasInterfaceTypeAttribute(EntityHandle token, out ComInterfaceType interfaceType)
+        public bool HasInterfaceTypeAttribute(EntityHandle token, out ComInterfaceType interfaceType)
         {
             AttributeInfo info = FindTargetAttribute(token, AttributeDescription.InterfaceTypeAttribute);
             if (info.HasValue && TryExtractInterfaceTypeFromAttribute(info, out interfaceType))
@@ -1021,7 +1021,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool HasTypeLibTypeAttribute(EntityHandle token, out Cci.TypeLibTypeFlags flags)
+        public bool HasTypeLibTypeAttribute(EntityHandle token, out Cci.TypeLibTypeFlags flags)
         {
             AttributeInfo info = FindTargetAttribute(token, AttributeDescription.TypeLibTypeAttribute);
             if (info.HasValue && TryExtractTypeLibTypeFromAttribute(info, out flags))
@@ -1033,7 +1033,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool HasDateTimeConstantAttribute(EntityHandle token, out ConstantValue defaultValue)
+        public bool HasDateTimeConstantAttribute(EntityHandle token, out ConstantValue defaultValue)
         {
             long value;
             AttributeInfo info = FindLastTargetAttribute(token, AttributeDescription.DateTimeConstantAttribute);
@@ -1047,7 +1047,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool HasDecimalConstantAttribute(EntityHandle token, out ConstantValue defaultValue)
+        public bool HasDecimalConstantAttribute(EntityHandle token, out ConstantValue defaultValue)
         {
             decimal value;
             AttributeInfo info = FindLastTargetAttribute(token, AttributeDescription.DecimalConstantAttribute);
@@ -1061,14 +1061,14 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal ImmutableArray<string> GetInternalsVisibleToAttributeValues(EntityHandle token)
+        public ImmutableArray<string> GetInternalsVisibleToAttributeValues(EntityHandle token)
         {
             List<AttributeInfo> attrInfos = FindTargetAttributes(token, AttributeDescription.InternalsVisibleToAttribute);
             ArrayBuilder<string> result = ExtractStringValuesFromAttributes(attrInfos);
             return result?.ToImmutableAndFree() ?? ImmutableArray<string>.Empty;
         }
 
-        internal ImmutableArray<string> GetConditionalAttributeValues(EntityHandle token)
+        public ImmutableArray<string> GetConditionalAttributeValues(EntityHandle token)
         {
             List<AttributeInfo> attrInfos = FindTargetAttributes(token, AttributeDescription.ConditionalAttribute);
             ArrayBuilder<string> result = ExtractStringValuesFromAttributes(attrInfos);
@@ -1230,7 +1230,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool TryExtractStringValueFromAttribute(CustomAttributeHandle handle, out string value)
+        public bool TryExtractStringValueFromAttribute(CustomAttributeHandle handle, out string value)
         {
             return TryExtractValueFromAttribute(handle, out value, s_attributeStringValueExtractor);
         }
@@ -1297,7 +1297,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool HasStringValuedAttribute(EntityHandle token, AttributeDescription description, out string value)
+        public bool HasStringValuedAttribute(EntityHandle token, AttributeDescription description, out string value)
         {
             AttributeInfo info = FindTargetAttribute(token, description);
             if (info.HasValue)
@@ -1322,7 +1322,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal bool IsNoPiaLocalType(
+        public bool IsNoPiaLocalType(
             TypeDefinitionHandle typeDef,
             out string interfaceGuid,
             out string scope,
@@ -1382,7 +1382,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool CrackObsoleteAttributeData(out ObsoleteAttributeData value, ref BlobReader sig)
+        public static bool CrackObsoleteAttributeData(out ObsoleteAttributeData value, ref BlobReader sig)
         {
             string message;
             if (CrackStringInAttributeValue(out message, ref sig) && sig.RemainingBytes >= 1)
@@ -1396,7 +1396,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackDeprecatedAttributeData(out ObsoleteAttributeData value, ref BlobReader sig)
+        public static bool CrackDeprecatedAttributeData(out ObsoleteAttributeData value, ref BlobReader sig)
         {
             StringAndInt args;
             if (CrackStringAndIntInAttributeValue(out args, ref sig))
@@ -1417,7 +1417,7 @@ namespace Microsoft.CodeAnalysis
                 CrackIntInAttributeValue(out value.IntValue, ref sig);
         }
 
-        internal static bool CrackStringInAttributeValue(out string value, ref BlobReader sig)
+        public static bool CrackStringInAttributeValue(out string value, ref BlobReader sig)
         {
             try
             {
@@ -1445,7 +1445,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool CrackStringArrayInAttributeValue(out ImmutableArray<string> value, ref BlobReader sig)
+        public static bool CrackStringArrayInAttributeValue(out ImmutableArray<string> value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 4)
             {
@@ -1468,7 +1468,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackByteInAttributeValue(out byte value, ref BlobReader sig)
+        public static bool CrackByteInAttributeValue(out byte value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 1)
             {
@@ -1480,7 +1480,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackShortInAttributeValue(out short value, ref BlobReader sig)
+        public static bool CrackShortInAttributeValue(out short value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 2)
             {
@@ -1492,7 +1492,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackIntInAttributeValue(out int value, ref BlobReader sig)
+        public static bool CrackIntInAttributeValue(out int value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 4)
             {
@@ -1504,7 +1504,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackLongInAttributeValue(out long value, ref BlobReader sig)
+        public static bool CrackLongInAttributeValue(out long value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 8)
             {
@@ -1517,7 +1517,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // Note: not a general purpose helper
-        internal static bool CrackDecimalInDecimalConstantAttribute(out decimal value, ref BlobReader sig)
+        public static bool CrackDecimalInDecimalConstantAttribute(out decimal value, ref BlobReader sig)
         {
             byte scale;
             byte sign;
@@ -1539,7 +1539,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static bool CrackBoolArrayInAttributeValue(out ImmutableArray<bool> value, ref BlobReader sig)
+        public static bool CrackBoolArrayInAttributeValue(out ImmutableArray<bool> value, ref BlobReader sig)
         {
             if (sig.RemainingBytes >= 4)
             {
@@ -1561,7 +1561,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal struct AttributeInfo
+        public struct AttributeInfo
         {
             public readonly CustomAttributeHandle Handle;
             public readonly byte SignatureIndex;
@@ -1579,7 +1579,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal List<AttributeInfo> FindTargetAttributes(EntityHandle hasAttribute, AttributeDescription description)
+        public List<AttributeInfo> FindTargetAttributes(EntityHandle hasAttribute, AttributeDescription description)
         {
             List<AttributeInfo> result = null;
 
@@ -1611,7 +1611,7 @@ namespace Microsoft.CodeAnalysis
             return FindTargetAttribute(MetadataReader, hasAttribute, description);
         }
 
-        internal static AttributeInfo FindTargetAttribute(MetadataReader metadataReader, EntityHandle hasAttribute, AttributeDescription description)
+        public static AttributeInfo FindTargetAttribute(MetadataReader metadataReader, EntityHandle hasAttribute, AttributeDescription description)
         {
             try
             {
@@ -1631,7 +1631,7 @@ namespace Microsoft.CodeAnalysis
             return default(AttributeInfo);
         }
 
-        internal AttributeInfo FindLastTargetAttribute(EntityHandle hasAttribute, AttributeDescription description)
+        public AttributeInfo FindLastTargetAttribute(EntityHandle hasAttribute, AttributeDescription description)
         {
             try
             {
@@ -1654,7 +1654,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal int GetParamArrayCountOrThrow(EntityHandle hasAttribute)
+        public int GetParamArrayCountOrThrow(EntityHandle hasAttribute)
         {
             int count = 0;
             foreach (var attributeHandle in MetadataReader.GetCustomAttributes(hasAttribute))
@@ -1799,7 +1799,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="ctor">Constructor of the custom attribute.</param>
         /// <param name="ignoreCase">Should case be ignored for name comparison?</param>
         /// <returns>true if match is found</returns>
-        internal bool IsTargetAttribute(
+        public bool IsTargetAttribute(
             CustomAttributeHandle customAttribute,
             string namespaceName,
             string typeName,
@@ -1860,7 +1860,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         /// <param name="assemblyName">The assembly name in metadata format (case sensitive)</param>
         /// <returns>Matching assembly ref token or nil (0)</returns>
-        internal AssemblyReferenceHandle GetAssemblyRef(string assemblyName)
+        public AssemblyReferenceHandle GetAssemblyRef(string assemblyName)
         {
             Debug.Assert(assemblyName != null);
 
@@ -1891,7 +1891,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="namespaceName">The namespace name in metadata format (case sensitive)</param>
         /// <param name="typeName">The type name in metadata format (case sensitive)</param>
         /// <returns>Matching type ref token or nil (0)</returns>
-        internal EntityHandle GetTypeRef(
+        public EntityHandle GetTypeRef(
             EntityHandle resolutionScope,
             string namespaceName,
             string typeName)
@@ -1959,7 +1959,7 @@ namespace Microsoft.CodeAnalysis
         /// signatures array, -1 if
         /// this is not the target attribute.
         /// </returns>
-        internal int GetTargetAttributeSignatureIndex(CustomAttributeHandle customAttribute, AttributeDescription description)
+        public int GetTargetAttributeSignatureIndex(CustomAttributeHandle customAttribute, AttributeDescription description)
         {
             return GetTargetAttributeSignatureIndex(MetadataReader, customAttribute, description);
         }
@@ -2101,7 +2101,7 @@ namespace Microsoft.CodeAnalysis
         /// constructor's signature.
         /// </summary>
         /// <returns>True if the function successfully returns the type and signature.</returns>
-        internal bool GetTypeAndConstructor(
+        public bool GetTypeAndConstructor(
             CustomAttributeHandle customAttribute,
             out EntityHandle ctorType,
             out EntityHandle attributeCtor)
@@ -2174,7 +2174,7 @@ namespace Microsoft.CodeAnalysis
         /// namespaceHandle will be NamespaceDefinitionHandle for defs and StringHandle for refs. 
         /// </summary>
         /// <returns>True if the function successfully returns the name and namespace.</returns>
-        internal bool GetAttributeNamespaceAndName(EntityHandle typeDefOrRef, out StringHandle namespaceHandle, out StringHandle nameHandle)
+        public bool GetAttributeNamespaceAndName(EntityHandle typeDefOrRef, out StringHandle namespaceHandle, out StringHandle nameHandle)
         {
             return GetAttributeNamespaceAndName(MetadataReader, typeDefOrRef, out namespaceHandle, out nameHandle);
         }
@@ -2235,13 +2235,13 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// For testing purposes only!!!
         /// </summary>
-        internal void PretendThereArentNoPiaLocalTypes()
+        public void PretendThereArentNoPiaLocalTypes()
         {
             Debug.Assert(_lazyContainsNoPiaLocalTypes != ThreeState.True);
             _lazyContainsNoPiaLocalTypes = ThreeState.False;
         }
 
-        internal bool ContainsNoPiaLocalTypes()
+        public bool ContainsNoPiaLocalTypes()
         {
             if (_lazyContainsNoPiaLocalTypes == ThreeState.Unknown)
             {
@@ -2277,7 +2277,7 @@ namespace Microsoft.CodeAnalysis
         #region TypeSpec helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobReader GetTypeSpecificationSignatureReaderOrThrow(TypeSpecificationHandle typeSpec)
+        public BlobReader GetTypeSpecificationSignatureReaderOrThrow(TypeSpecificationHandle typeSpec)
         {
             // TODO: Check validity of the typeSpec handle.
             BlobHandle signature = MetadataReader.GetTypeSpecification(typeSpec).Signature;
@@ -2291,7 +2291,7 @@ namespace Microsoft.CodeAnalysis
         #region MethodSpec helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetMethodSpecificationOrThrow(MethodSpecificationHandle handle, out EntityHandle method, out BlobHandle instantiation)
+        public void GetMethodSpecificationOrThrow(MethodSpecificationHandle handle, out EntityHandle method, out BlobHandle instantiation)
         {
             var methodSpec = MetadataReader.GetMethodSpecification(handle);
             method = methodSpec.Method;
@@ -2303,7 +2303,7 @@ namespace Microsoft.CodeAnalysis
         #region GenericParam helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetGenericParamPropsOrThrow(
+        public void GetGenericParamPropsOrThrow(
             GenericParameterHandle handle,
             out string name,
             out GenericParameterAttributes flags)
@@ -2320,7 +2320,7 @@ namespace Microsoft.CodeAnalysis
         /// <returns>
         /// An array of tokens for type constraints. Null reference if none.
         /// </returns>
-        internal EntityHandle[] GetGenericParamConstraintsOrThrow(GenericParameterHandle genericParam)
+        public EntityHandle[] GetGenericParamConstraintsOrThrow(GenericParameterHandle genericParam)
         {
             var constraints = MetadataReader.GetGenericParameter(genericParam).GetConstraints();
             if (constraints.Count != 0)
@@ -2342,13 +2342,13 @@ namespace Microsoft.CodeAnalysis
         #region MethodDef helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal string GetMethodDefNameOrThrow(MethodDefinitionHandle methodDef)
+        public string GetMethodDefNameOrThrow(MethodDefinitionHandle methodDef)
         {
             return MetadataReader.GetString(MetadataReader.GetMethodDefinition(methodDef).Name);
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobHandle GetMethodSignatureOrThrow(MethodDefinitionHandle methodDef)
+        public BlobHandle GetMethodSignatureOrThrow(MethodDefinitionHandle methodDef)
         {
             return GetMethodSignatureOrThrow(MetadataReader, methodDef);
         }
@@ -2360,7 +2360,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobHandle GetMethodSignatureOrThrow(EntityHandle methodDefOrRef)
+        public BlobHandle GetMethodSignatureOrThrow(EntityHandle methodDefOrRef)
         {
             return GetMethodSignatureOrThrow(MetadataReader, methodDefOrRef);
         }
@@ -2388,19 +2388,19 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal TypeDefinitionHandle FindContainingTypeOrThrow(MethodDefinitionHandle methodDef)
+        public TypeDefinitionHandle FindContainingTypeOrThrow(MethodDefinitionHandle methodDef)
         {
             return MetadataReader.GetMethodDefinition(methodDef).GetDeclaringType();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal TypeDefinitionHandle FindContainingTypeOrThrow(FieldDefinitionHandle fieldDef)
+        public TypeDefinitionHandle FindContainingTypeOrThrow(FieldDefinitionHandle fieldDef)
         {
             return MetadataReader.GetFieldDefinition(fieldDef).GetDeclaringType();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal EntityHandle GetContainingTypeOrThrow(MemberReferenceHandle memberRef)
+        public EntityHandle GetContainingTypeOrThrow(MemberReferenceHandle memberRef)
         {
             return MetadataReader.GetMemberReference(memberRef).Parent;
         }
@@ -2422,7 +2422,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetMethodImplPropsOrThrow(
+        public void GetMethodImplPropsOrThrow(
             MethodImplementationHandle methodImpl,
             out EntityHandle body,
             out EntityHandle declaration)
@@ -2433,18 +2433,18 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal GenericParameterHandleCollection GetGenericParametersForMethodOrThrow(MethodDefinitionHandle methodDef)
+        public GenericParameterHandleCollection GetGenericParametersForMethodOrThrow(MethodDefinitionHandle methodDef)
         {
             return MetadataReader.GetMethodDefinition(methodDef).GetGenericParameters();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal ParameterHandleCollection GetParametersOfMethodOrThrow(MethodDefinitionHandle methodDef)
+        public ParameterHandleCollection GetParametersOfMethodOrThrow(MethodDefinitionHandle methodDef)
         {
             return MetadataReader.GetMethodDefinition(methodDef).GetParameters();
         }
 
-        internal DllImportData GetDllImportData(MethodDefinitionHandle methodDef)
+        public DllImportData GetDllImportData(MethodDefinitionHandle methodDef)
         {
             try
             {
@@ -2484,7 +2484,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobHandle GetSignatureOrThrow(MemberReferenceHandle memberRef)
+        public BlobHandle GetSignatureOrThrow(MemberReferenceHandle memberRef)
         {
             return GetSignatureOrThrow(MetadataReader, memberRef);
         }
@@ -2513,7 +2513,7 @@ namespace Microsoft.CodeAnalysis
         #region ParamDef helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetParamPropsOrThrow(
+        public void GetParamPropsOrThrow(
             ParameterHandle parameterDef,
             out string name,
             out ParameterAttributes flags)
@@ -2524,7 +2524,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal int GetParameterSequenceNumberOrThrow(ParameterHandle param)
+        public int GetParameterSequenceNumberOrThrow(ParameterHandle param)
         {
             return MetadataReader.GetParameter(param).SequenceNumber;
         }
@@ -2534,19 +2534,19 @@ namespace Microsoft.CodeAnalysis
         #region PropertyDef helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal string GetPropertyDefNameOrThrow(PropertyDefinitionHandle propertyDef)
+        public string GetPropertyDefNameOrThrow(PropertyDefinitionHandle propertyDef)
         {
             return MetadataReader.GetString(MetadataReader.GetPropertyDefinition(propertyDef).Name);
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobHandle GetPropertySignatureOrThrow(PropertyDefinitionHandle propertyDef)
+        public BlobHandle GetPropertySignatureOrThrow(PropertyDefinitionHandle propertyDef)
         {
             return MetadataReader.GetPropertyDefinition(propertyDef).Signature;
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetPropertyDefPropsOrThrow(
+        public void GetPropertyDefPropsOrThrow(
             PropertyDefinitionHandle propertyDef,
             out string name,
             out PropertyAttributes flags)
@@ -2561,13 +2561,13 @@ namespace Microsoft.CodeAnalysis
         #region EventDef helpers
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal string GetEventDefNameOrThrow(EventDefinitionHandle eventDef)
+        public string GetEventDefNameOrThrow(EventDefinitionHandle eventDef)
         {
             return MetadataReader.GetString(MetadataReader.GetEventDefinition(eventDef).Name);
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal void GetEventDefPropsOrThrow(
+        public void GetEventDefPropsOrThrow(
             EventDefinitionHandle eventDef,
             out string name,
             out EventAttributes flags,
@@ -2590,7 +2590,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobHandle GetFieldSignatureOrThrow(FieldDefinitionHandle fieldDef)
+        public BlobHandle GetFieldSignatureOrThrow(FieldDefinitionHandle fieldDef)
         {
             return MetadataReader.GetFieldDefinition(fieldDef).Signature;
         }
@@ -2613,7 +2613,7 @@ namespace Microsoft.CodeAnalysis
             flags = fieldRow.Attributes;
         }
 
-        internal ConstantValue GetParamDefaultValue(ParameterHandle param)
+        public ConstantValue GetParamDefaultValue(ParameterHandle param)
         {
             Debug.Assert(!param.IsNil);
 
@@ -2630,7 +2630,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ConstantValue GetConstantFieldValue(FieldDefinitionHandle fieldDef)
+        public ConstantValue GetConstantFieldValue(FieldDefinitionHandle fieldDef)
         {
             Debug.Assert(!fieldDef.IsNil);
 
@@ -2673,7 +2673,7 @@ namespace Microsoft.CodeAnalysis
                 MetadataReader.GetParameter((ParameterHandle)fieldOrParameterToken).GetMarshallingDescriptor();
         }
 
-        internal UnmanagedType GetMarshallingType(EntityHandle fieldOrParameterToken)
+        public UnmanagedType GetMarshallingType(EntityHandle fieldOrParameterToken)
         {
             try
             {
@@ -2696,7 +2696,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<byte> GetMarshallingDescriptor(EntityHandle fieldOrParameterToken)
+        public ImmutableArray<byte> GetMarshallingDescriptor(EntityHandle fieldOrParameterToken)
         {
             try
             {
@@ -2715,7 +2715,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal int? GetFieldOffset(FieldDefinitionHandle fieldDef)
+        public int? GetFieldOffset(FieldDefinitionHandle fieldDef)
         {
             try
             {
@@ -2794,7 +2794,7 @@ namespace Microsoft.CodeAnalysis
             return ConstantValue.Bad;
         }
 
-        internal AssemblyReferenceHandle GetAssemblyForForwardedType(string fullName, bool ignoreCase, out string matchedName)
+        public AssemblyReferenceHandle GetAssemblyForForwardedType(string fullName, bool ignoreCase, out string matchedName)
         {
             EnsureForwardTypeToAssemblyMap();
 
@@ -2827,7 +2827,7 @@ namespace Microsoft.CodeAnalysis
             return default(AssemblyReferenceHandle);
         }
 
-        internal IEnumerable<KeyValuePair<string, AssemblyReferenceHandle>> GetForwardedTypes()
+        public IEnumerable<KeyValuePair<string, AssemblyReferenceHandle>> GetForwardedTypes()
         {
             EnsureForwardTypeToAssemblyMap();
             return _lazyForwardedTypesToAssemblyMap;
@@ -2871,7 +2871,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal IdentifierCollection TypeNames
+        public IdentifierCollection TypeNames
         {
             get
             {
@@ -2879,7 +2879,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal IdentifierCollection NamespaceNames
+        public IdentifierCollection NamespaceNames
         {
             get
             {
@@ -2888,24 +2888,24 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal PropertyAccessors GetPropertyMethodsOrThrow(PropertyDefinitionHandle propertyDef)
+        public PropertyAccessors GetPropertyMethodsOrThrow(PropertyDefinitionHandle propertyDef)
         {
             return MetadataReader.GetPropertyDefinition(propertyDef).GetAccessors();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal EventAccessors GetEventMethodsOrThrow(EventDefinitionHandle eventDef)
+        public EventAccessors GetEventMethodsOrThrow(EventDefinitionHandle eventDef)
         {
             return MetadataReader.GetEventDefinition(eventDef).GetAccessors();
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal int GetAssemblyReferenceIndexOrThrow(AssemblyReferenceHandle assemblyRef)
+        public int GetAssemblyReferenceIndexOrThrow(AssemblyReferenceHandle assemblyRef)
         {
             return MetadataReader.GetRowNumber(assemblyRef) - 1;
         }
 
-        internal static bool IsNested(TypeAttributes flags)
+        public static bool IsNested(TypeAttributes flags)
         {
             return (flags & ((TypeAttributes)0x00000006)) != 0;
         }
@@ -2913,7 +2913,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns true if method IL can be retrieved from the module.
         /// </summary>
-        internal bool HasIL
+        public bool HasIL
         {
             get { return IsEntireImageAvailable; }
         }
@@ -2921,13 +2921,13 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns true if the full image of the module is available.
         /// </summary>
-        internal bool IsEntireImageAvailable
+        public bool IsEntireImageAvailable
         {
             get { return _peReaderOpt != null && _peReaderOpt.IsEntireImageAvailable; }
         }
 
         /// <exception cref="BadImageFormatException">Invalid metadata.</exception>
-        internal MethodBodyBlock GetMethodBodyOrThrow(MethodDefinitionHandle methodHandle)
+        public MethodBodyBlock GetMethodBodyOrThrow(MethodDefinitionHandle methodHandle)
         {
             // we shouldn't ask for method IL if we don't have PE image
             Debug.Assert(_peReaderOpt != null);

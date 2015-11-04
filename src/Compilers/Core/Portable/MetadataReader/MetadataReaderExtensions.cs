@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -8,9 +8,9 @@ using System.Reflection.Metadata;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class MetadataReaderExtensions
+    public static class MetadataReaderExtensions
     {
-        internal static bool GetWinMdVersion(this MetadataReader reader, out int majorVersion, out int minorVersion)
+        public static bool GetWinMdVersion(this MetadataReader reader, out int majorVersion, out int minorVersion)
         {
             if (reader.MetadataKind == MetadataKind.WindowsMetadata)
             {
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static AssemblyIdentity ReadAssemblyIdentityOrThrow(this MetadataReader reader)
+        public static AssemblyIdentity ReadAssemblyIdentityOrThrow(this MetadataReader reader)
         {
             if (!reader.IsAssembly)
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static ImmutableArray<AssemblyIdentity> GetReferencedAssembliesOrThrow(this MetadataReader reader)
+        public static ImmutableArray<AssemblyIdentity> GetReferencedAssembliesOrThrow(this MetadataReader reader)
         {
             var result = ArrayBuilder<AssemblyIdentity>.GetInstance(reader.AssemblyReferences.Count);
             try
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static Guid GetModuleVersionIdOrThrow(this MetadataReader reader)
+        public static Guid GetModuleVersionIdOrThrow(this MetadataReader reader)
         {
             return reader.GetGuid(reader.GetModuleDefinition().Mvid);
         }
@@ -158,7 +158,7 @@ namespace Microsoft.CodeAnalysis
                 noThrow: true);
         }
 
-        internal static bool DeclaresTheObjectClass(this MetadataReader reader)
+        public static bool DeclaresTheObjectClass(this MetadataReader reader)
         {
             return reader.DeclaresType(IsTheObjectClass);
         }
@@ -169,7 +169,7 @@ namespace Microsoft.CodeAnalysis
                 reader.IsPublicNonInterfaceType(typeDef, "System", "Object");
         }
 
-        internal static bool DeclaresType(this MetadataReader reader, Func<MetadataReader, TypeDefinition, bool> predicate)
+        public static bool DeclaresType(this MetadataReader reader, Func<MetadataReader, TypeDefinition, bool> predicate)
         {
             foreach (TypeDefinitionHandle handle in reader.TypeDefinitions)
             {
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static bool IsPublicNonInterfaceType(this MetadataReader reader, TypeDefinition typeDef, string namespaceName, string typeName)
+        public static bool IsPublicNonInterfaceType(this MetadataReader reader, TypeDefinition typeDef, string namespaceName, string typeName)
         {
             return (typeDef.Attributes & (TypeAttributes.Public | TypeAttributes.Interface)) == TypeAttributes.Public &&
                 reader.StringComparer.Equals(typeDef.Name, typeName) &&

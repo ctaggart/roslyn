@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis
             // PERF: Used to initialize an enumerator for leading trivia directly from a token.
             // This saves constructing an intermediate SyntaxTriviaList. Also, passing token
             // by ref since it's a non-trivial struct
-            internal void InitializeFromLeadingTrivia(ref SyntaxToken token)
+            public void InitializeFromLeadingTrivia(ref SyntaxToken token)
             {
                 InitializeFrom(ref token, token.Node.GetLeadingTriviaCore(), 0, token.Position);
             }
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis
             // PERF: Used to initialize an enumerator for trailing trivia directly from a token.
             // This saves constructing an intermediate SyntaxTriviaList. Also, passing token
             // by ref since it's a non-trivial struct
-            internal void InitializeFromTrailingTrivia(ref SyntaxToken token)
+            public void InitializeFromTrailingTrivia(ref SyntaxToken token)
             {
                 var leading = token.Node.GetLeadingTriviaCore();
                 int index = 0;
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal bool TryMoveNextAndGetCurrent(ref SyntaxTrivia current)
+            public bool TryMoveNextAndGetCurrent(ref SyntaxTrivia current)
             {
                 if (!MoveNext())
                 {

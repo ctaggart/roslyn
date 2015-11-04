@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Reflection.Metadata;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.RuntimeMembers;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class WellKnownMembers
+    public static class WellKnownMembers
     {
         private readonly static ImmutableArray<MemberDescriptor> s_descriptors;
 
@@ -2840,7 +2840,7 @@ namespace Microsoft.CodeAnalysis
         /// This function defines whether an attribute is optional or not.
         /// </summary>
         /// <param name="attributeMember">The attribute member.</param>
-        internal static bool IsSynthesizedAttributeOptional(WellKnownMember attributeMember)
+        public static bool IsSynthesizedAttributeOptional(WellKnownMember attributeMember)
         {
             switch (attributeMember)
             {

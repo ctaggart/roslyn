@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal enum ConstantValueTypeDiscriminator : byte
+    public enum ConstantValueTypeDiscriminator : byte
     {
         Nothing,
         Null = Nothing,
@@ -28,10 +28,10 @@ namespace Microsoft.CodeAnalysis
         DateTime,
     }
 
-    internal abstract partial class ConstantValue : IEquatable<ConstantValue>
+    public abstract partial class ConstantValue : IEquatable<ConstantValue>
     {
         public abstract ConstantValueTypeDiscriminator Discriminator { get; }
-        internal abstract SpecialType SpecialType { get; }
+        public abstract SpecialType SpecialType { get; }
 
         public virtual string StringValue { get { throw new InvalidOperationException(); } }
         public virtual bool BooleanValue { get { throw new InvalidOperationException(); } }
@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis
             throw ExceptionUtilities.UnexpectedValue(discriminator);
         }
 
-        internal static ConstantValueTypeDiscriminator GetDiscriminator(SpecialType st)
+        public static ConstantValueTypeDiscriminator GetDiscriminator(SpecialType st)
         {
             switch (st)
             {
@@ -721,7 +721,7 @@ namespace Microsoft.CodeAnalysis
             return String.Format("{0}({1}: {2})", this.GetType().Name, valueToDisplay, this.Discriminator);
         }
 
-        internal virtual string GetValueToDisplay()
+        public virtual string GetValueToDisplay()
         {
             return this.Value.ToString();
         }

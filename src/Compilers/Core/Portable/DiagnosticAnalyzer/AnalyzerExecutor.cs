@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -21,13 +21,13 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Contains the core execution logic for callbacks into analyzers.
     /// </summary>
-    internal class AnalyzerExecutor
+    public class AnalyzerExecutor
     {
         private const string DiagnosticCategory = "Compiler";
 
         // internal for testing purposes only.
-        internal const string AnalyzerExceptionDiagnosticId = "AD0001";
-        internal const string AnalyzerDriverExceptionDiagnosticId = "AD0002";
+        public const string AnalyzerExceptionDiagnosticId = "AD0001";
+        public const string AnalyzerDriverExceptionDiagnosticId = "AD0002";
 
         private readonly Compilation _compilation;
         private readonly AnalyzerOptions _analyzerOptions;
@@ -150,11 +150,11 @@ namespace Microsoft.CodeAnalysis.Diagnostics
                 _analyzerManager, _getAnalyzerGateOpt, _analyzerExecutionTimeMapOpt, _addLocalDiagnosticOpt, _addNonLocalDiagnosticOpt, cancellationToken);
         }
 
-        internal Compilation Compilation => _compilation;
-        internal AnalyzerOptions AnalyzerOptions => _analyzerOptions;
-        internal CancellationToken CancellationToken => _cancellationToken;
-        internal Action<Exception, DiagnosticAnalyzer, Diagnostic> OnAnalyzerException => _onAnalyzerException;
-        internal ImmutableDictionary<DiagnosticAnalyzer, TimeSpan> AnalyzerExecutionTimes => _analyzerExecutionTimeMapOpt.ToImmutableDictionary();
+        public Compilation Compilation => _compilation;
+        public AnalyzerOptions AnalyzerOptions => _analyzerOptions;
+        public CancellationToken CancellationToken => _cancellationToken;
+        public Action<Exception, DiagnosticAnalyzer, Diagnostic> OnAnalyzerException => _onAnalyzerException;
+        public ImmutableDictionary<DiagnosticAnalyzer, TimeSpan> AnalyzerExecutionTimes => _analyzerExecutionTimeMapOpt.ToImmutableDictionary();
 
         /// <summary>
         /// Executes the <see cref="DiagnosticAnalyzer.Initialize(AnalysisContext)"/> for the given analyzer.
@@ -578,7 +578,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             blockActions.Free();
         }
 
-        internal static ImmutableDictionary<TLanguageKindEnum, ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>>> GetNodeActionsByKind<TLanguageKindEnum>(
+        public static ImmutableDictionary<TLanguageKindEnum, ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>>> GetNodeActionsByKind<TLanguageKindEnum>(
             IEnumerable<SyntaxNodeAnalyzerAction<TLanguageKindEnum>> nodeActions)
             where TLanguageKindEnum : struct
         {
@@ -696,7 +696,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             analyzerStateOpt?.ClearNodeAnalysisState();
         }
 
-        internal static bool CanHaveExecutableCodeBlock(ISymbol symbol)
+        public static bool CanHaveExecutableCodeBlock(ISymbol symbol)
         {
             switch (symbol.Kind)
             {
@@ -715,7 +715,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal void ExecuteAndCatchIfThrows(DiagnosticAnalyzer analyzer, Action analyze)
+        public void ExecuteAndCatchIfThrows(DiagnosticAnalyzer analyzer, Action analyze)
         {
             object gate = _getAnalyzerGateOpt?.Invoke(analyzer);
             if (gate != null)
@@ -765,12 +765,12 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal static bool IsCanceled(Exception ex, CancellationToken cancellationToken)
+        public static bool IsCanceled(Exception ex, CancellationToken cancellationToken)
         {
             return (ex as OperationCanceledException)?.CancellationToken == cancellationToken;
         }
 
-        internal static Diagnostic CreateAnalyzerExceptionDiagnostic(DiagnosticAnalyzer analyzer, Exception e)
+        public static Diagnostic CreateAnalyzerExceptionDiagnostic(DiagnosticAnalyzer analyzer, Exception e)
         {
             var analyzerName = analyzer.ToString();
             var title = CodeAnalysisResources.CompilerAnalyzerFailure;
@@ -781,7 +781,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return Diagnostic.Create(descriptor, Location.None, messageArguments);
         }
 
-        internal static Diagnostic CreateDriverExceptionDiagnostic(Exception e)
+        public static Diagnostic CreateDriverExceptionDiagnostic(Exception e)
         {
             var title = CodeAnalysisResources.AnalyzerDriverFailure;
             var messageFormat = CodeAnalysisResources.AnalyzerDriverThrows;
@@ -791,7 +791,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return Diagnostic.Create(descriptor, Location.None, messageArguments);
         }
 
-        internal static DiagnosticDescriptor GetAnalyzerExceptionDiagnosticDescriptor(string id = null, string title = null, string description = null, string messageFormat = null)
+        public static DiagnosticDescriptor GetAnalyzerExceptionDiagnosticDescriptor(string id = null, string title = null, string description = null, string messageFormat = null)
         {
             // TODO: It is not ideal to create a new descriptor per analyzer exception diagnostic instance.
             // However, until we add a LongMessage field to the Diagnostic, we are forced to park the instance specific description onto the Descriptor's Description field.
@@ -813,7 +813,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
                 customTags: WellKnownDiagnosticTags.AnalyzerException);
         }
 
-        internal static bool IsAnalyzerExceptionDiagnostic(Diagnostic diagnostic)
+        public static bool IsAnalyzerExceptionDiagnostic(Diagnostic diagnostic)
         {
             if (diagnostic.Id == AnalyzerExceptionDiagnosticId || diagnostic.Id == AnalyzerDriverExceptionDiagnosticId)
             {
@@ -831,7 +831,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return false;
         }
 
-        internal static bool AreEquivalentAnalyzerExceptionDiagnostics(Diagnostic exceptionDiagnostic, Diagnostic other)
+        public static bool AreEquivalentAnalyzerExceptionDiagnostics(Diagnostic exceptionDiagnostic, Diagnostic other)
         {
             // We need to have custom de-duplication logic for diagnostics generated for analyzer exceptions.
             // We create a new descriptor instance per each analyzer exception diagnostic instance (see comments in method "GetAnalyzerExceptionDiagnostic" above).
@@ -990,7 +990,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return analysisStateOpt == null || analysisStateOpt.TryStartAnalyzingDeclaration(syntaxReference, analyzer, out analyzerStateOpt);
         }
 
-        internal TimeSpan ResetAnalyzerExecutionTime(DiagnosticAnalyzer analyzer)
+        public TimeSpan ResetAnalyzerExecutionTime(DiagnosticAnalyzer analyzer)
         {
             Debug.Assert(_analyzerExecutionTimeMapOpt != null);
             TimeSpan executionTime;

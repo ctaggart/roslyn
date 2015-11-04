@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// The index from the parent's children list of this node.
         /// </summary>
-        internal readonly int index;
+        public readonly int index;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SyntaxNodeOrTokenList"/> structure.
@@ -45,11 +45,11 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Gets the underlying syntax node.
         /// </summary>
-        internal SyntaxNode Node => _node;
+        public SyntaxNode Node => _node;
 
-        internal int Position => _node?.Position ?? 0;
+        public int Position => _node?.Position ?? 0;
 
-        internal SyntaxNode Parent => _node?.Parent;
+        public SyntaxNode Parent => _node?.Parent;
 
         /// <summary>
         /// Gets the count of nodes in this list
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="array">The array to copy the elements into.</param>
         /// <param name="arrayOffset">The array offset to start writing to.</param>
         /// <param name="count">The count of elements to copy.</param>
-        internal void CopyTo(int offset, GreenNode[] array, int arrayOffset, int count)
+        public void CopyTo(int offset, GreenNode[] array, int arrayOffset, int count)
         {
             for (int i = 0; i < count; i++)
             {

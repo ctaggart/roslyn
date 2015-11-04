@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,13 +9,13 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class SyntaxTreeExtensions
+    public static class SyntaxTreeExtensions
     {
         /// <summary>
         /// Verify nodes match source.
         /// </summary>
         [Conditional("DEBUG")]
-        internal static void VerifySource(this SyntaxTree tree, IEnumerable<TextChangeRange> changes = null)
+        public static void VerifySource(this SyntaxTree tree, IEnumerable<TextChangeRange> changes = null)
         {
             var root = tree.GetRoot();
             var text = tree.GetText();

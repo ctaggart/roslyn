@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis
     public abstract partial class SyntaxNode
     {
         private readonly SyntaxNode _parent;
-        internal SyntaxTree _syntaxTree;
+        public SyntaxTree _syntaxTree;
 
         internal SyntaxNode(GreenNode green, SyntaxNode parent, int position)
         {
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis
             this._syntaxTree = syntaxTree;
         }
 
-        internal abstract AbstractSyntaxNavigator Navigator { get; }
+        public abstract AbstractSyntaxNavigator Navigator { get; }
 
         private string GetDebuggerDisplay()
         {
@@ -63,11 +63,11 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public abstract string Language { get; }
 
-        internal GreenNode Green { get; }
+        public GreenNode Green { get; }
 
-        internal int Position { get; }
+        public int Position { get; }
 
-        internal int EndPosition => Position + Green.FullWidth;
+        public int EndPosition => Position + Green.FullWidth;
 
         /// <summary>
         /// Returns SyntaxTree that owns the node or null if node does not belong to a
@@ -75,14 +75,14 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public SyntaxTree SyntaxTree => this.SyntaxTreeCore;
 
-        internal bool IsList => this.Green.IsList;
+        public bool IsList => this.Green.IsList;
 
         /// <summary>
         /// The absolute span of this node in characters, including its leading and trailing trivia.
         /// </summary>
         public TextSpan FullSpan => new TextSpan(this.Position, this.Green.FullWidth);
 
-        internal int SlotCount => this.Green.SlotCount;
+        public int SlotCount => this.Green.SlotCount;
 
         /// <summary>
         /// The absolute span of this node in characters, not including its leading and trailing trivia.
@@ -122,17 +122,17 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// The Width property returns the same value as Span.Length, but is somewhat more efficient.
         /// </remarks>
-        internal int Width => this.Green.Width;
+        public int Width => this.Green.Width;
 
         /// <summary>
         /// The complete width of the node in characters, including leading and trailing trivia.
         /// </summary>
         /// <remarks>The FullWidth property returns the same value as FullSpan.Length, but is
         /// somewhat more efficient.</remarks>
-        internal int FullWidth => this.Green.FullWidth;
+        public int FullWidth => this.Green.FullWidth;
 
         // this is used in cases where we know that a child is a node of particular type.
-        internal SyntaxNode GetRed(ref SyntaxNode field, int slot)
+        public SyntaxNode GetRed(ref SyntaxNode field, int slot)
         {
             var result = field;
 
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // special case of above function where slot = 0, does not need GetChildPosition 
-        internal SyntaxNode GetRedAtZero(ref SyntaxNode field)
+        public SyntaxNode GetRedAtZero(ref SyntaxNode field)
         {
             var result = field;
 
@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis
         /// The only difference is that the public parent of the node is not the list, 
         /// but the list's parent. (element's grand parent).
         /// </summary>
-        internal SyntaxNode GetRedElement(ref SyntaxNode element, int slot)
+        public SyntaxNode GetRedElement(ref SyntaxNode element, int slot)
         {
             Debug.Assert(this.IsList);
 
@@ -229,7 +229,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// special cased helper for 2 and 3 children lists where child #1 may map to a token
         /// </summary>
-        internal SyntaxNode GetRedElementIfNotToken(ref SyntaxNode element)
+        public SyntaxNode GetRedElementIfNotToken(ref SyntaxNode element)
         {
             Debug.Assert(this.IsList);
 
@@ -251,7 +251,7 @@ namespace Microsoft.CodeAnalysis
             return result;
         }
 
-        internal SyntaxNode GetWeakRedElement(ref WeakReference<SyntaxNode> slot, int index)
+        public SyntaxNode GetWeakRedElement(ref WeakReference<SyntaxNode> slot, int index)
         {
             SyntaxNode value = null;
             if (slot?.TryGetTarget(out value) == true)
@@ -476,9 +476,9 @@ namespace Microsoft.CodeAnalysis
         /// Gets a node at given node index without forcing its creation.
         /// If node was not created it would return null.
         /// </summary>
-        internal abstract SyntaxNode GetCachedSlot(int index);
+        public abstract SyntaxNode GetCachedSlot(int index);
 
-        internal int GetChildIndex(int slot)
+        public int GetChildIndex(int slot)
         {
             int index = 0;
             for (int i = 0; i < slot; i++)
@@ -508,7 +508,7 @@ namespace Microsoft.CodeAnalysis
         /// the number of children could be large (lists) this function is overridden with more
         /// efficient implementations.
         /// </summary>
-        internal virtual int GetChildPosition(int index)
+        public virtual int GetChildPosition(int index)
         {
             int offset = 0;
             var green = this.Green;
@@ -563,9 +563,9 @@ namespace Microsoft.CodeAnalysis
         /// E.g. join clause declares left expression and right expression -- each of these expressions is a lambda body.
         /// JoinClause1.GetCorrespondingLambdaBody(JoinClause2.RightExpression) returns JoinClause1.RightExpression.
         /// </summary>
-        internal abstract SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode body);
+        public abstract SyntaxNode TryGetCorrespondingLambdaBody(SyntaxNode body);
 
-        internal abstract SyntaxNode GetLambda();
+        public abstract SyntaxNode GetLambda();
 
         #region Node Lookup
 
@@ -588,7 +588,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal SyntaxNode ParentOrStructuredTriviaParent
+        public SyntaxNode ParentOrStructuredTriviaParent
         {
             get
             {
@@ -610,7 +610,7 @@ namespace Microsoft.CodeAnalysis
         /// Gets node at given node index. 
         /// This WILL force node creation if node has not yet been created.
         /// </summary>
-        internal abstract SyntaxNode GetNodeSlot(int slot);
+        public abstract SyntaxNode GetNodeSlot(int slot);
 
         /// <summary>
         /// Gets a list of the child nodes in prefix document order.
@@ -970,7 +970,7 @@ namespace Microsoft.CodeAnalysis
             return this.Green.GetAnnotations(annotationKinds);
         }
 
-        internal SyntaxAnnotation[] GetAnnotations()
+        public SyntaxAnnotation[] GetAnnotations()
         {
             return this.Green.GetAnnotations();
         }
@@ -1063,12 +1063,12 @@ namespace Microsoft.CodeAnalysis
                        .Where(tr => tr.HasAnnotation(annotation));
         }
 
-        internal SyntaxNode WithAdditionalAnnotationsInternal(IEnumerable<SyntaxAnnotation> annotations)
+        public SyntaxNode WithAdditionalAnnotationsInternal(IEnumerable<SyntaxAnnotation> annotations)
         {
             return this.Green.WithAdditionalAnnotationsGreen(annotations).CreateRed();
         }
 
-        internal SyntaxNode GetNodeWithoutAnnotations(IEnumerable<SyntaxAnnotation> annotations)
+        public SyntaxNode GetNodeWithoutAnnotations(IEnumerable<SyntaxAnnotation> annotations)
         {
             return this.Green.WithoutAnnotationsGreen(annotations).CreateRed();
         }

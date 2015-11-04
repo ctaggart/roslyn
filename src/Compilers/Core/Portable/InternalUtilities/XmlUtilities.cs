@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using System.Reflection;
 
 namespace Roslyn.Utilities
 {
-    internal static class XmlUtilities
+    public static class XmlUtilities
     {
-        internal static TNode Copy<TNode>(this TNode node, bool copyAttributeAnnotations)
+        public static TNode Copy<TNode>(this TNode node, bool copyAttributeAnnotations)
             where TNode : XNode
         {
             XNode copy;
@@ -64,7 +64,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static XElement[] TrySelectElements(XNode node, string xpath, out string errorMessage, out bool invalidXPath)
+        public static XElement[] TrySelectElements(XNode node, string xpath, out string errorMessage, out bool invalidXPath)
         {
             errorMessage = null;
             invalidXPath = false;

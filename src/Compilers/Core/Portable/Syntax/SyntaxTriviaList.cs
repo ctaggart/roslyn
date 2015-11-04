@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -43,13 +43,13 @@ namespace Microsoft.CodeAnalysis
             Index = 0;
         }
 
-        internal SyntaxToken Token { get; }
+        public SyntaxToken Token { get; }
 
-        internal GreenNode Node { get; }
+        public GreenNode Node { get; }
 
-        internal int Position { get; }
+        public int Position { get; }
 
-        internal int Index { get; }
+        public int Index { get; }
 
         public int Count
         {
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis
             return -1;
         }
 
-        internal int IndexOf(int rawKind)
+        public int IndexOf(int rawKind)
         {
             for (int i = 0, n = this.Count; i < n; i++)
             {
@@ -395,7 +395,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Copy <paramref name="count"/> number of items starting at <paramref name="offset"/> from this list into <paramref name="array"/> starting at <paramref name="arrayOffset"/>.
         /// </summary>
-        internal void CopyTo(int offset, SyntaxTrivia[] array, int arrayOffset, int count)
+        public void CopyTo(int offset, SyntaxTrivia[] array, int arrayOffset, int count)
         {
             if (offset < 0 || count < 0 || this.Count < offset + count)
             {

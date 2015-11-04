@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.InternalUtilities
     /// Cache with a fixed size that evicts the least recently used members.
     /// Thread-safe.
     /// </summary>
-    internal class ConcurrentLruCache<K, V>
+    public class ConcurrentLruCache<K, V>
     {
         private readonly int _capacity;
 
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis.InternalUtilities
         /// <summary>
         /// For testing. Very expensive.
         /// </summary>
-        internal IEnumerable<KeyValuePair<K, V>> TestingEnumerable
+        public IEnumerable<KeyValuePair<K, V>> TestingEnumerable
         {
             get
             {

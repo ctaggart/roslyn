@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
         /// Abstraction that allows the caller to delay the creation of the <see cref="Stream"/> values 
         /// until they are actually needed.
         /// </summary>
-        internal abstract class EmitStreamProvider
+        public abstract class EmitStreamProvider
         {
             /// <summary>
             /// Returns an existing open stream or null if no stream has been open.
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal sealed class SimpleEmitStreamProvider : EmitStreamProvider
+        public sealed class SimpleEmitStreamProvider : EmitStreamProvider
         {
             private readonly Stream _stream;
 

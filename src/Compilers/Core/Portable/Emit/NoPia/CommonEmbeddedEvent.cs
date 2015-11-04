@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Cci = Microsoft.Cci;
 
 namespace Microsoft.CodeAnalysis.Emit.NoPia
 {
-    internal abstract partial class EmbeddedTypesManager<
+    public abstract partial class EmbeddedTypesManager<
         TPEModuleBuilder,
         TModuleCompilationState,
         TEmbeddedTypesManager,
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
         TEmbeddedParameter,
         TEmbeddedTypeParameter>
     {
-        internal abstract class CommonEmbeddedEvent : CommonEmbeddedMember<TEventSymbol>, Cci.IEventDefinition
+        public abstract class CommonEmbeddedEvent : CommonEmbeddedMember<TEventSymbol>, Cci.IEventDefinition
         {
             private readonly TEmbeddedMethod _adder;
             private readonly TEmbeddedMethod _remover;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
                 _caller = caller;
             }
 
-            internal override TEmbeddedTypesManager TypeManager
+            public override TEmbeddedTypesManager TypeManager
             {
                 get
                 {
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
 
             protected abstract void EmbedCorrespondingComEventInterfaceMethodInternal(TSyntaxNode syntaxNodeOpt, DiagnosticBag diagnostics, bool isUsedForComAwareEventBinding);
 
-            internal void EmbedCorrespondingComEventInterfaceMethod(TSyntaxNode syntaxNodeOpt, DiagnosticBag diagnostics, bool isUsedForComAwareEventBinding)
+            public void EmbedCorrespondingComEventInterfaceMethod(TSyntaxNode syntaxNodeOpt, DiagnosticBag diagnostics, bool isUsedForComAwareEventBinding)
             {
                 if (_isUsedForComAwareEventBinding == 0 &&
                     (!isUsedForComAwareEventBinding ||

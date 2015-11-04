@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Text;
 using System;
@@ -47,14 +47,14 @@ namespace Microsoft.CodeAnalysis
         WindowsRuntimeApplication = 5,
     }
 
-    internal static partial class EnumBounds
+    public static partial class EnumBounds
     {
-        internal static bool IsValid(this OutputKind value)
+        public static bool IsValid(this OutputKind value)
         {
             return value >= OutputKind.ConsoleApplication && value <= OutputKind.WindowsRuntimeApplication;
         }
 
-        internal static string GetDefaultExtension(this OutputKind kind)
+        public static string GetDefaultExtension(this OutputKind kind)
         {
             switch (kind)
             {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsApplication(this OutputKind kind)
+        public static bool IsApplication(this OutputKind kind)
         {
             switch (kind)
             {
@@ -96,12 +96,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsNetModule(this OutputKind kind)
+        public static bool IsNetModule(this OutputKind kind)
         {
             return kind == OutputKind.NetModule;
         }
 
-        internal static bool IsWindowsRuntime(this OutputKind kind)
+        public static bool IsWindowsRuntime(this OutputKind kind)
         {
             return kind == OutputKind.WindowsRuntimeMetadata;
         }

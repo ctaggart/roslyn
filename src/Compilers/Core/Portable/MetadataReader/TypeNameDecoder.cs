@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract class TypeNameDecoder<ModuleSymbol, TypeSymbol>
+    public abstract class TypeNameDecoder<ModuleSymbol, TypeSymbol>
         where ModuleSymbol : class
         where TypeSymbol : class
     {
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         protected abstract int GetIndexOfReferencedAssembly(AssemblyIdentity identity);
 
-        internal TypeSymbol GetTypeSymbolForSerializedType(string s)
+        public TypeSymbol GetTypeSymbolForSerializedType(string s)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -112,7 +112,7 @@ namespace Microsoft.CodeAnalysis
             return _factory.SubstituteTypeParameters(this.moduleSymbol, genericType, arguments, refersToNoPiaLocalType);
         }
 
-        internal TypeSymbol GetTypeSymbol(MetadataHelpers.AssemblyQualifiedTypeName fullName, out bool refersToNoPiaLocalType)
+        public TypeSymbol GetTypeSymbol(MetadataHelpers.AssemblyQualifiedTypeName fullName, out bool refersToNoPiaLocalType)
         {
             //
             // Section 23.3 (Custom Attributes) of CLI Spec Partition II:

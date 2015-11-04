@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 
@@ -9,7 +9,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An expression that does not change its value at runtime and can be evaluated at compile time.
     /// </summary>
-    internal interface IMetadataConstant : IMetadataExpression
+    public interface IMetadataConstant : IMetadataExpression
     {
         /// <summary>
         /// The compile time value of the expression. Null to represent a null object reference or a null array.
@@ -20,7 +20,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An expression that creates an array instance in metadata. Only for use in custom attributes.
     /// </summary>
-    internal interface IMetadataCreateArray : IMetadataExpression
+    public interface IMetadataCreateArray : IMetadataExpression
     {
         /// <summary>
         /// The element type of the array.
@@ -47,7 +47,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An expression that can be represented directly in metadata.
     /// </summary>
-    internal interface IMetadataExpression
+    public interface IMetadataExpression
     {
         /// <summary>
         /// Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
@@ -65,7 +65,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
     /// </summary>
-    internal interface IMetadataNamedArgument : IMetadataExpression
+    public interface IMetadataNamedArgument : IMetadataExpression
     {
         /// <summary>
         /// The name of the parameter or property or field that corresponds to the argument.
@@ -86,7 +86,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An expression that results in a System.Type instance.
     /// </summary>
-    internal interface IMetadataTypeOf : IMetadataExpression
+    public interface IMetadataTypeOf : IMetadataExpression
     {
         /// <summary>
         /// The type that will be represented by the System.Type instance.

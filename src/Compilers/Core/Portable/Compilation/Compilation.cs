@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis
         private readonly IReadOnlyDictionary<string, string> _features;
 
         public ScriptCompilationInfo ScriptCompilationInfo => CommonScriptCompilationInfo;
-        internal abstract ScriptCompilationInfo CommonScriptCompilationInfo { get; }
+        public abstract ScriptCompilationInfo CommonScriptCompilationInfo { get; }
 
         internal Compilation(
             string name,
@@ -102,14 +102,14 @@ namespace Microsoft.CodeAnalysis
             return set;
         }
 
-        internal abstract AnalyzerDriver AnalyzerForLanguage(ImmutableArray<DiagnosticAnalyzer> analyzers, AnalyzerManager analyzerManager);
+        public abstract AnalyzerDriver AnalyzerForLanguage(ImmutableArray<DiagnosticAnalyzer> analyzers, AnalyzerManager analyzerManager);
 
         /// <summary>
         /// Gets the source language ("C#" or "Visual Basic").
         /// </summary>
         public abstract string Language { get; }
 
-        internal static void ValidateScriptCompilationParameters(Compilation previousScriptCompilation, Type returnType, ref Type globalsType)
+        public static void ValidateScriptCompilationParameters(Compilation previousScriptCompilation, Type returnType, ref Type globalsType)
         {
             if (globalsType != null && !IsValidHostObjectType(globalsType))
             {
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis
         /// Checks options passed to submission compilation constructor.
         /// Throws an exception if the options are not applicable to submissions.
         /// </summary>
-        internal static void CheckSubmissionOptions(CompilationOptions options)
+        public static void CheckSubmissionOptions(CompilationOptions options)
         {
             if (options == null)
             {
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns a new compilation with a given event queue.
         /// </summary>
-        internal abstract Compilation WithEventQueue(AsyncQueue<CompilationEvent> eventQueue);
+        public abstract Compilation WithEventQueue(AsyncQueue<CompilationEvent> eventQueue);
 
         /// <summary>
         /// Gets a new <see cref="SemanticModel"/> for the specified syntax tree.
@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Name
 
-        internal const string UnspecifiedModuleAssemblyName = "?";
+        public const string UnspecifiedModuleAssemblyName = "?";
 
         /// <summary>
         /// Simple assembly name, or null if not specified.
@@ -214,7 +214,7 @@ namespace Microsoft.CodeAnalysis
         /// </remarks>
         public string AssemblyName { get; }
 
-        internal static void CheckAssemblyName(string assemblyName)
+        public static void CheckAssemblyName(string assemblyName)
         {
             // We could only allow name == null if OutputKind is Module. 
             // However we couldn't check such condition here since one wouldn't be able to call WithName(...).WithOptions(...).
@@ -226,12 +226,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal string MakeSourceAssemblySimpleName()
+        public string MakeSourceAssemblySimpleName()
         {
             return AssemblyName ?? UnspecifiedModuleAssemblyName;
         }
 
-        internal string MakeSourceModuleName()
+        public string MakeSourceModuleName()
         {
             return Options.ModuleName ??
                    (AssemblyName != null ? AssemblyName + Options.OutputKind.GetDefaultExtension() : UnspecifiedModuleAssemblyName);
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// True if the compilation represents an interactive submission.
         /// </summary>
-        internal bool IsSubmission
+        public bool IsSubmission
         {
             get
             {
@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis
         /// Gets or allocates a runtime submission slot index for this compilation.
         /// </summary>
         /// <returns>Non-negative integer if this is a submission and it or a previous submission contains code, negative integer otherwise.</returns>
-        internal int GetSubmissionSlotIndex()
+        public int GetSubmissionSlotIndex()
         {
             if (_lazySubmissionSlotIndex == SubmissionSlotIndexToBeAllocated)
             {
@@ -323,9 +323,9 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// The type object that represents the type of submission result the host requested.
         /// </summary>
-        internal Type SubmissionReturnType => ScriptCompilationInfo?.ReturnType;
+        public Type SubmissionReturnType => ScriptCompilationInfo?.ReturnType;
 
-        internal static bool IsValidSubmissionReturnType(Type type)
+        public static bool IsValidSubmissionReturnType(Type type)
         {
             return !(type == typeof(void) || type.IsByRef || type.GetTypeInfo().ContainsGenericParameters);
         }
@@ -333,15 +333,15 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// The type of the globals object or null if not specified for this compilation.
         /// </summary>
-        internal Type HostObjectType => ScriptCompilationInfo?.GlobalsType;
+        public Type HostObjectType => ScriptCompilationInfo?.GlobalsType;
 
-        internal static bool IsValidHostObjectType(Type type)
+        public static bool IsValidHostObjectType(Type type)
         {
             var info = type.GetTypeInfo();
             return !(info.IsValueType || info.IsPointer || info.IsByRef || info.ContainsGenericParameters);
         }
 
-        internal abstract bool HasSubmissionResult();
+        public abstract bool HasSubmissionResult();
 
         public Compilation WithScriptCompilationInfo(ScriptCompilationInfo info) => CommonWithScriptCompilationInfo(info);
         protected abstract Compilation CommonWithScriptCompilationInfo(ScriptCompilationInfo info);
@@ -441,13 +441,13 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// The event queue that this compilation was created with.
         /// </summary>
-        internal readonly AsyncQueue<CompilationEvent> EventQueue;
+        public readonly AsyncQueue<CompilationEvent> EventQueue;
 
         #endregion
 
         #region References
 
-        internal static ImmutableArray<MetadataReference> ValidateReferences<T>(IEnumerable<MetadataReference> references)
+        public static ImmutableArray<MetadataReference> ValidateReferences<T>(IEnumerable<MetadataReference> references)
             where T : CompilationReference
         {
             var result = references.AsImmutableOrEmpty();
@@ -470,12 +470,12 @@ namespace Microsoft.CodeAnalysis
             return result;
         }
 
-        internal CommonReferenceManager GetBoundReferenceManager()
+        public CommonReferenceManager GetBoundReferenceManager()
         {
             return CommonGetBoundReferenceManager();
         }
 
-        internal abstract CommonReferenceManager CommonGetBoundReferenceManager();
+        public abstract CommonReferenceManager CommonGetBoundReferenceManager();
 
         /// <summary>
         /// Metadata references passed to the compilation constructor.
@@ -490,12 +490,12 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// All reference directives used in this compilation.
         /// </summary>
-        internal abstract IEnumerable<ReferenceDirective> ReferenceDirectives { get; }
+        public abstract IEnumerable<ReferenceDirective> ReferenceDirectives { get; }
 
         /// <summary>
         /// Maps values of #r references to resolved metadata references.
         /// </summary>
-        internal abstract IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap { get; }
+        public abstract IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap { get; }
 
         /// <summary>
         /// All metadata references -- references passed to the compilation
@@ -726,7 +726,7 @@ namespace Microsoft.CodeAnalysis
 
         protected abstract INamespaceSymbol CommonGetCompilationNamespace(INamespaceSymbol namespaceSymbol);
 
-        internal abstract CommonAnonymousTypeManager CommonAnonymousTypeManager { get; }
+        public abstract CommonAnonymousTypeManager CommonAnonymousTypeManager { get; }
 
         /// <summary>
         /// Returns the Main method that will serves as the entry point of the assembly, if it is
@@ -751,16 +751,16 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns true if the type is System.Type.
         /// </summary>
-        internal abstract bool IsSystemTypeReference(ITypeSymbol type);
+        public abstract bool IsSystemTypeReference(ITypeSymbol type);
 
         protected abstract INamedTypeSymbol CommonGetSpecialType(SpecialType specialType);
 
-        internal abstract ISymbol CommonGetWellKnownTypeMember(WellKnownMember member);
+        public abstract ISymbol CommonGetWellKnownTypeMember(WellKnownMember member);
 
         /// <summary>
         /// Returns true if the specified type is equal to or derives from System.Attribute well-known type.
         /// </summary>
-        internal abstract bool IsAttributeType(ITypeSymbol type);
+        public abstract bool IsAttributeType(ITypeSymbol type);
 
         /// <summary>
         /// The INamedTypeSymbol for the .NET System.Object type, which could have a TypeKind of
@@ -823,7 +823,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Diagnostics
 
-        internal static readonly CompilationStage DefaultDiagnosticsStage = CompilationStage.Compile;
+        public static readonly CompilationStage DefaultDiagnosticsStage = CompilationStage.Compile;
 
         /// <summary>
         /// Gets the diagnostics produced during the parsing stage.
@@ -847,12 +847,12 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public abstract ImmutableArray<Diagnostic> GetDiagnostics(CancellationToken cancellationToken = default(CancellationToken));
 
-        internal abstract CommonMessageProvider MessageProvider { get; }
+        public abstract CommonMessageProvider MessageProvider { get; }
 
         /// <param name="accumulator">Bag to which filtered diagnostics will be added.</param>
         /// <param name="incoming">Diagnostics to be filtered.</param>
         /// <returns>True if there were no errors or warnings-as-errors.</returns>
-        internal abstract bool FilterAndAppendAndFreeDiagnostics(DiagnosticBag accumulator, ref DiagnosticBag incoming);
+        public abstract bool FilterAndAppendAndFreeDiagnostics(DiagnosticBag accumulator, ref DiagnosticBag incoming);
 
         #endregion
 
@@ -907,7 +907,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static void AppendNullResource(Stream resourceStream)
+        public static void AppendNullResource(Stream resourceStream)
         {
             var writer = new BinaryWriter(resourceStream);
             writer.Write((UInt32)0);
@@ -925,14 +925,14 @@ namespace Microsoft.CodeAnalysis
 
         protected abstract void AppendDefaultVersionResource(Stream resourceStream);
 
-        internal enum Win32ResourceForm : byte
+        public enum Win32ResourceForm : byte
         {
             UNKNOWN,
             COFF,
             RES
         }
 
-        internal Win32ResourceForm DetectWin32ResourceForm(Stream win32Resources)
+        public Win32ResourceForm DetectWin32ResourceForm(Stream win32Resources)
         {
             var reader = new BinaryReader(win32Resources, Encoding.Unicode);
 
@@ -950,7 +950,7 @@ namespace Microsoft.CodeAnalysis
                 return Win32ResourceForm.UNKNOWN;
         }
 
-        internal Cci.ResourceSection MakeWin32ResourcesFromCOFF(Stream win32Resources, DiagnosticBag diagnostics)
+        public Cci.ResourceSection MakeWin32ResourcesFromCOFF(Stream win32Resources, DiagnosticBag diagnostics)
         {
             if (win32Resources == null)
             {
@@ -982,7 +982,7 @@ namespace Microsoft.CodeAnalysis
             return resources;
         }
 
-        internal List<Win32Resource> MakeWin32ResourceList(Stream win32Resources, DiagnosticBag diagnostics)
+        public List<Win32Resource> MakeWin32ResourceList(Stream win32Resources, DiagnosticBag diagnostics)
         {
             if (win32Resources == null)
             {
@@ -1027,7 +1027,7 @@ namespace Microsoft.CodeAnalysis
             return resourceList;
         }
 
-        internal void ReportManifestResourceDuplicates(
+        public void ReportManifestResourceDuplicates(
             IEnumerable<ResourceDescription> manifestResources,
             IEnumerable<string> addedModuleNames,
             IEnumerable<string> addedModuleResourceNames,
@@ -1086,7 +1086,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Constructs the module serialization properties out of the compilation options of this compilation.
         /// </summary>
-        internal Cci.ModulePropertiesForSerialization ConstructModuleSerializationProperties(
+        public Cci.ModulePropertiesForSerialization ConstructModuleSerializationProperties(
             EmitOptions emitOptions,
             string targetRuntimeVersion,
             Guid moduleVersionId = default(Guid))
@@ -1279,9 +1279,9 @@ namespace Microsoft.CodeAnalysis
         /// determine if the value is less than some version. The C++ linker is at 0x0B. 
         /// We'll start our numbering at 0x30 for C#, 0x50 for VB.
         /// </summary>
-        internal abstract byte LinkerMajorVersion { get; }
+        public abstract byte LinkerMajorVersion { get; }
 
-        internal bool HasStrongName
+        public bool HasStrongName
         {
             get
             {
@@ -1291,7 +1291,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsRealSigned
+        public bool IsRealSigned
         {
             get
             {
@@ -1308,12 +1308,12 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Return true if the compilation contains any code or types.
         /// </summary>
-        internal abstract bool HasCodeToEmit();
+        public abstract bool HasCodeToEmit();
 
-        internal abstract bool IsDelaySigned { get; }
-        internal abstract StrongNameKeys StrongNameKeys { get; }
+        public abstract bool IsDelaySigned { get; }
+        public abstract StrongNameKeys StrongNameKeys { get; }
 
-        internal abstract CommonPEModuleBuilder CreateModuleBuilder(
+        public abstract CommonPEModuleBuilder CreateModuleBuilder(
             EmitOptions emitOptions,
             IMethodSymbol debugEntryPoint,
             IEnumerable<ResourceDescription> manifestResources,
@@ -1322,7 +1322,7 @@ namespace Microsoft.CodeAnalysis
             CancellationToken cancellationToken);
 
         // TODO: private protected
-        internal abstract bool CompileImpl(
+        public abstract bool CompileImpl(
             CommonPEModuleBuilder moduleBuilder,
             Stream win32Resources,
             Stream xmlDocStream,
@@ -1331,7 +1331,7 @@ namespace Microsoft.CodeAnalysis
             Predicate<ISymbol> filterOpt,
             CancellationToken cancellationToken);
 
-        internal bool Compile(
+        public bool Compile(
             CommonPEModuleBuilder moduleBuilder,
             Stream win32Resources,
             Stream xmlDocStream,
@@ -1357,7 +1357,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal void EnsureAnonymousTypeTemplates(CancellationToken cancellationToken)
+        public void EnsureAnonymousTypeTemplates(CancellationToken cancellationToken)
         {
             Debug.Assert(IsSubmission);
 
@@ -1494,7 +1494,7 @@ namespace Microsoft.CodeAnalysis
                 cancellationToken: cancellationToken);
         }
 
-        internal EmitResult Emit(
+        public EmitResult Emit(
             EmitStreamProvider peStreamProvider,
             EmitStreamProvider pdbStreamProvider,
             EmitStreamProvider xmlDocumentationStreamProvider,
@@ -1523,7 +1523,7 @@ namespace Microsoft.CodeAnalysis
         /// The map is used for storing a list of methods and their associated IL.
         /// </summary>
         /// <returns>True if emit succeeded.</returns>
-        internal EmitResult Emit(
+        public EmitResult Emit(
             Stream peStream,
             Stream pdbStream,
             Stream xmlDocumentationStream,
@@ -1620,7 +1620,7 @@ namespace Microsoft.CodeAnalysis
             return this.EmitDifference(baseline, edits, isAddedSymbol, metadataStream, ilStream, pdbStream, updatedMethods, null, cancellationToken);
         }
 
-        internal abstract EmitDifferenceResult EmitDifference(
+        public abstract EmitDifferenceResult EmitDifference(
             EmitBaseline baseline,
             IEnumerable<SemanticEdit> edits,
             Func<ISymbol, bool> isAddedSymbol,
@@ -1636,7 +1636,7 @@ namespace Microsoft.CodeAnalysis
         /// The map is used for storing a list of methods and their associated IL.
         /// </summary>
         /// <returns>True if emit succeeded.</returns>
-        internal EmitResult Emit(
+        public EmitResult Emit(
             EmitStreamProvider peStreamProvider,
             EmitStreamProvider pdbStreamProvider,
             EmitStreamProvider xmlDocumentationStreamProvider,
@@ -1738,16 +1738,16 @@ namespace Microsoft.CodeAnalysis
             return ToEmitResultAndFree(diagnostics, success);
         }
 
-        internal abstract void ValidateDebugEntryPoint(IMethodSymbol debugEntryPoint, DiagnosticBag diagnostics);
+        public abstract void ValidateDebugEntryPoint(IMethodSymbol debugEntryPoint, DiagnosticBag diagnostics);
 
         private static EmitResult ToEmitResultAndFree(DiagnosticBag diagnostics, bool success)
         {
             return new EmitResult(success, diagnostics.ToReadOnlyAndFree());
         }
 
-        internal bool IsEmitDeterministic => this.Options.Deterministic;
+        public bool IsEmitDeterministic => this.Options.Deterministic;
 
-        internal bool SerializeToPeStream(
+        public bool SerializeToPeStream(
             CommonPEModuleBuilder moduleBeingBuilt,
             EmitStreamProvider peStreamProvider,
             EmitStreamProvider pdbStreamProvider,
@@ -1961,7 +1961,7 @@ namespace Microsoft.CodeAnalysis
             return true;
         }
 
-        internal EmitBaseline SerializeToDeltaStreams(
+        public EmitBaseline SerializeToDeltaStreams(
             CommonPEModuleBuilder moduleBeingBuilt,
             EmitBaseline baseline,
             DefinitionMap definitionMap,
@@ -2014,7 +2014,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal string Feature(string p)
+        public string Feature(string p)
         {
             string v;
             return _features.TryGetValue(p, out v) ? v : null;
@@ -2033,12 +2033,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal void MarkImportDirectiveAsUsed(SyntaxNode node)
+        public void MarkImportDirectiveAsUsed(SyntaxNode node)
         {
             MarkImportDirectiveAsUsed(node.SyntaxTree, node.Span.Start);
         }
 
-        internal void MarkImportDirectiveAsUsed(SyntaxTree syntaxTree, int position)
+        public void MarkImportDirectiveAsUsed(SyntaxTree syntaxTree, int position)
         {
             // Optimization: Don't initialize TreeToUsedImportDirectivesMap in submissions.
             if (!IsSubmission && syntaxTree != null)
@@ -2048,7 +2048,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsImportDirectiveUsed(SyntaxTree syntaxTree, int position)
+        public bool IsImportDirectiveUsed(SyntaxTree syntaxTree, int position)
         {
             if (IsSubmission)
             {
@@ -2067,7 +2067,7 @@ namespace Microsoft.CodeAnalysis
         /// in some cases, because emit order for fields in structures, for example, is semantically important.
         /// This function defines an ordering among syntax trees in this compilation.
         /// </summary>
-        internal int CompareSyntaxTreeOrdering(SyntaxTree tree1, SyntaxTree tree2)
+        public int CompareSyntaxTreeOrdering(SyntaxTree tree1, SyntaxTree tree2)
         {
             if (tree1 == tree2)
             {
@@ -2080,18 +2080,18 @@ namespace Microsoft.CodeAnalysis
             return this.GetSyntaxTreeOrdinal(tree1) - this.GetSyntaxTreeOrdinal(tree2);
         }
 
-        internal abstract int GetSyntaxTreeOrdinal(SyntaxTree tree);
+        public abstract int GetSyntaxTreeOrdinal(SyntaxTree tree);
 
         /// <summary>
         /// Compare two source locations, using their containing trees, and then by Span.First within a tree. 
         /// Can be used to get a total ordering on declarations, for example.
         /// </summary>
-        internal abstract int CompareSourceLocations(Location loc1, Location loc2);
+        public abstract int CompareSourceLocations(Location loc1, Location loc2);
 
         /// <summary>
         /// Return the lexically first of two locations.
         /// </summary>
-        internal TLocation FirstSourceLocation<TLocation>(TLocation first, TLocation second)
+        public TLocation FirstSourceLocation<TLocation>(TLocation first, TLocation second)
             where TLocation : Location
         {
             if (CompareSourceLocations(first, second) <= 0)
@@ -2107,7 +2107,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Return the lexically first of multiple locations.
         /// </summary>
-        internal TLocation FirstSourceLocation<TLocation>(ImmutableArray<TLocation> locations)
+        public TLocation FirstSourceLocation<TLocation>(ImmutableArray<TLocation> locations)
             where TLocation : Location
         {
             if (locations.IsEmpty)
@@ -2134,12 +2134,12 @@ namespace Microsoft.CodeAnalysis
 
         // Note: Most of the below helpers are unused at the moment - but we would like to keep them around in
         // case we decide we need more verbose logging in certain cases for debugging.
-        internal string GetMessage(CompilationStage stage)
+        public string GetMessage(CompilationStage stage)
         {
             return string.Format("{0} ({1})", this.AssemblyName, stage.ToString());
         }
 
-        internal string GetMessage(ITypeSymbol source, ITypeSymbol destination)
+        public string GetMessage(ITypeSymbol source, ITypeSymbol destination)
         {
             if (source == null || destination == null) return this.AssemblyName;
             return string.Format("{0}: {1} {2} -> {3} {4}", this.AssemblyName, source.TypeKind.ToString(), source.Name, destination.TypeKind.ToString(), destination.Name);
@@ -2161,22 +2161,22 @@ namespace Microsoft.CodeAnalysis
 
         #endregion
 
-        internal void MakeMemberMissing(WellKnownMember member)
+        public void MakeMemberMissing(WellKnownMember member)
         {
             MakeMemberMissing((int)member);
         }
 
-        internal void MakeMemberMissing(SpecialMember member)
+        public void MakeMemberMissing(SpecialMember member)
         {
             MakeMemberMissing(-(int)member - 1);
         }
 
-        internal bool IsMemberMissing(WellKnownMember member)
+        public bool IsMemberMissing(WellKnownMember member)
         {
             return IsMemberMissing((int)member);
         }
 
-        internal bool IsMemberMissing(SpecialMember member)
+        public bool IsMemberMissing(SpecialMember member)
         {
             return IsMemberMissing(-(int)member - 1);
         }
@@ -2196,7 +2196,7 @@ namespace Microsoft.CodeAnalysis
             return _lazyMakeMemberMissingMap != null && _lazyMakeMemberMissingMap.ContainsKey(member);
         }
 
-        internal void MakeTypeMissing(WellKnownType type)
+        public void MakeTypeMissing(WellKnownType type)
         {
             if (_lazyMakeWellKnownTypeMissingMap == null)
             {
@@ -2206,7 +2206,7 @@ namespace Microsoft.CodeAnalysis
             _lazyMakeWellKnownTypeMissingMap[(int)type] = true;
         }
 
-        internal bool IsTypeMissing(WellKnownType type)
+        public bool IsTypeMissing(WellKnownType type)
         {
             return _lazyMakeWellKnownTypeMissingMap != null && _lazyMakeWellKnownTypeMissingMap.ContainsKey((int)type);
         }

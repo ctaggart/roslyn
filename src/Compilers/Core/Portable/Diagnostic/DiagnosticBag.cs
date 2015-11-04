@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis
     /// <remarks>The bag is optimized to be efficient when containing zero errors.</remarks>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
     [DebuggerTypeProxy(typeof(DebuggerProxy))]
-    internal class DiagnosticBag
+    public class DiagnosticBag
     {
         // The lazyBag field is populated lazily -- the first time an error is added.
         private ConcurrentQueue<Diagnostic> _lazyBag;
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis
         /// Generally, this should only be called by the creator (modulo pooling) of the bag (i.e. don't use bags to communicate -
         /// if you need more info, pass more info).
         /// </remarks>
-        internal bool HasAnyResolvedErrors()
+        public bool HasAnyResolvedErrors()
         {
             if (IsEmptyWithoutResolution)
             {
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal IEnumerable<Diagnostic> AsEnumerableWithoutResolution()
+        public IEnumerable<Diagnostic> AsEnumerableWithoutResolution()
         {
             // PERF: don't make a defensive copy - callers are internal and won't modify the bag.
             return _lazyBag ?? SpecializedCollections.EmptyEnumerable<Diagnostic>();
@@ -297,7 +297,7 @@ namespace Microsoft.CodeAnalysis
         /// NOTE: Concurrent Adding to the bag is supported, but concurrent Clearing is not.
         ///       If one thread adds to the bug while another clears it, the scenario is 
         ///       broken and we cannot do anything about it here.
-        internal void Clear()
+        public void Clear()
         {
             ConcurrentQueue<Diagnostic> bag = _lazyBag;
             if (bag != null)
@@ -308,13 +308,13 @@ namespace Microsoft.CodeAnalysis
 
         #region "Poolable"
 
-        internal static DiagnosticBag GetInstance()
+        public static DiagnosticBag GetInstance()
         {
             DiagnosticBag bag = s_poolInstance.Allocate();
             return bag;
         }
 
-        internal void Free()
+        public void Free()
         {
             Clear();
             s_poolInstance.Free(this);
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Debugger View
 
-        internal sealed class DebuggerProxy
+        public sealed class DebuggerProxy
         {
             private readonly DiagnosticBag _bag;
 

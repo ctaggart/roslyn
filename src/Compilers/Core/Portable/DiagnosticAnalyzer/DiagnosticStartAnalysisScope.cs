@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for an entire session, automatically associating actions with analyzers.
     /// </summary>
-    internal sealed class AnalyzerAnalysisContext : AnalysisContext
+    public sealed class AnalyzerAnalysisContext : AnalysisContext
     {
         private readonly DiagnosticAnalyzer _analyzer;
         private readonly HostSessionStartAnalysisScope _scope;
@@ -74,7 +74,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for a compilation, automatically associating actions with analyzers.
     /// </summary>
-    internal sealed class AnalyzerCompilationStartAnalysisContext : CompilationStartAnalysisContext
+    public sealed class AnalyzerCompilationStartAnalysisContext : CompilationStartAnalysisContext
     {
         private readonly DiagnosticAnalyzer _analyzer;
         private readonly HostCompilationStartAnalysisScope _scope;
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for a code block, automatically associating actions with analyzers.
     /// </summary>
-    internal sealed class AnalyzerCodeBlockStartAnalysisContext<TLanguageKindEnum> : CodeBlockStartAnalysisContext<TLanguageKindEnum> where TLanguageKindEnum : struct
+    public sealed class AnalyzerCodeBlockStartAnalysisContext<TLanguageKindEnum> : CodeBlockStartAnalysisContext<TLanguageKindEnum> where TLanguageKindEnum : struct
     {
         private readonly DiagnosticAnalyzer _analyzer;
         private readonly HostCodeBlockStartAnalysisScope<TLanguageKindEnum> _scope;
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for an entire session, capable of retrieving the actions.
     /// </summary>
-    internal sealed class HostSessionStartAnalysisScope : HostAnalysisScope
+    public sealed class HostSessionStartAnalysisScope : HostAnalysisScope
     {
         private ImmutableArray<CompilationStartAnalyzerAction> _compilationStartActions = ImmutableArray<CompilationStartAnalyzerAction>.Empty;
 
@@ -177,7 +177,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for a compilation, capable of retrieving the actions.
     /// </summary>
-    internal sealed class HostCompilationStartAnalysisScope : HostAnalysisScope
+    public sealed class HostCompilationStartAnalysisScope : HostAnalysisScope
     {
         private readonly HostSessionStartAnalysisScope _sessionScope;
 
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Scope for setting up analyzers for a code block, capable of retrieving the actions.
     /// </summary>
-    internal sealed class HostCodeBlockStartAnalysisScope<TLanguageKindEnum> where TLanguageKindEnum : struct
+    public sealed class HostCodeBlockStartAnalysisScope<TLanguageKindEnum> where TLanguageKindEnum : struct
     {
         private ImmutableArray<CodeBlockAnalyzerAction> _codeBlockEndActions = ImmutableArray<CodeBlockAnalyzerAction>.Empty;
         private ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>> _syntaxNodeActions = ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>>.Empty;
@@ -300,7 +300,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         }
     }
 
-    internal abstract class HostAnalysisScope
+    public abstract class HostAnalysisScope
     {
         private ImmutableArray<CompilationAnalyzerAction> _compilationActions = ImmutableArray<CompilationAnalyzerAction>.Empty;
         private ImmutableArray<CompilationAnalyzerAction> _compilationEndActions = ImmutableArray<CompilationAnalyzerAction>.Empty;
@@ -463,7 +463,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     // moves from an analyzer-centric model to an action-centric model. For example, the driver would need to stop asking
     // if a particular analyzer can analyze syntax trees, and instead ask if any syntax tree actions are present. Also,
     // the driver needs to apply all relevant actions rather then applying the actions of individual analyzers.
-    internal sealed class AnalyzerActions
+    public sealed class AnalyzerActions
     {
         private ImmutableArray<CompilationStartAnalyzerAction> _compilationStartActions = ImmutableArray<CompilationStartAnalyzerAction>.Empty;
         private ImmutableArray<CompilationAnalyzerAction> _compilationEndActions = ImmutableArray<CompilationAnalyzerAction>.Empty;
@@ -476,7 +476,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         private ImmutableArray<CodeBlockAnalyzerAction> _codeBlockActions = ImmutableArray<CodeBlockAnalyzerAction>.Empty;
         private ImmutableArray<AnalyzerAction> _syntaxNodeActions = ImmutableArray<AnalyzerAction>.Empty;
 
-        internal static readonly AnalyzerActions Empty = new AnalyzerActions();
+        public static readonly AnalyzerActions Empty = new AnalyzerActions();
 
         internal AnalyzerActions()
         {
@@ -493,102 +493,102 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public int CodeBlockEndActionsCount { get { return _codeBlockEndActions.Length; } }
         public int CodeBlockActionsCount { get { return _codeBlockActions.Length; } }
 
-        internal ImmutableArray<CompilationStartAnalyzerAction> CompilationStartActions
+        public ImmutableArray<CompilationStartAnalyzerAction> CompilationStartActions
         {
             get { return _compilationStartActions; }
         }
 
-        internal ImmutableArray<CompilationAnalyzerAction> CompilationEndActions
+        public ImmutableArray<CompilationAnalyzerAction> CompilationEndActions
         {
             get { return _compilationEndActions; }
         }
 
-        internal ImmutableArray<CompilationAnalyzerAction> CompilationActions
+        public ImmutableArray<CompilationAnalyzerAction> CompilationActions
         {
             get { return _compilationActions; }
         }
 
-        internal ImmutableArray<SyntaxTreeAnalyzerAction> SyntaxTreeActions
+        public ImmutableArray<SyntaxTreeAnalyzerAction> SyntaxTreeActions
         {
             get { return _syntaxTreeActions; }
         }
 
-        internal ImmutableArray<SemanticModelAnalyzerAction> SemanticModelActions
+        public ImmutableArray<SemanticModelAnalyzerAction> SemanticModelActions
         {
             get { return _semanticModelActions; }
         }
 
-        internal ImmutableArray<SymbolAnalyzerAction> SymbolActions
+        public ImmutableArray<SymbolAnalyzerAction> SymbolActions
         {
             get { return _symbolActions; }
         }
 
-        internal ImmutableArray<CodeBlockAnalyzerAction> CodeBlockEndActions
+        public ImmutableArray<CodeBlockAnalyzerAction> CodeBlockEndActions
         {
             get { return _codeBlockEndActions; }
         }
 
-        internal ImmutableArray<CodeBlockAnalyzerAction> CodeBlockActions
+        public ImmutableArray<CodeBlockAnalyzerAction> CodeBlockActions
         {
             get { return _codeBlockActions; }
         }
 
-        internal ImmutableArray<CodeBlockStartAnalyzerAction<TLanguageKindEnum>> GetCodeBlockStartActions<TLanguageKindEnum>() where TLanguageKindEnum : struct
+        public ImmutableArray<CodeBlockStartAnalyzerAction<TLanguageKindEnum>> GetCodeBlockStartActions<TLanguageKindEnum>() where TLanguageKindEnum : struct
         {
             return _codeBlockStartActions.OfType<CodeBlockStartAnalyzerAction<TLanguageKindEnum>>().ToImmutableArray();
         }
 
-        internal ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>> GetSyntaxNodeActions<TLanguageKindEnum>() where TLanguageKindEnum : struct
+        public ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>> GetSyntaxNodeActions<TLanguageKindEnum>() where TLanguageKindEnum : struct
         {
             return _syntaxNodeActions.OfType<SyntaxNodeAnalyzerAction<TLanguageKindEnum>>().ToImmutableArray();
         }
 
-        internal void AddCompilationStartAction(CompilationStartAnalyzerAction action)
+        public void AddCompilationStartAction(CompilationStartAnalyzerAction action)
         {
             _compilationStartActions = _compilationStartActions.Add(action);
         }
 
-        internal void AddCompilationEndAction(CompilationAnalyzerAction action)
+        public void AddCompilationEndAction(CompilationAnalyzerAction action)
         {
             _compilationEndActions = _compilationEndActions.Add(action);
         }
 
-        internal void AddCompilationAction(CompilationAnalyzerAction action)
+        public void AddCompilationAction(CompilationAnalyzerAction action)
         {
             _compilationActions = _compilationActions.Add(action);
         }
 
-        internal void AddSyntaxTreeAction(SyntaxTreeAnalyzerAction action)
+        public void AddSyntaxTreeAction(SyntaxTreeAnalyzerAction action)
         {
             _syntaxTreeActions = _syntaxTreeActions.Add(action);
         }
 
-        internal void AddSemanticModelAction(SemanticModelAnalyzerAction action)
+        public void AddSemanticModelAction(SemanticModelAnalyzerAction action)
         {
             _semanticModelActions = _semanticModelActions.Add(action);
         }
 
-        internal void AddSymbolAction(SymbolAnalyzerAction action)
+        public void AddSymbolAction(SymbolAnalyzerAction action)
         {
             _symbolActions = _symbolActions.Add(action);
         }
 
-        internal void AddCodeBlockStartAction<TLanguageKindEnum>(CodeBlockStartAnalyzerAction<TLanguageKindEnum> action) where TLanguageKindEnum : struct
+        public void AddCodeBlockStartAction<TLanguageKindEnum>(CodeBlockStartAnalyzerAction<TLanguageKindEnum> action) where TLanguageKindEnum : struct
         {
             _codeBlockStartActions = _codeBlockStartActions.Add(action);
         }
 
-        internal void AddCodeBlockEndAction(CodeBlockAnalyzerAction action)
+        public void AddCodeBlockEndAction(CodeBlockAnalyzerAction action)
         {
             _codeBlockEndActions = _codeBlockEndActions.Add(action);
         }
 
-        internal void AddCodeBlockAction(CodeBlockAnalyzerAction action)
+        public void AddCodeBlockAction(CodeBlockAnalyzerAction action)
         {
             _codeBlockActions = _codeBlockActions.Add(action);
         }
 
-        internal void AddSyntaxNodeAction<TLanguageKindEnum>(SyntaxNodeAnalyzerAction<TLanguageKindEnum> action) where TLanguageKindEnum : struct
+        public void AddSyntaxNodeAction<TLanguageKindEnum>(SyntaxNodeAnalyzerAction<TLanguageKindEnum> action) where TLanguageKindEnum : struct
         {
             _syntaxNodeActions = _syntaxNodeActions.Add(action);
         }

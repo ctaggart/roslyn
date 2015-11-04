@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Microsoft.CodeAnalysis.Collections
 {
-    internal sealed class ImmutableMemoryStream : Stream
+    public sealed class ImmutableMemoryStream : Stream
     {
         private readonly ImmutableArray<byte> _array;
         private int _position;

@@ -1,16 +1,16 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal partial class AnalysisState
+    public partial class AnalysisState
     {
         /// <summary>
         /// Stores the partial analysis state for a specific symbol declaration for a specific analyzer.
         /// </summary>
-        internal sealed class DeclarationAnalyzerStateData : SyntaxNodeAnalyzerStateData
+        public sealed class DeclarationAnalyzerStateData : SyntaxNodeAnalyzerStateData
         {
             /// <summary>
             /// Partial analysis state for code block actions executed on the declaration.
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <summary>
         /// Stores the partial analysis state for syntax node actions executed on the declaration.
         /// </summary>
-        internal class SyntaxNodeAnalyzerStateData : AnalyzerStateData
+        public class SyntaxNodeAnalyzerStateData : AnalyzerStateData
         {
             public HashSet<SyntaxNode> ProcessedNodes { get; set; }
             public SyntaxNode CurrentNode { get; set; }
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <summary>
         /// Stores the partial analysis state for code block actions executed on the declaration.
         /// </summary>
-        internal sealed class CodeBlockAnalyzerStateData : AnalyzerStateData
+        public sealed class CodeBlockAnalyzerStateData : AnalyzerStateData
         {
             public SyntaxNodeAnalyzerStateData ExecutableNodesAnalysisState { get; }
 

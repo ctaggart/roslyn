@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Information decoded from well-known custom attributes applied on a type.
     /// </summary>
-    internal class CommonTypeWellKnownAttributeData : WellKnownAttributeData, ISecurityAttributeTarget
+    public class CommonTypeWellKnownAttributeData : WellKnownAttributeData, ISecurityAttributeTarget
     {
         #region SpecialNameAttribute
         private bool _hasSpecialNameAttribute;
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis
             return _lazySecurityAttributeData;
         }
 
-        internal bool HasDeclarativeSecurity
+        public bool HasDeclarativeSecurity
         {
             get
             {

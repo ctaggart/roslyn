@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// </item>
     /// </list>
     /// </summary>
-    internal sealed class LocalSlotManager
+    public sealed class LocalSlotManager
     {
         /// <summary>
         /// Structure that represents a local signature (as in <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-335.pdf">ECMA-335</a>, Partition I, §8.6.1.3 Local signatures).
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
         }
 
-        internal LocalDefinition DeclareLocal(
+        public LocalDefinition DeclareLocal(
             Cci.ITypeReference type,
             ILocalSymbolInternal symbol,
             string name,
@@ -144,7 +144,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Retrieve a local slot by its symbol.
         /// </summary>
-        internal LocalDefinition GetLocal(ILocalSymbol symbol)
+        public LocalDefinition GetLocal(ILocalSymbol symbol)
         {
             return LocalMap[symbol];
         }
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// Release a local slot by its symbol.
         /// Slot is not associated with symbol after this.
         /// </summary>
-        internal void FreeLocal(ILocalSymbol symbol)
+        public void FreeLocal(ILocalSymbol symbol)
         {
             var slot = GetLocal(symbol);
             LocalMap.Remove(symbol);
@@ -163,7 +163,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Gets a local slot.
         /// </summary>
-        internal LocalDefinition AllocateSlot(
+        public LocalDefinition AllocateSlot(
             Cci.ITypeReference type,
             LocalSlotConstraints constraints,
             ImmutableArray<TypedConstant> dynamicTransformFlags = default(ImmutableArray<TypedConstant>))
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Frees a local slot.
         /// </summary>
-        internal void FreeSlot(LocalDefinition slot)
+        public void FreeSlot(LocalDefinition slot)
         {
             Debug.Assert(slot.Name == null);
             FreeSlots.Push(new LocalSignature(slot.Type, slot.Constraints), slot);

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.Text;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal partial class ConstantValue
+    public partial class ConstantValue
     {
         private sealed class ConstantValueBad : ConstantValue
         {
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return SpecialType.None; }
             }
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis
                 return System.Runtime.CompilerServices.RuntimeHelpers.GetHashCode(this);
             }
 
-            internal override string GetValueToDisplay()
+            public override string GetValueToDisplay()
             {
                 return "bad";
             }
@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return SpecialType.None; }
             }
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override string GetValueToDisplay()
+            public override string GetValueToDisplay()
             {
                 return ((object)this == (object)Uninitialized) ? "unset" : "null";
             }
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return SpecialType.System_String; }
             }
@@ -139,7 +139,7 @@ namespace Microsoft.CodeAnalysis
                 return base.Equals(other) && _value == other.StringValue;
             }
 
-            internal override string GetValueToDisplay()
+            public override string GetValueToDisplay()
             {
                 return (_value == null) ? "null" : string.Format("\"{0}\"", _value);
             }
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return SpecialType.System_Decimal; }
             }
@@ -203,7 +203,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return SpecialType.System_DateTime; }
             }
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override SpecialType SpecialType
+            public override SpecialType SpecialType
             {
                 get { return GetSpecialType(_discriminator); }
             }

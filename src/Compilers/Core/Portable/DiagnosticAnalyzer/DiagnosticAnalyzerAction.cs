@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal abstract class AnalyzerAction
+    public abstract class AnalyzerAction
     {
         private readonly DiagnosticAnalyzer _analyzer;
 
@@ -14,10 +14,10 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             _analyzer = analyzer;
         }
 
-        internal DiagnosticAnalyzer Analyzer { get { return _analyzer; } }
+        public DiagnosticAnalyzer Analyzer { get { return _analyzer; } }
     }
 
-    internal sealed class SymbolAnalyzerAction : AnalyzerAction
+    public sealed class SymbolAnalyzerAction : AnalyzerAction
     {
         private readonly Action<SymbolAnalysisContext> _action;
         private readonly ImmutableArray<SymbolKind> _kinds;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public ImmutableArray<SymbolKind> Kinds { get { return _kinds; } }
     }
 
-    internal sealed class SyntaxNodeAnalyzerAction<TLanguageKindEnum> : AnalyzerAction where TLanguageKindEnum : struct
+    public sealed class SyntaxNodeAnalyzerAction<TLanguageKindEnum> : AnalyzerAction where TLanguageKindEnum : struct
     {
         private readonly Action<SyntaxNodeAnalysisContext> _action;
         private readonly ImmutableArray<TLanguageKindEnum> _kinds;
@@ -49,7 +49,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public ImmutableArray<TLanguageKindEnum> Kinds { get { return _kinds; } }
     }
 
-    internal sealed class CompilationStartAnalyzerAction : AnalyzerAction
+    public sealed class CompilationStartAnalyzerAction : AnalyzerAction
     {
         private readonly Action<CompilationStartAnalysisContext> _action;
 
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public Action<CompilationStartAnalysisContext> Action { get { return _action; } }
     }
 
-    internal sealed class CompilationAnalyzerAction : AnalyzerAction
+    public sealed class CompilationAnalyzerAction : AnalyzerAction
     {
         private readonly Action<CompilationAnalysisContext> _action;
 
@@ -75,7 +75,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public Action<CompilationAnalysisContext> Action { get { return _action; } }
     }
 
-    internal sealed class SemanticModelAnalyzerAction : AnalyzerAction
+    public sealed class SemanticModelAnalyzerAction : AnalyzerAction
     {
         private readonly Action<SemanticModelAnalysisContext> _action;
 
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public Action<SemanticModelAnalysisContext> Action { get { return _action; } }
     }
 
-    internal sealed class SyntaxTreeAnalyzerAction : AnalyzerAction
+    public sealed class SyntaxTreeAnalyzerAction : AnalyzerAction
     {
         private readonly Action<SyntaxTreeAnalysisContext> _action;
 
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public Action<SyntaxTreeAnalysisContext> Action { get { return _action; } }
     }
 
-    internal sealed class CodeBlockStartAnalyzerAction<TLanguageKindEnum> : AnalyzerAction where TLanguageKindEnum : struct
+    public sealed class CodeBlockStartAnalyzerAction<TLanguageKindEnum> : AnalyzerAction where TLanguageKindEnum : struct
     {
         private readonly Action<CodeBlockStartAnalysisContext<TLanguageKindEnum>> _action;
 
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         public Action<CodeBlockStartAnalysisContext<TLanguageKindEnum>> Action { get { return _action; } }
     }
 
-    internal sealed class CodeBlockAnalyzerAction : AnalyzerAction
+    public sealed class CodeBlockAnalyzerAction : AnalyzerAction
     {
         private readonly Action<CodeBlockAnalysisContext> _action;
 

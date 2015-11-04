@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Roslyn.Utilities
 {
-    internal class ObjectReaderWriterBase
+    public class ObjectReaderWriterBase
     {
-        internal enum DataKind : byte
+        public enum DataKind : byte
         {
             Null,
             Type,
@@ -46,9 +46,9 @@ namespace Roslyn.Utilities
             Array_3     // array with three elements
         }
 
-        internal static readonly byte ByteMarkerMask = 3 << 6;
-        internal static readonly byte Byte1Marker = 0;
-        internal static readonly byte Byte2Marker = 1 << 6;
-        internal static readonly byte Byte4Marker = 2 << 6;
+        public static readonly byte ByteMarkerMask = 3 << 6;
+        public static readonly byte Byte1Marker = 0;
+        public static readonly byte Byte2Marker = 1 << 6;
+        public static readonly byte Byte4Marker = 2 << 6;
     }
 }

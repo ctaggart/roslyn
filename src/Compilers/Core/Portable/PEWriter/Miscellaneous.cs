@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A container for static helper methods that are used for manipulating and computing iterators.
     /// </summary>
-    internal static class IteratorHelper
+    public static class IteratorHelper
     {
         /// <summary>
         /// True if the given enumerable is not null and contains at least one element.
@@ -89,7 +89,7 @@ namespace Microsoft.Cci
     /// Each security attribute represents a serialized permission or permission set for a specified security action.
     /// The union of the security attributes with identical security action, define the permission set to which the security action applies.
     /// </summary>
-    internal struct SecurityAttribute
+    public struct SecurityAttribute
     {
         public DeclarativeSecurityAction Action { get; }
         public ICustomAttribute Attribute { get; }
@@ -104,7 +104,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Information about how values of managed types should be marshalled to and from unmanaged types.
     /// </summary>
-    internal interface IMarshallingInformation
+    public interface IMarshallingInformation
     {
         /// <summary>
         /// <see cref="ITypeReference"/> or a string (usually a fully-qualified type name of a type implementing the custom marshaller, but Dev11 allows any string).
@@ -182,7 +182,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Implemented by any entity that has a name.
     /// </summary>
-    internal interface INamedEntity
+    public interface INamedEntity
     {
         /// <summary>
         /// The name of the entity.
@@ -194,7 +194,7 @@ namespace Microsoft.Cci
     /// The name of the entity depends on other metadata (tokens, signatures) originated from
     /// PeWriter.
     /// </summary>
-    internal interface IContextualNamedEntity : INamedEntity
+    public interface IContextualNamedEntity : INamedEntity
     {
         /// <summary>
         /// Method must be called before calling INamedEntity.Name.
@@ -206,7 +206,7 @@ namespace Microsoft.Cci
     /// Implemented by an entity that is always a member of a particular parameter list, such as an IParameterDefinition.
     /// Provides a way to determine the position where the entity appears in the parameter list.
     /// </summary>
-    internal interface IParameterListEntry
+    public interface IParameterListEntry
     {
         /// <summary>
         /// The position in the parameter list where this instance can be found.
@@ -218,7 +218,7 @@ namespace Microsoft.Cci
     /// This enum is used internally by BCL. It includes flags that are not in the metadata spec.
     /// </summary>
     [Flags]
-    internal enum PInvokeAttributes : ushort
+    public enum PInvokeAttributes : ushort
     {
         NoMangle = 0x0001,
 
@@ -254,7 +254,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Information that describes how a method from the underlying Platform is to be invoked.
     /// </summary>
-    internal interface IPlatformInvokeInformation
+    public interface IPlatformInvokeInformation
     {
         /// <summary>
         /// Module providing the method/field.
@@ -272,7 +272,7 @@ namespace Microsoft.Cci
         PInvokeAttributes Flags { get; }
     }
 
-    internal class ResourceSection
+    public class ResourceSection
     {
         internal ResourceSection(byte[] sectionBytes, uint[] relocations)
         {
@@ -283,17 +283,17 @@ namespace Microsoft.Cci
             Relocations = relocations;
         }
 
-        internal readonly byte[] SectionBytes;
+        public readonly byte[] SectionBytes;
         //This is the offset into SectionBytes that should be modified.
         //It should have the section's RVA added to it.
-        internal readonly uint[] Relocations;
+        public readonly uint[] Relocations;
     }
 
     /// <summary>
     /// A resource file formatted according to Win32 API conventions and typically obtained from a Portable Executable (PE) file.
     /// See the Win32 UpdateResource method for more details.
     /// </summary>
-    internal interface IWin32Resource
+    public interface IWin32Resource
     {
         /// <summary>
         /// A string that identifies what type of resource this is. Only valid if this.TypeId &lt; 0.

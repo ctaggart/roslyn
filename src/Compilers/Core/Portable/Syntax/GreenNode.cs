@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,14 +10,14 @@ using System.Diagnostics;
 namespace Microsoft.CodeAnalysis
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal abstract class GreenNode : IObjectWritable, IObjectReadable
+    public abstract class GreenNode : IObjectWritable, IObjectReadable
     {
         private string GetDebuggerDisplay()
         {
             return this.GetType().Name + " " + this.KindText + " " + this.ToString();
         }
 
-        internal const int ListKind = 1;
+        public const int ListKind = 1;
 
         private readonly ushort _kind;
         protected NodeFlags flags;
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal abstract GreenNode GetSlot(int index);
+        public abstract GreenNode GetSlot(int index);
 
         // for slot counts >= byte.MaxValue
         protected virtual int GetSlotCount()
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Flags 
         [Flags]
-        internal enum NodeFlags : byte
+        public enum NodeFlags : byte
         {
             None = 0,
             ContainsDiagnostics = 1 << 0,
@@ -210,22 +210,22 @@ namespace Microsoft.CodeAnalysis
             InheritMask = byte.MaxValue & ~FactoryContextMask,
         }
 
-        internal NodeFlags Flags
+        public NodeFlags Flags
         {
             get { return this.flags; }
         }
 
-        internal void SetFlags(NodeFlags flags)
+        public void SetFlags(NodeFlags flags)
         {
             this.flags |= flags;
         }
 
-        internal void ClearFlags(NodeFlags flags)
+        public void ClearFlags(NodeFlags flags)
         {
             this.flags &= ~flags;
         }
 
-        internal bool IsMissing
+        public bool IsMissing
         {
             get
             {
@@ -234,7 +234,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool ParsedInAsync
+        public bool ParsedInAsync
         {
             get
             {
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool ParsedInQuery
+        public bool ParsedInQuery
         {
             get
             {
@@ -250,7 +250,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool ParsedInIterator
+        public bool ParsedInIterator
         {
             get
             {
@@ -384,7 +384,7 @@ namespace Microsoft.CodeAnalysis
             this.WriteTo(writer);
         }
 
-        internal virtual void WriteTo(ObjectWriter writer)
+        public virtual void WriteTo(ObjectWriter writer)
         {
             var kindBits = (UInt16)_kind;
             var hasDiagnostics = this.GetDiagnostics().Length > 0;
@@ -409,7 +409,7 @@ namespace Microsoft.CodeAnalysis
             return this.GetReader();
         }
 
-        internal abstract Func<ObjectReader, object> GetReader();
+        public abstract Func<ObjectReader, object> GetReader();
         #endregion
 
         #region Annotations 
@@ -541,12 +541,12 @@ namespace Microsoft.CodeAnalysis
             return s_noAnnotations;
         }
 
-        internal abstract GreenNode SetAnnotations(SyntaxAnnotation[] annotations);
+        public abstract GreenNode SetAnnotations(SyntaxAnnotation[] annotations);
 
         #endregion
 
         #region Diagnostics
-        internal DiagnosticInfo[] GetDiagnostics()
+        public DiagnosticInfo[] GetDiagnostics()
         {
             if (this.ContainsDiagnostics)
             {
@@ -560,7 +560,7 @@ namespace Microsoft.CodeAnalysis
             return s_noDiagnostics;
         }
 
-        internal abstract GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics);
+        public abstract GreenNode SetDiagnostics(DiagnosticInfo[] diagnostics);
         #endregion
 
         #region Text
@@ -616,7 +616,7 @@ namespace Microsoft.CodeAnalysis
             return this;
         }
 
-        internal GreenNode GetFirstTerminal()
+        public GreenNode GetFirstTerminal()
         {
             GreenNode node = this;
 
@@ -638,7 +638,7 @@ namespace Microsoft.CodeAnalysis
             return node;
         }
 
-        internal GreenNode GetLastTerminal()
+        public GreenNode GetLastTerminal()
         {
             GreenNode node = this;
 
@@ -660,7 +660,7 @@ namespace Microsoft.CodeAnalysis
             return node;
         }
 
-        internal GreenNode GetLastNonmissingTerminal()
+        public GreenNode GetLastNonmissingTerminal()
         {
             GreenNode node = this;
 
@@ -761,16 +761,16 @@ namespace Microsoft.CodeAnalysis
             return CreateRed(null, 0);
         }
 
-        internal abstract SyntaxNode CreateRed(SyntaxNode parent, int position);
+        public abstract SyntaxNode CreateRed(SyntaxNode parent, int position);
 
         #endregion
 
         #region Caching
 
 
-        internal const int MaxCachedChildNum = 3;
+        public const int MaxCachedChildNum = 3;
 
-        internal bool IsCacheable
+        public bool IsCacheable
         {
             get
             {
@@ -779,7 +779,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal int GetCacheHash()
+        public int GetCacheHash()
         {
             Debug.Assert(this.IsCacheable);
 
@@ -797,7 +797,7 @@ namespace Microsoft.CodeAnalysis
             return code & Int32.MaxValue;
         }
 
-        internal bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1)
+        public bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1)
         {
             Debug.Assert(this.IsCacheable);
 
@@ -806,7 +806,7 @@ namespace Microsoft.CodeAnalysis
                 this.GetSlot(0) == child1;
         }
 
-        internal bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1, GreenNode child2)
+        public bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1, GreenNode child2)
         {
             Debug.Assert(this.IsCacheable);
 
@@ -816,7 +816,7 @@ namespace Microsoft.CodeAnalysis
                 this.GetSlot(1) == child2;
         }
 
-        internal bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1, GreenNode child2, GreenNode child3)
+        public bool IsCacheEquivalent(int kind, NodeFlags flags, GreenNode child1, GreenNode child2, GreenNode child3)
         {
             Debug.Assert(this.IsCacheable);
 

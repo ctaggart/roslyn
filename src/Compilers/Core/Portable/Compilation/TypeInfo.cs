@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.Text;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis
 {
     public struct TypeInfo : IEquatable<TypeInfo>
     {
-        internal static readonly TypeInfo None = new TypeInfo(null, null);
+        public static readonly TypeInfo None = new TypeInfo(null, null);
 
         /// <summary>
         /// The type of the expression represented by the syntax node. For expressions that do not

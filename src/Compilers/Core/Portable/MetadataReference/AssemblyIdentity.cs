@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis
         // cached hash code
         private int _lazyHashCode;
 
-        internal const int PublicKeyTokenSize = 8;
+        public const int PublicKeyTokenSize = 8;
 
         /// <summary>
         /// Constructs an <see cref="AssemblyIdentity"/> from its constituent parts.
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsValidCultureName(string name)
+        public static bool IsValidCultureName(string name)
         {
             // The native compiler doesn't enforce that the culture be anything in particular. 
             // AssemblyIdentity should preserve user input even if it is of dubious utility.
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis
             return !string.IsNullOrEmpty(name) && name.IndexOf('\0') < 0;
         }
 
-        internal readonly static Version NullVersion = new Version(0, 0, 0, 0);
+        public readonly static Version NullVersion = new Version(0, 0, 0, 0);
 
         private static bool IsValid(Version value)
         {
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis
             get { return _isRetargetable; }
         }
 
-        internal static bool IsFullName(AssemblyIdentityParts parts)
+        public static bool IsFullName(AssemblyIdentityParts parts)
         {
             const AssemblyIdentityParts nvc = AssemblyIdentityParts.Name | AssemblyIdentityParts.Version | AssemblyIdentityParts.Culture;
             return (parts & nvc) == nvc && (parts & AssemblyIdentityParts.PublicKeyOrToken) != 0;
@@ -399,7 +399,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // internal for testing
-        internal static ImmutableArray<byte> CalculatePublicKeyToken(ImmutableArray<byte> publicKey)
+        public static ImmutableArray<byte> CalculatePublicKeyToken(ImmutableArray<byte> publicKey)
         {
             var hash = CryptographicHashProvider.ComputeSha1(publicKey);
 
@@ -422,7 +422,7 @@ namespace Microsoft.CodeAnalysis
         /// regardless of unification, retargeting or other assembly binding policies. 
         /// Returns null if these policies must be consulted to determine name equivalence.
         /// </summary>
-        internal static bool? MemberwiseEqual(AssemblyIdentity x, AssemblyIdentity y)
+        public static bool? MemberwiseEqual(AssemblyIdentity x, AssemblyIdentity y)
         {
             if (ReferenceEquals(x, y))
             {
@@ -446,7 +446,7 @@ namespace Microsoft.CodeAnalysis
             return null;
         }
 
-        internal static bool KeysEqual(AssemblyIdentity x, AssemblyIdentity y)
+        public static bool KeysEqual(AssemblyIdentity x, AssemblyIdentity y)
         {
             var xToken = x._lazyPublicKeyToken;
             var yToken = y._lazyPublicKeyToken;
@@ -495,7 +495,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // internal for testing
-        internal static AssemblyIdentity FromAssemblyDefinition(AssemblyName name)
+        public static AssemblyIdentity FromAssemblyDefinition(AssemblyName name)
         {
             // AssemblyDef always has full key or no key:
             var publicKeyBytes = name.GetPublicKey();
@@ -511,7 +511,7 @@ namespace Microsoft.CodeAnalysis
                 contentType: name.ContentType);
         }
 
-        internal static AssemblyIdentity FromAssemblyReference(AssemblyName name)
+        public static AssemblyIdentity FromAssemblyReference(AssemblyName name)
         {
             // AssemblyRef either has PKT or no key:
             return new AssemblyIdentity(

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis
     /// </summary>
     public abstract partial class Diagnostic
     {
-        internal sealed class SimpleDiagnostic : Diagnostic
+        public sealed class SimpleDiagnostic : Diagnostic
         {
             private readonly DiagnosticDescriptor _descriptor;
             private readonly DiagnosticSeverity _severity;
@@ -57,7 +57,7 @@ namespace Microsoft.CodeAnalysis
                 _isSuppressed = isSuppressed;
             }
 
-            internal static SimpleDiagnostic Create(
+            public static SimpleDiagnostic Create(
                 DiagnosticDescriptor descriptor,
                 DiagnosticSeverity severity,
                 int warningLevel,
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis
                 return new SimpleDiagnostic(descriptor, severity, warningLevel, location, additionalLocations, messageArgs, properties, isSuppressed);
             }
 
-            internal static SimpleDiagnostic Create(string id, LocalizableString title, string category, LocalizableString message, LocalizableString description, string helpLink,
+            public static SimpleDiagnostic Create(string id, LocalizableString title, string category, LocalizableString message, LocalizableString description, string helpLink,
                                       DiagnosticSeverity severity, DiagnosticSeverity defaultSeverity,
                                       bool isEnabledByDefault, int warningLevel, Location location,
                                       IEnumerable<Location> additionalLocations, IEnumerable<string> customTags,
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal override IReadOnlyList<object> Arguments
+            public override IReadOnlyList<object> Arguments
             {
                 get { return _messageArgs; }
             }
@@ -180,7 +180,7 @@ namespace Microsoft.CodeAnalysis
                     Hash.Combine(_location, (int)_severity))));
             }
 
-            internal override Diagnostic WithLocation(Location location)
+            public override Diagnostic WithLocation(Location location)
             {
                 if (location == null)
                 {
@@ -195,7 +195,7 @@ namespace Microsoft.CodeAnalysis
                 return this;
             }
 
-            internal override Diagnostic WithSeverity(DiagnosticSeverity severity)
+            public override Diagnostic WithSeverity(DiagnosticSeverity severity)
             {
                 if (this.Severity != severity)
                 {
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis
                 return this;
             }
 
-            internal override Diagnostic WithIsSuppressed(bool isSuppressed)
+            public override Diagnostic WithIsSuppressed(bool isSuppressed)
             {
                 if (this.IsSuppressed != isSuppressed)
                 {

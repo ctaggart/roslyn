@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System;
@@ -7,7 +7,7 @@ namespace Microsoft.CodeAnalysis
 {
     public struct PreprocessingSymbolInfo : IEquatable<PreprocessingSymbolInfo>
     {
-        internal static readonly PreprocessingSymbolInfo None = new PreprocessingSymbolInfo(null, false);
+        public static readonly PreprocessingSymbolInfo None = new PreprocessingSymbolInfo(null, false);
 
         /// <summary>
         /// The symbol that was referred to by the identifier, if any. 

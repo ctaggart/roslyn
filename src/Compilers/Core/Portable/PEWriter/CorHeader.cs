@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Reflection.PortableExecutable;
 
 namespace Microsoft.Cci
 {
     // TODO: merge with System.Reflection.PortableExecutable.CorHeader
-    internal sealed class CorHeader
+    public sealed class CorHeader
     {
         public ushort MajorRuntimeVersion { get; }
         public ushort MinorRuntimeVersion { get; }

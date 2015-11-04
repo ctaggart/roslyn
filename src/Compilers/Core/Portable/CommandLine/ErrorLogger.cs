@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.IO;
@@ -15,10 +15,10 @@ namespace Microsoft.CodeAnalysis
     /// Used for logging all compiler diagnostics into a given <see cref="Stream"/>.
     /// This logger is responsible for closing the given stream on <see cref="Dispose"/>.
     /// </summary>
-    internal partial class ErrorLogger : IDisposable
+    public partial class ErrorLogger : IDisposable
     {
         // Internal for testing purposes.
-        internal const string OutputFormatVersion = "0.1";
+        public const string OutputFormatVersion = "0.1";
 
         private const string indentDelta = "  ";
         private const char groupStartChar = '{';
@@ -88,7 +88,7 @@ namespace Microsoft.CodeAnalysis
             return toolFileVersion;
         }
 
-        internal static void LogDiagnostic(Diagnostic diagnostic, CultureInfo culture, ErrorLogger errorLogger)
+        public static void LogDiagnostic(Diagnostic diagnostic, CultureInfo culture, ErrorLogger errorLogger)
         {
             if (errorLogger != null)
             {

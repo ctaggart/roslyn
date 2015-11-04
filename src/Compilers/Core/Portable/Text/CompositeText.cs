@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.Text
     /// <summary>
     /// A composite of a sequence of <see cref="SourceText"/>s.
     /// </summary>
-    internal sealed class CompositeText : SourceText
+    public sealed class CompositeText : SourceText
     {
         private readonly ImmutableArray<SourceText> _texts;
         private readonly int _length;
@@ -160,7 +160,7 @@ namespace Microsoft.CodeAnalysis.Text
             }
         }
 
-        internal static void AddSegments(ArrayBuilder<SourceText> builder, SourceText text)
+        public static void AddSegments(ArrayBuilder<SourceText> builder, SourceText text)
         {
             CompositeText composite = text as CompositeText;
             if (composite == null)

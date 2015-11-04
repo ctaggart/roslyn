@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class VersionHelper
+    public static class VersionHelper
     {
         /// <summary>
         /// Parses a version string of the form "major [ '.' minor [ '.' build [ '.' revision ] ] ]".
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="s">The version string to parse.</param>
         /// <param name="version">If parsing succeeds, the parsed version. Null otherwise.</param>
         /// <returns>True when parsing succeeds completely (i.e. every character in the string was consumed), false otherwise.</returns>
-        internal static bool TryParse(string s, out Version version)
+        public static bool TryParse(string s, out Version version)
         {
             return TryParse(s, allowWildcard: false, maxValue: ushort.MaxValue, version: out version);
         }
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="allowWildcard">Indicates whether or not a wildcard is accepted as the terminal component.</param>
         /// <param name="version">If parsing succeeded, the parsed version. Null otherwise.</param>
         /// <returns>True when parsing succeeds completely (i.e. every character in the string was consumed), false otherwise.</returns>
-        internal static bool TryParseAssemblyVersion(string s, bool allowWildcard, out Version version)
+        public static bool TryParseAssemblyVersion(string s, bool allowWildcard, out Version version)
         {
             return TryParse(s, allowWildcard: allowWildcard, maxValue: ushort.MaxValue - 1, version: out version);
         }

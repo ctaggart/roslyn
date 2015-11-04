@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis
     /// Used to determine if two <see cref="AttributeData"/> instances are identical,
     /// i.e. they have the same attribute type, attribute constructor and have identical arguments.
     /// </summary>
-    internal sealed class CommonAttributeDataComparer : IEqualityComparer<AttributeData>
+    public sealed class CommonAttributeDataComparer : IEqualityComparer<AttributeData>
     {
         public static CommonAttributeDataComparer Instance = new CommonAttributeDataComparer();
         private CommonAttributeDataComparer() { }

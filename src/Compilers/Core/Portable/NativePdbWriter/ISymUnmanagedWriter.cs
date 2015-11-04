@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 #pragma warning disable 436 // SuppressUnmanagedCodeSecurityAttribute defined in source and mscorlib 
 using System;
@@ -8,14 +8,14 @@ using System.Security;
 namespace Microsoft.Cci
 {
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("B01FAFEB-C450-3A4D-BEEC-B4CEEC01E006"), SuppressUnmanagedCodeSecurity]
-    internal interface ISymUnmanagedDocumentWriter
+    public interface ISymUnmanagedDocumentWriter
     {
         void SetSource(uint sourceSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 0)] byte[] source);
         void SetCheckSum(Guid algorithmId, uint checkSumSize, [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] checkSum);
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("0B97726E-9E6D-4f05-9A26-424022093CAA"), SuppressUnmanagedCodeSecurity]
-    internal interface ISymUnmanagedWriter2
+    public interface ISymUnmanagedWriter2
     {
         ISymUnmanagedDocumentWriter DefineDocument(string url, ref Guid language, ref Guid languageVendor, ref Guid documentType);
         void SetUserEntryPoint(uint entryMethod);
@@ -59,7 +59,7 @@ namespace Microsoft.Cci
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("98ECEE1E-752D-11d3-8D56-00C04F680B2B"), SuppressUnmanagedCodeSecurity]
-    internal interface IPdbWriter
+    public interface IPdbWriter
     {
         int __SetPath(/*[in] const WCHAR* szFullPathName, [in] IStream* pIStream, [in] BOOL fFullBuild*/);
         int __OpenMod(/*[in] const WCHAR* szModuleName, [in] const WCHAR* szFileName*/);
@@ -69,7 +69,7 @@ namespace Microsoft.Cci
         void GetSignatureAge(out uint sig, out uint age);
     }
 
-    internal static class ISymUnmanagedWriter2Helper
+    public static class ISymUnmanagedWriter2Helper
     {
         public static unsafe void DefineConstant2(this ISymUnmanagedWriter2 writer, string name, object value, uint sigToken)
         {
@@ -86,7 +86,7 @@ namespace Microsoft.Cci
     ///   8 or 16 bytes of data
     /// </summary>
     [StructLayout(LayoutKind.Explicit)]
-    internal struct VariantStructure
+    public struct VariantStructure
     {
         public VariantStructure(DateTime date) : this() // Need this to avoid errors about the uninteresting union fields.
         {
@@ -126,14 +126,14 @@ namespace Microsoft.Cci
     /// This type is 8 bytes on a 32-bit platforms and 16 bytes on 64-bit platforms.
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    internal struct VariantPadding
+    public struct VariantPadding
     {
         public readonly IntPtr Data2;
         public readonly IntPtr Data3;
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("DCF7780D-BDE9-45DF-ACFE-21731A32000C"), SuppressUnmanagedCodeSecurity]
-    internal interface ISymUnmanagedWriter5 : ISymUnmanagedWriter2
+    public interface ISymUnmanagedWriter5 : ISymUnmanagedWriter2
     {
         //  ISymUnmanagedWriter, ISymUnmanagedWriter2, ISymUnmanagedWriter3, ISymUnmanagedWriter4
         void _VtblGap1_30();
@@ -145,7 +145,7 @@ namespace Microsoft.Cci
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("CA6C2ED9-103D-46A9-B03B-05446485848B"), SuppressUnmanagedCodeSecurity]
-    internal interface ISymUnmanagedWriter6 : ISymUnmanagedWriter5
+    public interface ISymUnmanagedWriter6 : ISymUnmanagedWriter5
     {
         //  ISymUnmanagedWriter, ISymUnmanagedWriter2, ISymUnmanagedWriter3, ISymUnmanagedWriter4, ISymUnmanagedWriter5
         void _VtblGap1_33();
@@ -175,15 +175,15 @@ namespace Microsoft.Cci
     }
 
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    internal struct ImageDebugDirectory
+    public struct ImageDebugDirectory
     {
-        internal int Characteristics;
-        internal int TimeDateStamp;
-        internal short MajorVersion;
-        internal short MinorVersion;
-        internal int Type;
-        internal int SizeOfData;
-        internal int AddressOfRawData;
-        internal int PointerToRawData;
+        public int Characteristics;
+        public int TimeDateStamp;
+        public short MajorVersion;
+        public short MinorVersion;
+        public int Type;
+        public int SizeOfData;
+        public int AddressOfRawData;
+        public int PointerToRawData;
     }
 }

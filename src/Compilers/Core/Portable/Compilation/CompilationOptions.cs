@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -141,33 +141,33 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Emit extended custom debug information to the PDB file.
         /// </summary>
-        internal bool ExtendedCustomDebugInformation { get; private set; }
+        public bool ExtendedCustomDebugInformation { get; private set; }
 
         // TODO: change visibility of the ExtendedCustomDebugInformation setter to internal & protected
-        internal bool ExtendedCustomDebugInformation_internal_protected_set { set { ExtendedCustomDebugInformation = value; } }
+        public bool ExtendedCustomDebugInformation_internal_protected_set { set { ExtendedCustomDebugInformation = value; } }
 
         /// <summary>
         /// Emit mode that favors debuggability. 
         /// </summary>
-        internal bool DebugPlusMode { get; private set; }
+        public bool DebugPlusMode { get; private set; }
 
         // TODO: change visibility of the DebugPlusMode setter to internal & protected
-        internal bool DebugPlusMode_internal_protected_set { set { DebugPlusMode = value; } }
+        public bool DebugPlusMode_internal_protected_set { set { DebugPlusMode = value; } }
 
         /// <summary>
         /// Import internal/private members from all references regardless of "internals-visible-to" relationship.
         /// </summary>
-        internal MetadataImportOptions MetadataImportOptions { get; private set; }
+        public MetadataImportOptions MetadataImportOptions { get; private set; }
 
         // TODO: change visibility of the MetadataImportOptions setter to internal & protected
-        internal MetadataImportOptions MetadataImportOptions_internal_protected_set { set { MetadataImportOptions = value; } }
+        public MetadataImportOptions MetadataImportOptions_internal_protected_set { set { MetadataImportOptions = value; } }
 
         /// <summary>
         /// Modifies the incoming diagnostic, for example escalating its severity, or discarding it (returning null) based on the compilation options.
         /// </summary>
         /// <param name="diagnostic"></param>
         /// <returns>The modified diagnostic, or null</returns>
-        internal abstract Diagnostic FilterDiagnostic(Diagnostic diagnostic);
+        public abstract Diagnostic FilterDiagnostic(Diagnostic diagnostic);
 
         /// <summary>
         /// Warning report option for each warning.
@@ -289,7 +289,7 @@ namespace Microsoft.CodeAnalysis
             });
         }
 
-        internal bool CanReuseCompilationReferenceManager(CompilationOptions other)
+        public bool CanReuseCompilationReferenceManager(CompilationOptions other)
         {
             // This condition has to include all options the Assembly Manager depends on when binding references.
             // In addition, the assembly name is determined based upon output kind. It is special for netmodules.
@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis
                 && object.Equals(this.AssemblyIdentityComparer, other.AssemblyIdentityComparer);
         }
 
-        internal bool EnableEditAndContinue
+        public bool EnableEditAndContinue
         {
             get
             {
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsValidFileAlignment(int value)
+        public static bool IsValidFileAlignment(int value)
         {
             switch (value)
             {
@@ -326,7 +326,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal abstract ImmutableArray<string> GetImports();
+        public abstract ImmutableArray<string> GetImports();
 
         /// <summary>
         /// Creates a new options instance with the specified general diagnostic option.
@@ -436,7 +436,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Performs validation of options compatibilities and generates diagnostics if needed
         /// </summary>
-        internal abstract void ValidateOptions(ArrayBuilder<Diagnostic> builder);
+        public abstract void ValidateOptions(ArrayBuilder<Diagnostic> builder);
 
         /// <summary>
         /// Errors collection related to an incompatible set of compilation options

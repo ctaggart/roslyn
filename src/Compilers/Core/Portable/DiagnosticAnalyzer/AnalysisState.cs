@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// Stores the partial analysis state for analyzers executed on a specific compilation.
     /// </summary>
-    internal partial class AnalysisState
+    public partial class AnalysisState
     {
         private readonly object _gate;
 
@@ -254,7 +254,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal async Task<AnalyzerActionCounts> GetAnalyzerActionCountsAsync(DiagnosticAnalyzer analyzer, AnalyzerDriver driver, CancellationToken cancellationToken)
+        public async Task<AnalyzerActionCounts> GetAnalyzerActionCountsAsync(DiagnosticAnalyzer analyzer, AnalyzerDriver driver, CancellationToken cancellationToken)
         {
             await EnsureAnalyzerActionCountsInitializedAsync(driver, cancellationToken).ConfigureAwait(false);
             return _lazyAnalyzerActionCountsMap[analyzer];

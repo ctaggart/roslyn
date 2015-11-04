@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace Roslyn.Utilities
 {
     // Note that this is not threadsafe for concurrent reading and writing.
-    internal sealed class MultiDictionary<K, V> : IEnumerable<KeyValuePair<K, MultiDictionary<K,V>.ValueSet>>
+    public sealed class MultiDictionary<K, V> : IEnumerable<KeyValuePair<K, MultiDictionary<K,V>.ValueSet>>
     {
         public struct ValueSet : IEnumerable<V>
         {
@@ -216,7 +216,7 @@ namespace Roslyn.Utilities
             return _dictionary.ContainsKey(k);
         }
 
-        internal void Clear()
+        public void Clear()
         {
             _dictionary.Clear();
         }

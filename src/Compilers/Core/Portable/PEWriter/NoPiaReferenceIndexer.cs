@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
@@ -10,7 +10,7 @@ namespace Microsoft.Cci
     /// in metadata. Allows us to build the set of types that must be embedded
     /// as local types.
     /// </summary>
-    internal sealed class NoPiaReferenceIndexer : ReferenceIndexerBase
+    public sealed class NoPiaReferenceIndexer : ReferenceIndexerBase
     {
         internal NoPiaReferenceIndexer(EmitContext context)
             : base(context)

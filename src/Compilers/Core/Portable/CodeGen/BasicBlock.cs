@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -9,9 +9,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
-    internal partial class ILBuilder
+    public partial class ILBuilder
     {
-        internal enum BlockType
+        public enum BlockType
         {
             Normal,
             Try,
@@ -22,7 +22,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             Switch
         }
 
-        internal enum Reachability : byte
+        public enum Reachability : byte
         {
             /// <summary>
             /// Block is not reachable or reachability analysis
@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
         // internal for testing
         [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-        internal class BasicBlock
+        public class BasicBlock
         {
             public static readonly ObjectPool<BasicBlock> Pool = CreatePool(32);
             private static ObjectPool<BasicBlock> CreatePool(int size)
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 Initialize(builder);
             }
 
-            internal void Initialize(ILBuilder builder)
+            public void Initialize(ILBuilder builder)
             {
                 this.builder = builder;
                 this.FirstILMarker = -1;
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
 
             //parent builder
-            internal ILBuilder builder;
+            public ILBuilder builder;
 
             private Cci.PooledBlobBuilder _lazyRegularInstructions;
             public Cci.PooledBlobBuilder Writer
@@ -142,13 +142,13 @@ namespace Microsoft.CodeAnalysis.CodeGen
             private ILOpCode _branchCode;
 
             //reachability analysis uses this flag to indicate that the block is reachable.
-            internal Reachability Reachability;
+            public Reachability Reachability;
 
 
             //nearest enclosing exception handler if any
             public virtual ExceptionHandlerScope EnclosingHandler => null;
 
-            internal virtual void Free()
+            public virtual void Free()
             {
                 if (_lazyRegularInstructions != null)
                 {
@@ -261,7 +261,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// Updates position of the current block to account for shorter sizes of previous blocks.
             /// </summary>
             /// <param name="delta"></param>
-            internal void AdjustForDelta(int delta)
+            public void AdjustForDelta(int delta)
             {
                 //blocks can only get shorter.
                 Debug.Assert(delta <= 0);
@@ -272,7 +272,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal void RewriteBranchesAcrossExceptionHandlers()
+            public void RewriteBranchesAcrossExceptionHandlers()
             {
                 if (this.EnclosingHandler == null)
                 {
@@ -298,7 +298,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// updates the delta correspondingly.
             /// </summary>
             /// <param name="delta">Position delta created by previous block size reductions.</param>
-            internal void ShortenBranches(ref int delta)
+            public void ShortenBranches(ref int delta)
             {
                 //NOTE: current block is supposed to be already adjusted.
 
@@ -349,7 +349,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// * cond branch over uncond branch ===> flip condition, skip next block
             /// * cond branch to equivalent      ===> pop args + nop
             /// </summary>
-            internal bool OptimizeBranches(ref int delta)
+            public bool OptimizeBranches(ref int delta)
             {
                 //NOTE: current block is supposed to be already adjusted.
 
@@ -650,7 +650,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
             private class PooledBasicBlock : BasicBlock
             {
-                internal override void Free()
+                public override void Free()
                 {
                     base.Free();
 
@@ -667,7 +667,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
         }
 
-        internal class BasicBlockWithHandlerScope : BasicBlock
+        public class BasicBlockWithHandlerScope : BasicBlock
         {
             //nearest enclosing exception handler if any
             public readonly ExceptionHandlerScope enclosingHandler;
@@ -681,7 +681,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             public override ExceptionHandlerScope EnclosingHandler => enclosingHandler;
         }
 
-        internal sealed class ExceptionHandlerLeaderBlock : BasicBlockWithHandlerScope
+        public sealed class ExceptionHandlerLeaderBlock : BasicBlockWithHandlerScope
         {
             private readonly BlockType _type;
 
@@ -705,7 +705,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         // Unlike a regular basic block, a switch block can
         // have more than one possible branch labels
         // and branch target blocks
-        internal sealed class SwitchBlock : BasicBlockWithHandlerScope
+        public sealed class SwitchBlock : BasicBlockWithHandlerScope
         {
             public SwitchBlock(ILBuilder builder, ExceptionHandlerScope enclosingHandler) :
                 base(builder, enclosingHandler)

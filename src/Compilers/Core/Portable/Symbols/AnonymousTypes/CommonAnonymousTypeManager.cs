@@ -1,8 +1,8 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.Symbols
 {
-    internal abstract class CommonAnonymousTypeManager
+    public abstract class CommonAnonymousTypeManager
     {
         /// <summary>
         /// We should not see new anonymous types from source after we finished emit phase. 
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Symbols
         /// <summary>
         /// Collection of anonymous type templates is sealed 
         /// </summary>
-        internal bool AreTemplatesSealed
+        public bool AreTemplatesSealed
         {
             get { return _templatesSealed == ThreeState.True; }
         }

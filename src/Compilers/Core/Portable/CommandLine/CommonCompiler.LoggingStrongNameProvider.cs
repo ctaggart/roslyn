@@ -1,12 +1,12 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract partial class CommonCompiler
+    public abstract partial class CommonCompiler
     {
-        internal sealed class LoggingStrongNameProvider : DesktopStrongNameProvider
+        public sealed class LoggingStrongNameProvider : DesktopStrongNameProvider
         {
             private readonly TouchedFileLogger _loggerOpt;
 
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis
                 _loggerOpt = logger;
             }
 
-            internal override bool FileExists(string fullPath)
+            public override bool FileExists(string fullPath)
             {
                 if (fullPath != null)
                 {
@@ -26,7 +26,7 @@ namespace Microsoft.CodeAnalysis
                 return base.FileExists(fullPath);
             }
 
-            internal override byte[] ReadAllBytes(string fullPath)
+            public override byte[] ReadAllBytes(string fullPath)
             {
                 _loggerOpt?.AddRead(fullPath);
                 return base.ReadAllBytes(fullPath);

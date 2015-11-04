@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 // turns on tables that are stored as literals in this file
 // to generate new literals undef this constant and examine 
@@ -19,14 +19,14 @@ namespace Microsoft.CodeAnalysis
     /// The XmlCharType class is used for quick character type recognition
     /// which is optimized for the first 127 ascii characters.
     /// 
-    internal static class XmlCharType
+    public static class XmlCharType
     {
         // Surrogate constants
-        internal const int SurHighStart = 0xd800;    // 1101 10xx
-        internal const int SurHighEnd = 0xdbff;
-        internal const int SurLowStart = 0xdc00;    // 1101 11xx
-        internal const int SurLowEnd = 0xdfff;
-        internal const int SurMask = 0xfc00;    // 1111 11xx
+        public const int SurHighStart = 0xd800;    // 1101 10xx
+        public const int SurHighEnd = 0xdbff;
+        public const int SurLowStart = 0xdc00;    // 1101 11xx
+        public const int SurLowEnd = 0xdfff;
+        public const int SurMask = 0xfc00;    // 1111 11xx
 
 #if XML10_FIFTH_EDITION
         // Characters defined in the XML 1.0 Fifth Edition
@@ -65,14 +65,14 @@ namespace Microsoft.CodeAnalysis
         // NCName characters -- Section 2.3 [4]          (Name characters without ':')
         // Character data characters -- Section 2.2 [2]
         // PubidChar ::=  #x20 | #xD | #xA | [a-zA-Z0-9] | [-'()+,./:=?;!*#@$_%] Section 2.3 of spec
-        internal const int fWhitespace = 1;
-        internal const int fLetter = 2;
-        internal const int fNCStartNameSC = 4;
-        internal const int fNCNameSC = 8;
-        internal const int fCharData = 16;
-        internal const int fNCNameXml4e = 32;
-        internal const int fText = 64;
-        internal const int fAttrValue = 128;
+        public const int fWhitespace = 1;
+        public const int fLetter = 2;
+        public const int fNCStartNameSC = 4;
+        public const int fNCNameSC = 8;
+        public const int fCharData = 16;
+        public const int fNCNameXml4e = 32;
+        public const int fText = 64;
+        public const int fAttrValue = 128;
 #endif
 
         // bitmap for public ID characters - 1 bit per character 0x0 - 0x80; no character > 0x80 is a PUBLIC ID char
@@ -992,13 +992,13 @@ namespace Microsoft.CodeAnalysis
         }
 
         // TextChar = CharData - { 0xA, 0xD, '<', '&', ']' }
-        internal static bool IsTextChar(char ch)
+        public static bool IsTextChar(char ch)
         {
             return (charProperties(ch) & fText) != 0;
         }
 
         // AttrValueChar = CharData - { 0xA, 0xD, 0x9, '<', '>', '&', '\'', '"' }
-        internal static bool IsAttributeValueChar(char ch)
+        public static bool IsAttributeValueChar(char ch)
         {
             return (charProperties(ch) & fAttrValue) != 0;
         }
@@ -1046,40 +1046,40 @@ namespace Microsoft.CodeAnalysis
         }
 
         // Surrogate methods
-        internal static bool IsHighSurrogate(int ch)
+        public static bool IsHighSurrogate(int ch)
         {
             return InRange(ch, SurHighStart, SurHighEnd);
         }
 
-        internal static bool IsLowSurrogate(int ch)
+        public static bool IsLowSurrogate(int ch)
         {
             return InRange(ch, SurLowStart, SurLowEnd);
         }
 
-        internal static bool IsSurrogate(int ch)
+        public static bool IsSurrogate(int ch)
         {
             return InRange(ch, SurHighStart, SurLowEnd);
         }
 
-        internal static int CombineSurrogateChar(int lowChar, int highChar)
+        public static int CombineSurrogateChar(int lowChar, int highChar)
         {
             return (lowChar - SurLowStart) | ((highChar - SurHighStart) << 10) + 0x10000;
         }
 
-        internal static void SplitSurrogateChar(int combinedChar, out char lowChar, out char highChar)
+        public static void SplitSurrogateChar(int combinedChar, out char lowChar, out char highChar)
         {
             int v = combinedChar - 0x10000;
             lowChar = (char)(SurLowStart + v % 1024);
             highChar = (char)(SurHighStart + v / 1024);
         }
 
-        internal static bool IsOnlyWhitespace(string str)
+        public static bool IsOnlyWhitespace(string str)
         {
             return IsOnlyWhitespaceWithPos(str) == -1;
         }
 
         // Character checking on strings
-        internal static int IsOnlyWhitespaceWithPos(string str)
+        public static int IsOnlyWhitespaceWithPos(string str)
         {
             if (str != null)
             {
@@ -1094,7 +1094,7 @@ namespace Microsoft.CodeAnalysis
             return -1;
         }
 
-        internal static int IsOnlyCharData(string str)
+        public static int IsOnlyCharData(string str)
         {
             if (str != null)
             {
@@ -1116,7 +1116,7 @@ namespace Microsoft.CodeAnalysis
             return -1;
         }
 
-        static internal bool IsOnlyDigits(string str, int startPos, int len)
+        static public bool IsOnlyDigits(string str, int startPos, int len)
         {
             Debug.Assert(str != null);
             Debug.Assert(startPos + len <= str.Length);
@@ -1132,7 +1132,7 @@ namespace Microsoft.CodeAnalysis
             return true;
         }
 
-        static internal bool IsOnlyDigits(char[] chars, int startPos, int len)
+        static public bool IsOnlyDigits(char[] chars, int startPos, int len)
         {
             Debug.Assert(chars != null);
             Debug.Assert(startPos + len <= chars.Length);
@@ -1148,7 +1148,7 @@ namespace Microsoft.CodeAnalysis
             return true;
         }
 
-        internal static int IsPublicId(string str)
+        public static int IsPublicId(string str)
         {
             if (str != null)
             {
@@ -1173,7 +1173,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// start &gt;= value &lt;= end
         /// </summary>
-        internal static bool InRange(char value, char start, char end)
+        public static bool InRange(char value, char start, char end)
         {
             Debug.Assert(start <= end);
             return unchecked((uint)(value - start) <= (uint)(end - start));

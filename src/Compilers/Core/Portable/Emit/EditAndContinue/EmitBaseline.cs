@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Emit
     // changes to the set of implemented methods for a particular MethodDef,
     // and that we do not use the implementing methods anywhere, it's
     // sufficient to track a pair of implementing method and index.
-    internal struct MethodImplKey : IEquatable<MethodImplKey>
+    public struct MethodImplKey : IEquatable<MethodImplKey>
     {
         internal MethodImplKey(int implementingMethod, int index)
         {
@@ -28,8 +28,8 @@ namespace Microsoft.CodeAnalysis.Emit
             this.Index = index;
         }
 
-        internal readonly int ImplementingMethod;
-        internal readonly int Index;
+        public readonly int ImplementingMethod;
+        public readonly int Index;
 
         public override bool Equals(object obj)
         {
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis.Emit
     {
         private static readonly ImmutableArray<int> s_emptyTableSizes = ImmutableArray.Create(new int[MetadataTokens.TableCount]);
 
-        internal sealed class MetadataSymbols
+        public sealed class MetadataSymbols
         {
             public readonly IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> AnonymousTypes;
             public readonly object MetadataDecoder;
@@ -146,7 +146,7 @@ namespace Microsoft.CodeAnalysis.Emit
                 methodImpls: CalculateMethodImpls(reader));
         }
 
-        internal EmitBaseline InitialBaseline { get; }
+        public EmitBaseline InitialBaseline { get; }
 
         /// <summary>
         /// The original metadata of the module.
@@ -154,57 +154,57 @@ namespace Microsoft.CodeAnalysis.Emit
         public ModuleMetadata OriginalMetadata { get; }
 
         // Symbols hydrated from the original metadata. Lazy since we don't know the language at the time the baseline is constructed.
-        internal MetadataSymbols LazyMetadataSymbols;
+        public MetadataSymbols LazyMetadataSymbols;
 
-        internal readonly Compilation Compilation;
-        internal readonly CommonPEModuleBuilder PEModuleBuilder;
-        internal readonly Guid ModuleVersionId;
+        public readonly Compilation Compilation;
+        public readonly CommonPEModuleBuilder PEModuleBuilder;
+        public readonly Guid ModuleVersionId;
 
         /// <summary>
         /// Metadata generation ordinal. Zero for
         /// full metadata and non-zero for delta.
         /// </summary>
-        internal readonly int Ordinal;
+        public readonly int Ordinal;
 
         /// <summary>
         /// Unique Guid for this delta, or default(Guid)
         /// if full metadata.
         /// </summary>
-        internal readonly Guid EncId;
+        public readonly Guid EncId;
 
-        internal readonly IReadOnlyDictionary<Cci.ITypeDefinition, int> TypesAdded;
-        internal readonly IReadOnlyDictionary<Cci.IEventDefinition, int> EventsAdded;
-        internal readonly IReadOnlyDictionary<Cci.IFieldDefinition, int> FieldsAdded;
-        internal readonly IReadOnlyDictionary<Cci.IMethodDefinition, int> MethodsAdded;
-        internal readonly IReadOnlyDictionary<Cci.IPropertyDefinition, int> PropertiesAdded;
-        internal readonly IReadOnlyDictionary<int, int> EventMapAdded;
-        internal readonly IReadOnlyDictionary<int, int> PropertyMapAdded;
-        internal readonly IReadOnlyDictionary<MethodImplKey, int> MethodImplsAdded;
+        public readonly IReadOnlyDictionary<Cci.ITypeDefinition, int> TypesAdded;
+        public readonly IReadOnlyDictionary<Cci.IEventDefinition, int> EventsAdded;
+        public readonly IReadOnlyDictionary<Cci.IFieldDefinition, int> FieldsAdded;
+        public readonly IReadOnlyDictionary<Cci.IMethodDefinition, int> MethodsAdded;
+        public readonly IReadOnlyDictionary<Cci.IPropertyDefinition, int> PropertiesAdded;
+        public readonly IReadOnlyDictionary<int, int> EventMapAdded;
+        public readonly IReadOnlyDictionary<int, int> PropertyMapAdded;
+        public readonly IReadOnlyDictionary<MethodImplKey, int> MethodImplsAdded;
 
-        internal readonly ImmutableArray<int> TableEntriesAdded;
+        public readonly ImmutableArray<int> TableEntriesAdded;
 
-        internal readonly int BlobStreamLengthAdded;
-        internal readonly int StringStreamLengthAdded;
-        internal readonly int UserStringStreamLengthAdded;
-        internal readonly int GuidStreamLengthAdded;
+        public readonly int BlobStreamLengthAdded;
+        public readonly int StringStreamLengthAdded;
+        public readonly int UserStringStreamLengthAdded;
+        public readonly int GuidStreamLengthAdded;
 
         /// <summary>
         /// EnC metadata for methods added or updated since the initial generation, indexed by method row id.
         /// </summary>
-        internal readonly IReadOnlyDictionary<int, AddedOrChangedMethodInfo> AddedOrChangedMethods;
+        public readonly IReadOnlyDictionary<int, AddedOrChangedMethodInfo> AddedOrChangedMethods;
 
         /// <summary>
         /// Local variable names for methods from metadata,
         /// indexed by method row.
         /// </summary>
-        internal readonly Func<MethodDefinitionHandle, EditAndContinueMethodDebugInformation> DebugInformationProvider;
+        public readonly Func<MethodDefinitionHandle, EditAndContinueMethodDebugInformation> DebugInformationProvider;
 
-        internal readonly ImmutableArray<int> TableSizes;
-        internal readonly IReadOnlyDictionary<int, int> TypeToEventMap;
-        internal readonly IReadOnlyDictionary<int, int> TypeToPropertyMap;
-        internal readonly IReadOnlyDictionary<MethodImplKey, int> MethodImpls;
+        public readonly ImmutableArray<int> TableSizes;
+        public readonly IReadOnlyDictionary<int, int> TypeToEventMap;
+        public readonly IReadOnlyDictionary<int, int> TypeToPropertyMap;
+        public readonly IReadOnlyDictionary<MethodImplKey, int> MethodImpls;
         private readonly IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> _anonymousTypeMap;
-        internal readonly ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> SynthesizedMembers;
+        public readonly ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> SynthesizedMembers;
 
         private EmitBaseline(
             EmitBaseline initialBaseline,
@@ -294,7 +294,7 @@ namespace Microsoft.CodeAnalysis.Emit
             this.MethodImpls = methodImpls;
         }
 
-        internal EmitBaseline With(
+        public EmitBaseline With(
             Compilation compilation,
             CommonPEModuleBuilder moduleBuilder,
             int ordinal,
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis.Emit
                 methodImpls: this.MethodImpls);
         }
 
-        internal IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> AnonymousTypeMap
+        public IReadOnlyDictionary<AnonymousTypeKey, AnonymousTypeValue> AnonymousTypeMap
         {
             get
             {
@@ -364,27 +364,27 @@ namespace Microsoft.CodeAnalysis.Emit
             }
         }
 
-        internal MetadataReader MetadataReader
+        public MetadataReader MetadataReader
         {
             get { return this.OriginalMetadata.MetadataReader; }
         }
 
-        internal int BlobStreamLength
+        public int BlobStreamLength
         {
             get { return this.BlobStreamLengthAdded + this.MetadataReader.GetHeapSize(HeapIndex.Blob); }
         }
 
-        internal int StringStreamLength
+        public int StringStreamLength
         {
             get { return this.StringStreamLengthAdded + this.MetadataReader.GetHeapSize(HeapIndex.String); }
         }
 
-        internal int UserStringStreamLength
+        public int UserStringStreamLength
         {
             get { return this.UserStringStreamLengthAdded + this.MetadataReader.GetHeapSize(HeapIndex.UserString); }
         }
 
-        internal int GuidStreamLength
+        public int GuidStreamLength
         {
             get { return this.GuidStreamLengthAdded + this.MetadataReader.GetHeapSize(HeapIndex.Guid); }
         }
@@ -459,7 +459,7 @@ namespace Microsoft.CodeAnalysis.Emit
             return result;
         }
 
-        internal int GetNextAnonymousTypeIndex(bool fromDelegates = false)
+        public int GetNextAnonymousTypeIndex(bool fromDelegates = false)
         {
             int nextIndex = 0;
             foreach (var pair in this.AnonymousTypeMap)

@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Reflection.PortableExecutable;
 
 namespace Microsoft.Cci
 {
     // TODO: merge with System.Reflection.PortableExecutable.CoffHeader
-    internal sealed class CoffHeader
+    public sealed class CoffHeader
     {
         /// <summary>
         /// The type of target machine.

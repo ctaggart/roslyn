@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Represents a bag of custom attributes and the associated decoded well-known attribute data.
     /// </summary>
-    internal sealed class CustomAttributesBag<T>
+    public sealed class CustomAttributesBag<T>
         where T : AttributeData
     {
         private ImmutableArray<T> _customAttributes;
@@ -152,12 +152,12 @@ namespace Microsoft.CodeAnalysis
             ThreadSafeFlagOperations.Set(ref _state, (int)(this.State | part));
         }
 
-        internal bool IsPartComplete(CustomAttributeBagCompletionPart part)
+        public bool IsPartComplete(CustomAttributeBagCompletionPart part)
         {
             return (this.State & part) == part;
         }
 
-        internal bool IsSealed
+        public bool IsSealed
         {
             get { return IsPartComplete(CustomAttributeBagCompletionPart.All); }
         }
@@ -166,7 +166,7 @@ namespace Microsoft.CodeAnalysis
         /// Return whether early decoded attribute data has been computed and stored on the bag and it is safe to access <see cref="EarlyDecodedWellKnownAttributeData"/> from this bag.
         /// Return value of true doesn't guarantee that bound attributes or remaining decoded attribute data has also been initialized.
         /// </summary>
-        internal bool IsEarlyDecodedWellKnownAttributeDataComputed
+        public bool IsEarlyDecodedWellKnownAttributeDataComputed
         {
             get { return IsPartComplete(CustomAttributeBagCompletionPart.EarlyDecodedWellKnownAttributeData); }
         }
@@ -175,7 +175,7 @@ namespace Microsoft.CodeAnalysis
         /// Return whether all decoded attribute data has been computed and stored on the bag and it is safe to access <see cref="DecodedWellKnownAttributeData"/> from this bag.
         /// Return value of true doesn't guarantee that bound attributes have also been initialized.
         /// </summary>
-        internal bool IsDecodedWellKnownAttributeDataComputed
+        public bool IsDecodedWellKnownAttributeDataComputed
         {
             get { return IsPartComplete(CustomAttributeBagCompletionPart.DecodedWellKnownAttributeData); }
         }
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis
         /// Enum representing the current state of attribute binding/decoding for a corresponding CustomAttributeBag.
         /// </summary>
         [Flags]
-        internal enum CustomAttributeBagCompletionPart : byte
+        public enum CustomAttributeBagCompletionPart : byte
         {
             /// <summary>
             /// Bag has been created, but no decoded data or attributes have been stored.

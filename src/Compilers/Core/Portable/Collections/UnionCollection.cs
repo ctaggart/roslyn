@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis
     /// If you have a few collections with many elements in them, then this is an appropriate
     /// collection for you.
     /// </summary>
-    internal class UnionCollection<T> : ICollection<T>
+    public class UnionCollection<T> : ICollection<T>
     {
         private readonly ImmutableArray<ICollection<T>> _collections;
         private int _count = -1;

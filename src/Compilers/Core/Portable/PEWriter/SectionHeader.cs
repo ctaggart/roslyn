@@ -1,22 +1,22 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Reflection.PortableExecutable;
 
 namespace Microsoft.Cci
 {
     // TODO: merge with System.Reflection.PortableExecutable.SectionHeader
-    internal sealed class SectionHeader
+    public sealed class SectionHeader
     {
-        internal readonly string Name;
-        internal readonly int VirtualSize;
-        internal readonly int RelativeVirtualAddress;
-        internal readonly int SizeOfRawData;
-        internal readonly int PointerToRawData;
-        internal readonly int PointerToRelocations;
-        internal readonly int PointerToLinenumbers;
-        internal readonly ushort NumberOfRelocations;
-        internal readonly ushort NumberOfLinenumbers;
-        internal readonly SectionCharacteristics Characteristics;
+        public readonly string Name;
+        public readonly int VirtualSize;
+        public readonly int RelativeVirtualAddress;
+        public readonly int SizeOfRawData;
+        public readonly int PointerToRawData;
+        public readonly int PointerToRelocations;
+        public readonly int PointerToLinenumbers;
+        public readonly ushort NumberOfRelocations;
+        public readonly ushort NumberOfLinenumbers;
+        public readonly SectionCharacteristics Characteristics;
 
         public SectionHeader(
             string name,

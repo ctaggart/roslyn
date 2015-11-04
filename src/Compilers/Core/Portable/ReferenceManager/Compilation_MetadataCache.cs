@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis
         /// Adds given retargeting assembly for this compilation into the cache.
         /// <see cref="CommonReferenceManager.SymbolCacheAndReferenceManagerStateGuard"/> must be locked while calling this method.
         /// </summary>
-        internal void CacheRetargetingAssemblySymbolNoLock(IAssemblySymbol assembly)
+        public void CacheRetargetingAssemblySymbolNoLock(IAssemblySymbol assembly)
         {
             _retargetingAssemblySymbols.Add(assembly);
         }
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis
         /// Adds cached retargeting symbols into the given list.
         /// <see cref="CommonReferenceManager.SymbolCacheAndReferenceManagerStateGuard"/> must be locked while calling this method.
         /// </summary>
-        internal void AddRetargetingAssemblySymbolsNoLock<T>(List<T> result) where T : IAssemblySymbol
+        public void AddRetargetingAssemblySymbolsNoLock<T>(List<T> result) where T : IAssemblySymbol
         {
             foreach (var symbol in _retargetingAssemblySymbols)
             {
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // for testing only
-        internal WeakList<IAssemblySymbol> RetargetingAssemblySymbols
+        public WeakList<IAssemblySymbol> RetargetingAssemblySymbols
         {
             get { return _retargetingAssemblySymbols; }
         }

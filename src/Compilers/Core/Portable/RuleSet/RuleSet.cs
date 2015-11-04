@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -293,7 +293,7 @@ namespace Microsoft.CodeAnalysis
             return GetDiagnosticOptionsFromRulesetFile(specificDiagnosticOptions, rulesetFileFullPath, null, null);
         }
 
-        internal static ReportDiagnostic GetDiagnosticOptionsFromRulesetFile(Dictionary<string, ReportDiagnostic> diagnosticOptions, string path, string baseDirectory, IList<Diagnostic> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
+        public static ReportDiagnostic GetDiagnosticOptionsFromRulesetFile(Dictionary<string, ReportDiagnostic> diagnosticOptions, string path, string baseDirectory, IList<Diagnostic> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
         {
             var resolvedPath = FileUtilities.ResolveRelativePath(path, baseDirectory);
             if (resolvedPath == null)

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis
 {
@@ -69,16 +69,16 @@ namespace Microsoft.CodeAnalysis
         RangeVariableName = 27
     }
 
-    internal static class InternalSymbolDisplayPartKind
+    public static class InternalSymbolDisplayPartKind
     {
         private const SymbolDisplayPartKind @base = SymbolDisplayPartKind.RangeVariableName + 1;
         public const SymbolDisplayPartKind Arity = @base + 0;
         public const SymbolDisplayPartKind Other = @base + 1;
     }
 
-    internal static partial class EnumBounds
+    public static partial class EnumBounds
     {
-        internal static bool IsValid(this SymbolDisplayPartKind value)
+        public static bool IsValid(this SymbolDisplayPartKind value)
         {
             return (value >= SymbolDisplayPartKind.AliasName && value <= SymbolDisplayPartKind.RangeVariableName) ||
                 (value >= InternalSymbolDisplayPartKind.Arity && value <= InternalSymbolDisplayPartKind.Other);

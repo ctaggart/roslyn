@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal sealed class MergedAliases
+    public sealed class MergedAliases
     {
         public ArrayBuilder<string> AliasesOpt;
         public ArrayBuilder<string> RecursiveAliasesOpt;
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis
         /// o {A, A} + {A, B, B} = {A, A, B, B}
         ///   We preserve dups in each alias array, but avoid making more dups when merging.
         /// </summary>
-        internal void Merge(MetadataReference reference)
+        public void Merge(MetadataReference reference)
         {
             if (reference.Properties.HasRecursiveAliases)
             {
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis
                 newAliases: reference.Properties.Aliases);
         }
 
-        internal static void Merge(ArrayBuilder<string> aliases, ImmutableArray<string> newAliases)
+        public static void Merge(ArrayBuilder<string> aliases, ImmutableArray<string> newAliases)
         {
             if (aliases.Count == 0 ^ newAliases.IsEmpty)
             {
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis
             AddNonIncluded(aliases, newAliases);
         }
 
-        internal static ImmutableArray<string> Merge(ImmutableArray<string> aliasesOpt, ImmutableArray<string> newAliases)
+        public static ImmutableArray<string> Merge(ImmutableArray<string> aliasesOpt, ImmutableArray<string> newAliases)
         {
             if (aliasesOpt.IsDefault)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.Text;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     /// </summary>
     public abstract class Metadata : IDisposable
     {
-        internal readonly bool IsImageOwner;
+        public readonly bool IsImageOwner;
 
         internal Metadata(bool isImageOwner)
         {

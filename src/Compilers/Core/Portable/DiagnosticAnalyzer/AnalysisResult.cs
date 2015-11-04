@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// 1. Local and non-local diagnostics, per-analyzer.
     /// 2. Analyzer execution times, if requested.
     /// </summary>
-    internal partial class AnalysisResult
+    public partial class AnalysisResult
     {
         private readonly object _gate = new object();
         private readonly Dictionary<DiagnosticAnalyzer, TimeSpan> _analyzerExecutionTimeOpt;

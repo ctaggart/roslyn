@@ -1,31 +1,31 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal static class DiagnosticAnalysisContextHelpers
+    public static class DiagnosticAnalysisContextHelpers
     {
-        internal static void VerifyArguments<TContext>(Action<TContext> action)
+        public static void VerifyArguments<TContext>(Action<TContext> action)
         {
             VerifyAction(action);
         }
 
-        internal static void VerifyArguments<TContext>(Action<TContext> action, ImmutableArray<SymbolKind> symbolKinds)
+        public static void VerifyArguments<TContext>(Action<TContext> action, ImmutableArray<SymbolKind> symbolKinds)
         {
             VerifyAction(action);
             VerifySymbolKinds(symbolKinds);
         }
 
-        internal static void VerifyArguments<TContext, TLanguageKindEnum>(Action<TContext> action, ImmutableArray<TLanguageKindEnum> syntaxKinds)
+        public static void VerifyArguments<TContext, TLanguageKindEnum>(Action<TContext> action, ImmutableArray<TLanguageKindEnum> syntaxKinds)
             where TLanguageKindEnum : struct
         {
             VerifyAction(action);
             VerifySyntaxKinds(syntaxKinds);
         }
 
-        internal static void VerifyArguments(Diagnostic diagnostic, Func<Diagnostic, bool> isSupportedDiagnostic)
+        public static void VerifyArguments(Diagnostic diagnostic, Func<Diagnostic, bool> isSupportedDiagnostic)
         {
             if (diagnostic is DiagnosticWithInfo)
             {

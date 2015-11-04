@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal partial class SuppressMessageAttributeState
+    public partial class SuppressMessageAttributeState
     {
         private static readonly SmallDictionary<string, TargetScope> s_suppressMessageScopeTypes = new SmallDictionary<string, TargetScope>()
             {
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal static IEnumerable<ISymbol> ResolveTargetSymbols(Compilation compilation, string target, TargetScope scope)
+        public static IEnumerable<ISymbol> ResolveTargetSymbols(Compilation compilation, string target, TargetScope scope)
         {
             switch (scope)
             {
@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return true;
         }
 
-        internal enum TargetScope
+        public enum TargetScope
         {
             None,
             Module,

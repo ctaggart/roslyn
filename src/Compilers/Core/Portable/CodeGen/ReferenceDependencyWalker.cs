@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Emit;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// 
     /// This class provides unified implementation for this functionality.
     /// </summary>
-    internal static class ReferenceDependencyWalker
+    public static class ReferenceDependencyWalker
     {
         public static void VisitReference(Cci.IReference reference, EmitContext context)
         {

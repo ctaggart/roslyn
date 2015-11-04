@@ -16,7 +16,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a .NET assembly.
     /// </summary>
-    internal interface IAssembly : IModule, IAssemblyReference
+    public interface IAssembly : IModule, IAssemblyReference
     {
         /// <summary>
         /// A list of the files that constitute the assembly. These are not the source language files that may have been
@@ -49,7 +49,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a .NET assembly.
     /// </summary>
-    internal interface IAssemblyReference : IModuleReference
+    public interface IAssemblyReference : IModuleReference
     {
         /// <summary>
         /// Identifies the culture associated with the assembly reference. Typically specified for satellite assemblies with localized resources.
@@ -84,7 +84,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An object that represents a .NET module.
     /// </summary>
-    internal interface IModule : IUnit, IModuleReference
+    public interface IModule : IUnit, IModuleReference
     {
         ModulePropertiesForSerialization Properties { get; }
 
@@ -233,7 +233,7 @@ namespace Microsoft.Cci
         int HintNumberOfMethodDefinitions { get; }
     }
 
-    internal struct DefinitionWithLocation
+    public struct DefinitionWithLocation
     {
         public readonly IDefinition Definition;
         public readonly uint StartLine;
@@ -269,7 +269,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a .NET module.
     /// </summary>
-    internal interface IModuleReference : IUnitReference
+    public interface IModuleReference : IUnitReference
     {
         /// <summary>
         /// The Assembly that contains this module. May be null if the module is not part of an assembly.
@@ -281,14 +281,14 @@ namespace Microsoft.Cci
     /// A unit of metadata stored as a single artifact and potentially produced and revised independently from other units.
     /// Examples of units include .NET assemblies and modules, as well C++ object files and compiled headers.
     /// </summary>
-    internal interface IUnit : IUnitReference, IDefinition
+    public interface IUnit : IUnitReference, IDefinition
     {
     }
 
     /// <summary>
     /// A reference to a instance of <see cref="IUnit"/>.
     /// </summary>
-    internal interface IUnitReference : IReference, INamedEntity
+    public interface IUnitReference : IReference, INamedEntity
     {
     }
 }

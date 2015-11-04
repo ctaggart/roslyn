@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Roslyn.Utilities
 {
     // TODO (DevDiv workitem 966425): replace with Portable profile APIs when available.
 
-    internal abstract class HashAlgorithm : IDisposable
+    public abstract class HashAlgorithm : IDisposable
     {
         private static readonly MethodInfo s_transformBlock = PortableShim.HashAlgorithm.Type
             .GetTypeInfo()
@@ -78,7 +78,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal sealed class SHA1CryptoServiceProvider : HashAlgorithm
+    public sealed class SHA1CryptoServiceProvider : HashAlgorithm
     {
         public SHA1CryptoServiceProvider()
             : base(PortableShim.SHA1.Create())
@@ -86,7 +86,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal sealed class SHA256CryptoServiceProvider : HashAlgorithm
+    public sealed class SHA256CryptoServiceProvider : HashAlgorithm
     {
         public SHA256CryptoServiceProvider()
             : base(PortableShim.SHA256.Create())
@@ -94,7 +94,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal sealed class SHA384CryptoServiceProvider : HashAlgorithm
+    public sealed class SHA384CryptoServiceProvider : HashAlgorithm
     {
         public SHA384CryptoServiceProvider()
             : base(PortableShim.SHA384.Create())
@@ -102,7 +102,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal sealed class SHA512CryptoServiceProvider : HashAlgorithm
+    public sealed class SHA512CryptoServiceProvider : HashAlgorithm
     {
         public SHA512CryptoServiceProvider()
             : base(PortableShim.SHA512.Create())
@@ -110,7 +110,7 @@ namespace Roslyn.Utilities
         }
     }
 
-    internal sealed class MD5CryptoServiceProvider : HashAlgorithm
+    public sealed class MD5CryptoServiceProvider : HashAlgorithm
     {
         public MD5CryptoServiceProvider()
             : base(PortableShim.MD5.Create())

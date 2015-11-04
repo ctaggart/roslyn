@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Roslyn.Utilities
 {
-    internal static class FileUtilities
+    public static class FileUtilities
     {
         /// <summary>
         /// Resolves relative path and returns absolute path.
@@ -35,7 +35,7 @@ namespace Roslyn.Utilities
         /// <returns>
         /// The resolved path or null if the path can't be resolved or does not exist.
         /// </returns>
-        internal static string ResolveRelativePath(
+        public static string ResolveRelativePath(
             string path,
             string basePath,
             string baseDirectory,
@@ -89,12 +89,12 @@ namespace Roslyn.Utilities
             return null;
         }
 
-        internal static string ResolveRelativePath(string path, string baseDirectory)
+        public static string ResolveRelativePath(string path, string baseDirectory)
         {
             return ResolveRelativePath(path, null, baseDirectory);
         }
 
-        internal static string ResolveRelativePath(string path, string basePath, string baseDirectory)
+        public static string ResolveRelativePath(string path, string basePath, string baseDirectory)
         {
             Debug.Assert(baseDirectory == null || PathUtilities.IsAbsolute(baseDirectory));
             return ResolveRelativePath(PathUtilities.GetPathKind(path), path, basePath, baseDirectory);
@@ -207,7 +207,7 @@ namespace Roslyn.Utilities
 
         private static readonly char[] s_invalidPathChars = Path.GetInvalidPathChars();
 
-        internal static string NormalizeRelativePath(string path, string basePath, string baseDirectory)
+        public static string NormalizeRelativePath(string path, string basePath, string baseDirectory)
         {
             // Does this look like a URI at all or does it have any invalid path characters? If so, just use it as is.
             if (path.IndexOf("://", StringComparison.Ordinal) >= 0 || path.IndexOfAny(s_invalidPathChars) >= 0)
@@ -236,7 +236,7 @@ namespace Roslyn.Utilities
         /// <param name="path">Path to normalize.</param>
         /// <exception cref="IOException"/>
         /// <returns>Normalized path.</returns>
-        internal static string NormalizeAbsolutePath(string path)
+        public static string NormalizeAbsolutePath(string path)
         {
             // we can only call GetFullPath on an absolute path to avoid dependency on process state (current directory):
             Debug.Assert(PathUtilities.IsAbsolute(path));
@@ -259,12 +259,12 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static string NormalizeDirectoryPath(string path)
+        public static string NormalizeDirectoryPath(string path)
         {
             return NormalizeAbsolutePath(path).TrimEnd(PortableShim.Path.DirectorySeparatorChar, PortableShim.Path.AltDirectorySeparatorChar);
         }
 
-        internal static string TryNormalizeAbsolutePath(string path)
+        public static string TryNormalizeAbsolutePath(string path)
         {
             Debug.Assert(PathUtilities.IsAbsolute(path));
 
@@ -278,7 +278,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static Stream OpenRead(string fullPath)
+        public static Stream OpenRead(string fullPath)
         {
             Debug.Assert(PathUtilities.IsAbsolute(fullPath));
 
@@ -296,7 +296,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static Stream OpenAsyncRead(string fullPath)
+        public static Stream OpenAsyncRead(string fullPath)
         {
             Debug.Assert(PathUtilities.IsAbsolute(fullPath));
 
@@ -318,7 +318,7 @@ namespace Roslyn.Utilities
         /// Used to create a file given a path specified by the user.
         /// paramName - Provided by the Public surface APIs to have a clearer message. Internal API just rethrow the exception
         /// </summary>
-        internal static Stream CreateFileStreamChecked(Func<string, Stream> factory, string path, string paramName = null)
+        public static Stream CreateFileStreamChecked(Func<string, Stream> factory, string path, string paramName = null)
         {
             try
             {
@@ -357,7 +357,7 @@ namespace Roslyn.Utilities
         }
 
         /// <exception cref="IOException"/>
-        internal static DateTime GetFileTimeStamp(string fullPath)
+        public static DateTime GetFileTimeStamp(string fullPath)
         {
             Debug.Assert(PathUtilities.IsAbsolute(fullPath));
             try
@@ -370,7 +370,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static Stream OpenFileStream(string path)
+        public static Stream OpenFileStream(string path)
         {
             try
             {

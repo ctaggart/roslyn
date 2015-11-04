@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// A queue whose enqueue and dequeue operations can be performed in parallel.
     /// </summary>
     /// <typeparam name="TElement">The type of values kept by the queue.</typeparam>
-    internal sealed class AsyncQueue<TElement>
+    public sealed class AsyncQueue<TElement>
     {
         private readonly TaskCompletionSource<bool> _whenCompleted = new TaskCompletionSource<bool>();
 

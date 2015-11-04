@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,17 +10,17 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CodeGen
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal sealed partial class ILBuilder
+    public sealed partial class ILBuilder
     {
         private readonly OptimizationLevel _optimizations;
-        internal readonly LocalSlotManager LocalSlotManager;
+        public readonly LocalSlotManager LocalSlotManager;
         private readonly LocalScopeManager _scopeManager;
 
         // internal for testing
-        internal readonly ITokenDeferral module;
+        public readonly ITokenDeferral module;
 
         //leader block is the entry point of the method body
-        internal readonly BasicBlock leaderBlock;
+        public readonly BasicBlock leaderBlock;
 
         private EmitState _emitState;
         private BasicBlock _lastCompleteBlock;
@@ -32,9 +32,9 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private int _instructionCountAtLastLabel = -1;
 
         // This data is only relevant when builder has been realized.
-        internal ImmutableArray<byte> RealizedIL;
-        internal ImmutableArray<Cci.ExceptionHandlerRegion> RealizedExceptionHandlers;
-        internal SequencePointList RealizedSequencePoints;
+        public ImmutableArray<byte> RealizedIL;
+        public ImmutableArray<Cci.ExceptionHandlerRegion> RealizedExceptionHandlers;
+        public SequencePointList RealizedSequencePoints;
 
         // debug sequence points from all blocks, note that each 
         // sequence point references absolute IL offset via IL marker
@@ -173,13 +173,13 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
         private ExceptionHandlerScope EnclosingExceptionHandler => _scopeManager.EnclosingExceptionHandler;
 
-        internal bool InExceptionHandler => this.EnclosingExceptionHandler != null;
+        public bool InExceptionHandler => this.EnclosingExceptionHandler != null;
 
         /// <summary>
         /// Realizes method body.
         /// No more data can be added to the builder after this call.
         /// </summary>
-        internal void Realize()
+        public void Realize()
         {
             if (this.RealizedIL.IsDefault)
             {
@@ -194,12 +194,12 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Gets all scopes that contain variables.
         /// </summary>
-        internal ImmutableArray<Cci.LocalScope> GetAllScopes() => _scopeManager.GetAllScopesWithLocals();
+        public ImmutableArray<Cci.LocalScope> GetAllScopes() => _scopeManager.GetAllScopesWithLocals();
 
         /// <summary>
         /// Gets all scopes that contain variables.
         /// </summary>
-        internal ImmutableArray<Cci.StateMachineHoistedLocalScope> GetHoistedLocalScopes()
+        public ImmutableArray<Cci.StateMachineHoistedLocalScope> GetHoistedLocalScopes()
         {
             // The hoisted local scopes are enumerated and returned here, sorted by variable "index",
             // which is a number appearing after the "__" at the end of the field's name.  The index should
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return _scopeManager.GetHoistedLocalScopes();
         }
 
-        internal void FreeBasicBlocks()
+        public void FreeBasicBlocks()
         {
             _scopeManager.FreeBasicBlocks();
 
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
         }
 
-        internal ushort MaxStack => (ushort)_emitState.MaxStack;
+        public ushort MaxStack => (ushort)_emitState.MaxStack;
 
         /// <summary>
         /// IL opcodes emitted by this builder.
@@ -238,7 +238,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// Example: a label will not result in any code so when emitting debugging information 
         ///          an extra NOP may be needed if we want to decorate the label with sequence point. 
         /// </summary>
-        internal int InstructionsEmitted => _emitState.InstructionsEmitted;
+        public int InstructionsEmitted => _emitState.InstructionsEmitted;
 
         /// <summary>
         /// Marks blocks that are reachable.
@@ -990,7 +990,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Define a sequence point with the given syntax tree and span within it.
         /// </summary>
-        internal void DefineSequencePoint(SyntaxTree syntaxTree, TextSpan span)
+        public void DefineSequencePoint(SyntaxTree syntaxTree, TextSpan span)
         {
             var curBlock = GetCurrentBlock();
             _lastSeqPointTree = syntaxTree;
@@ -1028,7 +1028,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// NOTE: Also inserted as the first statement of a method that would not otherwise have a leading
         /// sequence point so that step-into will find the method body.
         /// </summary>
-        internal void DefineHiddenSequencePoint()
+        public void DefineHiddenSequencePoint()
         {
             var lastDebugDocument = _lastSeqPointTree;
 
@@ -1044,7 +1044,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// Define a hidden sequence point at the first statement of
         /// the method so that step-into will find the method body.
         /// </summary>
-        internal void DefineInitialHiddenSequencePoint()
+        public void DefineInitialHiddenSequencePoint()
         {
             Debug.Assert(_initialHiddenSequencePointMarker < 0);
             // Create a marker for the sequence point. The actual sequence point
@@ -1059,25 +1059,25 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// It is done in case the first sequence point is a hidden point.
         /// Even though hidden points do not have syntax, they need to associate with some document.
         /// </summary>
-        internal void SetInitialDebugDocument(SyntaxTree initialSequencePointTree)
+        public void SetInitialDebugDocument(SyntaxTree initialSequencePointTree)
         {
             _lastSeqPointTree = initialSequencePointTree;
         }
 
         [Conditional("DEBUG")]
-        internal void AssertStackEmpty()
+        public void AssertStackEmpty()
         {
             Debug.Assert(_emitState.CurStack == 0);
         }
 
         // true if there may have been a label generated with no subsequent code
-        internal bool IsJustPastLabel()
+        public bool IsJustPastLabel()
         {
             Debug.Assert(_emitState.InstructionsEmitted >= _instructionCountAtLastLabel);
             return _emitState.InstructionsEmitted == _instructionCountAtLastLabel;
         }
 
-        internal void OpenLocalScope(ScopeType scopeType = ScopeType.Variable, Cci.ITypeReference exceptionType = null)
+        public void OpenLocalScope(ScopeType scopeType = ScopeType.Variable, Cci.ITypeReference exceptionType = null)
         {
             if (scopeType == ScopeType.TryCatchFinally && IsJustPastLabel())
             {
@@ -1130,13 +1130,13 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
         }
 
-        internal bool PossiblyDefinedOutsideOfTry(LocalDefinition local)
+        public bool PossiblyDefinedOutsideOfTry(LocalDefinition local)
             => _scopeManager.PossiblyDefinedOutsideOfTry(local);
 
         /// <summary>
         /// Marks the end of filter condition and start of the actual filter handler.
         /// </summary>
-        internal void MarkFilterConditionEnd()
+        public void MarkFilterConditionEnd()
         {
             _scopeManager.FinishFilterCondition(this);
 
@@ -1147,26 +1147,26 @@ namespace Microsoft.CodeAnalysis.CodeGen
             DefineHiddenSequencePoint();
         }
 
-        internal void CloseLocalScope()
+        public void CloseLocalScope()
         {
             _scopeManager.ClosingScope(this);
             EndBlock();  //blocks should not cross scope boundaries.
             _scopeManager.CloseScope(this);
         }
 
-        internal void OpenStateMachineScope()
+        public void OpenStateMachineScope()
         {
             OpenLocalScope(ScopeType.StateMachineVariable);
         }
 
-        internal void DefineUserDefinedStateMachineHoistedLocal(int slotIndex)
+        public void DefineUserDefinedStateMachineHoistedLocal(int slotIndex)
         {
             // Add user-defined local into the current scope.
             // We emit custom debug information for these locals that is used by the EE to reconstruct their scopes.
             _scopeManager.AddUserHoistedLocal(slotIndex);
         }
 
-        internal void CloseStateMachineScope()
+        public void CloseStateMachineScope()
         {
             _scopeManager.ClosingScope(this);
             EndBlock(); // blocks should not cross scope boundaries.
@@ -1176,7 +1176,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Puts local variable into current scope.
         /// </summary>
-        internal void AddLocalToScope(LocalDefinition local)
+        public void AddLocalToScope(LocalDefinition local)
         {
             HasDynamicLocal |= local.IsDynamic;
             _scopeManager.AddLocal(local);
@@ -1185,18 +1185,18 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// <summary>
         /// Puts local constant into current scope.
         /// </summary>
-        internal void AddLocalConstantToScope(LocalConstantDefinition localConstant)
+        public void AddLocalConstantToScope(LocalConstantDefinition localConstant)
         {
             HasDynamicLocal |= localConstant.IsDynamic;
             _scopeManager.AddLocalConstant(localConstant);
         }
 
-        internal bool HasDynamicLocal { get; private set; }
+        public bool HasDynamicLocal { get; private set; }
 
         // We have no mechanism for tracking the remapping of tokens when metadata is written.
         // In order to visualize the realized IL for testing, we need to be able to capture
         // a snapshot of the builder with the original (fake) token values.  
-        internal ILBuilder GetSnapshot()
+        public ILBuilder GetSnapshot()
         {
             var snapshot = (ILBuilder)this.MemberwiseClone();
             snapshot.RealizedIL = RealizedIL;
@@ -1217,7 +1217,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return true;
         }
 
-        internal int AllocateILMarker()
+        public int AllocateILMarker()
         {
             Debug.Assert(this.RealizedIL.IsDefault, "Too late to allocate a new IL marker");
             if (_allocatedILMarkers == null)

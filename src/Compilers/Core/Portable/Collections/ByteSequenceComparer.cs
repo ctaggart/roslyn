@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,15 +10,15 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Collections
 {
-    internal sealed class ByteSequenceComparer : IEqualityComparer<byte[]>, IEqualityComparer<ImmutableArray<byte>>
+    public sealed class ByteSequenceComparer : IEqualityComparer<byte[]>, IEqualityComparer<ImmutableArray<byte>>
     {
-        internal static readonly ByteSequenceComparer Instance = new ByteSequenceComparer();
+        public static readonly ByteSequenceComparer Instance = new ByteSequenceComparer();
 
         private ByteSequenceComparer()
         {
         }
 
-        internal static bool Equals(ImmutableArray<byte> x, ImmutableArray<byte> y)
+        public static bool Equals(ImmutableArray<byte> x, ImmutableArray<byte> y)
         {
             if (x == y)
             {
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Collections
             return true;
         }
 
-        internal static bool Equals(byte[] left, int leftStart, byte[] right, int rightStart, int length)
+        public static bool Equals(byte[] left, int leftStart, byte[] right, int rightStart, int length)
         {
             if (left == null || right == null)
             {
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.Collections
             return true;
         }
 
-        internal static bool Equals(byte[] left, byte[] right)
+        public static bool Equals(byte[] left, byte[] right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -89,13 +89,13 @@ namespace Microsoft.CodeAnalysis.Collections
 
         // Both hash computations below use the FNV-1a algorithm (http://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function).
 
-        internal static int GetHashCode(byte[] x)
+        public static int GetHashCode(byte[] x)
         {
             Debug.Assert(x != null);
             return Hash.GetFNVHashCode(x);
         }
 
-        internal static int GetHashCode(ImmutableArray<byte> x)
+        public static int GetHashCode(ImmutableArray<byte> x)
         {
             Debug.Assert(!x.IsDefault);
             return Hash.GetFNVHashCode(x);

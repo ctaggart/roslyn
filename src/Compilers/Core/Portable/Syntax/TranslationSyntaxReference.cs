@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Threading;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Syntax
     /// This is a SyntaxReference implementation that lazily translates the result (SyntaxNode) of the
     /// original syntax reference to another one.
     /// </summary>
-    internal abstract class TranslationSyntaxReference : SyntaxReference
+    public abstract class TranslationSyntaxReference : SyntaxReference
     {
         private readonly SyntaxReference _reference;
 

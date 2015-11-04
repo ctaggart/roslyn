@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 // define TRACE_LEAKS to get additional diagnostics that can lead to the leak sources. note: it will
 // make everything about 2-3x slower
@@ -37,19 +37,19 @@ namespace Roslyn.Utilities
     /// Rationale: 
     ///    If there is no intent for reusing the object, do not use pool - just use "new". 
     /// </summary>
-    internal class ObjectPool<T> where T : class
+    public class ObjectPool<T> where T : class
     {
         [DebuggerDisplay("{Value,nq}")]
         private struct Element
         {
-            internal T Value;
+            public T Value;
         }
 
         /// <remarks>
         /// Not using System.Func{T} because this file is linked into the (debugger) Formatter,
         /// which does not have that type (since it compiles against .NET 2.0).
         /// </remarks>
-        internal delegate T Factory();
+        public delegate T Factory();
 
         // Storage for the pool objects. The first item is stored in a dedicated field because we
         // expect to be able to satisfy most requests from it.
@@ -127,7 +127,7 @@ namespace Roslyn.Utilities
         /// Note that Free will try to store recycled objects close to the start thus statistically 
         /// reducing how far we will typically search.
         /// </remarks>
-        internal T Allocate()
+        public T Allocate()
         {
             // PERF: Examine the first element. If that fails, AllocateSlow will look at the remaining elements.
             // Note that the initial read is optimistically not synchronized. That is intentional. 
@@ -181,7 +181,7 @@ namespace Roslyn.Utilities
         /// Note that Free will try to store recycled objects close to the start thus statistically 
         /// reducing how far we will typically search in Allocate.
         /// </remarks>
-        internal void Free(T obj)
+        public void Free(T obj)
         {
             Validate(obj);
             ForgetTrackedObject(obj);
@@ -224,7 +224,7 @@ namespace Roslyn.Utilities
         /// return a larger array to the pool than was originally allocated.
         /// </summary>
         [Conditional("DEBUG")]
-        internal void ForgetTrackedObject(T old, T replacement = null)
+        public void ForgetTrackedObject(T old, T replacement = null)
         {
 #if DETECT_LEAKS
             LeakTracker tracker;

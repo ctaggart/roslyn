@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Collections;
@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Microsoft.Cci
 {
-    internal static class ITypeReferenceExtensions
+    public static class ITypeReferenceExtensions
     {
-        internal static void GetConsolidatedTypeArguments(this ITypeReference typeReference, ArrayBuilder<ITypeReference> consolidatedTypeArguments, EmitContext context)
+        public static void GetConsolidatedTypeArguments(this ITypeReference typeReference, ArrayBuilder<ITypeReference> consolidatedTypeArguments, EmitContext context)
         {
             INestedTypeReference nestedTypeReference = typeReference.AsNestedTypeReference;
             nestedTypeReference?.GetContainingType(context).GetConsolidatedTypeArguments(consolidatedTypeArguments, context);
@@ -21,7 +21,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static ITypeReference GetUninstantiatedGenericType(this ITypeReference typeReference)
+        public static ITypeReference GetUninstantiatedGenericType(this ITypeReference typeReference)
         {
             IGenericTypeInstanceReference genericTypeInstanceReference = typeReference.AsGenericTypeInstanceReference;
             if (genericTypeInstanceReference != null)
@@ -38,7 +38,7 @@ namespace Microsoft.Cci
             return typeReference;
         }
 
-        internal static bool IsTypeSpecification(this ITypeReference typeReference)
+        public static bool IsTypeSpecification(this ITypeReference typeReference)
         {
             INestedTypeReference nestedTypeReference = typeReference.AsNestedTypeReference;
             if (nestedTypeReference != null)

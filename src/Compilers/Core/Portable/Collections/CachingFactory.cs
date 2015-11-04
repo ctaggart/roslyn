@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -28,12 +28,12 @@ namespace Microsoft.CodeAnalysis
     //                  in a case where it is not possible to create a static valueFactory, it is advisable
     //                  to set valueFactory to null and use TryGetValue/Add pattern instead of GetOrMakeValue.
     //
-    internal class CachingFactory<TKey, TValue> : CachingBase<CachingFactory<TKey, TValue>.Entry>
+    public class CachingFactory<TKey, TValue> : CachingBase<CachingFactory<TKey, TValue>.Entry>
     {
-        internal struct Entry
+        public struct Entry
         {
-            internal int hash;
-            internal TValue value;
+            public int hash;
+            public TValue value;
         }
 
         private readonly int _size;
@@ -120,16 +120,16 @@ namespace Microsoft.CodeAnalysis
     //      keyValueEquality    is an object == for the new and old keys 
     //                          NOTE: we do store the key in this case 
     //                          reference comparison of keys is as cheap as comparing hash codes.
-    internal class CachingIdentityFactory<TKey, TValue> : CachingBase<CachingIdentityFactory<TKey, TValue>.Entry>
+    public class CachingIdentityFactory<TKey, TValue> : CachingBase<CachingIdentityFactory<TKey, TValue>.Entry>
         where TKey : class
     {
         private readonly Func<TKey, TValue> _valueFactory;
         private readonly ObjectPool<CachingIdentityFactory<TKey, TValue>> _pool;
 
-        internal struct Entry
+        public struct Entry
         {
-            internal TKey key;
-            internal TValue value;
+            public TKey key;
+            public TValue value;
         }
 
         public CachingIdentityFactory(int size, Func<TKey, TValue> valueFactory) :
@@ -208,7 +208,7 @@ namespace Microsoft.CodeAnalysis
     }
 
     // Just holds the data for the derived caches.
-    internal abstract class CachingBase<TEntry>
+    public abstract class CachingBase<TEntry>
     {
         // cache size is always ^2. 
         // items are placed at [hash ^ mask]

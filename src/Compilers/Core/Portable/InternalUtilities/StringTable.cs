@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Roslyn.Utilities
     /// This is basically a lossy cache of strings that is searchable by
     /// strings, string sub ranges, character array ranges or string-builder.
     /// </summary>
-    internal class StringTable
+    public class StringTable
     {
         // entry in the caches
         private struct Entry
@@ -105,7 +105,7 @@ namespace Roslyn.Utilities
 
         #endregion // Poolable
 
-        internal string Add(char[] chars, int start, int len)
+        public string Add(char[] chars, int start, int len)
         {
             var hashCode = Hash.GetFNVHashCode(chars, start, len);
 
@@ -139,7 +139,7 @@ namespace Roslyn.Utilities
             return AddItem(chars, start, len, hashCode);
         }
 
-        internal string Add(string chars, int start, int len)
+        public string Add(string chars, int start, int len)
         {
             var hashCode = Hash.GetFNVHashCode(chars, start, len);
 
@@ -173,7 +173,7 @@ namespace Roslyn.Utilities
             return AddItem(chars, start, len, hashCode);
         }
 
-        internal string Add(char chars)
+        public string Add(char chars)
         {
             var hashCode = Hash.GetFNVHashCode(chars);
 
@@ -207,7 +207,7 @@ namespace Roslyn.Utilities
             return AddItem(chars, hashCode);
         }
 
-        internal string Add(StringBuilder chars)
+        public string Add(StringBuilder chars)
         {
             var hashCode = Hash.GetFNVHashCode(chars);
 
@@ -241,7 +241,7 @@ namespace Roslyn.Utilities
             return AddItem(chars, hashCode);
         }
 
-        internal string Add(string chars)
+        public string Add(string chars)
         {
             var hashCode = Hash.GetFNVHashCode(chars);
 
@@ -558,7 +558,7 @@ namespace Roslyn.Utilities
             Volatile.Write(ref arr[idx].Text, text);
         }
 
-        internal static string AddShared(StringBuilder chars)
+        public static string AddShared(StringBuilder chars)
         {
             var hashCode = Hash.GetFNVHashCode(chars);
 
@@ -578,7 +578,7 @@ namespace Roslyn.Utilities
             return text;
         }
 
-        internal static unsafe string AddSharedUTF8(byte* bytes, int byteCount)
+        public static unsafe string AddSharedUTF8(byte* bytes, int byteCount)
         {
             bool isAscii;
             int hashCode = Hash.GetFNVHashCode(bytes, byteCount, out isAscii);
@@ -664,7 +664,7 @@ namespace Roslyn.Utilities
             return Interlocked.Increment(ref StringTable.s_sharedRandom);
         }
 
-        internal static bool TextEquals(string array, string text, int start, int length)
+        public static bool TextEquals(string array, string text, int start, int length)
         {
             if (array.Length != length)
             {
@@ -683,7 +683,7 @@ namespace Roslyn.Utilities
             return true;
         }
 
-        internal static bool TextEquals(string array, StringBuilder text)
+        public static bool TextEquals(string array, StringBuilder text)
         {
             if (array.Length != text.Length)
             {
@@ -703,7 +703,7 @@ namespace Roslyn.Utilities
             return true;
         }
 
-        internal static unsafe bool TextEqualsASCII(string text, byte* ascii, int length)
+        public static unsafe bool TextEqualsASCII(string text, byte* ascii, int length)
         {
 #if DEBUG
             for (var i = 0; i < length; i++)
@@ -728,7 +728,7 @@ namespace Roslyn.Utilities
             return true;
         }
 
-        internal static bool TextEquals(string array, char[] text, int start, int length)
+        public static bool TextEquals(string array, char[] text, int start, int length)
         {
             return array.Length == length && TextEqualsCore(array, text, start);
         }

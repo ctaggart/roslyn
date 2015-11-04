@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Reflection.Metadata;
@@ -9,7 +9,7 @@ namespace Microsoft.Cci
     /// A region representing an exception handler clause. The region exposes the type (catch or
     /// finally) and the bounds of the try block and catch or finally block as needed by 
     /// </summary>
-    internal abstract class ExceptionHandlerRegion
+    public abstract class ExceptionHandlerRegion
     {
         private readonly int _tryStartOffset;
         private readonly int _tryEndOffset;
@@ -94,7 +94,7 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class ExceptionHandlerRegionFinally : ExceptionHandlerRegion
+    public sealed class ExceptionHandlerRegionFinally : ExceptionHandlerRegion
     {
         public ExceptionHandlerRegionFinally(
             int tryStartOffset,
@@ -111,7 +111,7 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class ExceptionHandlerRegionFault : ExceptionHandlerRegion
+    public sealed class ExceptionHandlerRegionFault : ExceptionHandlerRegion
     {
         public ExceptionHandlerRegionFault(
             int tryStartOffset,
@@ -128,7 +128,7 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class ExceptionHandlerRegionCatch : ExceptionHandlerRegion
+    public sealed class ExceptionHandlerRegionCatch : ExceptionHandlerRegion
     {
         private readonly ITypeReference _exceptionType;
 
@@ -154,7 +154,7 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class ExceptionHandlerRegionFilter : ExceptionHandlerRegion
+    public sealed class ExceptionHandlerRegionFilter : ExceptionHandlerRegion
     {
         private readonly int _filterDecisionStartOffset;
 

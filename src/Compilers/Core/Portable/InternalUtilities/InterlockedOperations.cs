@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Roslyn.Utilities
 {
-    internal static class InterlockedOperations
+    public static class InterlockedOperations
     {
         /// <summary>
         /// Initialize the value referenced by <paramref name="target"/> in a thread-safe manner.

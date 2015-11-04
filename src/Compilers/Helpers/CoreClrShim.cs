@@ -11,18 +11,18 @@ namespace Roslyn.Utilities
     /// and NOT on .NET 4.5. The compiler currently targets .NET 4.5 and CoreCLR
     /// so this shim is necessary for switching on the dependent behavior.
     /// </summary>
-    internal static class CoreClrShim
+    public static class CoreClrShim
     {
         
-        internal static class AssemblyLoadContext
+        public static class AssemblyLoadContext
         {
-            internal static readonly Type Type = ReflectionUtilities.TryGetType(
+            public static readonly Type Type = ReflectionUtilities.TryGetType(
                "System.Runtime.Loader.AssemblyLoadContext, System.Runtime.Loader, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
         }
         
-        internal static class CodePagesEncodingProvider
+        public static class CodePagesEncodingProvider
         {
-            internal static readonly Type Type = ReflectionUtilities.TryGetType(
+            public static readonly Type Type = ReflectionUtilities.TryGetType(
                 "System.Text.CodePagesEncodingProvider, " +
                 "System.Text.Encoding.CodePages, " +
                 "Version=4.0.0.0, Culture=neutral, " +
@@ -32,16 +32,16 @@ namespace Roslyn.Utilities
                 ?.GetTypeInfo()
                 .GetDeclaredProperty("Instance");
 
-            internal static object Instance => s_instance?.GetValue(null);
+            public static object Instance => s_instance?.GetValue(null);
         }
 
-        internal static class Encoding
+        public static class Encoding
         {
             private static readonly MethodInfo s_registerProvider = PortableShim.Encoding.Type
                 .GetTypeInfo()
                 .GetDeclaredMethod("RegisterProvider");
 
-            internal static void RegisterProvider(object provider)
+            public static void RegisterProvider(object provider)
             {
                 try
                 {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis
 namespace Microsoft.CodeAnalysis.ErrorReporting
 #endif
 {
-    internal static class FatalError
+    public static class FatalError
     {
         private static Action<Exception> s_fatalHandler;
         private static Action<Exception> s_nonFatalHandler;

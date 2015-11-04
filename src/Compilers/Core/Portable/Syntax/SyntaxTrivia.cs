@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis
     [StructLayout(LayoutKind.Auto)]
     public struct SyntaxTrivia : IEquatable<SyntaxTrivia>
     {
-        internal static readonly Func<SyntaxTrivia, bool> Any = t => true;
+        public static readonly Func<SyntaxTrivia, bool> Any = t => true;
 
         internal SyntaxTrivia(SyntaxToken token, GreenNode triviaNode, int position, int index)
         {
@@ -51,24 +51,24 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public SyntaxToken Token { get; }
 
-        internal GreenNode UnderlyingNode { get; }
+        public GreenNode UnderlyingNode { get; }
 
-        internal int Position { get; }
+        public int Position { get; }
 
-        internal int Index { get; }
+        public int Index { get; }
 
         /// <summary>
         /// The width of this trivia in characters. If this trivia is a structured trivia then the returned width will
         /// not include the widths of any leading or trailing trivia present on the child non-terminal node of this
         /// trivia.
         /// </summary>
-        internal int Width => UnderlyingNode?.Width ?? 0;
+        public int Width => UnderlyingNode?.Width ?? 0;
 
         /// <summary>
         /// The width of this trivia in characters. If this trivia is a structured trivia then the returned width will
         /// include the widths of any leading or trailing trivia present on the child non-terminal node of this trivia.
         /// </summary>
-        internal int FullWidth => UnderlyingNode?.FullWidth ?? 0;
+        public int FullWidth => UnderlyingNode?.FullWidth ?? 0;
 
         /// <summary>
         /// The absolute span of this trivia in characters. If this trivia is a structured trivia then the returned span
@@ -133,7 +133,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Determines whether this trivia or any of its structure has annotations.
         /// </summary>
-        internal bool ContainsAnnotations => UnderlyingNode?.ContainsAnnotations ?? false;
+        public bool ContainsAnnotations => UnderlyingNode?.ContainsAnnotations ?? false;
 
         /// <summary>
         /// Determines where this trivia has annotations of the specified annotation kind.

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis
             _token = token;
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return GetType().Name + " " + KindText + " " + ToString();
         }
@@ -126,9 +126,9 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public SyntaxNode Parent => _token != null ? _nodeOrParent : _nodeOrParent?.Parent;
 
-        internal GreenNode UnderlyingNode => _token ?? _nodeOrParent?.Green;
+        public GreenNode UnderlyingNode => _token ?? _nodeOrParent?.Green;
 
-        internal int Position => _position;
+        public int Position => _position;
 
         /// <summary>
         /// Determines whether this <see cref="SyntaxNodeOrToken"/> is wrapping a token.
@@ -793,7 +793,7 @@ namespace Microsoft.CodeAnalysis
         #region Directive Lookup
 
         // Get all directives under the node and its children in source code order.
-        internal IList<TDirective> GetDirectives<TDirective>(Func<TDirective, bool> filter = null)
+        public IList<TDirective> GetDirectives<TDirective>(Func<TDirective, bool> filter = null)
             where TDirective : SyntaxNode
         {
             List<TDirective> directives = null;
@@ -866,11 +866,11 @@ namespace Microsoft.CodeAnalysis
 
         #endregion
 
-        internal int Width => _token?.Width ?? _nodeOrParent?.Width ?? 0;
+        public int Width => _token?.Width ?? _nodeOrParent?.Width ?? 0;
 
-        internal int FullWidth => _token?.FullWidth ?? _nodeOrParent?.FullWidth ?? 0;
+        public int FullWidth => _token?.FullWidth ?? _nodeOrParent?.FullWidth ?? 0;
 
-        internal int EndPosition => _position + this.FullWidth;
+        public int EndPosition => _position + this.FullWidth;
 
         public static int GetFirstChildIndexSpanningPosition(SyntaxNode node, int position)
         {
@@ -882,7 +882,7 @@ namespace Microsoft.CodeAnalysis
             return GetFirstChildIndexSpanningPosition(node.ChildNodesAndTokens(), position);
         }
 
-        internal static int GetFirstChildIndexSpanningPosition(ChildSyntaxList list, int position)
+        public static int GetFirstChildIndexSpanningPosition(ChildSyntaxList list, int position)
         {
             int lo = 0;
             int hi = list.Count - 1;

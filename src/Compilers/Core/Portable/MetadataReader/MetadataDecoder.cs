@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -12,11 +12,11 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis
 {
     [StructLayout(LayoutKind.Auto)]
-    internal struct ModifierInfo<TypeSymbol>
+    public struct ModifierInfo<TypeSymbol>
         where TypeSymbol : class
     {
-        internal readonly bool IsOptional;
-        internal readonly TypeSymbol Modifier;
+        public readonly bool IsOptional;
+        public readonly TypeSymbol Modifier;
 
         public ModifierInfo(bool isOptional, TypeSymbol modifier)
         {
@@ -26,24 +26,24 @@ namespace Microsoft.CodeAnalysis
     }
 
     [StructLayout(LayoutKind.Auto)]
-    internal struct ParamInfo<TypeSymbol>
+    public struct ParamInfo<TypeSymbol>
         where TypeSymbol : class
     {
-        internal bool IsByRef;
-        internal ushort CountOfCustomModifiersPrecedingByRef;
-        internal TypeSymbol Type;
-        internal ParameterHandle Handle; // may be nil
-        internal ImmutableArray<ModifierInfo<TypeSymbol>> CustomModifiers;
+        public bool IsByRef;
+        public ushort CountOfCustomModifiersPrecedingByRef;
+        public TypeSymbol Type;
+        public ParameterHandle Handle; // may be nil
+        public ImmutableArray<ModifierInfo<TypeSymbol>> CustomModifiers;
     }
 
     [StructLayout(LayoutKind.Auto)]
-    internal struct LocalInfo<TypeSymbol>
+    public struct LocalInfo<TypeSymbol>
         where TypeSymbol : class
     {
-        internal readonly byte[] SignatureOpt;
-        internal readonly TypeSymbol Type;
-        internal readonly ImmutableArray<ModifierInfo<TypeSymbol>> CustomModifiers;
-        internal readonly LocalSlotConstraints Constraints;
+        public readonly byte[] SignatureOpt;
+        public readonly TypeSymbol Type;
+        public readonly ImmutableArray<ModifierInfo<TypeSymbol>> CustomModifiers;
+        public readonly LocalSlotConstraints Constraints;
 
         internal LocalInfo(TypeSymbol type, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers, LocalSlotConstraints constraints, byte[] signatureOpt)
         {
@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis
             this.SignatureOpt = signatureOpt;
         }
 
-        internal LocalInfo<TypeSymbol> WithSignature(byte[] signature)
+        public LocalInfo<TypeSymbol> WithSignature(byte[] signature)
         {
             return new LocalInfo<TypeSymbol>(this.Type, this.CustomModifiers, this.Constraints, signature);
         }
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis
         public bool IsPinned => (Constraints & LocalSlotConstraints.Pinned) != 0;
     }
 
-    internal abstract class MetadataDecoder<ModuleSymbol, TypeSymbol, MethodSymbol, FieldSymbol, Symbol> :
+    public abstract class MetadataDecoder<ModuleSymbol, TypeSymbol, MethodSymbol, FieldSymbol, Symbol> :
         TypeNameDecoder<ModuleSymbol, TypeSymbol>
         where ModuleSymbol : class
         where TypeSymbol : class, Symbol, ITypeSymbol
@@ -86,13 +86,13 @@ namespace Microsoft.CodeAnalysis
             _containingAssemblyIdentity = containingAssemblyIdentity;
         }
 
-        internal TypeSymbol GetTypeOfToken(EntityHandle token)
+        public TypeSymbol GetTypeOfToken(EntityHandle token)
         {
             bool isNoPiaLocalType;
             return GetTypeOfToken(token, out isNoPiaLocalType);
         }
 
-        internal TypeSymbol GetTypeOfToken(EntityHandle token, out bool isNoPiaLocalType)
+        public TypeSymbol GetTypeOfToken(EntityHandle token, out bool isNoPiaLocalType)
         {
             Debug.Assert(!token.IsNil);
 
@@ -758,7 +758,7 @@ tryAgain:
 
         /// <exception cref="UnsupportedSignatureContent">If the encoded local variable type is invalid.</exception>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal ImmutableArray<LocalInfo<TypeSymbol>> DecodeLocalSignatureOrThrow(ref BlobReader signatureReader)
+        public ImmutableArray<LocalInfo<TypeSymbol>> DecodeLocalSignatureOrThrow(ref BlobReader signatureReader)
         {
             SignatureHeader signatureHeader = signatureReader.ReadSignatureHeader();
 
@@ -815,7 +815,7 @@ tryAgain:
 
         /// <exception cref="UnsupportedSignatureContent">If the encoded local variable type is invalid.</exception>
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal LocalInfo<TypeSymbol> DecodeLocalVariableOrThrow(ref BlobReader signatureReader)
+        public LocalInfo<TypeSymbol> DecodeLocalVariableOrThrow(ref BlobReader signatureReader)
         {
             SignatureTypeCode typeCode;
 
@@ -856,7 +856,7 @@ tryAgain:
             return new LocalInfo<TypeSymbol>(typeSymbol, customModifiers, constraints, signatureOpt: null);
         }
 
-        internal bool TryGetLocals(MethodDefinitionHandle handle, out ImmutableArray<LocalInfo<TypeSymbol>> localInfo)
+        public bool TryGetLocals(MethodDefinitionHandle handle, out ImmutableArray<LocalInfo<TypeSymbol>> localInfo)
         {
             try
             {
@@ -928,7 +928,7 @@ tryAgain:
         }
 
         // MetaImport::DecodeMethodSignature
-        internal ParamInfo<TypeSymbol>[] GetSignatureForMethod(MethodDefinitionHandle methodDef, out SignatureHeader signatureHeader, out BadImageFormatException metadataException, bool setParamHandles = true)
+        public ParamInfo<TypeSymbol>[] GetSignatureForMethod(MethodDefinitionHandle methodDef, out SignatureHeader signatureHeader, out BadImageFormatException metadataException, bool setParamHandles = true)
         {
             ParamInfo<TypeSymbol>[] paramInfo = null;
             signatureHeader = default(SignatureHeader);
@@ -977,7 +977,7 @@ tryAgain:
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static void GetSignatureCountsOrThrow(PEModule module, MethodDefinitionHandle methodDef, out int parameterCount, out int typeParameterCount)
+        public static void GetSignatureCountsOrThrow(PEModule module, MethodDefinitionHandle methodDef, out int parameterCount, out int typeParameterCount)
         {
             BlobHandle signature = module.GetMethodSignatureOrThrow(methodDef);
             SignatureHeader signatureHeader;
@@ -986,7 +986,7 @@ tryAgain:
             GetSignatureCountsOrThrow(ref signatureReader, signatureHeader, out parameterCount, out typeParameterCount);
         }
 
-        internal ParamInfo<TypeSymbol>[] GetSignatureForProperty(PropertyDefinitionHandle handle, out SignatureHeader signatureHeader, out BadImageFormatException BadImageFormatException)
+        public ParamInfo<TypeSymbol>[] GetSignatureForProperty(PropertyDefinitionHandle handle, out SignatureHeader signatureHeader, out BadImageFormatException BadImageFormatException)
         {
             ParamInfo<TypeSymbol>[] paramInfo = null;
             signatureHeader = default(SignatureHeader);
@@ -1016,7 +1016,7 @@ tryAgain:
             return paramInfo;
         }
 
-        internal SignatureHeader GetSignatureHeaderForProperty(PropertyDefinitionHandle handle)
+        public SignatureHeader GetSignatureHeaderForProperty(PropertyDefinitionHandle handle)
         {
             try
             {
@@ -1368,7 +1368,7 @@ tryAgain:
             return new KeyValuePair<string, TypedConstant>(name, value);
         }
 
-        internal bool IsTargetAttribute(
+        public bool IsTargetAttribute(
             CustomAttributeHandle customAttribute,
             string namespaceName,
             string typeName,
@@ -1391,7 +1391,7 @@ tryAgain:
             }
         }
 
-        internal int GetTargetAttributeSignatureIndex(CustomAttributeHandle customAttribute, AttributeDescription description)
+        public int GetTargetAttributeSignatureIndex(CustomAttributeHandle customAttribute, AttributeDescription description)
         {
             try
             {
@@ -1403,7 +1403,7 @@ tryAgain:
             }
         }
 
-        internal bool GetCustomAttribute(
+        public bool GetCustomAttribute(
             CustomAttributeHandle handle,
             out TypedConstant[] positionalArgs,
             out KeyValuePair<string, TypedConstant>[] namedArgs)
@@ -1482,7 +1482,7 @@ tryAgain:
             return false;
         }
 
-        internal bool GetCustomAttribute(CustomAttributeHandle handle, out TypeSymbol attributeClass, out MethodSymbol attributeCtor)
+        public bool GetCustomAttribute(CustomAttributeHandle handle, out TypeSymbol attributeClass, out MethodSymbol attributeCtor)
         {
             EntityHandle attributeType;
             EntityHandle ctor;
@@ -1508,7 +1508,7 @@ tryAgain:
             return true;
         }
 
-        internal bool GetCustomAttributeWellKnownType(CustomAttributeHandle handle, out WellKnownType wellKnownAttribute)
+        public bool GetCustomAttributeWellKnownType(CustomAttributeHandle handle, out WellKnownType wellKnownAttribute)
         {
             wellKnownAttribute = WellKnownType.Unknown;
 
@@ -1568,13 +1568,13 @@ tryAgain:
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal BlobReader DecodeSignatureHeaderOrThrow(BlobHandle signature, out SignatureHeader signatureHeader)
+        public BlobReader DecodeSignatureHeaderOrThrow(BlobHandle signature, out SignatureHeader signatureHeader)
         {
             return DecodeSignatureHeaderOrThrow(Module, signature, out signatureHeader);
         }
 
         /// <exception cref="BadImageFormatException">An exception from metadata reader.</exception>
-        internal static BlobReader DecodeSignatureHeaderOrThrow(PEModule module, BlobHandle signature, out SignatureHeader signatureHeader)
+        public static BlobReader DecodeSignatureHeaderOrThrow(PEModule module, BlobHandle signature, out SignatureHeader signatureHeader)
         {
             BlobReader reader = module.GetMemoryReaderOrThrow(signature);
             signatureHeader = reader.ReadSignatureHeader();
@@ -1636,7 +1636,7 @@ tryAgain:
             parameterCount = signatureReader.ReadCompressedInteger();
         }
 
-        internal TypeSymbol DecodeFieldSignature(FieldDefinitionHandle fieldHandle, out bool isVolatile, out ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
+        public TypeSymbol DecodeFieldSignature(FieldDefinitionHandle fieldHandle, out bool isVolatile, out ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers)
         {
             try
             {
@@ -1750,7 +1750,7 @@ tryAgain:
         /// <param name="implementingMethodDef">MethodDef handle of the implementing method.</param>
         /// <param name="implementingTypeSymbol">The type symbol for the implementing type.</param>
         /// <returns>Array of implemented methods.</returns>
-        internal ImmutableArray<MethodSymbol> GetExplicitlyOverriddenMethods(TypeDefinitionHandle implementingTypeDef, MethodDefinitionHandle implementingMethodDef, TypeSymbol implementingTypeSymbol)
+        public ImmutableArray<MethodSymbol> GetExplicitlyOverriddenMethods(TypeDefinitionHandle implementingTypeDef, MethodDefinitionHandle implementingMethodDef, TypeSymbol implementingTypeSymbol)
         {
             ArrayBuilder<MethodSymbol> resultBuilder = ArrayBuilder<MethodSymbol>.GetInstance();
 
@@ -1963,14 +1963,14 @@ tryAgain:
         /// <param name="implementingTypeSymbol">Scope the search to supertypes of the implementing type.</param>
         /// <param name="methodsOnly">True to only return method symbols, null if the token resolves to a field.</param>
         /// <returns>The corresponding MethodSymbol or null.</returns>
-        internal abstract Symbol GetSymbolForMemberRef(MemberReferenceHandle memberRef, TypeSymbol implementingTypeSymbol = null, bool methodsOnly = false);
+        public abstract Symbol GetSymbolForMemberRef(MemberReferenceHandle memberRef, TypeSymbol implementingTypeSymbol = null, bool methodsOnly = false);
 
-        internal MethodSymbol GetMethodSymbolForMemberRef(MemberReferenceHandle methodRef, TypeSymbol implementingTypeSymbol)
+        public MethodSymbol GetMethodSymbolForMemberRef(MemberReferenceHandle methodRef, TypeSymbol implementingTypeSymbol)
         {
             return (MethodSymbol)GetSymbolForMemberRef(methodRef, implementingTypeSymbol, methodsOnly: true);
         }
 
-        internal FieldSymbol GetFieldSymbolForMemberRef(MemberReferenceHandle methodRef, TypeSymbol implementingTypeSymbol)
+        public FieldSymbol GetFieldSymbolForMemberRef(MemberReferenceHandle methodRef, TypeSymbol implementingTypeSymbol)
         {
             return (FieldSymbol)GetSymbolForMemberRef(methodRef, implementingTypeSymbol, methodsOnly: true);
         }
@@ -2028,7 +2028,7 @@ tryAgain:
         /// Returns a symbol that given token resolves to or null of the token represents an entity that isn't represented by a symbol,
         /// such as vararg MemberRef.
         /// </summary>
-        internal Symbol GetSymbolForILToken(EntityHandle token)
+        public Symbol GetSymbolForILToken(EntityHandle token)
         {
             try
             {
@@ -2107,7 +2107,7 @@ tryAgain:
         /// <summary>
         /// Given a MemberRef token, return the TypeSymbol for its Class field.
         /// </summary>
-        internal TypeSymbol GetMemberRefTypeSymbol(MemberReferenceHandle memberRef)
+        public TypeSymbol GetMemberRefTypeSymbol(MemberReferenceHandle memberRef)
         {
             try
             {
@@ -2137,7 +2137,7 @@ tryAgain:
             }
         }
 
-        internal MethodSymbol GetMethodSymbolForMethodDefOrMemberRef(EntityHandle memberToken, TypeSymbol container)
+        public MethodSymbol GetMethodSymbolForMethodDefOrMemberRef(EntityHandle memberToken, TypeSymbol container)
         {
             HandleKind type = memberToken.Kind;
             Debug.Assert(type == HandleKind.MethodDefinition || type == HandleKind.MemberReference);
@@ -2147,7 +2147,7 @@ tryAgain:
                 : GetMethodSymbolForMemberRef((MemberReferenceHandle)memberToken, container);
         }
 
-        internal FieldSymbol GetFieldSymbolForFieldDefOrMemberRef(EntityHandle memberToken, TypeSymbol container)
+        public FieldSymbol GetFieldSymbolForFieldDefOrMemberRef(EntityHandle memberToken, TypeSymbol container)
         {
             HandleKind type = memberToken.Kind;
             Debug.Assert(type == HandleKind.FieldDefinition ||
@@ -2180,7 +2180,7 @@ tryAgain:
         /// True if differences in return type (or value parameter for setter) should be treated as significant.
         /// </param>
         /// <returns>True if the accessor signature is appropriate for the containing property.</returns>
-        internal bool DoPropertySignaturesMatch(ParamInfo<TypeSymbol>[] signature1, ParamInfo<TypeSymbol>[] signature2, bool comparingToSetter, bool compareParamByRef, bool compareReturnType)
+        public bool DoPropertySignaturesMatch(ParamInfo<TypeSymbol>[] signature1, ParamInfo<TypeSymbol>[] signature2, bool comparingToSetter, bool compareParamByRef, bool compareReturnType)
         {
             int additionalParamCount = (comparingToSetter ? 1 : 0);
 
@@ -2225,7 +2225,7 @@ tryAgain:
         /// <param name="eventType">Type of the event containing the accessor.</param>
         /// <param name="methodParams">Signature of the accessor (return type and then parameters).</param>
         /// <returns>True if the accessor signature is appropriate for the containing event.</returns>
-        internal bool DoesSignatureMatchEvent(TypeSymbol eventType, ParamInfo<TypeSymbol>[] methodParams)
+        public bool DoesSignatureMatchEvent(TypeSymbol eventType, ParamInfo<TypeSymbol>[] methodParams)
         {
             // Check the number of parameters.
             if (methodParams.Length != 2)

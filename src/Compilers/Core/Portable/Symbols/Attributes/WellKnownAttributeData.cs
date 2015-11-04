@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Base class for storing information decoded from well-known custom attributes.
     /// </summary>
-    internal abstract class WellKnownAttributeData
+    public abstract class WellKnownAttributeData
     {
         /// <summary>
         /// Used to distinguish cases when attribute is applied with null value and when attribute is not applied.
@@ -40,7 +40,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal void VerifyDataStored(bool expected = true)
+        public void VerifyDataStored(bool expected = true)
         {
 #if DEBUG
             Debug.Assert(_anyDataStored == expected);
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal static void Seal(WellKnownAttributeData data)
+        public static void Seal(WellKnownAttributeData data)
         {
 #if DEBUG
             if (data != null)

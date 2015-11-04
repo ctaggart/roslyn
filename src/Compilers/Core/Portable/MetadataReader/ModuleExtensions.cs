@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Globalization;
@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class ModuleExtensions
+    public static class ModuleExtensions
     {
         private const string VTableGapMethodNamePrefix = "_VtblGap";
 

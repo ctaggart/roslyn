@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,14 +8,14 @@ namespace Roslyn.Utilities
     // Contains path parsing utilities.
     // We need our own because System.IO.Path is insufficient for our purposes
     // For example we need to be able to work with invalid paths or paths containing wildcards
-    internal static class PathUtilities
+    public static class PathUtilities
     {
         // We consider '/' a directory separator on Unix like systems. 
         // On Windows both / and \ are equally accepted.
-        internal static readonly char DirectorySeparatorChar = IsUnixLikePlatform ? '/' : '\\';
-        internal static readonly char AltDirectorySeparatorChar = '/';
-        internal static readonly string DirectorySeparatorStr = new string(DirectorySeparatorChar, 1);
-        internal const char VolumeSeparatorChar = ':';
+        public static readonly char DirectorySeparatorChar = IsUnixLikePlatform ? '/' : '\\';
+        public static readonly char AltDirectorySeparatorChar = '/';
+        public static readonly string DirectorySeparatorStr = new string(DirectorySeparatorChar, 1);
+        public const char VolumeSeparatorChar = ':';
 
         private static bool IsUnixLikePlatform
         {
@@ -25,12 +25,12 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static bool IsDirectorySeparator(char c)
+        public static bool IsDirectorySeparator(char c)
         {
             return c == DirectorySeparatorChar || c == AltDirectorySeparatorChar;
         }
 
-        internal static string TrimTrailingSeparators(string s)
+        public static string TrimTrailingSeparators(string s)
         {
             int lastSeparator = s.Length;
             while (lastSeparator > 0 && IsDirectorySeparator(s[lastSeparator-1]))
@@ -46,22 +46,22 @@ namespace Roslyn.Utilities
             return s;
         }
 
-        internal static string GetExtension(string path)
+        public static string GetExtension(string path)
         {
             return FileNameUtilities.GetExtension(path);
         }
 
-        internal static string ChangeExtension(string path, string extension)
+        public static string ChangeExtension(string path, string extension)
         {
             return FileNameUtilities.ChangeExtension(path, extension);
         }
 
-        internal static string RemoveExtension(string path)
+        public static string RemoveExtension(string path)
         {
             return FileNameUtilities.ChangeExtension(path, extension: null);
         }
 
-        internal static string GetFileName(string path)
+        public static string GetFileName(string path)
         {
             return FileNameUtilities.GetFileName(path);
         }
@@ -76,7 +76,7 @@ namespace Roslyn.Utilities
         ///     doesn't recognize UNC structure \\computer-name\share\directory-name\file-name (TODO: tomat).
         /// </remarks>
         /// <returns>Prefix of path that represents a directory. </returns>
-        internal static string GetDirectoryName(string path)
+        public static string GetDirectoryName(string path)
         {
             int fileNameStart = FileNameUtilities.IndexOfFileName(path);
             if (fileNameStart < 0)
@@ -87,7 +87,7 @@ namespace Roslyn.Utilities
             return path.Substring(0, fileNameStart);
         }
 
-        internal static PathKind GetPathKind(string path)
+        public static PathKind GetPathKind(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -143,7 +143,7 @@ namespace Roslyn.Utilities
             return PathKind.Relative;
         }
 
-        internal static bool IsAbsolute(string path)
+        public static bool IsAbsolute(string path)
         {
             if (string.IsNullOrEmpty(path))
             {
@@ -185,7 +185,7 @@ namespace Roslyn.Utilities
         /// Root of an absolute path or null if the path isn't absolute or has invalid format (e.g. "\\").
         /// It may or may not end with a directory separator (e.g. "C:\", "C:\foo", "\\machine\share", etc.) .
         /// </returns>
-        internal static string GetPathRoot(string path)
+        public static string GetPathRoot(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -299,7 +299,7 @@ namespace Roslyn.Utilities
         /// or relative to a drive directory (e.g. "C:abc\def").
         /// </returns>
         /// <seealso cref="CombinePossiblyRelativeAndRelativePaths"/>
-        internal static string CombineAbsoluteAndRelativePaths(string root, string relativePath)
+        public static string CombineAbsoluteAndRelativePaths(string root, string relativePath)
         {
             Debug.Assert(IsAbsolute(root));
 
@@ -313,7 +313,7 @@ namespace Roslyn.Utilities
         /// <param name="relativePath">Second path: relative and non-null.</param>
         /// <returns>null, if <paramref name="rootOpt"/> is null; a combined path, otherwise.</returns>
         /// <seealso cref="CombineAbsoluteAndRelativePaths"/>
-        internal static string CombinePossiblyRelativeAndRelativePaths(string rootOpt, string relativePath)
+        public static string CombinePossiblyRelativeAndRelativePaths(string rootOpt, string relativePath)
         {
             if (string.IsNullOrEmpty(rootOpt))
             {
@@ -334,7 +334,7 @@ namespace Roslyn.Utilities
             return CombinePathsUnchecked(rootOpt, relativePath);
         }
 
-        internal static string CombinePathsUnchecked(string root, string relativePath)
+        public static string CombinePathsUnchecked(string root, string relativePath)
         {
             Debug.Assert(!string.IsNullOrEmpty(root));
 
@@ -347,7 +347,7 @@ namespace Roslyn.Utilities
             return root + relativePath;
         }
 
-        internal static string RemoveTrailingDirectorySeparator(string path)
+        public static string RemoveTrailingDirectorySeparator(string path)
         {
             if (path.Length > 0 && IsDirectorySeparator(path[path.Length - 1]))
             {
@@ -363,7 +363,7 @@ namespace Roslyn.Utilities
         /// Determines whether an assembly reference is considered an assembly file path or an assembly name.
         /// used, for example, on values of /r and #r.
         /// </summary>
-        internal static bool IsFilePath(string assemblyDisplayNameOrPath)
+        public static bool IsFilePath(string assemblyDisplayNameOrPath)
         {
             Debug.Assert(assemblyDisplayNameOrPath != null);
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Globalization;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Defines a set of helper methods to classify Unicode characters.
     /// </summary>
-    internal static partial class UnicodeCharacterUtilities
+    public static partial class UnicodeCharacterUtilities
     {
         public static bool IsIdentifierStartCharacter(char ch)
         {
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns true if the Unicode character is a formatting character (Unicode class Cf).
         /// </summary>
         /// <param name="ch">The Unicode character.</param>
-        internal static bool IsFormattingChar(char ch)
+        public static bool IsFormattingChar(char ch)
         {
             // There are no FormattingChars in ASCII range
 

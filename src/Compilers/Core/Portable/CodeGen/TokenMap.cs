@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// To support these two scenarios we need two maps - Item-->uint, and uint-->Item.  (the second is really just a list).
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal sealed class TokenMap<T> where T : class
+    public sealed class TokenMap<T> where T : class
     {
         private readonly ConcurrentDictionary<T, uint> _itemIdentityToToken = new ConcurrentDictionary<T, uint>(ReferenceEqualityComparer.Instance);
 

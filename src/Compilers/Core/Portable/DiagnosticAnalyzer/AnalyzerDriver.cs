@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// Driver to execute diagnostic analyzers for a given compilation.
     /// It uses a <see cref="AsyncQueue{TElement}"/> of <see cref="CompilationEvent"/>s to drive its analysis.
     /// </summary>
-    internal abstract partial class AnalyzerDriver : IDisposable
+    public abstract partial class AnalyzerDriver : IDisposable
     {
         // Protect against vicious analyzers that provide large values for SymbolKind.
         private const int MaxSymbolKind = 100;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         // Lazy fields
         private CancellationTokenRegistration _queueRegistration;
         protected AnalyzerExecutor analyzerExecutor;
-        internal AnalyzerActions analyzerActions;
+        public AnalyzerActions analyzerActions;
         private ImmutableDictionary<DiagnosticAnalyzer, ImmutableArray<ImmutableArray<SymbolAnalyzerAction>>> _symbolActionsByKind;
         private ImmutableDictionary<DiagnosticAnalyzer, ImmutableArray<SemanticModelAnalyzerAction>> _semanticModelActionsMap;
         private ImmutableDictionary<DiagnosticAnalyzer, ImmutableArray<SyntaxTreeAnalyzerAction>> _syntaxTreeActionsMap;
@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal void Initialize(
+        public void Initialize(
            Compilation compilation,
            CompilationWithAnalyzersOptions analysisOptions,
            bool categorizeDiagnostics,
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <param name="analysisStateOpt">An optional object to track partial analysis state.</param>
         /// <param name="cancellationToken">Cancellation token to abort analysis.</param>
         /// <remarks>Driver must be initialized before invoking this method, i.e. <see cref="Initialize(AnalyzerExecutor, DiagnosticQueue, CancellationToken)"/> method must have been invoked and <see cref="WhenInitializedTask"/> must be non-null.</remarks>
-        internal async Task AttachQueueAndProcessAllEventsAsync(AsyncQueue<CompilationEvent> eventQueue, AnalysisScope analysisScope, AnalysisState analysisStateOpt, CancellationToken cancellationToken)
+        public async Task AttachQueueAndProcessAllEventsAsync(AsyncQueue<CompilationEvent> eventQueue, AnalysisScope analysisScope, AnalysisState analysisStateOpt, CancellationToken cancellationToken)
         {
             try
             {
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <param name="analysisScope">Scope of analysis.</param>
         /// <param name="cancellationToken">Cancellation token to abort analysis.</param>
         /// <remarks>Driver must be initialized before invoking this method, i.e. <see cref="Initialize(AnalyzerExecutor, DiagnosticQueue, CancellationToken)"/> method must have been invoked and <see cref="WhenInitializedTask"/> must be non-null.</remarks>
-        internal void AttachQueueAndStartProcessingEvents(AsyncQueue<CompilationEvent> eventQueue, AnalysisScope analysisScope, CancellationToken cancellationToken)
+        public void AttachQueueAndStartProcessingEvents(AsyncQueue<CompilationEvent> eventQueue, AnalysisScope analysisScope, CancellationToken cancellationToken)
         {
             try
             {
@@ -346,7 +346,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         }
 
         // internal for testing purposes
-        internal static AnalyzerDriver CreateAndAttachToCompilation(
+        public static AnalyzerDriver CreateAndAttachToCompilation(
             Compilation compilation,
             ImmutableArray<DiagnosticAnalyzer> analyzers,
             AnalyzerOptions options,
@@ -445,8 +445,8 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// </summary>
         public Task WhenCompletedTask => _primaryTask;
 
-        internal ImmutableDictionary<DiagnosticAnalyzer, TimeSpan> AnalyzerExecutionTimes => analyzerExecutor.AnalyzerExecutionTimes;
-        internal TimeSpan ResetAnalyzerExecutionTime(DiagnosticAnalyzer analyzer) => analyzerExecutor.ResetAnalyzerExecutionTime(analyzer);
+        public ImmutableDictionary<DiagnosticAnalyzer, TimeSpan> AnalyzerExecutionTimes => analyzerExecutor.AnalyzerExecutionTimes;
+        public TimeSpan ResetAnalyzerExecutionTime(DiagnosticAnalyzer analyzer) => analyzerExecutor.ResetAnalyzerExecutionTime(analyzer);
 
         private ImmutableDictionary<DiagnosticAnalyzer, ImmutableArray<ImmutableArray<SymbolAnalyzerAction>>> MakeSymbolActionsByKind()
         {
@@ -799,7 +799,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal static Action<Diagnostic> GetDiagnosticSink(Action<Diagnostic> addDiagnosticCore, Compilation compilation)
+        public static Action<Diagnostic> GetDiagnosticSink(Action<Diagnostic> addDiagnosticCore, Compilation compilation)
         {
             return diagnostic =>
             {
@@ -811,7 +811,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             };
         }
 
-        internal static Action<Diagnostic, DiagnosticAnalyzer, bool> GetDiagnosticSink(Action<Diagnostic, DiagnosticAnalyzer, bool> addLocalDiagnosticCore, Compilation compilation)
+        public static Action<Diagnostic, DiagnosticAnalyzer, bool> GetDiagnosticSink(Action<Diagnostic, DiagnosticAnalyzer, bool> addLocalDiagnosticCore, Compilation compilation)
         {
             return (diagnostic, analyzer, isSyntaxDiagnostic) =>
             {
@@ -823,7 +823,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             };
         }
 
-        internal static Action<Diagnostic, DiagnosticAnalyzer> GetDiagnosticSink(Action<Diagnostic, DiagnosticAnalyzer> addNonLocalDiagnosticCore, Compilation compilation)
+        public static Action<Diagnostic, DiagnosticAnalyzer> GetDiagnosticSink(Action<Diagnostic, DiagnosticAnalyzer> addNonLocalDiagnosticCore, Compilation compilation)
         {
             return (diagnostic, analyzer) =>
             {
@@ -864,7 +864,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }, analyzerExecutor.CancellationToken);
         }
 
-        internal async Task<AnalyzerActionCounts> GetAnalyzerActionCountsAsync(DiagnosticAnalyzer analyzer, CancellationToken cancellationToken)
+        public async Task<AnalyzerActionCounts> GetAnalyzerActionCountsAsync(DiagnosticAnalyzer analyzer, CancellationToken cancellationToken)
         {
             var executor = analyzerExecutor.WithCancellationToken(cancellationToken);
             var analyzerActions = await analyzerManager.GetAnalyzerActionsAsync(analyzer, executor).ConfigureAwait(false);
@@ -874,7 +874,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <summary>
         /// Returns true if all the diagnostics that can be produced by this analyzer are suppressed through options.
         /// </summary>
-        internal static bool IsDiagnosticAnalyzerSuppressed(
+        public static bool IsDiagnosticAnalyzerSuppressed(
             DiagnosticAnalyzer analyzer,
             CompilationOptions options,
             AnalyzerManager analyzerManager,
@@ -900,7 +900,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// Driver to execute diagnostic analyzers for a given compilation.
     /// It uses a <see cref="AsyncQueue{TElement}"/> of <see cref="CompilationEvent"/>s to drive its analysis.
     /// </summary>
-    internal class AnalyzerDriver<TLanguageKindEnum> : AnalyzerDriver where TLanguageKindEnum : struct
+    public class AnalyzerDriver<TLanguageKindEnum> : AnalyzerDriver where TLanguageKindEnum : struct
     {
         private readonly Func<SyntaxNode, TLanguageKindEnum> _getKind;
         private ImmutableDictionary<DiagnosticAnalyzer, ImmutableDictionary<TLanguageKindEnum, ImmutableArray<SyntaxNodeAnalyzerAction<TLanguageKindEnum>>>> _lazyNodeActionsByKind;

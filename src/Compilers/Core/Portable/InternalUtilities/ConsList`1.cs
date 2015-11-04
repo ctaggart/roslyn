@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -11,14 +11,14 @@ namespace Roslyn.Utilities
     /// <summary>
     /// a simple Lisp-like immutable list.  Good to use when lists are always accessed from the head.
     /// </summary>
-    internal class ConsList<T> : IEnumerable<T>
+    public class ConsList<T> : IEnumerable<T>
     {
         public static readonly ConsList<T> Empty = new ConsList<T>();
 
         private readonly T _head;
         private readonly ConsList<T> _tail;
 
-        internal struct Enumerator : IEnumerator<T>
+        public struct Enumerator : IEnumerator<T>
         {
             private T _current;
             private ConsList<T> _tail;

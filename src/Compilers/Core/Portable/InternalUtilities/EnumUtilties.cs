@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -7,14 +7,14 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslyn.Utilities
 {
-    internal static class EnumUtilities
+    public static class EnumUtilities
     {
         /// <summary>
         /// Convert a boxed primitive (generally of the backing type of an enum) into a ulong.
         /// </summary>
         /// <remarks>
         /// </remarks>
-        internal static ulong ConvertEnumUnderlyingTypeToUInt64(object value, SpecialType specialType)
+        public static ulong ConvertEnumUnderlyingTypeToUInt64(object value, SpecialType specialType)
         {
             Debug.Assert(value != null);
             Debug.Assert(value.GetType().GetTypeInfo().IsPrimitive);

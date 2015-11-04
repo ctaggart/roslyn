@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// A program location in source code.
     /// </summary>
-    internal sealed class SourceLocation : Location, IEquatable<SourceLocation>
+    public sealed class SourceLocation : Location, IEquatable<SourceLocation>
     {
         private readonly SyntaxTree _syntaxTree;
         private readonly TextSpan _span;

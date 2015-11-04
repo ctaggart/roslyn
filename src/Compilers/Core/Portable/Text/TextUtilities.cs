@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.IO;
@@ -9,11 +9,11 @@ namespace Microsoft.CodeAnalysis.Text
     /// <summary>
     /// Holder for common Text Utility functions and values
     /// </summary>
-    internal static class TextUtilities
+    public static class TextUtilities
     {
         // Note: a small amount of this below logic is also inlined into SourceText.ParseLineBreaks
         // for performance reasons.
-        internal static int GetLengthOfLineBreak(SourceText text, int index)
+        public static int GetLengthOfLineBreak(SourceText text, int index)
         {
             var c = text[index];
 
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <summary>
         /// Determine if the character in question is any line break character
         /// </summary>
-        internal static bool IsAnyLineBreakCharacter(char c)
+        public static bool IsAnyLineBreakCharacter(char c)
         {
             return c == '\n' || c == '\r' || c == '\u0085' || c == '\u2028' || c == '\u2029';
         }

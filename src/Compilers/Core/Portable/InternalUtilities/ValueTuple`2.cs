@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Roslyn.Utilities
 {
     // struct with two values
-    internal struct ValueTuple<T1, T2> : IEquatable<ValueTuple<T1, T2>>
+    public struct ValueTuple<T1, T2> : IEquatable<ValueTuple<T1, T2>>
     {
         private static readonly EqualityComparer<T1> s_comparer1 = EqualityComparer<T1>.Default;
         private static readonly EqualityComparer<T2> s_comparer2 = EqualityComparer<T2>.Default;

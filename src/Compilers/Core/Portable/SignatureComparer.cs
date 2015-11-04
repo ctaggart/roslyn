@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.RuntimeMembers
     /// Helper class to match signatures in format of 
     /// MemberDescriptor.Signature to members.
     /// </summary>
-    internal abstract class SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol>
+    public abstract class SignatureComparer<MethodSymbol, FieldSymbol, PropertySymbol, TypeSymbol, ParameterSymbol>
         where MethodSymbol : class
         where FieldSymbol : class
         where PropertySymbol : class

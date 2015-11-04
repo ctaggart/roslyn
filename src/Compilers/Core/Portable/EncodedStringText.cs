@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Text
 {
-    internal static class EncodedStringText
+    public static class EncodedStringText
     {
         private const int LargeObjectHeapLimitInChars = 40 * 1024; // 40KB
 
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <paramref name="defaultEncoding"/> is null and the stream appears to be a binary file.
         /// </exception>
         /// <exception cref="IOException">An IO error occurred while reading from the stream.</exception>
-        internal static SourceText Create(Stream stream,
+        public static SourceText Create(Stream stream,
             Encoding defaultEncoding = null,
             SourceHashAlgorithm checksumAlgorithm = SourceHashAlgorithm.Sha1)
         {
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.Text
         }
 
         // internal for testing
-        internal static SourceText Create(Stream stream, Func<Encoding> getEncoding,
+        public static SourceText Create(Stream stream, Func<Encoding> getEncoding,
             Encoding defaultEncoding = null,
             SourceHashAlgorithm checksumAlgorithm = SourceHashAlgorithm.Sha1)
         {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <remarks>
         /// internal for unit testing
         /// </remarks>
-        internal static SourceText Decode(Stream data, Encoding encoding, SourceHashAlgorithm checksumAlgorithm, bool throwIfBinaryDetected = false)
+        public static SourceText Decode(Stream data, Encoding encoding, SourceHashAlgorithm checksumAlgorithm, bool throwIfBinaryDetected = false)
         {
             Debug.Assert(data != null);
             Debug.Assert(encoding != null);

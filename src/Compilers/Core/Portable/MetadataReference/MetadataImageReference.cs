@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis
     /// Represents an in-memory Portable-Executable image.
     /// </summary>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal sealed class MetadataImageReference : PortableExecutableReference
+    public sealed class MetadataImageReference : PortableExecutableReference
     {
         private readonly string _display;
         private readonly Metadata _metadata;

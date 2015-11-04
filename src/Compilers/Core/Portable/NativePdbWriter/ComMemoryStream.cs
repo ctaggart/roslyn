@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.IO;
@@ -15,7 +15,7 @@ namespace Roslyn.Utilities
     /// 2. Read and Write are optimized to avoid copying (see <see cref="IUnsafeComStream"/>)
     /// 3. Allocates in chunks instead of a contiguous buffer to avoid re-alloc and copy costs when growing.
     /// </summary>
-    internal class ComMemoryStream : IUnsafeComStream
+    public class ComMemoryStream : IUnsafeComStream
     {
         private const int ChunkSize = 32768;
         private readonly List<byte[]> _chunks = new List<byte[]>();

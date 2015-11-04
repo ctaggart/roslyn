@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Information decoded from well-known custom attributes applied on a module.
     /// </summary>
-    internal class CommonModuleWellKnownAttributeData : WellKnownAttributeData
+    public class CommonModuleWellKnownAttributeData : WellKnownAttributeData
     {
         #region DebuggableAttribute
         private bool _hasDebuggableAttribute;
@@ -33,7 +33,7 @@ namespace Microsoft.CodeAnalysis
 
         private byte _defaultCharacterSet;
 
-        internal CharSet DefaultCharacterSet
+        public CharSet DefaultCharacterSet
         {
             get
             {
@@ -50,12 +50,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool HasDefaultCharSetAttribute
+        public bool HasDefaultCharSetAttribute
         {
             get { return _defaultCharacterSet != 0; }
         }
 
-        internal static bool IsValidCharSet(CharSet value)
+        public static bool IsValidCharSet(CharSet value)
         {
             return value >= Cci.Constants.CharSet_None && value <= Cci.Constants.CharSet_Auto;
         }

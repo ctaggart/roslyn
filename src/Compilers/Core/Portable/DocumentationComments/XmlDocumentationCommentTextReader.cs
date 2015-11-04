@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Xml;
 using Roslyn.Utilities;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     /// As a performance optimization, this class tries to re-use the same underlying <see cref="XmlReader"/> instance
     /// when possible. 
     /// </summary>
-    internal partial class XmlDocumentationCommentTextReader
+    public partial class XmlDocumentationCommentTextReader
     {
         private XmlReader _reader;
         private readonly Reader _textReader = new Reader();
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis
 XmlReaderSettings.XmlResolver property to either null or an instance of XmlSecureResolver.
 However, the said XmlResolver property no longer exists in .NET portable framework (i.e. core framework) which means there is no way to set it.
 So we suppress this error until the reporting for CA3053 has been updated to account for .NET portable framework.")]
-        internal XmlException ParseInternal(string text)
+        public XmlException ParseInternal(string text)
         {
             _textReader.SetText(text);
 

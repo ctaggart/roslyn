@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the
         /// process of obtaining the semantic info.</param>
-        internal SymbolInfo GetSymbolInfo(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
+        public SymbolInfo GetSymbolInfo(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetSymbolInfoCore(node, cancellationToken);
         }
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis
         /// <returns>The semantic information for the topmost node of the expression.</returns>
         /// <remarks>The passed in expression is interpreted as a stand-alone expression, as if it
         /// appeared by itself somewhere within the scope that encloses "position".</remarks>
-        internal SymbolInfo GetSpeculativeSymbolInfo(int position, SyntaxNode expression, SpeculativeBindingOption bindingOption)
+        public SymbolInfo GetSpeculativeSymbolInfo(int position, SyntaxNode expression, SpeculativeBindingOption bindingOption)
         {
             return GetSpeculativeSymbolInfoCore(position, expression, bindingOption);
         }
@@ -150,7 +150,7 @@ namespace Microsoft.CodeAnalysis
         /// <returns>The semantic information for the topmost node of the expression.</returns>
         /// <remarks>The passed in expression is interpreted as a stand-alone expression, as if it
         /// appeared by itself somewhere within the scope that encloses "position".</remarks>
-        internal TypeInfo GetSpeculativeTypeInfo(int position, SyntaxNode expression, SpeculativeBindingOption bindingOption)
+        public TypeInfo GetSpeculativeTypeInfo(int position, SyntaxNode expression, SpeculativeBindingOption bindingOption)
         {
             return GetSpeculativeTypeInfoCore(position, expression, bindingOption);
         }
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="node">The syntax node to get semantic information for.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the
         /// process of obtaining the semantic info.</param>
-        internal TypeInfo GetTypeInfo(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
+        public TypeInfo GetTypeInfo(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetTypeInfoCore(node, cancellationToken);
         }
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="nameSyntax">Name to get alias info for.</param>
         /// <param name="cancellationToken">A cancellation token that can be used to cancel the
         /// process of obtaining the alias information.</param>
-        internal IAliasSymbol GetAliasInfo(SyntaxNode nameSyntax, CancellationToken cancellationToken = default(CancellationToken))
+        public IAliasSymbol GetAliasInfo(SyntaxNode nameSyntax, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetAliasInfoCore(nameSyntax, cancellationToken);
         }
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis
         /// expression should derive from TypeSyntax.</param>
         /// <remarks>The passed in name is interpreted as a stand-alone name, as if it
         /// appeared by itself somewhere within the scope that encloses "position".</remarks>
-        internal IAliasSymbol GetSpeculativeAliasInfo(int position, SyntaxNode nameSyntax, SpeculativeBindingOption bindingOption)
+        public IAliasSymbol GetSpeculativeAliasInfo(int position, SyntaxNode nameSyntax, SpeculativeBindingOption bindingOption)
         {
             return GetSpeculativeAliasInfoCore(position, nameSyntax, bindingOption);
         }
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis
         /// UsingDirectiveSyntax</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The symbol declared by the node or null if the node is not a declaration.</returns>
-        internal ISymbol GetDeclaredSymbolForNode(SyntaxNode declaration, CancellationToken cancellationToken = default(CancellationToken))
+        public ISymbol GetDeclaredSymbolForNode(SyntaxNode declaration, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetDeclaredSymbolCore(declaration, cancellationToken);
         }
@@ -380,7 +380,7 @@ namespace Microsoft.CodeAnalysis
         /// UsingDirectiveSyntax</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The symbols declared by the node.</returns>
-        internal ImmutableArray<ISymbol> GetDeclaredSymbolsForNode(SyntaxNode declaration, CancellationToken cancellationToken = default(CancellationToken))
+        public ImmutableArray<ISymbol> GetDeclaredSymbolsForNode(SyntaxNode declaration, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetDeclaredSymbolsCore(declaration, cancellationToken);
         }
@@ -595,7 +595,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// The first and last nodes must be fully inside the same method body.
         /// </remarks>
-        internal ControlFlowAnalysis AnalyzeControlFlow(SyntaxNode firstStatement, SyntaxNode lastStatement)
+        public ControlFlowAnalysis AnalyzeControlFlow(SyntaxNode firstStatement, SyntaxNode lastStatement)
         {
             return AnalyzeControlFlowCore(firstStatement, lastStatement);
         }
@@ -623,7 +623,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// The statement must be fully inside the same method body.
         /// </remarks>
-        internal ControlFlowAnalysis AnalyzeControlFlow(SyntaxNode statement)
+        public ControlFlowAnalysis AnalyzeControlFlow(SyntaxNode statement)
         {
             return AnalyzeControlFlowCore(statement);
         }
@@ -651,7 +651,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// The first and last nodes must be fully inside the same method body.
         /// </remarks>
-        internal DataFlowAnalysis AnalyzeDataFlow(SyntaxNode firstStatement, SyntaxNode lastStatement)
+        public DataFlowAnalysis AnalyzeDataFlow(SyntaxNode firstStatement, SyntaxNode lastStatement)
         {
             return AnalyzeDataFlowCore(firstStatement, lastStatement);
         }
@@ -679,7 +679,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// The statement or expression must be fully inside a method body.
         /// </remarks>
-        internal DataFlowAnalysis AnalyzeDataFlow(SyntaxNode statementOrExpression)
+        public DataFlowAnalysis AnalyzeDataFlow(SyntaxNode statementOrExpression)
         {
             return AnalyzeDataFlowCore(statementOrExpression);
         }
@@ -718,7 +718,7 @@ namespace Microsoft.CodeAnalysis
         /// from which a method is then chosen; the chosen method or property is present in Symbol;
         /// all methods in the group that was consulted are placed in this property.
         /// </summary>
-        internal ImmutableArray<ISymbol> GetMemberGroup(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
+        public ImmutableArray<ISymbol> GetMemberGroup(SyntaxNode node, CancellationToken cancellationToken = default(CancellationToken))
         {
             return GetMemberGroupCore(node, cancellationToken);
         }
@@ -828,12 +828,12 @@ namespace Microsoft.CodeAnalysis
         /// If false, then <see cref="DeclarationInfo.DeclaredSymbol"/> is always null.</param>
         /// <param name="builder">Builder to add declarations.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
-        internal abstract void ComputeDeclarationsInSpan(TextSpan span, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken);
+        public abstract void ComputeDeclarationsInSpan(TextSpan span, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken);
 
         /// <summary>
         /// Takes a node and returns a set of declarations that overlap the node's span.
         /// </summary>
-        internal abstract void ComputeDeclarationsInNode(SyntaxNode node, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken, int? levelsToCompute = null);
+        public abstract void ComputeDeclarationsInNode(SyntaxNode node, bool getSymbol, List<DeclarationInfo> builder, CancellationToken cancellationToken, int? levelsToCompute = null);
 
         /// <summary>
         /// Takes a Symbol and syntax for one of its declaring syntax reference and returns the topmost syntax node to be used by syntax analyzer.

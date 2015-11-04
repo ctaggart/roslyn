@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Runtime.InteropServices;
@@ -12,7 +12,7 @@ namespace Roslyn.Utilities
     /// allocation cost when called from native code.
     /// </summary>
     [Guid("0000000c-0000-0000-C000-000000000046"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), ComImport]
-    internal interface IUnsafeComStream
+    public interface IUnsafeComStream
     {
         // ISequentialStream portion
         void Read(IntPtr pv, int cb, IntPtr pcbRead);

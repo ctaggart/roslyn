@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract class CryptographicHashProvider
+    public abstract class CryptographicHashProvider
     {
         private ImmutableArray<byte> _lazySHA1Hash;
         private ImmutableArray<byte> _lazySHA256Hash;
@@ -18,9 +18,9 @@ namespace Microsoft.CodeAnalysis
         private ImmutableArray<byte> _lazySHA512Hash;
         private ImmutableArray<byte> _lazyMD5Hash;
 
-        internal abstract ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm);
+        public abstract ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm);
 
-        internal ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
+        public ImmutableArray<byte> GetHash(AssemblyHashAlgorithm algorithmId)
         {
             using (HashAlgorithm algorithm = TryGetAlgorithm(algorithmId))
             {
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static int GetHashSize(SourceHashAlgorithm algorithmId)
+        public static int GetHashSize(SourceHashAlgorithm algorithmId)
         {
             switch (algorithmId)
             {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static HashAlgorithm TryGetAlgorithm(SourceHashAlgorithm algorithmId)
+        public static HashAlgorithm TryGetAlgorithm(SourceHashAlgorithm algorithmId)
         {
             switch (algorithmId)
             {
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static HashAlgorithm TryGetAlgorithm(AssemblyHashAlgorithm algorithmId)
+        public static HashAlgorithm TryGetAlgorithm(AssemblyHashAlgorithm algorithmId)
         {
             switch (algorithmId)
             {
@@ -109,7 +109,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsSupportedAlgorithm(AssemblyHashAlgorithm algorithmId)
+        public static bool IsSupportedAlgorithm(AssemblyHashAlgorithm algorithmId)
         {
             switch (algorithmId)
             {
@@ -136,9 +136,9 @@ namespace Microsoft.CodeAnalysis
             return lazyHash;
         }
 
-        internal const int Sha1HashSize = 20;
+        public const int Sha1HashSize = 20;
 
-        internal static ImmutableArray<byte> ComputeSha1(Stream stream)
+        public static ImmutableArray<byte> ComputeSha1(Stream stream)
         {
             if (stream != null)
             {
@@ -152,12 +152,12 @@ namespace Microsoft.CodeAnalysis
             return ImmutableArray<byte>.Empty;
         }
 
-        internal static ImmutableArray<byte> ComputeSha1(ImmutableArray<byte> bytes)
+        public static ImmutableArray<byte> ComputeSha1(ImmutableArray<byte> bytes)
         {
             return ComputeSha1(bytes.ToArray());
         }
 
-        internal static ImmutableArray<byte> ComputeSha1(byte[] bytes)
+        public static ImmutableArray<byte> ComputeSha1(byte[] bytes)
         {
             using (var hashProvider = new SHA1CryptoServiceProvider())
             {

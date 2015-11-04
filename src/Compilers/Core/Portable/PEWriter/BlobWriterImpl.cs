@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Microsoft.Cci
 {
-    internal static class BlobWriterImpl
+    public static class BlobWriterImpl
     {
         // Performance considerations:
         // Ideally we wouldn't need to have duplicate implementations of the bellow methods and use 
@@ -40,11 +40,11 @@ namespace Microsoft.Cci
         //       }
         //   }
 
-        internal const int SingleByteCompressedIntegerMaxValue = 0x7f;
-        internal const int TwoByteCompressedIntegerMaxValue = 0x3fff;
-        internal const int MaxCompressedIntegerValue = 0x1fffffff;
+        public const int SingleByteCompressedIntegerMaxValue = 0x7f;
+        public const int TwoByteCompressedIntegerMaxValue = 0x3fff;
+        public const int MaxCompressedIntegerValue = 0x1fffffff;
 
-        internal static int GetCompressedIntegerSize(int value)
+        public static int GetCompressedIntegerSize(int value)
         {
             Debug.Assert(value <= MaxCompressedIntegerValue);
 
@@ -67,7 +67,7 @@ namespace Microsoft.Cci
             throw new ArgumentOutOfRangeException("value");
         }
 
-        internal static void WriteCompressedInteger(ref BlobWriter writer, uint value)
+        public static void WriteCompressedInteger(ref BlobWriter writer, uint value)
         {
             unchecked
             {
@@ -90,7 +90,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static void WriteCompressedInteger(BlobBuilder writer, uint value)
+        public static void WriteCompressedInteger(BlobBuilder writer, uint value)
         {
             unchecked
             {
@@ -113,7 +113,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static void WriteCompressedSignedInteger(ref BlobWriter writer, int value)
+        public static void WriteCompressedSignedInteger(ref BlobWriter writer, int value)
         {
             unchecked
             {
@@ -147,7 +147,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static void WriteCompressedSignedInteger(BlobBuilder writer, int value)
+        public static void WriteCompressedSignedInteger(BlobBuilder writer, int value)
         {
             unchecked
             {
@@ -181,7 +181,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static void WriteConstant(ref BlobWriter writer, object value)
+        public static void WriteConstant(ref BlobWriter writer, object value)
         {
             if (value == null)
             {
@@ -255,7 +255,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal static void WriteConstant(BlobBuilder writer, object value)
+        public static void WriteConstant(BlobBuilder writer, object value)
         {
             if (value == null)
             {

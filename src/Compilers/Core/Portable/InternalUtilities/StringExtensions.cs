@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,11 +7,11 @@ using System.Diagnostics;
 
 namespace Roslyn.Utilities
 {
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         private static ImmutableArray<string> s_lazyNumerals;
 
-        internal static string GetNumeral(int number)
+        public static string GetNumeral(int number)
         {
             var numerals = s_lazyNumerals;
             if (numerals.IsDefault)
@@ -89,7 +89,7 @@ namespace Roslyn.Utilities
             return shortName;
         }
 
-        internal static bool IsValidClrTypeName(this string name)
+        public static bool IsValidClrTypeName(this string name)
         {
             return !string.IsNullOrEmpty(name) && name.IndexOf('\0') == -1;
         }
@@ -97,7 +97,7 @@ namespace Roslyn.Utilities
         /// <summary>
         /// Checks if the given name is a sequence of valid CLR names separated by a dot.
         /// </summary>
-        internal static bool IsValidClrNamespaceName(this string name)
+        public static bool IsValidClrNamespaceName(this string name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -118,7 +118,7 @@ namespace Roslyn.Utilities
             return lastChar != '.';
         }
 
-        internal static string GetWithSingleAttributeSuffix(
+        public static string GetWithSingleAttributeSuffix(
             this string name,
             bool isCaseSensitive)
         {
@@ -131,14 +131,14 @@ namespace Roslyn.Utilities
             return name + "Attribute";
         }
 
-        internal static bool TryGetWithoutAttributeSuffix(
+        public static bool TryGetWithoutAttributeSuffix(
             this string name,
             out string result)
         {
             return TryGetWithoutAttributeSuffix(name, isCaseSensitive: true, result: out result);
         }
 
-        internal static string GetWithoutAttributeSuffix(
+        public static string GetWithoutAttributeSuffix(
             this string name,
             bool isCaseSensitive)
         {
@@ -146,7 +146,7 @@ namespace Roslyn.Utilities
             return TryGetWithoutAttributeSuffix(name, isCaseSensitive, out result) ? result : null;
         }
 
-        internal static bool TryGetWithoutAttributeSuffix(
+        public static bool TryGetWithoutAttributeSuffix(
             this string name,
             bool isCaseSensitive,
             out string result)
@@ -163,7 +163,7 @@ namespace Roslyn.Utilities
             return false;
         }
 
-        internal static bool IsValidUnicodeString(this string str)
+        public static bool IsValidUnicodeString(this string str)
         {
             int i = 0;
             while (i < str.Length)
@@ -196,13 +196,13 @@ namespace Roslyn.Utilities
         /// <summary>
         /// Remove one set of leading and trailing double quote characters, if both are present.
         /// </summary>
-        internal static string Unquote(this string arg)
+        public static string Unquote(this string arg)
         {
             bool quoted;
             return Unquote(arg, out quoted);
         }
 
-        internal static string Unquote(this string arg, out bool quoted)
+        public static string Unquote(this string arg, out bool quoted)
         {
             if (arg.Length > 1 && arg[0] == '"' && arg[arg.Length - 1] == '"')
             {
@@ -216,7 +216,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal static int IndexOfBalancedParenthesis(this string str, int openingOffset, char closing)
+        public static int IndexOfBalancedParenthesis(this string str, int openingOffset, char closing)
         {
             char opening = str[openingOffset];
 
@@ -242,19 +242,19 @@ namespace Roslyn.Utilities
         }
 
         // String isn't IEnumerable<char> in the current Portable profile. 
-        internal static char First(this string arg)
+        public static char First(this string arg)
         {
             return arg[0];
         }
 
         // String isn't IEnumerable<char> in the current Portable profile. 
-        internal static char Last(this string arg)
+        public static char Last(this string arg)
         {
             return arg[arg.Length - 1];
         }
 
         // String isn't IEnumerable<char> in the current Portable profile. 
-        internal static bool All(this string arg, Predicate<char> predicate)
+        public static bool All(this string arg, Predicate<char> predicate)
         {
             foreach (char c in arg)
             {

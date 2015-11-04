@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal sealed class PEAssembly
+    public sealed class PEAssembly
     {
         /// <summary>
         /// All assemblies this assembly references.
@@ -19,12 +19,12 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// A concatenation of assemblies referenced by each module in the order they are listed in <see cref="_modules"/>.
         /// </remarks>
-        internal readonly ImmutableArray<AssemblyIdentity> AssemblyReferences;
+        public readonly ImmutableArray<AssemblyIdentity> AssemblyReferences;
 
         /// <summary>
         /// The number of assemblies referenced by each module in <see cref="_modules"/>.
         /// </summary>
-        internal readonly ImmutableArray<int> ModuleReferenceCounts;
+        public readonly ImmutableArray<int> ModuleReferenceCounts;
 
         private readonly ImmutableArray<PEModule> _modules;
 
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis
             _owner = owner;
         }
 
-        internal EntityHandle Handle
+        public EntityHandle Handle
         {
             get
             {
@@ -79,12 +79,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal PEModule ManifestModule
+        public PEModule ManifestModule
         {
             get { return Modules[0]; }
         }
 
-        internal ImmutableArray<PEModule> Modules
+        public ImmutableArray<PEModule> Modules
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal AssemblyIdentity Identity
+        public AssemblyIdentity Identity
         {
             get
             {
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool ContainsNoPiaLocalTypes()
+        public bool ContainsNoPiaLocalTypes()
         {
             if (_lazyContainsNoPiaLocalTypes == ThreeState.Unknown)
             {
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis
             return ivtMap;
         }
 
-        internal IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
+        public IEnumerable<ImmutableArray<byte>> GetInternalsVisibleToPublicKeys(string simpleName)
         {
             if (_lazyInternalsVisibleToMap == null)
                 Interlocked.CompareExchange(ref _lazyInternalsVisibleToMap, BuildInternalsVisibleToMap(), null);
@@ -161,7 +161,7 @@ namespace Microsoft.CodeAnalysis
             return result ?? SpecializedCollections.EmptyEnumerable<ImmutableArray<byte>>();
         }
 
-        internal bool DeclaresTheObjectClass
+        public bool DeclaresTheObjectClass
         {
             get
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis.Collections
     /// 3. As a result of assumption 2, linear look-up is good enough.
     /// 4. One value, in this case int.MinValue, is used as a sentinel and may never appear in the set.
     /// </summary>
-    internal class SmallConcurrentSetOfInts
+    public class SmallConcurrentSetOfInts
     {
         // The set is a singly-linked list of nodes each containing up to 4 values.
         // Empty slots contain the "unoccupied" sentinel value.

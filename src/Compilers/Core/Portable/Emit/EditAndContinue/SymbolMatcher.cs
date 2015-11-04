@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Emit
 {
-    internal abstract class SymbolMatcher
+    public abstract class SymbolMatcher
     {
         public abstract Cci.ITypeReference MapReference(Cci.ITypeReference reference);
         public abstract Cci.IDefinition MapDefinition(Cci.IDefinition reference);
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.Emit
         /// Then the resulting collection shall have the following entries:
         /// {S' -> {A', B', C, D}, U -> {G, H}, T -> {E, F}}
         /// </remarks>
-        internal ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> MapSynthesizedMembers(
+        public ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> MapSynthesizedMembers(
             ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> previousMembers,
             ImmutableDictionary<Cci.ITypeDefinition, ImmutableArray<Cci.ITypeDefinitionMember>> newMembers)
         {

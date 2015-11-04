@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -9,22 +9,22 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Emit
 {
-    internal struct AnonymousTypeKeyField : IEquatable<AnonymousTypeKeyField>
+    public struct AnonymousTypeKeyField : IEquatable<AnonymousTypeKeyField>
     {
         /// <summary>
         /// Name of the anonymous type field.
         /// </summary>
-        internal readonly string Name;
+        public readonly string Name;
 
         /// <summary>
         /// True if the anonymous type field was marked as 'Key' in VB.
         /// </summary>
-        internal readonly bool IsKey;
+        public readonly bool IsKey;
 
         /// <summary>
         /// <see cref="Name"/> is case insensitive.
         /// </summary>
-        internal readonly bool IgnoreCase;
+        public readonly bool IgnoreCase;
 
         public AnonymousTypeKeyField(string name, bool isKey, bool ignoreCase)
         {
@@ -56,10 +56,10 @@ namespace Microsoft.CodeAnalysis.Emit
     }
 
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct AnonymousTypeKey : IEquatable<AnonymousTypeKey>
+    public struct AnonymousTypeKey : IEquatable<AnonymousTypeKey>
     {
-        internal readonly bool IsDelegate;
-        internal readonly ImmutableArray<AnonymousTypeKeyField> Fields;
+        public readonly bool IsDelegate;
+        public readonly ImmutableArray<AnonymousTypeKeyField> Fields;
 
         internal AnonymousTypeKey(ImmutableArray<AnonymousTypeKeyField> fields, bool isDelegate = false)
         {

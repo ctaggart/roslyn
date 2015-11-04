@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -7,7 +7,7 @@ using Cci = Microsoft.Cci;
 
 namespace Microsoft.CodeAnalysis.Emit.NoPia
 {
-    internal abstract partial class EmbeddedTypesManager<
+    public abstract partial class EmbeddedTypesManager<
         TPEModuleBuilder,
         TModuleCompilationState,
         TEmbeddedTypesManager,
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
         TEmbeddedParameter,
         TEmbeddedTypeParameter>
     {
-        internal abstract class CommonEmbeddedProperty : CommonEmbeddedMember<TPropertySymbol>, Cci.IPropertyDefinition
+        public abstract class CommonEmbeddedProperty : CommonEmbeddedMember<TPropertySymbol>, Cci.IPropertyDefinition
         {
             private readonly ImmutableArray<TEmbeddedParameter> _parameters;
             private readonly TEmbeddedMethod _getter;
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
                 _parameters = GetParameters();
             }
 
-            internal override TEmbeddedTypesManager TypeManager
+            public override TEmbeddedTypesManager TypeManager
             {
                 get
                 {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CodeGen
 {
     [DebuggerDisplay("{GetDebuggerDisplay(),nq}")]
-    internal sealed class LocalDefinition : Cci.ILocalDefinition
+    public sealed class LocalDefinition : Cci.ILocalDefinition
     {
         //TODO: locals are really just typed slots. They do not have names.
         // name only matters for pdb generation where it is a scope-specific mapping to a slot.
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             _isDynamic = isDynamic;
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
             => $"{_slot}: {_nameOpt ?? "<unnamed>"} ({_type})";
 
         public ILocalSymbol SymbolOpt => _symbolOpt;

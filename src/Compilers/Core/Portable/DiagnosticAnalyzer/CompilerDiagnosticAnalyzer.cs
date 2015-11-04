@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 
@@ -7,10 +7,10 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// <summary>
     /// DiagnosticAnalyzer for compiler's syntax/semantic/compilation diagnostics.
     /// </summary>
-    internal abstract partial class CompilerDiagnosticAnalyzer : DiagnosticAnalyzer
+    public abstract partial class CompilerDiagnosticAnalyzer : DiagnosticAnalyzer
     {
-        internal abstract CommonMessageProvider MessageProvider { get; }
-        internal abstract ImmutableArray<int> GetSupportedErrorCodes();
+        public abstract CommonMessageProvider MessageProvider { get; }
+        public abstract ImmutableArray<int> GetSupportedErrorCodes();
 
         public sealed override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ namespace Roslyn.Utilities
     /// <summary>
     /// A binder that used a predetermine list of types and reader functions.
     /// </summary>
-    internal class FixedObjectBinder : ObjectBinder
+    public class FixedObjectBinder : ObjectBinder
     {
         private readonly ImmutableDictionary<TypeKey, Type> _typeMap;
         private readonly ImmutableDictionary<Type, Func<ObjectReader, object>> _readerMap;

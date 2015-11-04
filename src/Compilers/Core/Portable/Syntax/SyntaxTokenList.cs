@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -39,9 +39,9 @@ namespace Microsoft.CodeAnalysis
             _index = 0;
         }
 
-        internal GreenNode Node { get; }
+        public GreenNode Node { get; }
 
-        internal int Position { get; }
+        public int Position { get; }
 
         /// <summary>
         /// Returns the number of tokens in the list.
@@ -185,7 +185,7 @@ namespace Microsoft.CodeAnalysis
             return new Reversed(this);
         }
 
-        internal void CopyTo(int offset, GreenNode[] array, int arrayOffset, int count)
+        public void CopyTo(int offset, GreenNode[] array, int arrayOffset, int count)
         {
             Debug.Assert(this.Count >= offset + count);
 
@@ -226,7 +226,7 @@ namespace Microsoft.CodeAnalysis
             return -1;
         }
 
-        internal int IndexOf(int rawKind)
+        public int IndexOf(int rawKind)
         {
             for (int i = 0, n = this.Count; i < n; i++)
             {

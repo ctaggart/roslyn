@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal partial class LineDirectiveMap<TDirective>
+    public partial class LineDirectiveMap<TDirective>
     {
         /// <summary>
         /// Enum that describes the state related to the #line or #externalsource directives at a position in source.

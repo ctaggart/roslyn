@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayCompilerInternalOptions options, SymbolDisplayCompilerInternalOptions flag)
+        public static bool IncludesOption(this SymbolDisplayCompilerInternalOptions options, SymbolDisplayCompilerInternalOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -67,7 +67,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayGenericsOptions options, SymbolDisplayGenericsOptions flag)
+        public static bool IncludesOption(this SymbolDisplayGenericsOptions options, SymbolDisplayGenericsOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayMemberOptions options, SymbolDisplayMemberOptions flag)
+        public static bool IncludesOption(this SymbolDisplayMemberOptions options, SymbolDisplayMemberOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayMiscellaneousOptions options, SymbolDisplayMiscellaneousOptions flag)
+        public static bool IncludesOption(this SymbolDisplayMiscellaneousOptions options, SymbolDisplayMiscellaneousOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayParameterOptions options, SymbolDisplayParameterOptions flag)
+        public static bool IncludesOption(this SymbolDisplayParameterOptions options, SymbolDisplayParameterOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayKindOptions options, SymbolDisplayKindOptions flag)
+        public static bool IncludesOption(this SymbolDisplayKindOptions options, SymbolDisplayKindOptions flag)
         {
             return (options & flag) == flag;
         }
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="options">The value to check.</param>
         /// <param name="flag">An enum field that specifies the flag.</param>
         /// <returns>Whether the <paramref name="flag"/> is set on the <paramref name="options"/>.</returns>
-        internal static bool IncludesOption(this SymbolDisplayLocalOptions options, SymbolDisplayLocalOptions flag)
+        public static bool IncludesOption(this SymbolDisplayLocalOptions options, SymbolDisplayLocalOptions flag)
         {
             return (options & flag) == flag;
         }

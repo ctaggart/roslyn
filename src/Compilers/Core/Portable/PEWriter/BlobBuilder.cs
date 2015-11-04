@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,17 +16,17 @@ using Roslyn.Utilities;
 namespace Microsoft.Cci
 {
     [DebuggerDisplay("{GetDebuggerDisplay(),nq}")]
-    internal unsafe partial class BlobBuilder
+    public unsafe partial class BlobBuilder
     {
         // The implementation is akin to StringBuilder. 
         // The differences:
         // - BlobBuilder allows efficient sequential write of the built content to a stream. 
         // - BlobBuilder allows for chunk allocation customization. A custom allocator can use pooling strategy, for example.
 
-        internal const int DefaultChunkSize = 256;
+        public const int DefaultChunkSize = 256;
 
         // Must be at least the size of the largest primitive type we write atomically (decimal).
-        internal const int MinChunkSize = 16;
+        public const int MinChunkSize = 16;
 
         // Builders are linked like so:
         // 
@@ -120,7 +120,7 @@ namespace Microsoft.Cci
         }
 
         // internal for testing
-        internal void ClearChunk()
+        public void ClearChunk()
         {
             _length = 0;
             _previousLength = 0;
@@ -160,15 +160,15 @@ namespace Microsoft.Cci
         public int Count => _previousLength + Length;
 
         // TODO: remove
-        internal int Position => Count;
+        public int Position => Count;
 
         private int FreeBytes => _buffer.Length - Length;
 
         // internal for testing
-        internal int BufferSize => _buffer.Length;
+        public int BufferSize => _buffer.Length;
 
         // internal for testing
-        internal Chunks GetChunks()
+        public Chunks GetChunks()
         {
             if (!IsHead)
             {
@@ -820,14 +820,14 @@ namespace Microsoft.Cci
         }
 
         /// <exception cref="InvalidOperationException">Builder is not writable, it has been linked with another one.</exception>
-        internal void WriteUInt16BE(ushort value)
+        public void WriteUInt16BE(ushort value)
         {
             int start = ReserveBytesPrimitive(sizeof(ushort));
             _buffer.WriteUInt16BE(start, value);
         }
 
         /// <exception cref="InvalidOperationException">Builder is not writable, it has been linked with another one.</exception>
-        internal void WriteUInt32BE(uint value)
+        public void WriteUInt32BE(uint value)
         {
             int start = ReserveBytesPrimitive(sizeof(uint));
             _buffer.WriteUInt32BE(start, value);
@@ -879,7 +879,7 @@ namespace Microsoft.Cci
         /// References may be small (2B) or large (4B).
         /// </remarks>
         /// <exception cref="InvalidOperationException">Builder is not writable, it has been linked with another one.</exception>
-        internal void WriteReference(uint reference, int size)
+        public void WriteReference(uint reference, int size)
         {
             Debug.Assert(size == 2 || size == 4);
 
@@ -1030,7 +1030,7 @@ namespace Microsoft.Cci
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> can't be represented as a compressed signed integer.</exception>
         /// <exception cref="InvalidOperationException">Builder is not writable, it has been linked with another one.</exception>
-        internal void WriteCompressedSignedInteger(int value)
+        public void WriteCompressedSignedInteger(int value)
         {
             BlobWriterImpl.WriteCompressedSignedInteger(this, value);
         }
@@ -1049,7 +1049,7 @@ namespace Microsoft.Cci
         /// </remarks>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="value"/> can't be represented as a compressed integer.</exception>
         /// <exception cref="InvalidOperationException">Builder is not writable, it has been linked with another one.</exception>
-        internal void WriteCompressedInteger(uint value)
+        public void WriteCompressedInteger(uint value)
         {
             BlobWriterImpl.WriteCompressedInteger(this, value);
         }
@@ -1064,7 +1064,7 @@ namespace Microsoft.Cci
             BlobWriterImpl.WriteConstant(this, value);
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return IsHead ? 
                 string.Join("->", GetChunks().Select(chunk => $"[{Display(chunk._buffer, chunk.Length)}]")) : 

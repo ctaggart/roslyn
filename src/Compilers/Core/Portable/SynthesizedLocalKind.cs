@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Emit;
 
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis
     /// 
     ///    Long-lived local variables must be assigned slots in source order.
     /// </remarks>
-    internal enum SynthesizedLocalKind
+    public enum SynthesizedLocalKind
     {
         /// <summary>
         /// Temp variable created by the optimizer.
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis
         DelegateRelaxationReceiver = 0x101,
     }
 
-    internal static class SynthesizedLocalKindExtensions
+    public static class SynthesizedLocalKindExtensions
     {
         public static bool IsLongLived(this SynthesizedLocalKind kind)
         {

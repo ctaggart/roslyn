@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.IO;
 
@@ -16,10 +16,10 @@ namespace Microsoft.CodeAnalysis
         public abstract override bool Equals(object other);
         public abstract override int GetHashCode();
 
-        internal abstract Stream CreateInputStream();
+        public abstract Stream CreateInputStream();
 
-        internal abstract StrongNameKeys CreateKeys(string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider);
+        public abstract StrongNameKeys CreateKeys(string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider);
 
-        internal abstract void SignAssembly(StrongNameKeys keys, Stream inputStream, Stream outputStream);
+        public abstract void SignAssembly(StrongNameKeys keys, Stream inputStream, Stream outputStream);
     }
 }

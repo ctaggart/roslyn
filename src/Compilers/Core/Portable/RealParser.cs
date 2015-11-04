@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis
     /// If you change this code, please run the set of long-running random tests in the solution
     /// RandomRealParserTests.sln. That solution is not included in Roslyn.sln as it is Windows-specific.
     /// </summary>
-    internal static class RealParser
+    public static class RealParser
     {
         /// <summary>
         /// Try parsing a correctly-formatted double floating-point literal into the nearest representable double

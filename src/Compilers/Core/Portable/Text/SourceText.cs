@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.Text
             _lazyContainer = container;
         }
 
-        internal static void ValidateChecksumAlgorithm(SourceHashAlgorithm checksumAlgorithm)
+        public static void ValidateChecksumAlgorithm(SourceHashAlgorithm checksumAlgorithm)
         {
             if (!Cci.DebugSourceDocument.IsSupportedAlgorithm(checksumAlgorithm))
             {
@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <remarks>
         /// internal for unit testing
         /// </remarks>
-        internal static bool IsBinary(string text)
+        public static bool IsBinary(string text)
         {
             // PERF: We can advance two chars at a time unless we find a NUL.
             for (int i = 1; i < text.Length;)
@@ -310,7 +310,7 @@ namespace Microsoft.CodeAnalysis.Text
             }
         }
 
-        internal void CheckSubSpan(TextSpan span)
+        public void CheckSubSpan(TextSpan span)
         {
             if (span.Start < 0 || span.Start > this.Length || span.End > this.Length)
             {
@@ -396,7 +396,7 @@ namespace Microsoft.CodeAnalysis.Text
             }
         }
 
-        internal ImmutableArray<byte> GetChecksum()
+        public ImmutableArray<byte> GetChecksum()
         {
             if (_lazyChecksum.IsDefault)
             {
@@ -633,7 +633,7 @@ namespace Microsoft.CodeAnalysis.Text
             return new LineInfo(this, ParseLineStarts());
         }
 
-        internal sealed class LineInfo : TextLineCollection
+        public sealed class LineInfo : TextLineCollection
         {
             private readonly SourceText _text;
             private readonly int[] _lineStarts;
@@ -845,7 +845,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <param name="length">The length of valid data in the buffer.</param>
         /// <param name="preambleLength">The length of any detected byte order marks.</param>
         /// <returns>The detected encoding or null if no recognized byte order mark was present.</returns>
-        internal static Encoding TryReadByteOrderMark(byte[] source, int length, out int preambleLength)
+        public static Encoding TryReadByteOrderMark(byte[] source, int length, out int preambleLength)
         {
             Debug.Assert(source != null);
             Debug.Assert(length <= source.Length);

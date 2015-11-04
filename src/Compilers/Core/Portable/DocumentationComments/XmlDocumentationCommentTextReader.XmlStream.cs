@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,9 +8,9 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal partial class XmlDocumentationCommentTextReader
+    public partial class XmlDocumentationCommentTextReader
     {
-        internal sealed class Reader : TextReader
+        public sealed class Reader : TextReader
         {
             /// <summary>
             /// Current text to validate.
@@ -37,9 +37,9 @@ namespace Microsoft.CodeAnalysis
             private static readonly string s_currentElementName = "_" + Guid.NewGuid().ToString("N");
 
             // internal for testing
-            internal static readonly string RootStart = "<" + s_rootElementName + ">";
-            internal static readonly string CurrentStart = "<" + s_currentElementName + ">";
-            internal static readonly string CurrentEnd = "</" + s_currentElementName + ">";
+            public static readonly string RootStart = "<" + s_rootElementName + ">";
+            public static readonly string CurrentStart = "<" + s_currentElementName + ">";
+            public static readonly string CurrentEnd = "</" + s_currentElementName + ">";
 
             public void Reset()
             {
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis
             }
 
             // for testing
-            internal int Position
+            public int Position
             {
                 get { return _position; }
             }

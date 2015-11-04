@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Represents a simple value or a read-only array of <see cref="TypedConstant"/>.
     /// </summary>
-    internal struct TypedConstantValue : IEquatable<TypedConstantValue>
+    public struct TypedConstantValue : IEquatable<TypedConstantValue>
     {
         // Simple value or ImmutableArray<TypedConstant>.
         // Null array is represented by a null reference.

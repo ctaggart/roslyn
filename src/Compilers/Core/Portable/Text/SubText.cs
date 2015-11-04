@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.Text
     /// <summary>
     /// An SourceText that represents a subrange of another SourceText.
     /// </summary>
-    internal sealed class SubText : SourceText
+    public sealed class SubText : SourceText
     {
         public SubText(SourceText text, TextSpan span)
             : base(checksumAlgorithm: text.ChecksumAlgorithm)

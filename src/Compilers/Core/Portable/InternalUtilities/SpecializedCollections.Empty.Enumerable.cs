@@ -1,14 +1,14 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 
 namespace Roslyn.Utilities
 {
-    internal partial class SpecializedCollections
+    public partial class SpecializedCollections
     {
         private partial class Empty
         {
-            internal class Enumerable<T> : IEnumerable<T>
+            public class Enumerable<T> : IEnumerable<T>
             {
                 // PERF: cache the instance of enumerator. 
                 // accessing a generic static field is kinda slow from here,

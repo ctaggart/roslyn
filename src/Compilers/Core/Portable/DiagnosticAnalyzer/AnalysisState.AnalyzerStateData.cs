@@ -1,15 +1,15 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal partial class AnalysisState
+    public partial class AnalysisState
     {
         /// <summary>
         /// Stores the partial analysis state for a specific event/symbol/tree for a specific analyzer.
         /// </summary>
-        internal class AnalyzerStateData
+        public class AnalyzerStateData
         {
             /// <summary>
             /// Current state of analysis.

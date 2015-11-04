@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis
     /// provide access to additional information about the error, such as what symbols were involved in the ambiguity.
     /// </remarks>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal partial class DiagnosticInfo : IFormattable, IObjectWritable, IObjectReadable, IMessageSerializable
+    public partial class DiagnosticInfo : IFormattable, IObjectWritable, IObjectReadable, IMessageSerializable
     {
         private readonly CommonMessageProvider _messageProvider;
         private readonly int _errorCode;
@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis
             _effectiveSeverity = overriddenSeverity;
         }
 
-        internal static DiagnosticDescriptor GetDescriptor(int errorCode, CommonMessageProvider messageProvider)
+        public static DiagnosticDescriptor GetDescriptor(int errorCode, CommonMessageProvider messageProvider)
         {
             var defaultSeverity = messageProvider.GetSeverity(errorCode);
             return GetOrCreateDescriptor(errorCode, defaultSeverity, messageProvider);
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal static void AssertMessageSerializable(object[] args)
+        public static void AssertMessageSerializable(object[] args)
         {
             foreach (var arg in args)
             {
@@ -126,7 +126,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // Create a copy of this instance with a explicit overridden severity
-        internal DiagnosticInfo GetInstanceWithSeverity(DiagnosticSeverity severity)
+        public DiagnosticInfo GetInstanceWithSeverity(DiagnosticSeverity severity)
         {
             return new DiagnosticInfo(this, severity);
         }
@@ -273,7 +273,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<string> CustomTags
+        public ImmutableArray<string> CustomTags
         {
             get
             {
@@ -288,7 +288,7 @@ namespace Microsoft.CodeAnalysis
                 s_compilerNonErrorCustomTags;
         }
 
-        internal bool IsNotConfigurable()
+        public bool IsNotConfigurable()
         {
             // Only compiler errors are non-configurable.
             return _defaultSeverity == DiagnosticSeverity.Error;
@@ -376,12 +376,12 @@ namespace Microsoft.CodeAnalysis
             return newArguments;
         }
 
-        internal object[] Arguments
+        public object[] Arguments
         {
             get { return _arguments; }
         }
 
-        internal CommonMessageProvider MessageProvider
+        public CommonMessageProvider MessageProvider
         {
             get { return _messageProvider; }
         }
@@ -470,7 +470,7 @@ namespace Microsoft.CodeAnalysis
         /// For a DiagnosticInfo that is lazily evaluated, this method evaluates it
         /// and returns a non-lazy DiagnosticInfo.
         /// </summary>
-        internal virtual DiagnosticInfo GetResolvedInfo()
+        public virtual DiagnosticInfo GetResolvedInfo()
         {
             // We should never call GetResolvedInfo on a non-lazy DiagnosticInfo
             throw ExceptionUtilities.Unreachable;

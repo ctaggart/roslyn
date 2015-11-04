@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.Syntax
 {
-    internal abstract class AbstractWarningStateMap
+    public abstract class AbstractWarningStateMap
     {
         /// <summary>
         /// List of entries sorted in source order, each of which captures a

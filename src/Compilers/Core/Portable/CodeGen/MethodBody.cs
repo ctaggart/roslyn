@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Holds on to the method body data.
     /// </summary>
-    internal sealed class MethodBody : Cci.IMethodBody
+    public sealed class MethodBody : Cci.IMethodBody
     {
         private readonly Cci.IMethodDefinition _parent;
 

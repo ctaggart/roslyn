@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis
     public abstract class CompilationReference : MetadataReference
     {
         public Compilation Compilation { get { return CompilationCore; } }
-        internal abstract Compilation CompilationCore { get; }
+        public abstract Compilation CompilationCore { get; }
 
         internal CompilationReference(MetadataReferenceProperties properties)
             : base(properties)
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
             Debug.Assert(properties.Kind != MetadataImageKind.Module);
         }
 
-        internal static MetadataReferenceProperties GetProperties(Compilation compilation, ImmutableArray<string> aliases, bool embedInteropTypes)
+        public static MetadataReferenceProperties GetProperties(Compilation compilation, ImmutableArray<string> aliases, bool embedInteropTypes)
         {
             if (compilation == null)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis
             return WithPropertiesImpl(properties);
         }
 
-        internal sealed override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
+        public sealed override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
         {
             if (properties.Kind == MetadataImageKind.Module)
             {
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis
             return WithPropertiesImpl(properties);
         }
 
-        internal abstract CompilationReference WithPropertiesImpl(MetadataReferenceProperties properties);
+        public abstract CompilationReference WithPropertiesImpl(MetadataReferenceProperties properties);
 
         public override string Display
         {

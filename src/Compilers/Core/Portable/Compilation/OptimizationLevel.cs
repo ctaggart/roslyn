@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -43,9 +43,9 @@ namespace Microsoft.CodeAnalysis
         Release = 1
     }
 
-    internal static partial class EnumBounds
+    public static partial class EnumBounds
     {
-        internal static bool IsValid(this OptimizationLevel value)
+        public static bool IsValid(this OptimizationLevel value)
         {
             return value >= OptimizationLevel.Debug && value <= OptimizationLevel.Release;
         }

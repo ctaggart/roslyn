@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Runtime.ExceptionServices;
 
 namespace Roslyn.Utilities
 {
-    internal static class ReflectionUtilities
+    public static class ReflectionUtilities
     {
         public static Type TryGetType(string assemblyQualifiedName)
         {
@@ -69,12 +69,12 @@ namespace Roslyn.Utilities
             return null;
         }
 
-        internal static MethodInfo GetDeclaredMethod(this TypeInfo typeInfo, string name, params Type[] paramTypes)
+        public static MethodInfo GetDeclaredMethod(this TypeInfo typeInfo, string name, params Type[] paramTypes)
         {
             return FindItem(typeInfo.GetDeclaredMethods(name), paramTypes);
         }
 
-        internal static ConstructorInfo GetDeclaredConstructor(this TypeInfo typeInfo, params Type[] paramTypes)
+        public static ConstructorInfo GetDeclaredConstructor(this TypeInfo typeInfo, params Type[] paramTypes)
         {
             return FindItem(typeInfo.DeclaredConstructors, paramTypes);
         }

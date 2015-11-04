@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis
         /// <exception cref="IOException">Error reading file <paramref name="resolvedPath"/>. See <see cref="Exception.InnerException"/> for details.</exception>
         public abstract Stream OpenRead(string resolvedPath);
 
-        internal Stream OpenReadChecked(string fullPath)
+        public Stream OpenReadChecked(string fullPath)
         {
             var stream = OpenRead(fullPath);
 

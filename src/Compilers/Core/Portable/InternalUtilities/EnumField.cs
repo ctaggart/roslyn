@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 namespace Roslyn.Utilities
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct EnumField
+    public struct EnumField
     {
         public static readonly IComparer<EnumField> Comparer = new EnumFieldComparer();
 
@@ -33,7 +33,7 @@ namespace Roslyn.Utilities
             return string.Format("{{{0} = {1}}}", this.Name, this.Value);
         }
 
-        internal static EnumField FindValue(ArrayBuilder<EnumField> sortedFields, ulong value)
+        public static EnumField FindValue(ArrayBuilder<EnumField> sortedFields, ulong value)
         {
             int start = 0;
             int end = sortedFields.Count;

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class MetadataHelpers
+    public static class MetadataHelpers
     {
         public const char DotDelimiter = '.';
         public const string DotDelimiterString = ".";
@@ -27,14 +27,14 @@ namespace Microsoft.CodeAnalysis
         public const char MangledNameRegionStartChar = '<';
         public const char MangledNameRegionEndChar = '>';
 
-        internal struct AssemblyQualifiedTypeName
+        public struct AssemblyQualifiedTypeName
         {
-            internal readonly string TopLevelType;
-            internal readonly string[] NestedTypes;
-            internal readonly AssemblyQualifiedTypeName[] TypeArguments;
-            internal readonly int PointerCount;
-            internal readonly int[] ArrayRanks;
-            internal readonly string AssemblyName;
+            public readonly string TopLevelType;
+            public readonly string[] NestedTypes;
+            public readonly AssemblyQualifiedTypeName[] TypeArguments;
+            public readonly int PointerCount;
+            public readonly int[] ArrayRanks;
+            public readonly string AssemblyName;
 
             internal AssemblyQualifiedTypeName(
                 string topLevelType,
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static AssemblyQualifiedTypeName DecodeTypeName(string s)
+        public static AssemblyQualifiedTypeName DecodeTypeName(string s)
         {
             var decoder = new SerializedTypeDecoder(s);
             return decoder.DecodeTypeName();
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
             /// delimiters '+', ',', '[', ']'. '+' separates nested classes. '[' and ']'
             /// enclosed generic type arguments.  ',' separates types.
             /// </summary>
-            internal AssemblyQualifiedTypeName DecodeTypeName(bool isTypeArgument = false, bool isTypeArgumentWithAssemblyName = false)
+            public AssemblyQualifiedTypeName DecodeTypeName(bool isTypeArgument = false, bool isTypeArgumentWithAssemblyName = false)
             {
                 Debug.Assert(!isTypeArgumentWithAssemblyName || isTypeArgument);
 
@@ -442,18 +442,18 @@ namespace Microsoft.CodeAnalysis
 
         private static readonly string[] s_aritySuffixesOneToNine = { "`1", "`2", "`3", "`4", "`5", "`6", "`7", "`8", "`9" };
 
-        internal static string GetAritySuffix(int arity)
+        public static string GetAritySuffix(int arity)
         {
             Debug.Assert(arity > 0);
             return (arity <= 9) ? s_aritySuffixesOneToNine[arity - 1] : string.Concat(GenericTypeNameManglingString, arity.ToString(CultureInfo.InvariantCulture));
         }
 
-        internal static string ComposeAritySuffixedMetadataName(string name, int arity)
+        public static string ComposeAritySuffixedMetadataName(string name, int arity)
         {
             return arity == 0 ? name : name + GetAritySuffix(arity);
         }
 
-        internal static int InferTypeArityFromMetadataName(string emittedTypeName)
+        public static int InferTypeArityFromMetadataName(string emittedTypeName)
         {
             int suffixStartsAt;
             return InferTypeArityFromMetadataName(emittedTypeName, out suffixStartsAt);
@@ -499,7 +499,7 @@ namespace Microsoft.CodeAnalysis
             return (short)arity;
         }
 
-        internal static string InferTypeArityAndUnmangleMetadataName(string emittedTypeName, out short arity)
+        public static string InferTypeArityAndUnmangleMetadataName(string emittedTypeName, out short arity)
         {
             int suffixStartsAt;
             arity = InferTypeArityFromMetadataName(emittedTypeName, out suffixStartsAt);
@@ -514,7 +514,7 @@ namespace Microsoft.CodeAnalysis
             return emittedTypeName.Substring(0, suffixStartsAt);
         }
 
-        internal static string UnmangleMetadataNameForArity(string emittedTypeName, int arity)
+        public static string UnmangleMetadataNameForArity(string emittedTypeName, int arity)
         {
             Debug.Assert(arity > 0);
 
@@ -533,7 +533,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         private static readonly ImmutableArray<string> s_splitQualifiedNameSystem = ImmutableArray.Create(SystemString);
 
-        internal static ImmutableArray<string> SplitQualifiedName(
+        public static ImmutableArray<string> SplitQualifiedName(
               string name)
         {
             Debug.Assert(name != null);
@@ -587,7 +587,7 @@ namespace Microsoft.CodeAnalysis
             return result.ToImmutableAndFree();
         }
 
-        internal static string SplitQualifiedName(
+        public static string SplitQualifiedName(
             string pstrName,
             out string qualifier)
         {
@@ -639,7 +639,7 @@ namespace Microsoft.CodeAnalysis
             return pstrName.Substring(delimiter + 1);
         }
 
-        internal static string BuildQualifiedName(
+        public static string BuildQualifiedName(
             string qualifier,
             string name)
         {
@@ -828,7 +828,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Determines whether given string can be used as a non-empty metadata identifier (a NUL-terminated UTF8 string).
         /// </summary>
-        internal static bool IsValidMetadataIdentifier(string str)
+        public static bool IsValidMetadataIdentifier(string str)
         {
             return !string.IsNullOrEmpty(str) && str.IsValidUnicodeString() && str.IndexOf('\0') == -1;
         }
@@ -836,12 +836,12 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// True if the string doesn't contain incomplete surrogates.
         /// </summary>
-        internal static bool IsValidUnicodeString(string str)
+        public static bool IsValidUnicodeString(string str)
         {
             return str == null || str.IsValidUnicodeString();
         }
 
-        internal static void ValidateAssemblyOrModuleName(string name, string argumentName)
+        public static void ValidateAssemblyOrModuleName(string name, string argumentName)
         {
             var e = CheckAssemblyOrModuleName(name, argumentName);
             if (e != null)
@@ -850,12 +850,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool IsValidAssemblyOrModuleName(string name)
+        public static bool IsValidAssemblyOrModuleName(string name)
         {
             return CheckAssemblyOrModuleName(name, argumentName: null) == null;
         }
 
-        internal static Exception CheckAssemblyOrModuleName(string name, string argumentName)
+        public static Exception CheckAssemblyOrModuleName(string name, string argumentName)
         {
             if (name == null)
             {
@@ -894,7 +894,7 @@ namespace Microsoft.CodeAnalysis
         /// 
         /// A reasonable restriction seems to be a valid UTF8 non-empty string that doesn't contain '\0', '\', '/', ':' characters.
         /// </summary>
-        internal static bool IsValidMetadataFileName(string name)
+        public static bool IsValidMetadataFileName(string name)
         {
             return FileNameUtilities.IsFileName(name) && IsValidMetadataIdentifier(name);
         }
@@ -906,7 +906,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="typeName">The type name part of the split name.</param>
         /// <param name="fullyQualified">The fully qualified name to compare with.</param>
         /// <returns>true if the combination of <paramref name="namespaceName"/> and <paramref name="typeName"/> equals the fully-qualified name given by <paramref name="fullyQualified"/></returns>
-        internal static bool SplitNameEqualsFullyQualifiedName(string namespaceName, string typeName, string fullyQualified)
+        public static bool SplitNameEqualsFullyQualifiedName(string namespaceName, string typeName, string fullyQualified)
         {
             // Look for "[namespaceName].[typeName]" exactly
             return fullyQualified.Length == namespaceName.Length + typeName.Length + 1 &&
@@ -915,7 +915,7 @@ namespace Microsoft.CodeAnalysis
                    fullyQualified.EndsWith(typeName, StringComparison.Ordinal);
         }
 
-        internal static bool IsValidPublicKey(ImmutableArray<byte> bytes)
+        public static bool IsValidPublicKey(ImmutableArray<byte> bytes)
         {
             return PublicKeyDecoder.TryDecode(bytes);
         }
@@ -1051,7 +1051,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Given an input string changes it to be acceptable as a part of a type name.
         /// </summary>
-        internal static string MangleForTypeNameIfNeeded(string moduleName)
+        public static string MangleForTypeNameIfNeeded(string moduleName)
         {
             var pooledStrBuilder = PooledStringBuilder.GetInstance();
             var s = pooledStrBuilder.Builder;

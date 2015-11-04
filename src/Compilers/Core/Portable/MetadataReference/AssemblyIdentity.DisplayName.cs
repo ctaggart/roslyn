@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis
     /// </remarks>
     public partial class AssemblyIdentity
     {
-        internal const string InvariantCultureDisplay = "neutral";
+        public const string InvariantCultureDisplay = "neutral";
 
         /// <summary>
         /// Returns the display name of the assembly identity.
@@ -536,7 +536,7 @@ namespace Microsoft.CodeAnalysis
             return c == '"' || c == '\'';
         }
 
-        internal static Version ToVersion(ulong version)
+        public static Version ToVersion(ulong version)
         {
             return new Version(
                 unchecked((ushort)(version >> 48)),
@@ -553,7 +553,7 @@ namespace Microsoft.CodeAnalysis
         // The number of dots in the version determines the present parts, i.e.
         //   "1..2" parses as "1.0.2.0" with Major, Minor and Build parts.
         //   "1.*" parses as "1.0.0.0" with Major and Minor parts.
-        internal static bool TryParseVersion(string str, out ulong result, out AssemblyIdentityParts parts)
+        public static bool TryParseVersion(string str, out ulong result, out AssemblyIdentityParts parts)
         {
             Debug.Assert(str.Length > 0);
             Debug.Assert(str.IndexOf('\0') < 0);
@@ -691,7 +691,7 @@ namespace Microsoft.CodeAnalysis
             return true;
         }
 
-        internal static int HexValue(char c)
+        public static int HexValue(char c)
         {
             if (c >= '0' && c <= '9')
             {

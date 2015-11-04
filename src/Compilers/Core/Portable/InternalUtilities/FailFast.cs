@@ -1,14 +1,14 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class FailFast
+    public static class FailFast
     {
         [DebuggerHidden]
-        internal static void OnFatalException(Exception exception)
+        public static void OnFatalException(Exception exception)
         {
             // EDMAURER Now using the managed API to fail fast so as to default
             // to the managed VS debug engine and hopefully get great
@@ -31,7 +31,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="message">An optional message to be recorded in the dump in case of failure. Can be <c>null</c>.</param>
         [Conditional("DEBUG")]
         [DebuggerHidden]
-        internal static void Assert(bool condition, string message = null)
+        public static void Assert(bool condition, string message = null)
         {
             if (condition)
             {

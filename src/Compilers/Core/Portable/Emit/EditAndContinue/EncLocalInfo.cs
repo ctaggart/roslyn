@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.Emit
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct EncLocalInfo : IEquatable<EncLocalInfo>
+    public struct EncLocalInfo : IEquatable<EncLocalInfo>
     {
         public readonly LocalSlotDebugInfo SlotInfo;
         public readonly Cci.ITypeReference Type;

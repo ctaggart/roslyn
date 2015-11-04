@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class EnumerableExtensions
+    public static class EnumerableExtensions
     {
         public static ImmutableDictionary<K, V> ToImmutableDictionaryOrEmpty<K, V>(this IEnumerable<KeyValuePair<K, V>> items)
         {
@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis
             return ImmutableDictionary.CreateRange(keyComparer, items);
         }
 
-        internal static IList<IList<T>> Transpose<T>(this IEnumerable<IEnumerable<T>> data)
+        public static IList<IList<T>> Transpose<T>(this IEnumerable<IEnumerable<T>> data)
         {
 #if DEBUG
             var count = data.First().Count();
@@ -83,7 +83,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static void AddAllValues<K, T>(this IDictionary<K, ImmutableArray<T>> data, ArrayBuilder<T> builder)
+        public static void AddAllValues<K, T>(this IDictionary<K, ImmutableArray<T>> data, ArrayBuilder<T> builder)
         {
             foreach (var values in data.Values)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static Dictionary<K, ImmutableArray<T>> ToDictionary<K, T>(this IEnumerable<T> data, Func<T, K> keySelector, IEqualityComparer<K> comparer = null)
+        public static Dictionary<K, ImmutableArray<T>> ToDictionary<K, T>(this IEnumerable<T> data, Func<T, K> keySelector, IEqualityComparer<K> comparer = null)
         {
             var dictionary = new Dictionary<K, ImmutableArray<T>>(comparer);
             var groups = data.GroupBy(keySelector, comparer);
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns the only element of specified sequence if it has exactly one, and default(TSource) otherwise.
         /// Unlike <see cref="Enumerable.SingleOrDefault{TSource}(IEnumerable{TSource})"/> doesn't throw if there is more than one element in the sequence.
         /// </summary>
-        internal static TSource AsSingleton<TSource>(this IEnumerable<TSource> source)
+        public static TSource AsSingleton<TSource>(this IEnumerable<TSource> source)
         {
             if (source == null)
             {

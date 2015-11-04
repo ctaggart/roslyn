@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis
 
         public static new DesktopAssemblyIdentityComparer Default { get; } = new DesktopAssemblyIdentityComparer(default(AssemblyPortabilityPolicy));
 
-        internal readonly AssemblyPortabilityPolicy policy;
+        public readonly AssemblyPortabilityPolicy policy;
 
         /// <param name="policy">Assembly portability policy, usually provided through an app.config file.</param>
         internal DesktopAssemblyIdentityComparer(AssemblyPortabilityPolicy policy)
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis
             return new DesktopAssemblyIdentityComparer(AssemblyPortabilityPolicy.LoadFromXml(input));
         }
 
-        internal AssemblyPortabilityPolicy PortabilityPolicy
+        public AssemblyPortabilityPolicy PortabilityPolicy
         {
             get
             {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal override bool ApplyUnificationPolicies(
+        public override bool ApplyUnificationPolicies(
             ref AssemblyIdentity reference,
             ref AssemblyIdentity definition,
             AssemblyIdentityParts referenceParts,

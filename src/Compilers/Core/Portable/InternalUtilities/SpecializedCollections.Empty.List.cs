@@ -1,15 +1,15 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 
 namespace Roslyn.Utilities
 {
-    internal partial class SpecializedCollections
+    public partial class SpecializedCollections
     {
         private partial class Empty
         {
-            internal class List<T> : Collection<T>, IList<T>, IReadOnlyList<T>
+            public class List<T> : Collection<T>, IList<T>, IReadOnlyList<T>
             {
                 public static readonly new List<T> Instance = new List<T>();
 

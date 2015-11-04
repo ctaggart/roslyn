@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using CDI = Microsoft.Cci.CustomDebugInfoConstants;
 
 namespace Microsoft.Cci
 {
-    internal sealed class CustomDebugInfoWriter
+    public sealed class CustomDebugInfoWriter
     {
         private int _methodTokenWithModuleInfo;
         private IMethodBody _methodBodyWithModuleInfo;
@@ -114,7 +114,7 @@ namespace Microsoft.Cci
         }
 
         // internal for testing
-        internal static void SerializeCustomDebugInformation(EditAndContinueMethodDebugInformation debugInfo, ArrayBuilder<BlobBuilder> customDebugInfo)
+        public static void SerializeCustomDebugInformation(EditAndContinueMethodDebugInformation debugInfo, ArrayBuilder<BlobBuilder> customDebugInfo)
         {
             if (!debugInfo.LocalSlots.IsDefaultOrEmpty)
             {
@@ -289,7 +289,7 @@ namespace Microsoft.Cci
         }
 
         // internal for testing
-        internal static byte[] SerializeCustomDebugMetadata(ArrayBuilder<BlobBuilder> recordWriters)
+        public static byte[] SerializeCustomDebugMetadata(ArrayBuilder<BlobBuilder> recordWriters)
         {
             if (recordWriters.Count == 0)
             {

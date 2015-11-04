@@ -1,15 +1,15 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 
 namespace Roslyn.Utilities
 {
-    internal partial class SpecializedCollections
+    public partial class SpecializedCollections
     {
         private static partial class ReadOnly
         {
-            internal class Collection<TUnderlying, T> : Enumerable<TUnderlying, T>, ICollection<T>
+            public class Collection<TUnderlying, T> : Enumerable<TUnderlying, T>, ICollection<T>
                 where TUnderlying : ICollection<T>
             {
                 public Collection(TUnderlying underlying)

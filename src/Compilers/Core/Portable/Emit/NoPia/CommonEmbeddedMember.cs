@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Emit.NoPia
 {
-    internal abstract partial class EmbeddedTypesManager<
+    public abstract partial class EmbeddedTypesManager<
         TPEModuleBuilder,
         TModuleCompilationState,
         TEmbeddedTypesManager,
@@ -29,12 +29,12 @@ namespace Microsoft.CodeAnalysis.Emit.NoPia
         TEmbeddedParameter,
         TEmbeddedTypeParameter>
     {
-        internal abstract class CommonEmbeddedMember
+        public abstract class CommonEmbeddedMember
         {
-            internal abstract TEmbeddedTypesManager TypeManager { get; }
+            public abstract TEmbeddedTypesManager TypeManager { get; }
         }
 
-        internal abstract class CommonEmbeddedMember<TMember> : CommonEmbeddedMember, Cci.IReference
+        public abstract class CommonEmbeddedMember<TMember> : CommonEmbeddedMember, Cci.IReference
             where TMember : TSymbol, Cci.ITypeMemberReference
         {
             protected readonly TMember UnderlyingSymbol;

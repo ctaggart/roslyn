@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Runtime.InteropServices;
 using Roslyn.Utilities;
@@ -162,7 +162,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static Cci.PInvokeAttributes MakeFlags(bool noMangle, CharSet charSet, bool setLastError, CallingConvention callingConvention, bool? useBestFit, bool? throwOnUnmappable)
+        public static Cci.PInvokeAttributes MakeFlags(bool noMangle, CharSet charSet, bool setLastError, CallingConvention callingConvention, bool? useBestFit, bool? throwOnUnmappable)
         {
             Cci.PInvokeAttributes result = 0;
             if (noMangle)

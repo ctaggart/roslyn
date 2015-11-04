@@ -1,17 +1,17 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
+    public partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
     {
         /// <summary>
         /// Result of binding an AssemblyRef to an AssemblyDef. 
         /// </summary>
         [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-        internal struct AssemblyReferenceBinding
+        public struct AssemblyReferenceBinding
         {
             private readonly AssemblyIdentity _referenceIdentity;
             private readonly int _definitionIndex;
@@ -46,7 +46,7 @@ namespace Microsoft.CodeAnalysis
             /// <summary>
             /// Returns true if the reference was matched with the identity of the assembly being built.
             /// </summary>
-            internal bool BoundToAssemblyBeingBuilt
+            public bool BoundToAssemblyBeingBuilt
             {
                 get { return _definitionIndex == 0; }
             }
@@ -54,7 +54,7 @@ namespace Microsoft.CodeAnalysis
             /// <summary>
             /// True if the definition index is available (reference was successfully matched with the definition).
             /// </summary>
-            internal bool IsBound
+            public bool IsBound
             {
                 get
                 {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis
             ///   
             /// Undefined unless <see cref="IsBound"/> is true.
             /// </summary>
-            internal int VersionDifference
+            public int VersionDifference
             {
                 get
                 {
@@ -82,7 +82,7 @@ namespace Microsoft.CodeAnalysis
             /// Index into assembly definition list.
             /// Undefined unless <see cref="IsBound"/> is true.
             /// </summary>
-            internal int DefinitionIndex
+            public int DefinitionIndex
             {
                 get
                 {
@@ -91,7 +91,7 @@ namespace Microsoft.CodeAnalysis
                 }
             }
 
-            internal AssemblyIdentity ReferenceIdentity
+            public AssemblyIdentity ReferenceIdentity
             {
                 get
                 {

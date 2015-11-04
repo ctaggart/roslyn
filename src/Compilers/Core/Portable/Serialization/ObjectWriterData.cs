@@ -1,13 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
 
 namespace Roslyn.Utilities
 {
-    internal class ObjectWriterData : IDisposable
+    public class ObjectWriterData : IDisposable
     {
-        internal static readonly ObjectPool<Dictionary<object, int>> DictionaryPool =
+        public static readonly ObjectPool<Dictionary<object, int>> DictionaryPool =
             new ObjectPool<Dictionary<object, int>>(() => new Dictionary<object, int>(128), 2);
 
         private readonly ObjectWriterData _baseData;

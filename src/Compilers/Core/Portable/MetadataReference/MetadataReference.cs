@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns true if this reference is an unresolved reference.
         /// </summary>
-        internal virtual bool IsUnresolved
+        public virtual bool IsUnresolved
         {
             get { return false; }
         }
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis
             return WithPropertiesImplReturningMetadataReference(properties);
         }
 
-        internal abstract MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties);
+        public abstract MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties);
 
         /// <summary>
         /// Creates a reference to a single-module assembly or a standalone module stored in memory.
@@ -264,7 +264,7 @@ namespace Microsoft.CodeAnalysis
             return CreateFromAssemblyInternal(assembly);
         }
 
-        internal static MetadataReference CreateFromAssemblyInternal(Assembly assembly)
+        public static MetadataReference CreateFromAssemblyInternal(Assembly assembly)
         {
             return CreateFromAssemblyInternal(assembly, default(MetadataReferenceProperties));
         }
@@ -295,7 +295,7 @@ namespace Microsoft.CodeAnalysis
             return CreateFromAssemblyInternal(assembly, properties, documentation);
         }
 
-        internal static MetadataReference CreateFromAssemblyInternal(
+        public static MetadataReference CreateFromAssemblyInternal(
             Assembly assembly,
             MetadataReferenceProperties properties,
             DocumentationProvider documentation = null)
@@ -333,7 +333,7 @@ namespace Microsoft.CodeAnalysis
             return new MetadataImageReference(metadata, properties, documentation, location, display: null);
         }
 
-        internal static bool HasMetadata(Assembly assembly)
+        public static bool HasMetadata(Assembly assembly)
         {
             return !assembly.IsDynamic && !string.IsNullOrEmpty(CorLightup.Desktop.GetAssemblyLocation(assembly));
         }

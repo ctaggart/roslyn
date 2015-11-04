@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.Cci
 {
     // TODO: argument checking
 
-    internal unsafe struct BlobWriter
+    public unsafe struct BlobWriter
     {
         // writable slice:
         private readonly byte[] _buffer;
@@ -33,7 +33,7 @@ namespace Microsoft.Cci
         {
         }
 
-        internal bool IsDefault => _buffer == null;
+        public bool IsDefault => _buffer == null;
 
         public BlobWriter(byte[] buffer, int start, int count)
         {
@@ -283,13 +283,13 @@ namespace Microsoft.Cci
             _buffer.WriteUInt16(start, value);
         }
 
-        internal void WriteUInt16BE(ushort value)
+        public void WriteUInt16BE(ushort value)
         {
             int start = Advance(sizeof(ushort));
             _buffer.WriteUInt16BE(start, value);
         }
 
-        internal void WriteUInt32BE(uint value)
+        public void WriteUInt32BE(uint value)
         {
             int start = Advance(sizeof(uint));
             _buffer.WriteUInt32BE(start, value);
@@ -488,14 +488,14 @@ namespace Microsoft.Cci
         
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal static void ThrowOutOfBounds()
+        public static void ThrowOutOfBounds()
         {
             // TODO: error message
             throw new InvalidOperationException();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal static void ValueArgumentOutOfRange()
+        public static void ValueArgumentOutOfRange()
         {
             throw new ArgumentOutOfRangeException("value");
         }

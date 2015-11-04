@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.CodeGen
 {
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct ClosureDebugInfo : IEquatable<ClosureDebugInfo>
+    public struct ClosureDebugInfo : IEquatable<ClosureDebugInfo>
     {
         public readonly int SyntaxOffset;
         public readonly DebugId ClosureId;
@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return Hash.Combine(SyntaxOffset, ClosureId.GetHashCode());
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return $"({ClosureId.GetDebuggerDisplay()} @{SyntaxOffset})";
         }

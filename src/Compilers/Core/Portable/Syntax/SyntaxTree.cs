@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="isHiddenPosition">Returns a boolean indicating whether this span is considered hidden or not.</param>
         /// <remarks>This function is being called only in the context of sequence point creation and therefore interprets the 
         /// LineVisibility accordingly (BeforeFirstRemappingDirective -> Visible).</remarks>
-        internal virtual FileLinePositionSpan GetMappedLineSpanAndVisibility(TextSpan span, out bool isHiddenPosition)
+        public virtual FileLinePositionSpan GetMappedLineSpanAndVisibility(TextSpan span, out bool isHiddenPosition)
         {
             isHiddenPosition = GetLineVisibility(span.Start) == LineVisibility.Hidden;
             return GetMappedLineSpan(span);
@@ -244,7 +244,7 @@ namespace Microsoft.CodeAnalysis
         /// Unlike Dev12 we do account for #line and #ExternalSource directives when determining value for 
         /// <see cref="System.Runtime.CompilerServices.CallerFilePathAttribute"/>.
         /// </remarks>
-        internal string GetDisplayPath(TextSpan span, SourceReferenceResolver resolver)
+        public string GetDisplayPath(TextSpan span, SourceReferenceResolver resolver)
         {
             var mappedSpan = GetMappedLineSpan(span);
             if (resolver == null || mappedSpan.Path.IsEmpty())
@@ -265,7 +265,7 @@ namespace Microsoft.CodeAnalysis
         /// Unlike Dev12 we do account for #line and #ExternalSource directives when determining value for 
         /// <see cref="System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.
         /// </remarks>
-        internal int GetDisplayLineNumber(TextSpan span)
+        public int GetDisplayLineNumber(TextSpan span)
         {
             // display line numbers are 1-based
             return GetMappedLineSpan(span).StartLinePosition.Line + 1;
@@ -313,7 +313,7 @@ namespace Microsoft.CodeAnalysis
         /// this tree.</remarks>
         public abstract IList<TextChange> GetChanges(SyntaxTree oldTree);
 
-        internal ValueTuple<ImmutableArray<byte>, Guid> GetChecksumAndAlgorithm()
+        public ValueTuple<ImmutableArray<byte>, Guid> GetChecksumAndAlgorithm()
         {
             if (_lazyChecksum.IsDefault)
             {

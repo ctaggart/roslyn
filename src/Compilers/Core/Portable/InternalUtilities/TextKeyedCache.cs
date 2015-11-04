@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace Roslyn.Utilities
 {
-    internal class TextKeyedCache<T> where T : class
+    public class TextKeyedCache<T> where T : class
     {
         // entry in the local cache
         private struct LocalEntry
@@ -128,7 +128,7 @@ namespace Roslyn.Utilities
 
         #endregion // Poolable
 
-        internal T FindItem(char[] chars, int start, int len, int hashCode)
+        public T FindItem(char[] chars, int start, int len, int hashCode)
         {
             // capture array to avoid extra range checks
             var arr = _localTable;
@@ -197,7 +197,7 @@ namespace Roslyn.Utilities
             return e;
         }
 
-        internal void AddItem(char[] chars, int start, int len, int hashCode, T item)
+        public void AddItem(char[] chars, int start, int len, int hashCode, T item)
         {
             var text = _strings.Add(chars, start, len);
 

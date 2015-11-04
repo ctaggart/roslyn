@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     // having identical hash value.
     using HashBucket = List<KeyValuePair<ConstantValue, object>>;
 
-    internal struct SwitchStringJumpTableEmitter
+    public struct SwitchStringJumpTableEmitter
     {
         private readonly ILBuilder _builder;
 
@@ -80,7 +80,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             _computeStringHashcodeDelegate = computeStringHashcodeDelegate;
         }
 
-        internal void EmitJumpTable()
+        public void EmitJumpTable()
         {
             Debug.Assert(_keyHash == null || ShouldGenerateHashTableSwitch(_caseLabels.Length));
 
@@ -204,7 +204,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return stringHashMap;
         }
 
-        internal static bool ShouldGenerateHashTableSwitch(CommonPEModuleBuilder module, int labelsCount)
+        public static bool ShouldGenerateHashTableSwitch(CommonPEModuleBuilder module, int labelsCount)
         {
             return module.SupportsPrivateImplClass && ShouldGenerateHashTableSwitch(labelsCount);
         }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -15,7 +15,7 @@ namespace Microsoft.VisualStudio.Shell.Interop
     [ComVisible(false)]
     [Guid("C1F63D0C-4CAE-4907-BE74-EEB75D386ECB")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IVsSqm
+    public interface IVsSqm
     {
         void GetSessionStartTime(
             [Out] out System.Runtime.InteropServices.ComTypes.FILETIME time
@@ -105,7 +105,7 @@ namespace Microsoft.VisualStudio.Shell.Interop
     [ComVisible(false)]
     [Guid("BE5F55EB-F02D-4217-BCB6-A290800AF6C4")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IVsSqm2
+    public interface IVsSqm2
     {
         void SetBoolDatapoint(
             [In, MarshalAs(UnmanagedType.U4)] System.UInt32 dataPointID,
@@ -139,7 +139,7 @@ namespace Microsoft.VisualStudio.Shell.Interop
     [ComVisible(false)]
     [Guid("B17A7D4A-C1A3-45A2-B916-826C3ABA067E")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IVsSqmMulti
+    public interface IVsSqmMulti
     {
         [return: MarshalAs(UnmanagedType.VariantBool)]
         bool GetOptInStatus();
@@ -294,7 +294,7 @@ namespace Microsoft.VisualStudio.Shell.Interop
     [ComVisible(false)]
     [Guid("16be4288-950b-4265-b0dc-280b89ca9979")]
     [InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
-    internal interface IVsSqmOptinManager
+    public interface IVsSqmOptinManager
     {
         void GetOptinStatus(
             [Out, MarshalAs(UnmanagedType.U4)] out System.UInt32 optinStatus,
@@ -309,7 +309,7 @@ namespace Microsoft.VisualStudio.Shell.Interop
     [ComImport()]
     [ComVisible(false)]
     [Guid("2508FDF0-EF80-4366-878E-C9F024B8D981")]
-    internal interface SVsLog
+    public interface SVsLog
     {
     }
 }

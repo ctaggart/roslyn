@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // internal for testing
-        internal ComparisonResult Compare(AssemblyIdentity reference, string referenceDisplayName, AssemblyIdentity definition, out bool unificationApplied, bool ignoreVersion)
+        public ComparisonResult Compare(AssemblyIdentity reference, string referenceDisplayName, AssemblyIdentity definition, out bool unificationApplied, bool ignoreVersion)
         {
             Debug.Assert((reference != null) ^ (referenceDisplayName != null));
             unificationApplied = false;
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis
             return AssemblyIdentity.MemberwiseEqual(x, y);
         }
 
-        internal virtual bool ApplyUnificationPolicies(ref AssemblyIdentity reference, ref AssemblyIdentity definition, AssemblyIdentityParts referenceParts, out bool isDefinitionFxAssembly)
+        public virtual bool ApplyUnificationPolicies(ref AssemblyIdentity reference, ref AssemblyIdentity definition, AssemblyIdentityParts referenceParts, out bool isDefinitionFxAssembly)
         {
             isDefinitionFxAssembly = false;
             return true;

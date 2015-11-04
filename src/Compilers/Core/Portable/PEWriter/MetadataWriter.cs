@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
 
 namespace Microsoft.Cci
 {
-    internal abstract partial class MetadataWriter
+    public abstract partial class MetadataWriter
     {
         private static readonly Encoding s_utf8Encoding = Encoding.UTF8;
 
@@ -40,7 +40,7 @@ namespace Microsoft.Cci
         /// 
         /// See CLI Part II, section 22.
         /// </remarks>
-        internal const int NameLengthLimit = 1024 - 1; //MAX_CLASS_NAME = 1024 in dev11
+        public const int NameLengthLimit = 1024 - 1; //MAX_CLASS_NAME = 1024 in dev11
 
         /// <summary>
         /// This is the maximum length of a path in metadata, assuming the path is in UTF-8
@@ -51,7 +51,7 @@ namespace Microsoft.Cci
         /// 
         /// See CLI Part II, section 22.
         /// </remarks>
-        internal const int PathLengthLimit = 260 - 1; //MAX_PATH = 1024 in dev11
+        public const int PathLengthLimit = 260 - 1; //MAX_PATH = 1024 in dev11
 
         /// <summary>
         /// This is the maximum length of a string in the PDB, assuming it is in UTF-8 format 
@@ -60,13 +60,13 @@ namespace Microsoft.Cci
         /// <remarks>
         /// Used for import strings, locals, and local constants.
         /// </remarks>
-        internal const int PdbLengthLimit = 2046; // Empirical, based on when ISymUnmanagedWriter2 methods start throwing.
+        public const int PdbLengthLimit = 2046; // Empirical, based on when ISymUnmanagedWriter2 methods start throwing.
 
         private readonly int _numTypeDefsEstimate;
         private readonly bool _deterministic;
 
         // If true, it is allowed to have methods not have bodies (for emitting metadata-only assembly)
-        internal readonly bool allowMissingMethodBodies;
+        public readonly bool allowMissingMethodBodies;
 
         // A map of method body before token translation to RVA. Used for deduplication of small bodies.
         private readonly Dictionary<ImmutableArray<byte>, int> _smallMethodBodies;
@@ -106,7 +106,7 @@ namespace Microsoft.Cci
         /// <summary>
         /// Returns true if writing full metadata, false if writing delta.
         /// </summary>
-        internal bool IsFullMetadata
+        public bool IsFullMetadata
         {
             get { return this.Generation == 0; }
         }
@@ -451,15 +451,15 @@ namespace Microsoft.Cci
 
         // Well known dummy cor library types whose refs are used for attaching assembly attributes off within net modules
         // There is no guarantee the types actually exist in a cor library
-        internal static readonly string dummyAssemblyAttributeParentNamespace = "System.Runtime.CompilerServices";
-        internal static readonly string dummyAssemblyAttributeParentName = "AssemblyAttributesGoHere";
-        internal static readonly string[,] dummyAssemblyAttributeParentQualifier = { { "", "M" }, { "S", "SM" } };
+        public static readonly string dummyAssemblyAttributeParentNamespace = "System.Runtime.CompilerServices";
+        public static readonly string dummyAssemblyAttributeParentName = "AssemblyAttributesGoHere";
+        public static readonly string[,] dummyAssemblyAttributeParentQualifier = { { "", "M" }, { "S", "SM" } };
         private readonly uint[,] _dummyAssemblyAttributeParent = { { 0, 0 }, { 0, 0 } };
 
-        internal const int MappedFieldDataAlignment = 8;
-        internal const int ManagedResourcesDataAlignment = 8;
+        public const int MappedFieldDataAlignment = 8;
+        public const int ManagedResourcesDataAlignment = 8;
 
-        internal IModule Module => module;
+        public IModule Module => module;
 
         private ImmutableArray<int> GetRowCounts()
         {
@@ -750,7 +750,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal int GetAssemblyRefIndex(IAssemblyReference assemblyReference)
+        public int GetAssemblyRefIndex(IAssemblyReference assemblyReference)
         {
             var containingAssembly = this.module.GetContainingAssembly(Context);
 
@@ -762,7 +762,7 @@ namespace Microsoft.Cci
             return this.GetOrAddAssemblyRefIndex(assemblyReference);
         }
 
-        internal int GetModuleRefIndex(string moduleName)
+        public int GetModuleRefIndex(string moduleName)
         {
             return this.GetOrAddModuleRefIndex(moduleName);
         }
@@ -878,7 +878,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal BlobIdx GetFieldSignatureIndex(IFieldReference fieldReference)
+        public BlobIdx GetFieldSignatureIndex(IFieldReference fieldReference)
         {
             BlobIdx result;
             ISpecializedFieldReference specializedFieldReference = fieldReference.AsSpecializedFieldReference;
@@ -900,7 +900,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal virtual int GetFieldToken(IFieldReference fieldReference)
+        public virtual int GetFieldToken(IFieldReference fieldReference)
         {
             IFieldDefinition fieldDef = null;
             IUnitReference definingUnit = GetDefiningUnitReference(fieldReference.GetContainingType(Context), Context);
@@ -914,7 +914,7 @@ namespace Microsoft.Cci
                 : 0x0A000000 | this.GetMemberRefIndex(fieldReference);
         }
 
-        internal int GetFileRefIndex(IFileReference fileReference)
+        public int GetFileRefIndex(IFileReference fileReference)
         {
             string key = fileReference.FileName;
             int result;
@@ -1020,12 +1020,12 @@ namespace Microsoft.Cci
                 : unmangledName;
         }
 
-        internal int GetMemberRefIndex(ITypeMemberReference memberRef)
+        public int GetMemberRefIndex(ITypeMemberReference memberRef)
         {
             return this.GetOrAddMemberRefIndex(memberRef);
         }
 
-        internal uint GetMemberRefParentCodedIndex(ITypeMemberReference memberRef)
+        public uint GetMemberRefParentCodedIndex(ITypeMemberReference memberRef)
         {
             ITypeDefinition parentTypeDef = memberRef.GetContainingType(Context).AsTypeDefinition(Context);
             if (parentTypeDef != null)
@@ -1064,7 +1064,7 @@ namespace Microsoft.Cci
                 : ((uint)this.GetTypeRefIndex(memberRef.GetContainingType(Context)) << 3) | 1;
         }
 
-        internal uint GetMethodDefOrRefCodedIndex(IMethodReference methodReference)
+        public uint GetMethodDefOrRefCodedIndex(IMethodReference methodReference)
         {
             IMethodDefinition methodDef = null;
             IUnitReference definingUnit = GetDefiningUnitReference(methodReference.GetContainingType(Context), Context);
@@ -1144,7 +1144,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal BlobIdx GetMethodInstanceSignatureIndex(IGenericMethodInstanceReference methodInstanceReference)
+        public BlobIdx GetMethodInstanceSignatureIndex(IGenericMethodInstanceReference methodInstanceReference)
         {
             BlobIdx result;
             if (_methodInstanceSignatureIndex.TryGetValue(methodInstanceReference, out result))
@@ -1205,13 +1205,13 @@ namespace Microsoft.Cci
             return default(BlobIdx);
         }
 
-        internal BlobIdx GetMethodSignatureIndex(IMethodReference methodReference)
+        public BlobIdx GetMethodSignatureIndex(IMethodReference methodReference)
         {
             ImmutableArray<byte> signatureBlob;
             return GetMethodSignatureIndexAndBlob(methodReference, out signatureBlob);
         }
 
-        internal byte[] GetMethodSignature(IMethodReference methodReference)
+        public byte[] GetMethodSignature(IMethodReference methodReference)
         {
             ImmutableArray<byte> signatureBlob;
             GetMethodSignatureIndexAndBlob(methodReference, out signatureBlob);
@@ -1258,7 +1258,7 @@ namespace Microsoft.Cci
             return this.GetOrAddMethodSpecIndex(methodSpec);
         }
 
-        internal virtual int GetMethodToken(IMethodReference methodReference)
+        public virtual int GetMethodToken(IMethodReference methodReference)
         {
             int methodDefIndex;
             IMethodDefinition methodDef = null;
@@ -1310,7 +1310,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal PrimitiveTypeCode GetConstantTypeCode(ILocalDefinition constant)
+        public PrimitiveTypeCode GetConstantTypeCode(ILocalDefinition constant)
         {
             return constant.CompileTimeValue.Type.TypeCode(Context);
         }
@@ -1484,7 +1484,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal bool IsUsingStringTooLong(string usingString, INamedEntity errorEntity = null)
+        public bool IsUsingStringTooLong(string usingString, INamedEntity errorEntity = null)
         {
             if (IsTooLongInternal(usingString, PdbLengthLimit))
             {
@@ -1496,7 +1496,7 @@ namespace Microsoft.Cci
             return false;
         }
 
-        internal bool IsLocalNameTooLong(ILocalDefinition localDefinition)
+        public bool IsLocalNameTooLong(ILocalDefinition localDefinition)
         {
             string name = localDefinition.Name;
             if (IsTooLongInternal(name, PdbLengthLimit))
@@ -1515,7 +1515,7 @@ namespace Microsoft.Cci
         /// <param name="maxLength">Max length for name.  (Expected to be at least 5.)</param>
         /// <returns>True if the name is too long.</returns>
         /// <remarks>Internal for test purposes.</remarks>
-        internal static bool IsTooLongInternal(string str, int maxLength)
+        public static bool IsTooLongInternal(string str, int maxLength)
         {
             Debug.Assert(str != null); // No need to handle in an internal utility.
 
@@ -1619,7 +1619,7 @@ namespace Microsoft.Cci
             throw ExceptionUtilities.UnexpectedValue(val);
         }
 
-        internal uint GetTypeDefFlags(ITypeDefinition typeDef)
+        public uint GetTypeDefFlags(ITypeDefinition typeDef)
         {
             return GetTypeDefFlags(typeDef, Context);
         }
@@ -1824,7 +1824,7 @@ namespace Microsoft.Cci
             return this.GetOrAddTypeSpecIndex(typeReference);
         }
 
-        internal ITypeDefinition GetTypeDefinition(uint token)
+        public ITypeDefinition GetTypeDefinition(uint token)
         {
             // The token must refer to a TypeDef row since we are
             // only handling indexes into the full metadata (in EnC)
@@ -1834,7 +1834,7 @@ namespace Microsoft.Cci
             return this.GetTypeDef(index);
         }
 
-        internal IMethodDefinition GetMethodDefinition(uint token)
+        public IMethodDefinition GetMethodDefinition(uint token)
         {
             // Must be a def table. (See comment in GetTypeDefinition.)
             Debug.Assert(TypeOnly(token) == TokenTypeIds.MethodDef);
@@ -1842,7 +1842,7 @@ namespace Microsoft.Cci
             return this.GetMethodDef(index);
         }
 
-        internal INestedTypeReference GetNestedTypeReference(uint token)
+        public INestedTypeReference GetNestedTypeReference(uint token)
         {
             // Must be a def table. (See comment in GetTypeDefinition.)
             Debug.Assert(TypeOnly(token) == TokenTypeIds.TypeDef);
@@ -1851,7 +1851,7 @@ namespace Microsoft.Cci
             return t.AsNestedTypeReference;
         }
 
-        internal BlobIdx GetTypeSpecSignatureIndex(ITypeReference typeReference)
+        public BlobIdx GetTypeSpecSignatureIndex(ITypeReference typeReference)
         {
             BlobIdx result;
             if (_typeSpecSignatureIndex.TryGetValue(typeReference, out result))
@@ -1867,7 +1867,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal void RecordTypeReference(ITypeReference typeReference)
+        public void RecordTypeReference(ITypeReference typeReference)
         {
             var typeDefinition = typeReference.AsTypeDefinition(this.Context);
             int token;
@@ -1886,7 +1886,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal virtual int GetTypeToken(ITypeReference typeReference)
+        public virtual int GetTypeToken(ITypeReference typeReference)
         {
             int typeDefIndex;
             var typeDefinition = typeReference.AsTypeDefinition(this.Context);
@@ -1900,7 +1900,7 @@ namespace Microsoft.Cci
                 : 0x01000000 | this.GetTypeRefIndex(typeReference);
         }
 
-        internal int GetTokenForDefinition(IDefinition definition)
+        public int GetTokenForDefinition(IDefinition definition)
         {
             ITypeDefinition typeDef = definition as ITypeDefinition;
             if (typeDef != null)
@@ -2589,7 +2589,7 @@ namespace Microsoft.Cci
         /// </summary>
         protected sealed class AssemblyReferenceComparer : IEqualityComparer<IAssemblyReference>
         {
-            internal static readonly AssemblyReferenceComparer Instance = new AssemblyReferenceComparer();
+            public static readonly AssemblyReferenceComparer Instance = new AssemblyReferenceComparer();
 
             public bool Equals(IAssemblyReference x, IAssemblyReference y)
             {
@@ -4395,7 +4395,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal int SerializeLocalConstantStandAloneSignature(ILocalDefinition localConstant)
+        public int SerializeLocalConstantStandAloneSignature(ILocalDefinition localConstant)
         {
             var writer = PooledBlobBuilder.GetInstance();
             writer.WriteByte(0x06);
@@ -4921,7 +4921,7 @@ namespace Microsoft.Cci
         /// <summary>
         /// Computes the string representing the strong name of the given assembly reference.
         /// </summary>
-        internal static string StrongName(IAssemblyReference assemblyReference)
+        public static string StrongName(IAssemblyReference assemblyReference)
         {
             var pooled = PooledStringBuilder.GetInstance();
             StringBuilder sb = pooled.Builder;
@@ -5292,7 +5292,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal static EditAndContinueMethodDebugInformation GetEncMethodDebugInfo(IMethodBody methodBody)
+        public static EditAndContinueMethodDebugInformation GetEncMethodDebugInfo(IMethodBody methodBody)
         {
             ImmutableArray<LocalSlotDebugInfo> encLocalSlots;
 
@@ -5311,7 +5311,7 @@ namespace Microsoft.Cci
             return new EditAndContinueMethodDebugInformation(methodBody.MethodId.Ordinal, encLocalSlots, methodBody.ClosureDebugInfo, methodBody.LambdaDebugInfo);
         }
 
-        internal static ImmutableArray<LocalSlotDebugInfo> GetLocalSlotDebugInfos(ImmutableArray<ILocalDefinition> locals)
+        public static ImmutableArray<LocalSlotDebugInfo> GetLocalSlotDebugInfos(ImmutableArray<ILocalDefinition> locals)
         {
             if (!locals.Any(variable => !variable.SlotInfo.Id.IsNone))
             {
@@ -5321,7 +5321,7 @@ namespace Microsoft.Cci
             return locals.SelectAsArray(variable => variable.SlotInfo);
         }
 
-        internal static ImmutableArray<LocalSlotDebugInfo> GetLocalSlotDebugInfos(ImmutableArray<EncHoistedLocalInfo> locals)
+        public static ImmutableArray<LocalSlotDebugInfo> GetLocalSlotDebugInfos(ImmutableArray<EncHoistedLocalInfo> locals)
         {
             if (!locals.Any(variable => !variable.SlotInfo.Id.IsNone))
             {

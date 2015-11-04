@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -21,10 +21,10 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Base class for csc.exe, csi.exe, vbc.exe and vbi.exe implementations.
     /// </summary>
-    internal abstract partial class CommonCompiler
+    public abstract partial class CommonCompiler
     {
-        internal const int Failed = 1;
-        internal const int Succeeded = 0;
+        public const int Failed = 1;
+        public const int Succeeded = 0;
 
         private readonly string _clientDirectory;
 
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
         public abstract Compilation CreateCompilation(TextWriter consoleOutput, TouchedFileLogger touchedFilesLogger, ErrorLogger errorLogger);
         public abstract void PrintLogo(TextWriter consoleOutput);
         public abstract void PrintHelp(TextWriter consoleOutput);
-        internal abstract string GetToolName();
+        public abstract string GetToolName();
 
         protected abstract uint GetSqmAppID();
         protected abstract bool TryGetCompilerDiagnosticCode(string diagnosticId, out uint code);
@@ -60,9 +60,9 @@ namespace Microsoft.CodeAnalysis
             this.AnalyzerLoader = analyzerLoader;
         }
 
-        internal abstract bool SuppressDefaultResponseFile(IEnumerable<string> args);
+        public abstract bool SuppressDefaultResponseFile(IEnumerable<string> args);
 
-        internal string GetAssemblyFileVersion()
+        public string GetAssemblyFileVersion()
         {
             if (_clientDirectory != null)
             {
@@ -74,17 +74,17 @@ namespace Microsoft.CodeAnalysis
             return "";
         }
 
-        internal Version GetAssemblyVersion()
+        public Version GetAssemblyVersion()
         {
             return typeof(CommonCompiler).GetTypeInfo().Assembly.GetName().Version;
         }
 
-        internal virtual Func<string, MetadataReferenceProperties, PortableExecutableReference> GetMetadataProvider()
+        public virtual Func<string, MetadataReferenceProperties, PortableExecutableReference> GetMetadataProvider()
         {
             return (path, properties) => MetadataReference.CreateFromFile(path, properties);
         }
 
-        internal virtual MetadataReferenceResolver GetCommandLineMetadataReferenceResolver(TouchedFileLogger loggerOpt)
+        public virtual MetadataReferenceResolver GetCommandLineMetadataReferenceResolver(TouchedFileLogger loggerOpt)
         {
             var pathResolver = new RelativePathResolver(Arguments.ReferencePaths, Arguments.BaseDirectory);
             return new LoggingMetadataFileReferenceResolver(pathResolver, GetMetadataProvider(), loggerOpt);
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Resolves metadata references stored in command line arguments and reports errors for those that can't be resolved.
         /// </summary>
-        internal List<MetadataReference> ResolveMetadataReferences(
+        public List<MetadataReference> ResolveMetadataReferences(
             List<DiagnosticInfo> diagnostics,
             TouchedFileLogger touchedFiles,
             out MetadataReferenceResolver referenceDirectiveResolver)
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="file">Source file information.</param>
         /// <param name="diagnostics">Storage for diagnostics.</param>
         /// <returns>File content or null on failure.</returns>
-        internal SourceText ReadFileContent(CommandLineSourceFile file, IList<DiagnosticInfo> diagnostics)
+        public SourceText ReadFileContent(CommandLineSourceFile file, IList<DiagnosticInfo> diagnostics)
         {
             string discarded;
             return ReadFileContent(file, diagnostics, out discarded);
@@ -135,7 +135,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="diagnostics">Storage for diagnostics.</param>
         /// <param name="normalizedFilePath">If given <paramref name="file"/> opens successfully, set to normalized absolute path of the file, null otherwise.</param>
         /// <returns>File content or null on failure.</returns>
-        internal SourceText ReadFileContent(CommandLineSourceFile file, IList<DiagnosticInfo> diagnostics, out string normalizedFilePath)
+        public SourceText ReadFileContent(CommandLineSourceFile file, IList<DiagnosticInfo> diagnostics, out string normalizedFilePath)
         {
             var filePath = file.Path;
             try
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static DiagnosticInfo ToFileReadDiagnostics(CommonMessageProvider messageProvider, Exception e, string filePath)
+        public static DiagnosticInfo ToFileReadDiagnostics(CommonMessageProvider messageProvider, Exception e, string filePath)
         {
             DiagnosticInfo diagnosticInfo;
 
@@ -719,7 +719,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Test hook for intercepting File.Open.
         /// </summary>
-        internal Func<string, object, object, object, Stream> FileOpen
+        public Func<string, object, object, object, Stream> FileOpen
         {
             get { return _fileOpen ?? PortableShim.FileStream.Create_String_FileMode_FileAccess_FileShare; }
             set { _fileOpen = value; }
@@ -755,7 +755,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // internal for testing
-        internal static Stream GetWin32ResourcesInternal(CommonMessageProvider messageProvider, CommandLineArguments arguments, Compilation compilation, out IEnumerable<DiagnosticInfo> errors)
+        public static Stream GetWin32ResourcesInternal(CommonMessageProvider messageProvider, CommandLineArguments arguments, Compilation compilation, out IEnumerable<DiagnosticInfo> errors)
         {
             List<DiagnosticInfo> errorList = new List<DiagnosticInfo>();
             errors = errorList;
@@ -830,7 +830,7 @@ namespace Microsoft.CodeAnalysis
             return fullPath;
         }
 
-        internal static bool TryGetCompilerDiagnosticCode(string diagnosticId, string expectedPrefix, out uint code)
+        public static bool TryGetCompilerDiagnosticCode(string diagnosticId, string expectedPrefix, out uint code)
         {
             code = 0;
             return diagnosticId.StartsWith(expectedPrefix, StringComparison.Ordinal) && uint.TryParse(diagnosticId.Substring(expectedPrefix.Length), out code);

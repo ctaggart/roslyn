@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis
 {
     using MetadataOrDiagnostic = System.Object;
 
-    internal abstract class CommonReferenceManager
+    public abstract class CommonReferenceManager
     {
         /// <summary>
         /// Must be acquired whenever the following data are about to be modified:
@@ -26,22 +26,22 @@ namespace Microsoft.CodeAnalysis
         /// Once lazyAssemblySymbol is set the Compilation.referenceManager field and ReferenceManager
         /// state should not change.
         /// </summary>
-        internal static object SymbolCacheAndReferenceManagerStateGuard = new object();
+        public static object SymbolCacheAndReferenceManagerStateGuard = new object();
 
         /// <summary>
         /// Enumerates all referenced assemblies.
         /// </summary>
-        internal abstract IEnumerable<KeyValuePair<MetadataReference, IAssemblySymbol>> GetReferencedAssemblies();
+        public abstract IEnumerable<KeyValuePair<MetadataReference, IAssemblySymbol>> GetReferencedAssemblies();
        
         /// <summary>
         /// Enumerates all referenced assemblies and their aliases.
         /// </summary>
-        internal abstract IEnumerable<ValueTuple<IAssemblySymbol, ImmutableArray<string>>> GetReferencedAssemblyAliases();
+        public abstract IEnumerable<ValueTuple<IAssemblySymbol, ImmutableArray<string>>> GetReferencedAssemblyAliases();
 
-        internal abstract MetadataReference GetMetadataReference(IAssemblySymbol assemblySymbol);
+        public abstract MetadataReference GetMetadataReference(IAssemblySymbol assemblySymbol);
     }
 
-    internal partial class CommonReferenceManager<TCompilation, TAssemblySymbol> : CommonReferenceManager
+    public partial class CommonReferenceManager<TCompilation, TAssemblySymbol> : CommonReferenceManager
     {
         /// <summary>
         /// If the compilation being built represents an assembly its assembly name.
@@ -49,20 +49,20 @@ namespace Microsoft.CodeAnalysis
         /// containing assembly or <see cref="Compilation.UnspecifiedModuleAssemblyName"/>
         /// if not specified (/moduleassemblyname command line option).
         /// </summary>
-        internal readonly string SimpleAssemblyName;
+        public readonly string SimpleAssemblyName;
 
         /// <summary>
         /// Used to compares assembly identities. 
         /// May implement unification and portability policies specific to the target platform.
         /// </summary>
-        internal readonly AssemblyIdentityComparer IdentityComparer;
+        public readonly AssemblyIdentityComparer IdentityComparer;
 
         /// <summary>
         /// Metadata observed by the compiler.
         /// May be shared across multiple Reference Managers.
         /// Access only under lock(<see cref="ObservedMetadata"/>).
         /// </summary>
-        internal readonly Dictionary<MetadataReference, MetadataOrDiagnostic> ObservedMetadata;
+        public readonly Dictionary<MetadataReference, MetadataOrDiagnostic> ObservedMetadata;
 
         /// <summary>
         /// Once this is non-zero the state of the manager is fully initialized and immutable.
@@ -174,7 +174,7 @@ namespace Microsoft.CodeAnalysis
             this.ObservedMetadata = observedMetadata ?? new Dictionary<MetadataReference, MetadataOrDiagnostic>();
         }
 
-        internal ImmutableArray<Diagnostic> Diagnostics
+        public ImmutableArray<Diagnostic> Diagnostics
         {
             get
             {
@@ -183,7 +183,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool HasCircularReference
+        public bool HasCircularReference
         {
             get
             {
@@ -192,7 +192,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal Dictionary<MetadataReference, int> ReferencedAssembliesMap
+        public Dictionary<MetadataReference, int> ReferencedAssembliesMap
         {
             get
             {
@@ -201,7 +201,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal Dictionary<MetadataReference, int> ReferencedModuleIndexMap
+        public Dictionary<MetadataReference, int> ReferencedModuleIndexMap
         {
             get
             {
@@ -210,7 +210,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap
+        public IDictionary<ValueTuple<string, string>, MetadataReference> ReferenceDirectiveMap
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<MetadataReference> DirectiveReferences
+        public ImmutableArray<MetadataReference> DirectiveReferences
         {
             get
             {
@@ -230,7 +230,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Symbols necessary to set up source assembly and module
 
-        internal TAssemblySymbol CorLibraryOpt
+        public TAssemblySymbol CorLibraryOpt
         {
             get
             {
@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<PEModule> ReferencedModules
+        public ImmutableArray<PEModule> ReferencedModules
         {
             get
             {
@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<ModuleReferences<TAssemblySymbol>> ReferencedModulesReferences
+        public ImmutableArray<ModuleReferences<TAssemblySymbol>> ReferencedModulesReferences
         {
             get
             {
@@ -257,7 +257,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<TAssemblySymbol> ReferencedAssemblies
+        public ImmutableArray<TAssemblySymbol> ReferencedAssemblies
         {
             get
             {
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<ImmutableArray<string>> AliasesOfReferencedAssemblies
+        public ImmutableArray<ImmutableArray<string>> AliasesOfReferencedAssemblies
         {
             get
             {
@@ -275,7 +275,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<UnifiedAssembly<TAssemblySymbol>> UnifiedAssemblies
+        public ImmutableArray<UnifiedAssembly<TAssemblySymbol>> UnifiedAssemblies
         {
             get
             {
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis
         /// Call only while holding <see cref="CommonReferenceManager.SymbolCacheAndReferenceManagerStateGuard"/>.
         /// </summary>
         [Conditional("DEBUG")]
-        internal void AssertUnbound()
+        public void AssertUnbound()
         {
             Debug.Assert(_isBound == 0);
             Debug.Assert(_lazyHasCircularReference == ThreeState.Unknown);
@@ -307,7 +307,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal void AssertBound()
+        public void AssertBound()
         {
             Debug.Assert(_isBound != 0);
             Debug.Assert(_lazyHasCircularReference != ThreeState.Unknown);
@@ -326,12 +326,12 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal void AssertCanReuseForCompilation(TCompilation compilation)
+        public void AssertCanReuseForCompilation(TCompilation compilation)
         {
             Debug.Assert(compilation.MakeSourceAssemblySimpleName() == this.SimpleAssemblyName);
         }
 
-        internal bool IsBound
+        public bool IsBound
         {
             get
             {
@@ -342,7 +342,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Call only while holding <see cref="CommonReferenceManager.SymbolCacheAndReferenceManagerStateGuard"/>.
         /// </summary>
-        internal void InitializeNoLock(
+        public void InitializeNoLock(
             Dictionary<MetadataReference, int> referencedAssembliesMap,
             Dictionary<MetadataReference, int> referencedModulesMap,
             IDictionary<ValueTuple<string, string>, MetadataReference> boundReferenceDirectiveMap,
@@ -524,20 +524,20 @@ namespace Microsoft.CodeAnalysis
         #region Compilation APIs Implementation
 
         // for testing purposes
-        internal IEnumerable<string> ExternAliases => AliasesOfReferencedAssemblies.SelectMany(aliases => aliases);
+        public IEnumerable<string> ExternAliases => AliasesOfReferencedAssemblies.SelectMany(aliases => aliases);
 
-        internal sealed override IEnumerable<KeyValuePair<MetadataReference, IAssemblySymbol>> GetReferencedAssemblies()
+        public sealed override IEnumerable<KeyValuePair<MetadataReference, IAssemblySymbol>> GetReferencedAssemblies()
         {
             return ReferencedAssembliesMap.Select(ra => KeyValuePair.Create(ra.Key, (IAssemblySymbol)ReferencedAssemblies[ra.Value]));
         }
 
-        internal TAssemblySymbol GetReferencedAssemblySymbol(MetadataReference reference)
+        public TAssemblySymbol GetReferencedAssemblySymbol(MetadataReference reference)
         {
             int index;
             return ReferencedAssembliesMap.TryGetValue(reference, out index) ? ReferencedAssemblies[index] : null;
         }
 
-        internal int GetReferencedModuleIndex(MetadataReference reference)
+        public int GetReferencedModuleIndex(MetadataReference reference)
         {
             int index;
             return ReferencedModuleIndexMap.TryGetValue(reference, out index) ? index : -1;
@@ -546,7 +546,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Gets the <see cref="MetadataReference"/> that corresponds to the assembly symbol. 
         /// </summary>
-        internal override MetadataReference GetMetadataReference(IAssemblySymbol assemblySymbol)
+        public override MetadataReference GetMetadataReference(IAssemblySymbol assemblySymbol)
         {
             foreach (var entry in ReferencedAssembliesMap)
             {
@@ -559,7 +559,7 @@ namespace Microsoft.CodeAnalysis
             return null;
         }
 
-        internal override IEnumerable<ValueTuple<IAssemblySymbol, ImmutableArray<string>>> GetReferencedAssemblyAliases()
+        public override IEnumerable<ValueTuple<IAssemblySymbol, ImmutableArray<string>>> GetReferencedAssemblyAliases()
         {
             for (int i = 0; i < ReferencedAssemblies.Length; i++)
             {

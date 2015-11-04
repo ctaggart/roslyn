@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
     /// </summary>
     public abstract class CommandLineArguments
     {
-        internal bool IsScriptRunner { get; set; }
+        public bool IsScriptRunner { get; set; }
 
         /// <summary>
         /// Drop to an interactive loop. If a script is specified in <see cref="SourceFiles"/> executes the script first.
@@ -246,7 +246,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public CultureInfo PreferredUILang { get; internal set; }
 
-        internal Guid SqmSessionGuid { get; set; }
+        public Guid SqmSessionGuid { get; set; }
 
         internal CommandLineArguments()
         {
@@ -279,7 +279,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// called by CommonCompiler with diagnostics and message provider
         /// </remarks>
-        internal IEnumerable<MetadataReference> ResolveMetadataReferences(MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
+        public IEnumerable<MetadataReference> ResolveMetadataReferences(MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
         {
             Debug.Assert(metadataResolver != null);
 
@@ -289,7 +289,7 @@ namespace Microsoft.CodeAnalysis
             return resolved;
         }
 
-        internal virtual bool ResolveMetadataReferences(MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt, List<MetadataReference> resolved)
+        public virtual bool ResolveMetadataReferences(MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt, List<MetadataReference> resolved)
         {
             bool result = true;
 
@@ -314,7 +314,7 @@ namespace Microsoft.CodeAnalysis
             return result;
         }
 
-        internal static ImmutableArray<PortableExecutableReference> ResolveMetadataReference(CommandLineReference cmdReference, MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
+        public static ImmutableArray<PortableExecutableReference> ResolveMetadataReference(CommandLineReference cmdReference, MetadataReferenceResolver metadataResolver, List<DiagnosticInfo> diagnosticsOpt, CommonMessageProvider messageProviderOpt)
         {
             Debug.Assert(metadataResolver != null);
             Debug.Assert((diagnosticsOpt == null) == (messageProviderOpt == null));
@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<DiagnosticAnalyzer> ResolveAnalyzersFromArguments(string language, List<DiagnosticInfo> diagnostics, CommonMessageProvider messageProvider, TouchedFileLogger touchedFiles, IAnalyzerAssemblyLoader analyzerLoader)
+        public ImmutableArray<DiagnosticAnalyzer> ResolveAnalyzersFromArguments(string language, List<DiagnosticInfo> diagnostics, CommonMessageProvider messageProvider, TouchedFileLogger touchedFiles, IAnalyzerAssemblyLoader analyzerLoader)
         {
             var builder = ImmutableArray.CreateBuilder<DiagnosticAnalyzer>();
 

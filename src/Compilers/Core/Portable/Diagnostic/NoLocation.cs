@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis
 {
@@ -6,7 +6,7 @@ namespace Microsoft.CodeAnalysis
     /// A class that represents no location at all. Useful for errors in command line options, for example.
     /// </summary>
     /// <remarks></remarks>
-    internal sealed class NoLocation : Location
+    public sealed class NoLocation : Location
     {
         public static readonly Location Singleton = new NoLocation();
 

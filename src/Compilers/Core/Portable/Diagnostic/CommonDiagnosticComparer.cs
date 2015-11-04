@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using Roslyn.Utilities;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     // but not other factors such as the values supplied for the 
     // parameters of the diagnostic.
 
-    internal sealed class CommonDiagnosticComparer : IEqualityComparer<Diagnostic>
+    public sealed class CommonDiagnosticComparer : IEqualityComparer<Diagnostic>
     {
         public bool Equals(Diagnostic x, Diagnostic y)
         {

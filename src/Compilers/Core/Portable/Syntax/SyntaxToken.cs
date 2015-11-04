@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -20,8 +20,8 @@ namespace Microsoft.CodeAnalysis
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
     public struct SyntaxToken : IEquatable<SyntaxToken>
     {
-        internal static readonly Func<SyntaxToken, bool> NonZeroWidth = t => t.Width > 0;
-        internal static readonly Func<SyntaxToken, bool> Any = t => true;
+        public static readonly Func<SyntaxToken, bool> NonZeroWidth = t => t.Width > 0;
+        public static readonly Func<SyntaxToken, bool> Any = t => true;
 
         internal SyntaxToken(SyntaxNode parent, GreenNode token, int position, int index)
         {
@@ -65,28 +65,28 @@ namespace Microsoft.CodeAnalysis
         /// from Kind when a token is used in context where the token should be interpreted as a
         /// keyword.
         /// </remarks>
-        internal int RawContextualKind => Node?.RawContextualKind ?? 0;
+        public int RawContextualKind => Node?.RawContextualKind ?? 0;
 
         /// <summary>
         /// The node that contains this token in its Children collection.
         /// </summary>
         public SyntaxNode Parent { get; }
 
-        internal GreenNode Node { get; }
+        public GreenNode Node { get; }
 
-        internal int Index { get; }
+        public int Index { get; }
 
-        internal int Position { get; }
+        public int Position { get; }
 
         /// <summary>
         /// The width of the token in characters, not including its leading and trailing trivia.
         /// </summary>
-        internal int Width => Node?.Width ?? 0;
+        public int Width => Node?.Width ?? 0;
 
         /// <summary>
         /// The complete width of the token in characters including its leading and trailing trivia.
         /// </summary>
-        internal int FullWidth => Node?.FullWidth ?? 0;
+        public int FullWidth => Node?.FullWidth ?? 0;
 
         /// <summary>
         /// The absolute span of this token in characters, not including its leading and trailing trivia.
@@ -99,7 +99,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal int EndPosition
+        public int EndPosition
         {
             get { return Node != null ? Position + Node.FullWidth : 0; }
         }
@@ -172,7 +172,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Writes the text of this token to the specified TextWriter, optionally including trivia.
         /// </summary>
-        internal void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
+        public void WriteTo(System.IO.TextWriter writer, bool leading, bool trailing)
         {
             Node?.WriteTo(writer, leading, trailing);
         }
@@ -190,12 +190,12 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Full width of the leading trivia of this token.
         /// </summary>
-        internal int LeadingWidth => Node?.GetLeadingTriviaWidth() ?? 0;
+        public int LeadingWidth => Node?.GetLeadingTriviaWidth() ?? 0;
 
         /// <summary>
         /// Full width of the trailing trivia of this token.
         /// </summary>
-        internal int TrailingWidth => Node?.GetTrailingTriviaWidth() ?? 0;
+        public int TrailingWidth => Node?.GetTrailingTriviaWidth() ?? 0;
 
         /// <summary>
         /// Determines whether this token or any of its descendant trivia have any diagnostics on them. 
@@ -588,7 +588,7 @@ namespace Microsoft.CodeAnalysis
         /// true.</param>
         /// <param name="stepInto">Delegate applied to trivia.  If this delegate is present then trailing trivia is
         /// included in the search.</param>
-        internal SyntaxToken GetNextToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
+        public SyntaxToken GetNextToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
         {
             if (Node == null)
             {
@@ -619,7 +619,7 @@ namespace Microsoft.CodeAnalysis
         /// true.</param>
         /// <param name="stepInto">Delegate applied to trivia.  If this delegate is present then trailing trivia is
         /// included in the search.</param>
-        internal SyntaxToken GetPreviousToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
+        public SyntaxToken GetPreviousToken(Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto = null)
         {
             return Node.Navigator.GetPreviousToken(this, predicate, stepInto);
         }

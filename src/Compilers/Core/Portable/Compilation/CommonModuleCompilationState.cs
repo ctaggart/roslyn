@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,11 +6,11 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal class CommonModuleCompilationState
+    public class CommonModuleCompilationState
     {
         private bool _frozen;
 
-        internal void Freeze()
+        public void Freeze()
         {
             Debug.Assert(!_frozen);
 
@@ -20,13 +20,13 @@ namespace Microsoft.CodeAnalysis
             _frozen = true;
         }
 
-        internal bool Frozen
+        public bool Frozen
         {
             get { return _frozen; }
         }
     }
 
-    internal class ModuleCompilationState<TNamedTypeSymbol, TMethodSymbol> : CommonModuleCompilationState
+    public class ModuleCompilationState<TNamedTypeSymbol, TMethodSymbol> : CommonModuleCompilationState
         where TNamedTypeSymbol : class, Cci.INamespaceTypeDefinition
         where TMethodSymbol : class, Cci.IMethodDefinition
     {
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         private Dictionary<TMethodSymbol, TNamedTypeSymbol> _lazyStateMachineTypes;
 
-        internal void SetStateMachineType(TMethodSymbol method, TNamedTypeSymbol stateMachineClass)
+        public void SetStateMachineType(TMethodSymbol method, TNamedTypeSymbol stateMachineClass)
         {
             Debug.Assert(!Frozen);
 
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool TryGetStateMachineType(TMethodSymbol method, out TNamedTypeSymbol stateMachineType)
+        public bool TryGetStateMachineType(TMethodSymbol method, out TNamedTypeSymbol stateMachineType)
         {
             Debug.Assert(Frozen);
 

@@ -1,13 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Reflection.Emit;
 
 namespace Microsoft.Cci
 {
-    internal static class InstructionOperandTypes
+    public static class InstructionOperandTypes
     {
-        internal static OperandType ReadOperandType(ImmutableArray<byte> il, ref int position)
+        public static OperandType ReadOperandType(ImmutableArray<byte> il, ref int position)
         {
             byte operation = il[position++];
             if (operation == 0xfe)
@@ -21,7 +21,7 @@ namespace Microsoft.Cci
         }
 
         // internal for testing
-        internal static readonly byte[] OneByte = new byte[]
+        public static readonly byte[] OneByte = new byte[]
         {
             (byte)OperandType.InlineNone,           // nop
             (byte)OperandType.InlineNone,           // break
@@ -281,7 +281,7 @@ namespace Microsoft.Cci
         };
 
         // internal for testing
-        internal static readonly byte[] TwoByte = new byte[]
+        public static readonly byte[] TwoByte = new byte[]
         {
             (byte)OperandType.InlineNone,           // arglist           (0xfe 0x00)
             (byte)OperandType.InlineNone,           // ceq

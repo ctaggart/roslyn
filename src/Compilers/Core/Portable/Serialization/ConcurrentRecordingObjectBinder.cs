@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -10,7 +10,7 @@ namespace Roslyn.Utilities
     /// <summary>
     /// A binder that gathers type/reader mappings during object writing
     /// </summary>
-    internal sealed class ConcurrentRecordingObjectBinder : RecordingObjectBinder
+    public sealed class ConcurrentRecordingObjectBinder : RecordingObjectBinder
     {
         private readonly ConcurrentDictionary<TypeKey, Type> _typeMap =
             new ConcurrentDictionary<TypeKey, Type>();

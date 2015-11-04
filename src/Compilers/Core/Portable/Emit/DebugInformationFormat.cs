@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.Emit
 {
@@ -9,9 +9,9 @@ namespace Microsoft.CodeAnalysis.Emit
         Embedded = 3,
     }
 
-    internal static partial class DebugInformationFormatExtensions
+    public static partial class DebugInformationFormatExtensions
     {
-        internal static bool IsValid(this DebugInformationFormat value)
+        public static bool IsValid(this DebugInformationFormat value)
         {
             return value >= DebugInformationFormat.Pdb && value <= DebugInformationFormat.Embedded;
         }

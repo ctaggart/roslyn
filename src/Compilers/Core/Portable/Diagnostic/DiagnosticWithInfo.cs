@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis
     /// A diagnostic (such as a compiler error or a warning), along with the location where it occurred.
     /// </summary>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal class DiagnosticWithInfo : Diagnostic
+    public class DiagnosticWithInfo : Diagnostic
     {
         private readonly DiagnosticInfo _info;
         private readonly Location _location;
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
             get { return this.Info.AdditionalLocations; }
         }
 
-        internal override IReadOnlyList<string> CustomTags
+        public override IReadOnlyList<string> CustomTags
         {
             get
             {
@@ -58,13 +58,13 @@ namespace Microsoft.CodeAnalysis
             get { return this.Info.MessageIdentifier; }
         }
 
-        internal override string Category
+        public override string Category
         {
             get { return this.Info.Category; }
         }
 
 
-        internal sealed override int Code
+        public sealed override int Code
         {
             get { return this.Info.Code; }
         }
@@ -79,7 +79,7 @@ namespace Microsoft.CodeAnalysis
             get { return this.Info.DefaultSeverity; }
         }
 
-        internal sealed override bool IsEnabledByDefault
+        public sealed override bool IsEnabledByDefault
         {
             // All compiler errors and warnings are enabled by default.
             get { return true; }
@@ -100,7 +100,7 @@ namespace Microsoft.CodeAnalysis
             return this.Info.GetMessage(formatProvider);
         }
 
-        internal override IReadOnlyList<object> Arguments
+        public override IReadOnlyList<object> Arguments
         {
             get { return this.Info.Arguments; }
         }
@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis
         /// True if the DiagnosticInfo for this diagnostic requires (or required - this property
         /// is immutable) resolution.
         /// </summary>
-        internal bool HasLazyInfo
+        public bool HasLazyInfo
         {
             get
             {
@@ -184,7 +184,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal override Diagnostic WithLocation(Location location)
+        public override Diagnostic WithLocation(Location location)
         {
             if (location == null)
             {
@@ -199,7 +199,7 @@ namespace Microsoft.CodeAnalysis
             return this;
         }
 
-        internal override Diagnostic WithSeverity(DiagnosticSeverity severity)
+        public override Diagnostic WithSeverity(DiagnosticSeverity severity)
         {
             if (this.Severity != severity)
             {
@@ -209,7 +209,7 @@ namespace Microsoft.CodeAnalysis
             return this;
         }
 
-        internal override Diagnostic WithIsSuppressed(bool isSuppressed)
+        public override Diagnostic WithIsSuppressed(bool isSuppressed)
         {
             if (this.IsSuppressed != isSuppressed)
             {
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis
             return this;
         }
 
-        internal sealed override bool IsNotConfigurable()
+        public sealed override bool IsNotConfigurable()
         {
             return this.Info.IsNotConfigurable();
         }

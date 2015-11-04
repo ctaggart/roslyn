@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Roslyn.Utilities
 {
-    internal static class UICultureUtilities
+    public static class UICultureUtilities
     {
         // TODO (DevDiv 1117307): Replace with CultureInfo.CurrentUICulture.set when available.
         private const string currentUICultureName = "CurrentUICulture";

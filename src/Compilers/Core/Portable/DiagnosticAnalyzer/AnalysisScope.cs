@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// This scope could either be the entire compilation for all analyzers (command line build) or
     /// could be scoped to a specific tree/span and/or a subset of analyzers (CompilationWithAnalyzers).
     /// </summary>
-    internal class AnalysisScope
+    public class AnalysisScope
     {
         public SyntaxTree FilterTreeOpt { get; }
         public TextSpan? FilterSpanOpt { get; }

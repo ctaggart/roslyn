@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -25,7 +25,7 @@ namespace Microsoft.CodeAnalysis
 
             // PERF: Initialize an Enumerator directly from a SyntaxNode without going
             // via ChildNodesAndTokens. This saves constructing an intermediate ChildSyntaxList
-            internal void InitializeFrom(SyntaxNode node)
+            public void InitializeFrom(SyntaxNode node)
             {
                 _node = node;
                 _count = CountNodes(node.Green);
@@ -62,7 +62,7 @@ namespace Microsoft.CodeAnalysis
                 _childIndex = -1;
             }
 
-            internal bool TryMoveNextAndGetCurrent(ref SyntaxNodeOrToken current)
+            public bool TryMoveNextAndGetCurrent(ref SyntaxNodeOrToken current)
             {
                 if (!MoveNext())
                 {
@@ -73,7 +73,7 @@ namespace Microsoft.CodeAnalysis
                 return true;
             }
 
-            internal SyntaxNode TryMoveNextAndGetCurrentAsNode()
+            public SyntaxNode TryMoveNextAndGetCurrentAsNode()
             {
                 while (MoveNext())
                 {

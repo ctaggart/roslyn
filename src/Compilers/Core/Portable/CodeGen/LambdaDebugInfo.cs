@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// The information is emitted to PDB in Custom Debug Information record for a method containing the lambda.
     /// </remarks>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct LambdaDebugInfo : IEquatable<LambdaDebugInfo>
+    public struct LambdaDebugInfo : IEquatable<LambdaDebugInfo>
     {
         /// <summary>
         /// The syntax offset of the syntax node declaring the lambda (lambda expression) or its body (lambda in a query).
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                    Hash.Combine(SyntaxOffset, LambdaId.GetHashCode()));
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return
                 ClosureOrdinal == StaticClosureOrdinal ? $"({LambdaId.GetDebuggerDisplay()} @{SyntaxOffset}, static)" :

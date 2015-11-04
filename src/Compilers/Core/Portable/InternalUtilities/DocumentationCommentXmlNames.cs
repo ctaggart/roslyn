@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 
@@ -7,7 +7,7 @@ namespace Roslyn.Utilities
     /// <summary>
     /// Names of well-known XML attributes and elements.
     /// </summary>
-    internal static class DocumentationCommentXmlNames
+    public static class DocumentationCommentXmlNames
     {
         public const string CElementName = "c";
         public const string CodeElementName = "code";

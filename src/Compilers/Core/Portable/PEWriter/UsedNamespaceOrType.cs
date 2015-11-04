@@ -9,7 +9,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a single using directive (Imports clause).
     /// </summary>
-    internal struct UsedNamespaceOrType : IEquatable<UsedNamespaceOrType>
+    public struct UsedNamespaceOrType : IEquatable<UsedNamespaceOrType>
     {
         public readonly string AliasOpt;
         public readonly IAssemblyReference TargetAssemblyOpt;
@@ -31,25 +31,25 @@ namespace Microsoft.Cci
             TargetXmlNamespaceOpt = targetXmlNamespace;
         }
 
-        internal static UsedNamespaceOrType CreateType(ITypeReference type, string aliasOpt = null)
+        public static UsedNamespaceOrType CreateType(ITypeReference type, string aliasOpt = null)
         {
             Debug.Assert(type != null);
             return new UsedNamespaceOrType(alias: aliasOpt, targetType: type);
         }
 
-        internal static UsedNamespaceOrType CreateNamespace(INamespace @namespace, IAssemblyReference assemblyOpt = null, string aliasOpt = null)
+        public static UsedNamespaceOrType CreateNamespace(INamespace @namespace, IAssemblyReference assemblyOpt = null, string aliasOpt = null)
         {
             Debug.Assert(@namespace != null);
             return new UsedNamespaceOrType(alias: aliasOpt, targetAssembly: assemblyOpt, targetNamespace: @namespace);
         }
 
-        internal static UsedNamespaceOrType CreateExternAlias(string alias)
+        public static UsedNamespaceOrType CreateExternAlias(string alias)
         {
             Debug.Assert(alias != null);
             return new UsedNamespaceOrType(alias: alias);
         }
 
-        internal static UsedNamespaceOrType CreateXmlNamespace(string prefix, string xmlNamespace)
+        public static UsedNamespaceOrType CreateXmlNamespace(string prefix, string xmlNamespace)
         {
             Debug.Assert(xmlNamespace != null);
             Debug.Assert(prefix != null);

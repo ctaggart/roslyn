@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// are known the method bodies will be patched.
     /// To support these two scenarios we need two maps - Item-->uint, and uint-->Item.  (the second is really just a list).
     /// </summary>
-    internal sealed class StringTokenMap
+    public sealed class StringTokenMap
     {
         private readonly ConcurrentDictionary<string, uint> _itemToToken = new ConcurrentDictionary<string, uint>(ReferenceEqualityComparer.Instance);
         private readonly ArrayBuilder<string> _items = new ArrayBuilder<string>();

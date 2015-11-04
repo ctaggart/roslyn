@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis
             return new ModuleMetadata(metadata, size, includeEmbeddedInteropTypes: false);
         }
 
-        internal static ModuleMetadata CreateFromMetadata(IntPtr metadata, int size, bool includeEmbeddedInteropTypes)
+        public static ModuleMetadata CreateFromMetadata(IntPtr metadata, int size, bool includeEmbeddedInteropTypes)
         {
             Debug.Assert(metadata != IntPtr.Zero);
             Debug.Assert(size > 0);
@@ -206,7 +206,7 @@ namespace Microsoft.CodeAnalysis
         /// This is used, for example, when a metadata cache needs to return the cached metadata to its users
         /// while keeping the ownership of the cached metadata object.
         /// </remarks>
-        internal new ModuleMetadata Copy()
+        public new ModuleMetadata Copy()
         {
             return new ModuleMetadata(this);
         }
@@ -229,12 +229,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsDisposed
+        public bool IsDisposed
         {
             get { return _isDisposed || _module.IsDisposed; }
         }
 
-        internal PEModule Module
+        public PEModule Module
         {
             get
             {
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         /// <exception cref="ObjectDisposedException">Module has been disposed.</exception>
         /// <exception cref="BadImageFormatException">When an invalid module name is encountered.</exception>
-        internal MetadataReader MetadataReader
+        public MetadataReader MetadataReader
         {
             get { return Module.MetadataReader; }
         }

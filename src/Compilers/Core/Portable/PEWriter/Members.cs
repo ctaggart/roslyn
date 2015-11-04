@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace Microsoft.Cci
     /// Specifies how the caller passes parameters to the callee and who cleans up the stack.
     /// </summary>
     [Flags]
-    internal enum CallingConvention
+    public enum CallingConvention
     {
         /// <summary>
         /// C/C++ style calling convention for unmanaged methods. The call stack is cleaned up by the caller, 
@@ -70,7 +70,7 @@ namespace Microsoft.Cci
     /// An event is a member that enables an object or class to provide notifications. Clients can attach executable code for events by supplying event handlers.
     /// This interface models the metadata representation of an event.
     /// </summary>
-    internal interface IEventDefinition : ITypeDefinitionMember
+    public interface IEventDefinition : ITypeDefinitionMember
     {
         /// <summary>
         /// A list of methods that are associated with the event.
@@ -112,7 +112,7 @@ namespace Microsoft.Cci
     /// A field is a member that represents a variable associated with an object or class.
     /// This interface models the metadata representation of a field.
     /// </summary>
-    internal interface IFieldDefinition : ITypeDefinitionMember, IFieldReference
+    public interface IFieldDefinition : ITypeDefinitionMember, IFieldReference
     {
         /// <summary>
         /// The compile time value of the field. This value should be used directly in IL, rather than a reference to the field.
@@ -194,7 +194,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a field.
     /// </summary>
-    internal interface IFieldReference : ITypeMemberReference
+    public interface IFieldReference : ITypeMemberReference
     { // TODO: add custom modifiers
         /// <summary>
         /// The type of value that is stored in this field.
@@ -223,7 +223,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// An object that represents a local variable or constant.
     /// </summary>
-    internal interface ILocalDefinition : INamedEntity
+    public interface ILocalDefinition : INamedEntity
     {
         /// <summary>
         /// The compile time value of the definition, if it is a local constant.
@@ -312,7 +312,7 @@ namespace Microsoft.Cci
     /// Represents additional info needed by async method implementation methods 
     /// (MoveNext() methods) to properly emit necessary PDB data for async debugging.
     /// </summary>
-    internal class AsyncMethodBodyDebugInfo
+    public class AsyncMethodBodyDebugInfo
     {
         /// <summary>
         ///  Original async method transformed into MoveNext() 
@@ -352,7 +352,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A metadata (IL) level representation of the body of a method or of a property/event accessor.
     /// </summary>
-    internal interface IMethodBody
+    public interface IMethodBody
     {
         /// <summary>
         /// Calls the visitor.Visit(T) method where T is the most derived object model node interface type implemented by the concrete type
@@ -478,7 +478,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This interface models the metadata representation of a method.
     /// </summary>
-    internal interface IMethodDefinition : ITypeDefinitionMember, IMethodReference
+    public interface IMethodDefinition : ITypeDefinitionMember, IMethodReference
     {
         /// <summary>
         /// A container for a list of IL instructions providing the implementation (if any) of this method.
@@ -645,7 +645,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This interface models the metadata representation of a method or property parameter.
     /// </summary>
-    internal interface IParameterDefinition : IDefinition, INamedEntity, IParameterTypeInformation
+    public interface IParameterDefinition : IDefinition, INamedEntity, IParameterTypeInformation
     {
         /// <summary>
         /// A compile time constant value that should be supplied as the corresponding argument value by callers that do not explicitly specify an argument value for this parameter.
@@ -705,7 +705,7 @@ namespace Microsoft.Cci
     /// A property is a member that provides access to an attribute of an object or a class.
     /// This interface models the metadata representation of a property.
     /// </summary>
-    internal interface IPropertyDefinition : ISignature, ITypeDefinitionMember
+    public interface IPropertyDefinition : ISignature, ITypeDefinitionMember
     {
         /// <summary>
         /// A list of methods that are associated with the property.
@@ -756,7 +756,7 @@ namespace Microsoft.Cci
     /// The parameters and return type that makes up a method or property signature.
     /// This interface models the metadata representation of a signature.
     /// </summary>
-    internal interface ISignature
+    public interface ISignature
     {
         /// <summary>
         /// Calling convention of the signature.
@@ -796,7 +796,7 @@ namespace Microsoft.Cci
     /// A member of a type definition, such as a field or a method.
     /// This interface models the metadata representation of a type member.
     /// </summary>
-    internal interface ITypeDefinitionMember : ITypeMemberReference, IDefinition
+    public interface ITypeDefinitionMember : ITypeMemberReference, IDefinition
     {
         /// <summary>
         /// The type definition that contains this member.
@@ -813,7 +813,7 @@ namespace Microsoft.Cci
     /// A reference to a member of a type, such as a field or a method.
     /// This interface models the metadata representation of a type member reference.
     /// </summary>
-    internal interface ITypeMemberReference : IReference, INamedEntity
+    public interface ITypeMemberReference : IReference, INamedEntity
     {
         /// <summary>
         /// A reference to the containing type of the referenced type member.
@@ -824,7 +824,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents the specialized event definition.
     /// </summary>
-    internal interface ISpecializedEventDefinition : IEventDefinition
+    public interface ISpecializedEventDefinition : IEventDefinition
     {
         /// <summary>
         /// The event that has been specialized to obtain this event. When the containing type is an instance of type which is itself a specialized member (i.e. it is a nested
@@ -840,7 +840,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents reference specialized field.
     /// </summary>
-    internal interface ISpecializedFieldReference : IFieldReference
+    public interface ISpecializedFieldReference : IFieldReference
     {
         /// <summary>
         /// A reference to the field definition that has been specialized to obtain the field definition referred to by this field reference. 
@@ -854,7 +854,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents reference specialized method.
     /// </summary>
-    internal interface ISpecializedMethodReference : IMethodReference
+    public interface ISpecializedMethodReference : IMethodReference
     {
         /// <summary>
         /// A reference to the method definition that has been specialized to obtain the method definition referred to by this method reference. 
@@ -868,7 +868,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents the specialized property definition.
     /// </summary>
-    internal interface ISpecializedPropertyDefinition : IPropertyDefinition
+    public interface ISpecializedPropertyDefinition : IPropertyDefinition
     {
         /// <summary>
         /// The property that has been specialized to obtain this property. When the containing type is an instance of type which is itself a specialized member (i.e. it is a nested
@@ -884,7 +884,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a method.
     /// </summary>
-    internal interface IMethodReference : ISignature, ITypeMemberReference
+    public interface IMethodReference : ISignature, ITypeMemberReference
     {
         /// <summary>
         /// True if the call sites that references the method with this object supply extra arguments.
@@ -924,7 +924,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to generic method instantiated with a list of type arguments.
     /// </summary>
-    internal interface IGenericMethodInstanceReference : IMethodReference
+    public interface IGenericMethodInstanceReference : IMethodReference
     {
         /// <summary>
         /// The type arguments that were used to instantiate this.GenericMethod in order to create this method.
@@ -942,14 +942,14 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a global field in symbol table.
     /// </summary>
-    internal interface IGlobalFieldDefinition : IFieldDefinition
+    public interface IGlobalFieldDefinition : IFieldDefinition
     {
     }
 
     /// <summary>
     /// Represents a global method in symbol table.
     /// </summary>
-    internal interface IGlobalMethodDefinition : IMethodDefinition
+    public interface IGlobalMethodDefinition : IMethodDefinition
     {
         /// <summary>
         /// The name of the method.
@@ -957,7 +957,7 @@ namespace Microsoft.Cci
         new string Name { get; }
     }
 
-    internal enum EncFuncCode
+    public enum EncFuncCode
     {
         Default = 0,
         AddMethod = 1,
@@ -967,9 +967,9 @@ namespace Microsoft.Cci
         AddEvent = 5
     }
 
-    internal static class Extensions
+    public static class Extensions
     {
-        internal static bool HasBody(this IMethodDefinition methodDef)
+        public static bool HasBody(this IMethodDefinition methodDef)
         {
             // Method definition has body if it is a non-abstract, non-extern method.
             // Additionally, methods within COM types have no body.

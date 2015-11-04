@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections;
 using System.Collections.Concurrent;
@@ -11,7 +11,7 @@ namespace Roslyn.Utilities
     /// A concurrent, simplified HashSet.
     /// </summary>
     [DebuggerDisplay("Count = {Count}")]
-    internal sealed class ConcurrentSet<T> : IEnumerable<T>
+    public sealed class ConcurrentSet<T> : IEnumerable<T>
     {
         /// <summary>
         /// The default concurrency level is 2. That means the collection can cope with up to two

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// TODO: Consider moving <see cref="_compilationScopeMap"/> and relevant APIs <see cref="GetCompilationAnalysisScopeAsync(DiagnosticAnalyzer, HostSessionStartAnalysisScope, AnalyzerExecutor)"/>
     /// out of the AnalyzerManager and into analyzer drivers.
     /// </remarks>
-    internal partial class AnalyzerManager
+    public partial class AnalyzerManager
     {
         /// <summary>
         /// Gets the default instance of the AnalyzerManager for the lifetime of the analyzer host process.
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// This method should be invoked when the analyzer host is disposing off the analyzers.
         /// It unregisters the exception handler hooked up to the descriptors' LocalizableString fields and subsequently removes the cached descriptors for the analyzers.
         /// </summary>
-        internal void ClearAnalyzerState(ImmutableArray<DiagnosticAnalyzer> analyzers)
+        public void ClearAnalyzerState(ImmutableArray<DiagnosticAnalyzer> analyzers)
         {
             if (!analyzers.IsDefaultOrEmpty)
             {
@@ -245,7 +245,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal bool IsSupportedDiagnostic(DiagnosticAnalyzer analyzer, Diagnostic diagnostic, Func<DiagnosticAnalyzer, bool> isCompilerAnalyzer, AnalyzerExecutor analyzerExecutor)
+        public bool IsSupportedDiagnostic(DiagnosticAnalyzer analyzer, Diagnostic diagnostic, Func<DiagnosticAnalyzer, bool> isCompilerAnalyzer, AnalyzerExecutor analyzerExecutor)
         {
             // Avoid realizing all the descriptors for all compiler diagnostics by assuming that compiler analyzer doesn't report unsupported diagnostics.
             if (isCompilerAnalyzer(analyzer))
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <summary>
         /// Returns true if all the diagnostics that can be produced by this analyzer are suppressed through options.
         /// </summary>
-        internal bool IsDiagnosticAnalyzerSuppressed(
+        public bool IsDiagnosticAnalyzerSuppressed(
             DiagnosticAnalyzer analyzer,
             CompilationOptions options,
             Func<DiagnosticAnalyzer, bool> isCompilerAnalyzer,
@@ -319,7 +319,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return true;
         }
 
-        internal static bool HasNotConfigurableTag(IEnumerable<string> customTags)
+        public static bool HasNotConfigurableTag(IEnumerable<string> customTags)
         {
             foreach (var customTag in customTags)
             {

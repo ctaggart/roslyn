@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 #pragma warning disable 436 // SuppressUnmanagedCodeSecurityAttribute defined in source and mscorlib 
 using System;
@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Microsoft.Cci
 {
-    internal struct COR_FIELD_OFFSET
+    public struct COR_FIELD_OFFSET
     {
         public uint RidOfField;
         public uint UlOffset;
@@ -22,7 +22,7 @@ namespace Microsoft.Cci
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("BA3FEE4C-ECB9-4e41-83B7-183FA41CD859"), SuppressUnmanagedCodeSecurity]
-    internal unsafe interface IMetaDataEmit
+    public unsafe interface IMetaDataEmit
     {
         void SetModuleProps(string stringName);
         void Save(string stringFile, uint dwordSaveFlags);
@@ -80,7 +80,7 @@ namespace Microsoft.Cci
     }
 
     [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("7DAC8207-D3AE-4c75-9B67-92801A497D44"), SuppressUnmanagedCodeSecurity]
-    internal unsafe interface IMetaDataImport
+    public unsafe interface IMetaDataImport
     {
         [PreserveSig]
         void CloseEnum(uint handleEnum);
@@ -163,7 +163,7 @@ namespace Microsoft.Cci
     // The emit interface is only needed because the unmanaged pdb writer does a QueryInterface for it and fails if the wrapper does not implement it.
     // None of its methods are called.
     [SuppressUnmanagedCodeSecurity]
-    internal class PdbMetadataWrapper : IMetaDataEmit, IMetaDataImport
+    public class PdbMetadataWrapper : IMetaDataEmit, IMetaDataImport
     {
         private readonly MetadataWriter _writer;
 

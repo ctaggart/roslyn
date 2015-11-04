@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 
 namespace Microsoft.Cci
 {
-    internal struct Blob
+    public struct Blob
     {
         private readonly byte[] _buffer;
         private readonly int _start;

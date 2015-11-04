@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Text;
 
@@ -25,9 +25,9 @@ namespace Microsoft.CodeAnalysis
         Out = 2
     }
 
-    internal static class RefKindExtensions
+    public static class RefKindExtensions
     {
-        internal static string ToDisplayString(this RefKind kind)
+        public static string ToDisplayString(this RefKind kind)
         {
             switch (kind)
             {
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static string ToPrefix(this RefKind kind)
+        public static string ToPrefix(this RefKind kind)
         {
             switch (kind)
             {

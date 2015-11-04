@@ -1,11 +1,11 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
     [DebuggerDisplay("{GetDebuggerDisplay(),nq}")]
-    internal struct LocalOrParameter
+    public struct LocalOrParameter
     {
         public readonly LocalDefinition Local;
         public readonly int ParameterIndex;

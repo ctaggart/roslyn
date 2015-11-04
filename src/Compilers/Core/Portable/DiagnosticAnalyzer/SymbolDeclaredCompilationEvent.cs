@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     /// Note that some symbols may have multiple declarations (namespaces, partial types) and may therefore
     /// have multiple events.
     /// </summary>
-    internal sealed class SymbolDeclaredCompilationEvent : CompilationEvent
+    public sealed class SymbolDeclaredCompilationEvent : CompilationEvent
     {
         public SymbolDeclaredCompilationEvent(Compilation compilation, ISymbol symbol) : base(compilation)
         {

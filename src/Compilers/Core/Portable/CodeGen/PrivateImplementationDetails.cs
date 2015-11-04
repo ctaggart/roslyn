@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -19,11 +19,11 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// TypeDefinition that represents &lt;PrivateImplementationDetails&gt; class.
     /// The main purpose of this class so far is to contain mapped fields and their types.
     /// </summary>
-    internal sealed class PrivateImplementationDetails : DefaultTypeDef, Cci.INamespaceTypeDefinition
+    public sealed class PrivateImplementationDetails : DefaultTypeDef, Cci.INamespaceTypeDefinition
     {
         // Note: Dev11 uses the source method token as the prefix, rather than a fixed token
         // value, and data field offsets are unique within the method, not across all methods.
-        internal const string SynthesizedStringHashFunctionName = "ComputeStringHash";
+        public const string SynthesizedStringHashFunctionName = "ComputeStringHash";
 
         private readonly Cci.IModule _moduleBuilder;                 //the module builder
         private readonly Cci.ITypeReference _systemObject;           //base type
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return name;
         }
 
-        internal void Freeze()
+        public void Freeze()
         {
             var wasFrozen = Interlocked.Exchange(ref _frozen, 1);
             if (wasFrozen != 0)
@@ -117,7 +117,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
         private bool IsFrozen => _frozen != 0;
 
-        internal Cci.IFieldReference CreateDataField(ImmutableArray<byte> data)
+        public Cci.IFieldReference CreateDataField(ImmutableArray<byte> data)
         {
             Debug.Assert(!IsFrozen);
             Cci.ITypeReference type = _proxyTypes.GetOrAdd((uint)data.Length, GetStorageStruct);
@@ -148,7 +148,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
 
         // Add a new synthesized method indexed by it's name if the method isn't already present.
-        internal bool TryAddSynthesizedMethod(Cci.IMethodDefinition method)
+        public bool TryAddSynthesizedMethod(Cci.IMethodDefinition method)
         {
             Debug.Assert(!IsFrozen);
             return _synthesizedMethods.TryAdd(method.Name, method);
@@ -167,7 +167,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         }
 
         // Get method by name, if one exists. Otherwise return null.
-        internal Cci.IMethodDefinition GetMethod(string name)
+        public Cci.IMethodDefinition GetMethod(string name)
         {
             Cci.IMethodDefinition method;
             _synthesizedMethods.TryGetValue(name, out method);
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
         public string NamespaceName => string.Empty;
 
-        internal static string GenerateDataFieldName(ImmutableArray<byte> data)
+        public static string GenerateDataFieldName(ImmutableArray<byte> data)
         {
             var hash = CryptographicHashProvider.ComputeSha1(data);
             char[] c = new char[hash.Length * 2];
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Simple struct type with explicit size and no members.
     /// </summary>
-    internal sealed class ExplicitSizeStruct : DefaultTypeDef, Cci.INestedTypeDefinition
+    public sealed class ExplicitSizeStruct : DefaultTypeDef, Cci.INestedTypeDefinition
     {
         private readonly uint _size;
         private readonly Cci.INamedTypeDefinition _containingType;
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Definition of a simple field mapped to a metadata block
     /// </summary>
-    internal sealed class MappedField : Cci.IFieldDefinition
+    public sealed class MappedField : Cci.IFieldDefinition
     {
         private readonly Cci.INamedTypeDefinition _containingType;
         private readonly Cci.ITypeReference _type;
@@ -370,7 +370,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Just a default implementation of a type definition.
     /// </summary>
-    internal abstract class DefaultTypeDef : Cci.ITypeDefinition
+    public abstract class DefaultTypeDef : Cci.ITypeDefinition
     {
         public IEnumerable<Cci.IEventDefinition> Events
             => SpecializedCollections.EmptyEnumerable<Cci.IEventDefinition>();

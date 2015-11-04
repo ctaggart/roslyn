@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 #pragma warning disable CS0618
 using System;
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// Adds the <see cref="ImmutableDictionary{TKey, TValue}"/> of <see cref="ImmutableArray{T}"/> of <see cref="DiagnosticAnalyzer"/> 
         /// for all languages defined in this assembly reference.
         /// </summary>
-        internal void AddAnalyzers(ImmutableDictionary<string, ImmutableArray<DiagnosticAnalyzer>>.Builder builder)
+        public void AddAnalyzers(ImmutableDictionary<string, ImmutableArray<DiagnosticAnalyzer>>.Builder builder)
         {
             ImmutableDictionary<string, ImmutableHashSet<string>> analyzerTypeNameMap;
             Assembly analyzerAssembly = null;
@@ -212,7 +212,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// <summary>
         /// Adds the <see cref="ImmutableArray{T}"/> of <see cref="DiagnosticAnalyzer"/> defined in this assembly reference of given <paramref name="language"/>.
         /// </summary>
-        internal void AddAnalyzers(ImmutableArray<DiagnosticAnalyzer>.Builder builder, string language)
+        public void AddAnalyzers(ImmutableArray<DiagnosticAnalyzer>.Builder builder, string language)
         {
             ImmutableDictionary<string, ImmutableHashSet<string>> analyzerTypeNameMap;
             Assembly analyzerAssembly = null;
@@ -318,7 +318,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             return analyzers.ToImmutable();
         }
 
-        internal ImmutableDictionary<string, ImmutableHashSet<string>> GetAnalyzerTypeNameMap()
+        public ImmutableDictionary<string, ImmutableHashSet<string>> GetAnalyzerTypeNameMap()
         {
             if (_lazyAnalyzerTypeNameMap == null)
             {

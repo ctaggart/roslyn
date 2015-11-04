@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis
 {
@@ -157,7 +157,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// A verbose format for displaying symbols (useful for testing).
         /// </summary>
-        internal static readonly SymbolDisplayFormat TestFormat =
+        public static readonly SymbolDisplayFormat TestFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.OmittedAsContaining,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// this.QualifiedNameOnly = containingSymbol.QualifiedNameOnly + "." + this.Name
         /// </summary>
-        internal static readonly SymbolDisplayFormat QualifiedNameOnlyFormat =
+        public static readonly SymbolDisplayFormat QualifiedNameOnlyFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// this.QualifiedNameArity = containingSymbol.QualifiedNameArity + "." + this.Name + "`" + this.Arity
         /// </summary>
-        internal static readonly SymbolDisplayFormat QualifiedNameArityFormat =
+        public static readonly SymbolDisplayFormat QualifiedNameArityFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
@@ -207,7 +207,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// A succinct format for displaying symbols.
         /// </summary>
-        internal static readonly SymbolDisplayFormat ShortFormat =
+        public static readonly SymbolDisplayFormat ShortFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.OmittedAsContaining,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly,
@@ -220,7 +220,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// The format used for displaying symbols when visualizing IL.
         /// </summary>
-        internal static readonly SymbolDisplayFormat ILVisualizationFormat =
+        public static readonly SymbolDisplayFormat ILVisualizationFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
@@ -235,7 +235,7 @@ namespace Microsoft.CodeAnalysis
         /// Used to normalize explicit interface implementation member names.
         /// Only expected to be applied to interface types (and their type arguments).
         /// </summary>
-        internal static readonly SymbolDisplayFormat ExplicitInterfaceImplementationFormat =
+        public static readonly SymbolDisplayFormat ExplicitInterfaceImplementationFormat =
             new SymbolDisplayFormat(
                 globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.OmittedAsContaining,
                 typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
@@ -302,7 +302,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Flags that can only be set within the compiler.
         /// </summary>
-        internal SymbolDisplayCompilerInternalOptions CompilerInternalOptions { get; }
+        public SymbolDisplayCompilerInternalOptions CompilerInternalOptions { get; }
 
         /// <summary>
         /// Constructs a new instance of <see cref="SymbolDisplayFormat"/> accepting a variety of optional parameters.

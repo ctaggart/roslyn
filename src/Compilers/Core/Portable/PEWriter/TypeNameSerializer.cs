@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Collections;
@@ -8,15 +8,15 @@ using System.Diagnostics;
 
 namespace Microsoft.Cci
 {
-    internal static class TypeNameSerializer
+    public static class TypeNameSerializer
     {
-        internal static string GetSerializedTypeName(this ITypeReference typeReference, EmitContext context)
+        public static string GetSerializedTypeName(this ITypeReference typeReference, EmitContext context)
         {
             bool isAssemblyQualified = true;
             return GetSerializedTypeName(typeReference, context, ref isAssemblyQualified);
         }
 
-        internal static string GetSerializedTypeName(this ITypeReference typeReference, EmitContext context, ref bool isAssemblyQualified)
+        public static string GetSerializedTypeName(this ITypeReference typeReference, EmitContext context, ref bool isAssemblyQualified)
         {
             var pooled = PooledStringBuilder.GetInstance();
             StringBuilder sb = pooled.Builder;
@@ -263,7 +263,7 @@ namespace Microsoft.Cci
         /// Qualified name of namespace.
         /// e.g. "A.B.C"
         /// </summary>
-        internal static string BuildQualifiedNamespaceName(INamespace @namespace)
+        public static string BuildQualifiedNamespaceName(INamespace @namespace)
         {
             Debug.Assert(@namespace != null);
 

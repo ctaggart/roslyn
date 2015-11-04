@@ -15,14 +15,14 @@ using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
 
 namespace Microsoft.Cci
 {
-    internal sealed class PeWritingException : Exception
+    public sealed class PeWritingException : Exception
     {
         public PeWritingException(Exception inner)
             : base(inner.Message, inner)
         { }
     }
 
-    internal sealed class PeWriter
+    public sealed class PeWriter
     {
         private const string ResourceSectionName = ".rsrc";
         private const string RelocationSectionName = ".reloc";
@@ -715,11 +715,11 @@ namespace Microsoft.Cci
 
         private class Directory
         {
-            internal readonly string Name;
-            internal readonly int ID;
-            internal ushort NumberOfNamedEntries;
-            internal ushort NumberOfIdEntries;
-            internal readonly List<object> Entries;
+            public readonly string Name;
+            public readonly int ID;
+            public ushort NumberOfNamedEntries;
+            public ushort NumberOfIdEntries;
+            public readonly List<object> Entries;
 
             internal Directory(string name, int id)
             {
@@ -763,7 +763,7 @@ namespace Microsoft.Cci
 
         //sort the resources by ID least to greatest then by NAME.
         //Where strings and ordinals are compared, strings are less than ordinals.
-        internal static IEnumerable<IWin32Resource> SortResources(IEnumerable<IWin32Resource> resources)
+        public static IEnumerable<IWin32Resource> SortResources(IEnumerable<IWin32Resource> resources)
         {
             return resources.OrderBy(CompareResources);
         }

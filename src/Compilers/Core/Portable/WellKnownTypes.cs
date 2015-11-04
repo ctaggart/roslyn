@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis
     /// Values should not intersect with SpecialType enum!
     /// </summary>
     /// <remarks></remarks>
-    internal enum WellKnownType
+    public enum WellKnownType
     {
         // Value 0 represents an unknown type
         Unknown = SpecialType.None,
@@ -250,12 +250,12 @@ namespace Microsoft.CodeAnalysis
         Last = Available - 1,
     }
 
-    internal static class WellKnownTypes
+    public static class WellKnownTypes
     {
         /// <summary>
         /// Number of well known types in WellKnownType enum
         /// </summary>
-        internal const int Count = WellKnownType.Last - WellKnownType.First + 1;
+        public const int Count = WellKnownType.Last - WellKnownType.First + 1;
 
         /// <summary>
         /// Array of names for types.
@@ -549,7 +549,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // returns WellKnownType.Unknown if given arity isn't available:
-        internal static WellKnownType GetWellKnownFunctionDelegate(int invokeArgumentCount)
+        public static WellKnownType GetWellKnownFunctionDelegate(int invokeArgumentCount)
         {
             Debug.Assert(invokeArgumentCount >= 0);
             return (invokeArgumentCount <= WellKnownType.System_Func_TMax - WellKnownType.System_Func_T) ?
@@ -558,7 +558,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // returns WellKnownType.Unknown if given arity isn't available:
-        internal static WellKnownType GetWellKnownActionDelegate(int invokeArgumentCount)
+        public static WellKnownType GetWellKnownActionDelegate(int invokeArgumentCount)
         {
             Debug.Assert(invokeArgumentCount >= 0);
 

@@ -1,10 +1,10 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Text;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
-    internal partial class ILBuilder
+    public partial class ILBuilder
     {
         /// <summary>
         /// Contains information about a label.
@@ -16,15 +16,15 @@ namespace Microsoft.CodeAnalysis.CodeGen
             //label via fall through.
             //if a label is marked before any branches to the label have been seen
             //the stack is considered to be 0.
-            internal readonly int stack;
-            internal readonly BasicBlock bb;
+            public readonly int stack;
+            public readonly BasicBlock bb;
 
             /// <summary>
             /// Sometimes we need to know if a label is targeted by conditional branches.
             /// For example optimizer can do optimizations of branches into outer try scopes only 
             /// if they are unconditional (because there are no conditional Leave opcodes)
             /// </summary>
-            internal readonly bool targetOfConditionalBranches;
+            public readonly bool targetOfConditionalBranches;
 
             /// <summary>
             /// Used when we see a branch, but label is not yet marked.
@@ -44,12 +44,12 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 this.targetOfConditionalBranches = targetOfConditionalBranches;
             }
 
-            internal LabelInfo WithNewTarget(BasicBlock bb)
+            public LabelInfo WithNewTarget(BasicBlock bb)
             {
                 return new LabelInfo(bb, this.stack, this.targetOfConditionalBranches);
             }
 
-            internal LabelInfo SetTargetOfConditionalBranches()
+            public LabelInfo SetTargetOfConditionalBranches()
             {
                 return new LabelInfo(this.bb, this.stack, true);
             }

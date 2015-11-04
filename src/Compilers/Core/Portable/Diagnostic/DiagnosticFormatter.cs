@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Globalization;
@@ -64,18 +64,18 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal virtual string FormatSourcePath(string path, string basePath, IFormatProvider formatter)
+        public virtual string FormatSourcePath(string path, string basePath, IFormatProvider formatter)
         {
             // ignore base path
             return path;
         }
 
-        internal virtual string FormatSourceSpan(LinePositionSpan span, IFormatProvider formatter)
+        public virtual string FormatSourceSpan(LinePositionSpan span, IFormatProvider formatter)
         {
             return string.Format("({0},{1})", span.Start.Line + 1, span.Start.Character + 1);
         }
 
-        internal string GetMessagePrefix(Diagnostic diagnostic)
+        public string GetMessagePrefix(Diagnostic diagnostic)
         {
             string prefix;
             switch (diagnostic.Severity)
@@ -99,6 +99,6 @@ namespace Microsoft.CodeAnalysis
             return string.Format("{0} {1}", prefix, diagnostic.Id);
         }
 
-        internal static readonly DiagnosticFormatter Instance = new DiagnosticFormatter();
+        public static readonly DiagnosticFormatter Instance = new DiagnosticFormatter();
     }
 }

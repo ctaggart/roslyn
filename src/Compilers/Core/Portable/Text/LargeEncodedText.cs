@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,12 +13,12 @@ namespace Microsoft.CodeAnalysis.Text
     /// A <see cref="SourceText"/> optimized for very large sources. The text is stored as
     /// a list of chunks (char arrays).
     /// </summary>
-    internal sealed class LargeEncodedText : SourceText
+    public sealed class LargeEncodedText : SourceText
     {
         /// <remarks>
         /// internal for unit testing
         /// </remarks>
-        internal const int ChunkSize = 40 * 1024; // 40K Unicode chars is 80KB which is less than the large object heap limit.
+        public const int ChunkSize = 40 * 1024; // 40K Unicode chars is 80KB which is less than the large object heap limit.
 
         private readonly ImmutableArray<char[]> _chunks;
         private readonly int[] _chunkStartOffsets;
@@ -41,7 +41,7 @@ namespace Microsoft.CodeAnalysis.Text
             _length = offset;
         }
 
-        internal static SourceText Decode(Stream stream, Encoding encoding, SourceHashAlgorithm checksumAlgorithm, bool throwIfBinaryDetected)
+        public static SourceText Decode(Stream stream, Encoding encoding, SourceHashAlgorithm checksumAlgorithm, bool throwIfBinaryDetected)
         {
             stream.Seek(0, SeekOrigin.Begin);
 

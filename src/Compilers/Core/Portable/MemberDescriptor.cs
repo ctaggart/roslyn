@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.RuntimeMembers
 {
     [Flags()]
-    internal enum MemberFlags : byte
+    public enum MemberFlags : byte
     {
         // BEGIN Mutually exclusive Member kinds:
         Method = 0x01,
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis.RuntimeMembers
     /// <summary>
     /// Structure that describes a member of a type.
     /// </summary>
-    internal struct MemberDescriptor
+    public struct MemberDescriptor
     {
         public readonly MemberFlags Flags;
 
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis.RuntimeMembers
             this.Signature = Signature;
         }
 
-        internal static ImmutableArray<MemberDescriptor> InitializeFromStream(Stream stream, string[] nameTable)
+        public static ImmutableArray<MemberDescriptor> InitializeFromStream(Stream stream, string[] nameTable)
         {
             int count = nameTable.Length;
 

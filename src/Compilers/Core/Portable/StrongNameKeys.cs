@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -9,23 +9,23 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal sealed class StrongNameKeys
+    public sealed class StrongNameKeys
     {
         /// <summary>
         /// The strong name key associated with the identity of this assembly. 
         /// This contains the contents of the user-supplied key file exactly as extracted.
         /// </summary>
-        internal readonly ImmutableArray<byte> KeyPair;
+        public readonly ImmutableArray<byte> KeyPair;
 
         /// <summary>
         /// Determines source assembly identity.
         /// </summary>
-        internal readonly ImmutableArray<byte> PublicKey;
+        public readonly ImmutableArray<byte> PublicKey;
 
         /// <summary>
         /// A diagnostic created in the process of determining the key.
         /// </summary>
-        internal readonly Diagnostic DiagnosticOpt;
+        public readonly Diagnostic DiagnosticOpt;
 
         /// <summary>
         /// The CSP key container containing the public key used to produce the key,
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis
         /// The original value as specified by <see cref="System.Reflection.AssemblyKeyNameAttribute"/> or 
         /// <see cref="CompilationOptions.CryptoKeyContainer"/>.
         /// </remarks>
-        internal readonly string KeyContainer;
+        public readonly string KeyContainer;
 
         /// <summary>
         /// Original key file path, or null if the key is provided by the <see cref="KeyContainer"/>.
@@ -44,9 +44,9 @@ namespace Microsoft.CodeAnalysis
         /// The original value as specified by <see cref="System.Reflection.AssemblyKeyFileAttribute"/> or 
         /// <see cref="CompilationOptions.CryptoKeyFile"/>
         /// </remarks>
-        internal readonly string KeyFilePath;
+        public readonly string KeyFilePath;
 
-        internal static readonly StrongNameKeys None = new StrongNameKeys();
+        public static readonly StrongNameKeys None = new StrongNameKeys();
 
         private StrongNameKeys()
         {
@@ -69,7 +69,7 @@ namespace Microsoft.CodeAnalysis
             this.KeyFilePath = keyFilePath;
         }
 
-        internal static StrongNameKeys Create(ImmutableArray<byte> publicKey, CommonMessageProvider messageProvider)
+        public static StrongNameKeys Create(ImmutableArray<byte> publicKey, CommonMessageProvider messageProvider)
         {
             Debug.Assert(!publicKey.IsDefaultOrEmpty);
 
@@ -84,7 +84,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static StrongNameKeys Create(StrongNameProvider providerOpt, string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider)
+        public static StrongNameKeys Create(StrongNameProvider providerOpt, string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider)
         {
             if (string.IsNullOrEmpty(keyFilePath) && string.IsNullOrEmpty(keyContainerName))
             {
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// True if the compilation can be signed using these keys.
         /// </summary>
-        internal bool CanSign
+        public bool CanSign
         {
             get
             {
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// True if a strong name can be created for the compilation using these keys.
         /// </summary>
-        internal bool CanProvideStrongName
+        public bool CanProvideStrongName
         {
             get
             {
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static Diagnostic GetError(string keyFilePath, string keyContainerName, object message, CommonMessageProvider messageProvider)
+        public static Diagnostic GetError(string keyFilePath, string keyContainerName, object message, CommonMessageProvider messageProvider)
         {
             if (keyContainerName != null)
             {
@@ -134,17 +134,17 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static Diagnostic GetContainerError(CommonMessageProvider messageProvider, string name, object message)
+        public static Diagnostic GetContainerError(CommonMessageProvider messageProvider, string name, object message)
         {
             return messageProvider.CreateDiagnostic(messageProvider.ERR_PublicKeyContainerFailure, Location.None, name, message);
         }
 
-        internal static Diagnostic GetKeyFileError(CommonMessageProvider messageProvider, string path, object message)
+        public static Diagnostic GetKeyFileError(CommonMessageProvider messageProvider, string path, object message)
         {
             return messageProvider.CreateDiagnostic(messageProvider.ERR_PublicKeyFileFailure, Location.None, path, message);
         }
 
-        internal static bool IsValidPublicKeyString(string publicKey)
+        public static bool IsValidPublicKeyString(string publicKey)
         {
             if (string.IsNullOrEmpty(publicKey) || publicKey.Length % 2 != 0)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System;
@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// XML documentation comments provider for the reference.
         /// </summary>
-        internal DocumentationProvider DocumentationProvider
+        public DocumentationProvider DocumentationProvider
         {
             get
             {
@@ -116,7 +116,7 @@ namespace Microsoft.CodeAnalysis
             return WithPropertiesImpl(properties);
         }
 
-        internal sealed override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
+        public sealed override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
         {
             return WithPropertiesImpl(properties);
         }
@@ -153,12 +153,12 @@ namespace Microsoft.CodeAnalysis
         /// </remarks>
         protected abstract Metadata GetMetadataImpl();
 
-        internal Metadata GetMetadata()
+        public Metadata GetMetadata()
         {
             return GetMetadataImpl();
         }
 
-        internal static Diagnostic ExceptionToDiagnostic(Exception e, CommonMessageProvider messageProvider, Location location, string display, MetadataImageKind kind)
+        public static Diagnostic ExceptionToDiagnostic(Exception e, CommonMessageProvider messageProvider, Location location, string display, MetadataImageKind kind)
         {
             if (e is BadImageFormatException)
             {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Collections;
 using Microsoft.CodeAnalysis.Emit;
@@ -24,12 +24,12 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// 3) Convert each byte in the file content into two bytes containing hexadecimal characters (see method <see cref="ConvertToHex"/>).
     /// 4) Replacing the 'File = fileName' named argument with 'Hex = hexFileContent' argument, where hexFileContent is the converted output from step 3) above.
     /// </remarks>
-    internal class PermissionSetAttributeWithFileReference : Cci.ICustomAttribute
+    public class PermissionSetAttributeWithFileReference : Cci.ICustomAttribute
     {
         private readonly Cci.ICustomAttribute _sourceAttribute;
         private readonly string _resolvedPermissionSetFilePath;
-        internal static readonly string FilePropertyName = "File";
-        internal static readonly string HexPropertyName = "Hex";
+        public static readonly string FilePropertyName = "File";
+        public static readonly string HexPropertyName = "Hex";
 
         public PermissionSetAttributeWithFileReference(Cci.ICustomAttribute sourceAttribute, string resolvedPermissionSetFilePath)
         {
@@ -108,7 +108,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         }
 
         // internal for testing purposes.
-        internal static string ConvertToHex(Stream stream)
+        public static string ConvertToHex(Stream stream)
         {
             Debug.Assert(stream != null);
 
@@ -182,7 +182,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Exception class to enable generating ERR_PermissionSetAttributeFileReadError while reading the file for PermissionSetAttribute fixup.
     /// </summary>
-    internal class PermissionSetFileReadException : Exception
+    public class PermissionSetFileReadException : Exception
     {
         private readonly string _file;
 

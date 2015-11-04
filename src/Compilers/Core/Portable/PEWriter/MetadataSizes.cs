@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.Cci
 {
-    internal sealed class MetadataSizes
+    public sealed class MetadataSizes
     {
         private const int StreamAlignment = 4;
 
@@ -389,7 +389,7 @@ namespace Microsoft.Cci
             return BitArithmeticUtilities.Align(HeapSizes[(int)index], StreamAlignment);
         }
 
-        internal int CalculateTableStreamHeaderSize()
+        public int CalculateTableStreamHeaderSize()
         {
             int result = sizeof(int) +        // Reserved
                          sizeof(short) +      // Version (major, minor)      
@@ -410,9 +410,9 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal const int PdbIdSize = 20;
+        public const int PdbIdSize = 20;
 
-        internal int CalculateStandalonePdbStreamSize()
+        public int CalculateStandalonePdbStreamSize()
         {
             int result = PdbIdSize +          // PDB ID
                          sizeof(int) +        // EntryPoint

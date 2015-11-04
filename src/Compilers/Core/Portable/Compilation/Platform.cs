@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis
 {
@@ -35,19 +35,19 @@ namespace Microsoft.CodeAnalysis
         Arm = 5
     };
 
-    internal static partial class EnumBounds
+    public static partial class EnumBounds
     {
-        internal static bool IsValid(this Platform value)
+        public static bool IsValid(this Platform value)
         {
             return value >= Platform.AnyCpu && value <= Platform.Arm;
         }
 
-        internal static bool Requires64Bit(this Platform value)
+        public static bool Requires64Bit(this Platform value)
         {
             return value == Platform.X64 || value == Platform.Itanium;
         }
 
-        internal static bool Requires32Bit(this Platform value)
+        public static bool Requires32Bit(this Platform value)
         {
             return value == Platform.X86;
         }

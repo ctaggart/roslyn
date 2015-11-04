@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// This is ONLY used id BoundNode.cs Debug method - Dump()
     /// </summary>
-    internal sealed class TreeDumper
+    public sealed class TreeDumper
     {
         private readonly StringBuilder _sb;
 
@@ -198,7 +198,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// This is ONLY used for debugging purpose
     /// </summary>
-    internal sealed class TreeDumperNode
+    public sealed class TreeDumperNode
     {
         public TreeDumperNode(string text, object value, IEnumerable<TreeDumperNode> children)
         {

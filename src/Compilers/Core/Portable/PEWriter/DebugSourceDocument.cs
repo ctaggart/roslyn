@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System;
@@ -9,10 +9,10 @@ using System.Diagnostics;
 
 namespace Microsoft.Cci
 {
-    internal sealed class DebugSourceDocument
+    public sealed class DebugSourceDocument
     {
-        internal static readonly Guid CorSymLanguageTypeCSharp = new Guid("{3f5162f8-07c6-11d3-9053-00c04fa302a1}");
-        internal static readonly Guid CorSymLanguageTypeBasic = new Guid("{3a12d0b8-c26c-11d0-b442-00a0244a1dd2}");
+        public static readonly Guid CorSymLanguageTypeCSharp = new Guid("{3f5162f8-07c6-11d3-9053-00c04fa302a1}");
+        public static readonly Guid CorSymLanguageTypeBasic = new Guid("{3a12d0b8-c26c-11d0-b442-00a0244a1dd2}");
         private static readonly Guid s_corSymLanguageVendorMicrosoft = new Guid("{994b45c4-e6e9-11d2-903f-00c04fa302a1}");
         private static readonly Guid s_corSymDocumentTypeText = new Guid("{5a869d0b-6611-11d3-bd2a-0000f80849bd}");
 
@@ -49,13 +49,13 @@ namespace Microsoft.Cci
             _checksumAndAlgorithm = Task.FromResult(ValueTuple.Create(checksum, algorithm));
         }
 
-        internal static bool IsSupportedAlgorithm(SourceHashAlgorithm algorithm)
+        public static bool IsSupportedAlgorithm(SourceHashAlgorithm algorithm)
         {
             Guid guid;
             return TryGetAlgorithmGuid(algorithm, out guid);
         }
 
-        internal static bool TryGetAlgorithmGuid(SourceHashAlgorithm algorithm, out Guid guid)
+        public static bool TryGetAlgorithmGuid(SourceHashAlgorithm algorithm, out Guid guid)
         {
             // Dev12 debugger supports MD5, SHA1.
             // Dev14 debugger supports MD5, SHA1, SHA256.
@@ -112,7 +112,7 @@ namespace Microsoft.Cci
         /// returns true when checksum was computed base on an actual source stream
         /// as opposed to be suggested via a checksum directive/pragma
         /// </summary>
-        internal bool IsComputedChecksum
+        public bool IsComputedChecksum
         {
             get
             {

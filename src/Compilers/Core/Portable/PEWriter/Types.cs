@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -8,7 +8,7 @@ using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
 
 namespace Microsoft.Cci
 {
-    internal enum PlatformType
+    public enum PlatformType
     {
         SystemObject = CodeAnalysis.SpecialType.System_Object,
         SystemDecimal = CodeAnalysis.SpecialType.System_Decimal,
@@ -22,7 +22,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This interface models the metadata representation of an array type reference.
     /// </summary>
-    internal interface IArrayTypeReference : ITypeReference
+    public interface IArrayTypeReference : ITypeReference
     {
         /// <summary>
         /// The type of the elements of this array.
@@ -73,7 +73,7 @@ namespace Microsoft.Cci
     /// Modifies the set of allowed values for a type, or the semantics of operations allowed on those values. 
     /// Custom modifiers are not associated directly with types, but rather with typed storage locations for values.
     /// </summary>
-    internal interface ICustomModifier
+    public interface ICustomModifier
     {
         /// <summary>
         /// If true, a language may use the modified storage location without being aware of the meaning of the modification.
@@ -89,7 +89,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Information that describes a method or property parameter, but does not include all the information in a IParameterDefinition.
     /// </summary>
-    internal interface IParameterTypeInformation : IParameterListEntry
+    public interface IParameterTypeInformation : IParameterListEntry
     {
         /// <summary>
         /// The list of custom modifiers, if any, associated with the parameter. Evaluate this property only if IsModified is true.
@@ -120,7 +120,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// The definition of a type parameter of a generic type or method.
     /// </summary>
-    internal interface IGenericParameter : IGenericParameterReference
+    public interface IGenericParameter : IGenericParameterReference
     {
         /// <summary>
         /// A list of classes or interfaces. All type arguments matching this parameter must be derived from all of the classes and implement all of the interfaces.
@@ -162,14 +162,14 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to the definition of a type parameter of a generic type or method.
     /// </summary>
-    internal interface IGenericParameterReference : ITypeReference, INamedEntity, IParameterListEntry
+    public interface IGenericParameterReference : ITypeReference, INamedEntity, IParameterListEntry
     {
     }
 
     /// <summary>
     /// The definition of a type parameter of a generic method.
     /// </summary>
-    internal interface IGenericMethodParameter : IGenericParameter, IGenericMethodParameterReference
+    public interface IGenericMethodParameter : IGenericParameter, IGenericMethodParameterReference
     {
         /// <summary>
         /// The generic method that defines this type parameter.
@@ -184,7 +184,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a type parameter of a generic method.
     /// </summary>
-    internal interface IGenericMethodParameterReference : IGenericParameterReference
+    public interface IGenericMethodParameterReference : IGenericParameterReference
     {
         /// <summary>
         /// A reference to the generic method that defines the referenced type parameter.
@@ -195,7 +195,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A generic type instantiated with a list of type arguments
     /// </summary>
-    internal interface IGenericTypeInstanceReference : ITypeReference
+    public interface IGenericTypeInstanceReference : ITypeReference
     {
         /// <summary>
         /// The type arguments that were used to instantiate this.GenericType in order to create this type.
@@ -217,7 +217,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// The definition of a type parameter of a generic type.
     /// </summary>
-    internal interface IGenericTypeParameter : IGenericParameter, IGenericTypeParameterReference
+    public interface IGenericTypeParameter : IGenericParameter, IGenericTypeParameterReference
     {
         /// <summary>
         /// The generic type that defines this type parameter.
@@ -228,7 +228,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a type parameter of a generic type.
     /// </summary>
-    internal interface IGenericTypeParameterReference : IGenericParameterReference
+    public interface IGenericTypeParameterReference : IGenericParameterReference
     {
         /// <summary>
         /// A reference to the generic type that defines the referenced type parameter.
@@ -239,7 +239,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a named type, such as an INamespaceTypeReference or an INestedTypeReference.
     /// </summary>
-    internal interface INamedTypeReference : ITypeReference, INamedEntity
+    public interface INamedTypeReference : ITypeReference, INamedEntity
     {
         /// <summary>
         /// The number of generic parameters. Zero if the type is not generic.
@@ -255,14 +255,14 @@ namespace Microsoft.Cci
     /// <summary>
     /// A named type definition, such as an INamespaceTypeDefinition or an INestedTypeDefinition.
     /// </summary>
-    internal interface INamedTypeDefinition : ITypeDefinition, INamedTypeReference
+    public interface INamedTypeDefinition : ITypeDefinition, INamedTypeReference
     {
     }
 
     /// <summary>
     /// A type definition that is a member of a namespace definition.
     /// </summary>
-    internal interface INamespaceTypeDefinition : INamedTypeDefinition, INamespaceTypeReference
+    public interface INamespaceTypeDefinition : INamedTypeDefinition, INamespaceTypeReference
     {
         /// <summary>
         /// True if the type can be accessed from other assemblies.
@@ -273,7 +273,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Represents a namespace.
     /// </summary>
-    internal interface INamespace : INamedEntity
+    public interface INamespace : INamedEntity
     {
         /// <summary>
         /// Containing namespace or null if this namespace is global.
@@ -284,7 +284,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a type definition that is a member of a namespace definition.
     /// </summary>
-    internal interface INamespaceTypeReference : INamedTypeReference
+    public interface INamespaceTypeReference : INamedTypeReference
     {
         /// <summary>
         /// A reference to the unit that defines the referenced type.
@@ -300,21 +300,21 @@ namespace Microsoft.Cci
     /// <summary>
     /// A type definition that is a member of another type definition.
     /// </summary>
-    internal interface INestedTypeDefinition : INamedTypeDefinition, ITypeDefinitionMember, INestedTypeReference
+    public interface INestedTypeDefinition : INamedTypeDefinition, ITypeDefinitionMember, INestedTypeReference
     {
     }
 
     /// <summary>
     /// A type definition that is a member of another type definition.
     /// </summary>
-    internal interface INestedTypeReference : INamedTypeReference, ITypeMemberReference
+    public interface INestedTypeReference : INamedTypeReference, ITypeMemberReference
     {
     }
 
     /// <summary>
     /// A reference to a type definition that is a specialized nested type.
     /// </summary>
-    internal interface ISpecializedNestedTypeReference : INestedTypeReference
+    public interface ISpecializedNestedTypeReference : INestedTypeReference
     {
         /// <summary>
         /// A reference to the nested type that has been specialized to obtain this nested type reference. When the containing type is an instance of type which is itself a specialized member (i.e. it is a nested
@@ -330,7 +330,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Models an explicit implementation or override of a base class virtual method or an explicit implementation of an interface method.
     /// </summary>
-    internal struct MethodImplementation
+    public struct MethodImplementation
     {
         /// <summary>
         /// The type that is explicitly implementing or overriding the base class virtual method or explicitly implementing an interface method.
@@ -360,7 +360,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A type reference that has custom modifiers associated with it. For example a reference to the target type of a managed pointer to a constant.
     /// </summary>
-    internal interface IModifiedTypeReference : ITypeReference
+    public interface IModifiedTypeReference : ITypeReference
     {
         /// <summary>
         /// Returns the list of custom modifiers associated with the type reference. Evaluate this property only if IsModified is true.
@@ -376,7 +376,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This interface models the metadata representation of a pointer to a location in unmanaged memory.
     /// </summary>
-    internal interface IPointerTypeReference : ITypeReference
+    public interface IPointerTypeReference : ITypeReference
     {
         /// <summary>
         /// The type of value stored at the target memory location.
@@ -389,7 +389,7 @@ namespace Microsoft.Cci
     /// Remark: This should be only used in attributes. For other objects like Local variables etc
     /// there is explicit IsReference field that should be used.
     /// </summary>
-    internal interface IManagedPointerTypeReference : ITypeReference
+    public interface IManagedPointerTypeReference : ITypeReference
     {
         /// <summary>
         /// The type of value stored at the target memory location.
@@ -400,7 +400,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This interface models the metadata representation of a type.
     /// </summary>
-    internal interface ITypeDefinition : IDefinition, ITypeReference
+    public interface ITypeDefinition : IDefinition, ITypeReference
     {
         /// <summary>
         /// The byte alignment that values of the given type ought to have. Must be a power of 2. If zero, the alignment is decided at runtime.
@@ -552,7 +552,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A reference to a type.
     /// </summary>
-    internal interface ITypeReference : IReference
+    public interface ITypeReference : IReference
     {
         /// <summary>
         /// True if the type is an enumeration (it extends System.Enum and is sealed). Corresponds to C# enum.
@@ -596,7 +596,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// A enumeration of all of the value types that are built into the Runtime (and thus have specialized IL instructions that manipulate them).
     /// </summary>
-    internal enum PrimitiveTypeCode
+    public enum PrimitiveTypeCode
     {
         /// <summary>
         /// A single bit.
@@ -702,7 +702,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Enumerates the different kinds of levels of visibility a type member can have.
     /// </summary>
-    internal enum TypeMemberVisibility
+    public enum TypeMemberVisibility
     {
         /// <summary>
         /// The visibility has not been specified. Use the applicable default.
@@ -753,7 +753,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// Enumerates the different kinds of variance a generic method or generic type parameter may have.
     /// </summary>
-    internal enum TypeParameterVariance
+    public enum TypeParameterVariance
     {
         /// <summary>
         /// Two type or method instances are compatible only if they have exactly the same type argument for this parameter.

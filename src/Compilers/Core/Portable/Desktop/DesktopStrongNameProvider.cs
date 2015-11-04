@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis
         private readonly ImmutableArray<string> _keyFileSearchPaths;
 
         // for testing/mocking
-        internal Func<IClrStrongName> TestStrongNameInterfaceFactory;
+        public Func<IClrStrongName> TestStrongNameInterfaceFactory;
 
         /// <summary>
         /// Creates an instance of <see cref="DesktopStrongNameProvider"/>.
@@ -125,13 +125,13 @@ namespace Microsoft.CodeAnalysis
             _keyFileSearchPaths = keyFileSearchPaths.NullToEmpty();
         }
 
-        internal virtual bool FileExists(string fullPath)
+        public virtual bool FileExists(string fullPath)
         {
             Debug.Assert(fullPath == null || PathUtilities.IsAbsolute(fullPath));
             return PortableShim.File.Exists(fullPath);
         }
 
-        internal virtual byte[] ReadAllBytes(string fullPath)
+        public virtual byte[] ReadAllBytes(string fullPath)
         {
             Debug.Assert(PathUtilities.IsAbsolute(fullPath));
             return PortableShim.File.ReadAllBytes(fullPath);
@@ -142,7 +142,7 @@ namespace Microsoft.CodeAnalysis
         /// Internal for testing.
         /// </summary>
         /// <returns>Normalized key file path or null if not found.</returns>
-        internal string ResolveStrongNameKeyFile(string path)
+        public string ResolveStrongNameKeyFile(string path)
         {
             // Dev11: key path is simply appended to the search paths, even if it starts with the current (parent) directory ("." or "..").
             // This is different from PathUtilities.ResolveRelativePath.
@@ -172,14 +172,14 @@ namespace Microsoft.CodeAnalysis
             return null;
         }
 
-        internal override Stream CreateInputStream()
+        public override Stream CreateInputStream()
         {
             var path = PortableShim.Path.GetTempFileName();
             Func<string, Stream> streamConstructor = lPath => new TempFileStream(lPath, PortableShim.FileStream.Create(lPath, PortableShim.FileMode.Create, PortableShim.FileAccess.ReadWrite, PortableShim.FileShare.ReadWrite));
             return FileUtilities.CreateFileStreamChecked(streamConstructor, path);
         }
 
-        internal override StrongNameKeys CreateKeys(string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider)
+        public override StrongNameKeys CreateKeys(string keyFilePath, string keyContainerName, CommonMessageProvider messageProvider)
         {
             var keyPair = default(ImmutableArray<byte>);
             var publicKey = default(ImmutableArray<byte>);
@@ -255,7 +255,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         /// <exception cref="IOException"></exception>
-        internal override void SignAssembly(StrongNameKeys keys, Stream inputStream, Stream outputStream)
+        public override void SignAssembly(StrongNameKeys keys, Stream inputStream, Stream outputStream)
         {
             Debug.Assert(inputStream is TempFileStream);
 
@@ -291,12 +291,12 @@ namespace Microsoft.CodeAnalysis
         // the actual signing
 
         // internal for testing
-        internal IClrStrongName GetStrongNameInterface()
+        public IClrStrongName GetStrongNameInterface()
         {
             return TestStrongNameInterfaceFactory?.Invoke() ?? ClrStrongName.GetInstance();
         }
 
-        internal ImmutableArray<byte> GetPublicKey(string keyContainer)
+        public ImmutableArray<byte> GetPublicKey(string keyContainer)
         {
             IClrStrongName strongName = GetStrongNameInterface();
 
@@ -330,7 +330,7 @@ namespace Microsoft.CodeAnalysis
 
         private static uint GET_ALG_CLASS(uint x) { return x & (7 << 13); }
 
-        internal static unsafe bool IsPublicKeyBlob(byte[] keyFileContents)
+        public static unsafe bool IsPublicKeyBlob(byte[] keyFileContents)
         {
             const uint ALG_CLASS_SIGNATURE = 1 << 13;
             const uint ALG_CLASS_HASH = 4 << 13;
@@ -350,7 +350,7 @@ namespace Microsoft.CodeAnalysis
 
         // internal for testing
         /// <exception cref="IOException"/>
-        internal ImmutableArray<byte> GetPublicKey(byte[] keyFileContents)
+        public ImmutableArray<byte> GetPublicKey(byte[] keyFileContents)
         {
             try
             {

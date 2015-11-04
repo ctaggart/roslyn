@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Class for emitting the switch jump table for switch statements with integral governing type
     /// </summary>
-    internal partial struct SwitchIntegralJumpTableEmitter
+    public partial struct SwitchIntegralJumpTableEmitter
     {
         private readonly ILBuilder _builder;
 
@@ -60,7 +60,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             _sortedCaseLabels = ImmutableArray.Create(caseLabels);
         }
 
-        internal void EmitJumpTable()
+        public void EmitJumpTable()
         {
             //  For emitting the switch statement (integral governing type) jump table with a non-constant
             //  switch expression, we can use a naive approach and generate a single big MSIL switch instruction

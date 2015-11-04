@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis
     /// Also, allows us to stop using strings in the APIs that accept only metadata names, 
     /// making usage of them less bug prone.
     /// </summary>
-    internal partial struct MetadataTypeName
+    public partial struct MetadataTypeName
     {
         /// <summary>
         /// Full metadata name of a type, includes namespace name for top level types.

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <remarks>
     /// Used when emitting a new version of a method during EnC for variables that are no longer used.
     /// </remarks>
-    internal sealed class SignatureOnlyLocalDefinition : Cci.ILocalDefinition
+    public sealed class SignatureOnlyLocalDefinition : Cci.ILocalDefinition
     {
         private readonly byte[] _signature;
         private readonly int _slot;

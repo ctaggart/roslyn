@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Microsoft.CodeAnalysis.Text;
 using Cci = Microsoft.Cci;
@@ -8,7 +8,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// An expression that represents a (name, value) pair and that is typically used in method calls, custom attributes and object initializers.
     /// </summary>
-    internal sealed class MetadataNamedArgument : Cci.IMetadataNamedArgument
+    public sealed class MetadataNamedArgument : Cci.IMetadataNamedArgument
     {
         private readonly ISymbol _entity;
         private readonly Cci.ITypeReference _type;

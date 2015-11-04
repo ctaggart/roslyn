@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ namespace Microsoft.Cci
     partial class BlobBuilder
     {
         // internal for testing
-        internal struct Chunks : IEnumerable<BlobBuilder>, IEnumerator<BlobBuilder>, IEnumerator
+        public struct Chunks : IEnumerable<BlobBuilder>, IEnumerator<BlobBuilder>, IEnumerator
         {
             private readonly BlobBuilder _head;
             private BlobBuilder _next;

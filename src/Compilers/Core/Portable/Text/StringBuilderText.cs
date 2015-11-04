@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Text
     /// <summary>
     /// Implementation of <see cref="SourceText"/> based on a <see cref="StringBuilder"/> input
     /// </summary>
-    internal sealed partial class StringBuilderText : SourceText
+    public sealed partial class StringBuilderText : SourceText
     {
         /// <summary>
         /// Underlying string on which this SourceText instance is based
@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.Text
         /// <summary>
         /// Underlying string which is the source of this SourceText instance
         /// </summary>
-        internal StringBuilder Builder
+        public StringBuilder Builder
         {
             get { return _builder; }
         }

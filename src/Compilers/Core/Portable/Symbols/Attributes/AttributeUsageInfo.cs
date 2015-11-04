@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal struct AttributeUsageInfo : IEquatable<AttributeUsageInfo>
+    public struct AttributeUsageInfo : IEquatable<AttributeUsageInfo>
     {
         [Flags()]
         private enum PackedAttributeUsage
@@ -47,9 +47,9 @@ namespace Microsoft.CodeAnalysis
         /// (b) AllowMultiple: false
         /// (c) Inherited: true
         /// </summary>
-        static internal readonly AttributeUsageInfo Default = new AttributeUsageInfo(validTargets: AttributeTargets.All, allowMultiple: false, inherited: true);
+        static public readonly AttributeUsageInfo Default = new AttributeUsageInfo(validTargets: AttributeTargets.All, allowMultiple: false, inherited: true);
 
-        static internal readonly AttributeUsageInfo Null = default(AttributeUsageInfo);
+        static public readonly AttributeUsageInfo Null = default(AttributeUsageInfo);
 
         internal AttributeUsageInfo(AttributeTargets validTargets, bool allowMultiple, bool inherited)
         {
@@ -77,7 +77,7 @@ namespace Microsoft.CodeAnalysis
         }
 
 
-        internal AttributeTargets ValidTargets
+        public AttributeTargets ValidTargets
         {
             get
             {
@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool AllowMultiple
+        public bool AllowMultiple
         {
             get
             {
@@ -93,7 +93,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool Inherited
+        public bool Inherited
         {
             get
             {
@@ -131,7 +131,7 @@ namespace Microsoft.CodeAnalysis
             return _flags.GetHashCode();
         }
 
-        internal bool HasValidAttributeTargets
+        public bool HasValidAttributeTargets
         {
             get
             {
@@ -140,7 +140,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal object GetValidTargetsErrorArgument()
+        public object GetValidTargetsErrorArgument()
         {
             var validTargetsInt = (int)ValidTargets;
             if (!HasValidAttributeTargets)

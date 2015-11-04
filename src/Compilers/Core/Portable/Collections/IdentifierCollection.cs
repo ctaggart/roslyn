@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis
     /// answering questions like "do you have a type called Foo" in either a case sensitive or
     /// insensitive manner.
     /// </summary>
-    internal partial class IdentifierCollection
+    public partial class IdentifierCollection
     {
         // Maps an identifier to all spellings of that identifier in this module.  The value type is
         // typed as object so that it can store either an individual element (the common case), or a 

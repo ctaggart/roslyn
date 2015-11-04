@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -6,16 +6,16 @@ using System.Runtime.InteropServices;
 
 namespace Roslyn.Utilities
 {
-    internal static class ImmutableArrayInterop
+    public static class ImmutableArrayInterop
     {
-        internal static byte[] DangerousGetUnderlyingArray(this ImmutableArray<byte> array)
+        public static byte[] DangerousGetUnderlyingArray(this ImmutableArray<byte> array)
         {
             var union = new ByteArrayUnion();
             union.ImmutableArray = array;
             return union.MutableArray;
         }
 
-        internal static ImmutableArray<byte> DangerousToImmutableArray(ref byte[] array)
+        public static ImmutableArray<byte> DangerousToImmutableArray(ref byte[] array)
         {
             var union = new ByteArrayUnion();
             union.MutableArray = array;
@@ -27,10 +27,10 @@ namespace Roslyn.Utilities
         private struct ByteArrayUnion
         {
             [FieldOffset(0)]
-            internal byte[] MutableArray;
+            public byte[] MutableArray;
 
             [FieldOffset(0)]
-            internal ImmutableArray<byte> ImmutableArray;
+            public ImmutableArray<byte> ImmutableArray;
         }
     }
 }

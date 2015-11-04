@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis
 {
@@ -26,12 +26,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal override bool IsUnresolved
+        public override bool IsUnresolved
         {
             get { return true; }
         }
 
-        internal override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
+        public override MetadataReference WithPropertiesImplReturningMetadataReference(MetadataReferenceProperties properties)
         {
             return new UnresolvedMetadataReference(this.Reference, properties);
         }

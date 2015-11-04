@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// For user defined methods the ordinal is included in Custom Debug Information record attached to the method.
     /// </remarks>
     [DebuggerDisplay("{GetDebuggerDisplay(), nq}")]
-    internal struct DebugId : IEquatable<DebugId>
+    public struct DebugId : IEquatable<DebugId>
     {
         public const int UndefinedOrdinal = -1;
 
@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             return Hash.Combine(this.Ordinal, this.Generation);
         }
 
-        internal string GetDebuggerDisplay()
+        public string GetDebuggerDisplay()
         {
             return (Generation > 0) ? $"{Ordinal}#{Generation}" : Ordinal.ToString();
         }

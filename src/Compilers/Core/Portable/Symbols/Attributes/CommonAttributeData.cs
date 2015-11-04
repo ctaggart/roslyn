@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -51,12 +51,12 @@ namespace Microsoft.CodeAnalysis
         /// (a) It has at least one applied conditional attribute AND
         /// (b) None of conditional symbols are true at the attribute source location.
         /// </summary>
-        internal virtual bool IsConditionallyOmitted
+        public virtual bool IsConditionallyOmitted
         {
             get { return false; }
         }
 
-        internal virtual bool HasErrors
+        public virtual bool HasErrors
         {
             get { return false; }
         }
@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis
         /// and the attribute description has a signature with parameter count equal to the given attributeArgCount.
         /// NOTE: We don't allow early decoded attributes to have optional parameters.
         /// </summary>
-        internal static bool IsTargetEarlyAttribute(INamedTypeSymbol attributeType, int attributeArgCount, AttributeDescription description)
+        public static bool IsTargetEarlyAttribute(INamedTypeSymbol attributeType, int attributeArgCount, AttributeDescription description)
         {
             int attributeCtorsCount = description.Signatures.Length;
             for (int i = 0; i < attributeCtorsCount; i++)
@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns the value of a constructor argument as type <typeparamref name="T"/>.
         /// Throws if no constructor argument exists or the argument cannot be converted to the type.
         /// </summary>
-        internal T GetConstructorArgument<T>(int i, SpecialType specialType)
+        public T GetConstructorArgument<T>(int i, SpecialType specialType)
         {
             var constructorArgs = this.CommonConstructorArguments;
             return constructorArgs[i].DecodeValue<T>(specialType);
@@ -107,7 +107,7 @@ namespace Microsoft.CodeAnalysis
         /// For user defined attributes VB allows duplicate named arguments and uses the last value.
         /// Dev11 reports an error for pseudo-custom attributes when emitting metadata. We don't.
         /// </remarks>
-        internal T DecodeNamedArgument<T>(string name, SpecialType specialType, T defaultValue = default(T))
+        public T DecodeNamedArgument<T>(string name, SpecialType specialType, T defaultValue = default(T))
         {
             return DecodeNamedArgument<T>(CommonNamedArguments, name, specialType, defaultValue);
         }
@@ -136,7 +136,7 @@ namespace Microsoft.CodeAnalysis
 
         #region Decimal and DateTime Constant Decoding
 
-        internal ConstantValue DecodeDecimalConstantValue()
+        public ConstantValue DecodeDecimalConstantValue()
         {
             // There are two decimal constant attribute ctors:
             // (byte scale, byte sign, uint high, uint mid, uint low) and
@@ -181,7 +181,7 @@ namespace Microsoft.CodeAnalysis
             return ConstantValue.Create(new decimal(low, mid, high, isNegative, scale));
         }
 
-        internal ConstantValue DecodeDateTimeConstantValue()
+        public ConstantValue DecodeDateTimeConstantValue()
         {
             return ConstantValue.Create(new DateTime(this.CommonConstructorArguments[0].DecodeValue<long>(SpecialType.System_Int64)));
         }
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Decode the arguments to ObsoleteAttribute. ObsoleteAttribute can have 0,1 or 2 arguments.
         /// </summary>
-        internal ObsoleteAttributeData DecodeObsoleteAttribute()
+        public ObsoleteAttributeData DecodeObsoleteAttribute()
         {
             ImmutableArray<TypedConstant> args = this.CommonConstructorArguments;
 
@@ -219,7 +219,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Decode the arguments to DeprecatedAttribute. DeprecatedAttribute can have 3 or 4 arguments.
         /// </summary>
-        internal ObsoleteAttributeData DecodeDeprecatedAttribute()
+        public ObsoleteAttributeData DecodeDeprecatedAttribute()
         {
             var args = this.CommonConstructorArguments;
 
@@ -239,7 +239,7 @@ namespace Microsoft.CodeAnalysis
             return new ObsoleteAttributeData(message, isError);
         }
 
-        internal static void DecodeMethodImplAttribute<T, TAttributeSyntaxNode, TAttributeData, TAttributeLocation>(
+        public static void DecodeMethodImplAttribute<T, TAttributeSyntaxNode, TAttributeData, TAttributeLocation>(
             ref DecodeWellKnownAttributeArguments<TAttributeSyntaxNode, TAttributeData, TAttributeLocation> arguments,
             CommonMessageProvider messageProvider)
             where T : CommonMethodWellKnownAttributeData, new()
@@ -296,7 +296,7 @@ namespace Microsoft.CodeAnalysis
             arguments.GetOrCreateData<T>().SetMethodImplementation(arguments.Index, (MethodImplAttributes)options | codeType);
         }
 
-        internal static void DecodeStructLayoutAttribute<TTypeWellKnownAttributeData, TAttributeSyntaxNode, TAttributeData, TAttributeLocation>(
+        public static void DecodeStructLayoutAttribute<TTypeWellKnownAttributeData, TAttributeSyntaxNode, TAttributeData, TAttributeLocation>(
             ref DecodeWellKnownAttributeArguments<TAttributeSyntaxNode, TAttributeData, TAttributeLocation> arguments,
             CharSet defaultCharSet,
             int defaultAutoLayoutSize,
@@ -394,12 +394,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal AttributeUsageInfo DecodeAttributeUsageAttribute()
+        public AttributeUsageInfo DecodeAttributeUsageAttribute()
         {
             return DecodeAttributeUsageAttribute(this.CommonConstructorArguments[0], this.CommonNamedArguments);
         }
 
-        internal static AttributeUsageInfo DecodeAttributeUsageAttribute(TypedConstant positionalArg, ImmutableArray<KeyValuePair<string, TypedConstant>> namedArgs)
+        public static AttributeUsageInfo DecodeAttributeUsageAttribute(TypedConstant positionalArg, ImmutableArray<KeyValuePair<string, TypedConstant>> namedArgs)
         {
             // BREAKING CHANGE (C#):
             //   If the well known attribute class System.AttributeUsage is overridden in source,

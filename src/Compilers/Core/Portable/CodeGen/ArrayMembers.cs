@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System.Collections.Concurrent;
@@ -52,7 +52,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// Every compiled module is supposed to have one of this, created lazily 
     /// (multidimensional arrays are not common).
     /// </summary>
-    internal class ArrayMethods
+    public class ArrayMethods
     {
         // There are four kinds of array pseudo-methods
         // They are specific to a given array type
@@ -215,7 +215,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// types just have to be Int32.
     /// Even though actual arguments can be native ints.
     /// </summary>
-    internal class ArrayMethodParameterInfo : Cci.IParameterTypeInformation
+    public class ArrayMethodParameterInfo : Cci.IParameterTypeInformation
     {
         // position in the signature
         private readonly ushort _index;
@@ -266,7 +266,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// NOTE: unlike index parameters, type of the value parameter must match 
     /// the actual element type.
     /// </summary>
-    internal sealed class ArraySetValueParameterInfo : ArrayMethodParameterInfo
+    public sealed class ArraySetValueParameterInfo : ArrayMethodParameterInfo
     {
         private readonly Cci.IArrayTypeReference _arrayType;
 
@@ -283,7 +283,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// Base of all array methods. They have a lot in common.
     /// </summary>
-    internal abstract class ArrayMethod : Cci.IMethodReference
+    public abstract class ArrayMethod : Cci.IMethodReference
     {
         private readonly ImmutableArray<ArrayMethodParameterInfo> _parameters;
         protected readonly Cci.IArrayTypeReference arrayType;

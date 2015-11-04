@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -236,7 +236,7 @@ namespace Microsoft.CodeAnalysis
         /// Returns true if diagnostic descriptor is not configurable, i.e. cannot be suppressed or filtered or have its severity changed.
         /// For example, compiler errors are always non-configurable.
         /// </summary>
-        internal bool IsNotConfigurable()
+        public bool IsNotConfigurable()
         {
             return AnalyzerManager.HasNotConfigurableTag(this.CustomTags);
         }

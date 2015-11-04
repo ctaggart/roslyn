@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
 {
     public struct SymbolInfo : IEquatable<SymbolInfo>
     {
-        internal static readonly SymbolInfo None = new SymbolInfo(null, ImmutableArray<ISymbol>.Empty, CandidateReason.None);
+        public static readonly SymbolInfo None = new SymbolInfo(null, ImmutableArray<ISymbol>.Empty, CandidateReason.None);
 
         private ImmutableArray<ISymbol> _candidateSymbols;
 
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal ImmutableArray<ISymbol> GetAllSymbols()
+        public ImmutableArray<ISymbol> GetAllSymbols()
         {
             if (this.Symbol != null)
             {
@@ -106,7 +106,7 @@ namespace Microsoft.CodeAnalysis
             return Hash.Combine(this.Symbol, Hash.Combine(Hash.CombineValues(_candidateSymbols, 4), (int)this.CandidateReason));
         }
 
-        internal bool IsEmpty
+        public bool IsEmpty
         {
             get
             {

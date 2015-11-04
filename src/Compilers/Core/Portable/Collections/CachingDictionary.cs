@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Concurrent;
@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis.Collections
     /// 
     /// Thread safe.
     /// </summary>
-    internal class CachingDictionary<TKey, TElement>
+    public class CachingDictionary<TKey, TElement>
     {
         private readonly Func<TKey, ImmutableArray<TElement>> _getElementsOfKey;
         private readonly Func<IEqualityComparer<TKey>, HashSet<TKey>> _getKeys;

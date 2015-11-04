@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace Microsoft.Cci
     /// Stream derivation will come out of the symbol writer as a COMException
     /// missing all of the original exception info.
     /// </summary>
-    internal sealed class PdbWritingException : Exception
+    public sealed class PdbWritingException : Exception
     {
         internal PdbWritingException(Exception inner) :
             base(inner.Message, inner)
@@ -40,7 +40,7 @@ namespace Microsoft.Cci
     /// library, so that we can hash that log to generate a deterministic GUID and
     /// timestamp.
     /// </summary>
-    internal sealed class PdbLogger
+    public sealed class PdbLogger
     {
         // This class hashes the log data on-the-fly; see
         // https://msdn.microsoft.com/en-us/library/system.security.cryptography.hashalgorithm.transformblock(v=vs.110).aspx
@@ -82,7 +82,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal byte[] GetLogHash()
+        public byte[] GetLogHash()
         {
             Debug.Assert(_logData != null);
 
@@ -107,13 +107,13 @@ namespace Microsoft.Cci
             return _hashAlgorithm.Hash;
         }
 
-        internal void Close()
+        public void Close()
         {
             _hashAlgorithm?.Dispose();
             _logData?.Free();
         }
 
-        internal enum PdbWriterOperation : byte
+        public enum PdbWriterOperation : byte
         {
             SetUserEntryPoint,
             DefineDocument,
@@ -220,11 +220,11 @@ namespace Microsoft.Cci
         }
     }
 
-    internal sealed class PdbWriter : IDisposable
+    public sealed class PdbWriter : IDisposable
     {
-        internal const uint HiddenLocalAttributesValue = 1u;
-        internal const uint DefaultLocalAttributesValue = 0u;
-        internal const uint Age = 1;
+        public const uint HiddenLocalAttributesValue = 1u;
+        public const uint DefaultLocalAttributesValue = 0u;
+        public const uint Age = 1;
 
         private static Type s_lazyCorSymWriterSxSType;
 
@@ -564,7 +564,7 @@ namespace Microsoft.Cci
             return "X" + import.AliasOpt;
         }
 
-        internal string GetOrCreateSerializedNamespaceName(INamespace @namespace)
+        public string GetOrCreateSerializedNamespaceName(INamespace @namespace)
         {
             string result;
             if (!_qualifiedNameCache.TryGetValue(@namespace, out result))
@@ -576,7 +576,7 @@ namespace Microsoft.Cci
             return result;
         }
 
-        internal string GetOrCreateSerializedTypeName(ITypeReference typeReference)
+        public string GetOrCreateSerializedTypeName(ITypeReference typeReference)
         {
             string result;
             if (!_qualifiedNameCache.TryGetValue(typeReference, out result))

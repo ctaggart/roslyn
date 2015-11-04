@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Emit
 {
-    internal sealed class DeltaMetadataWriter : MetadataWriter
+    public sealed class DeltaMetadataWriter : MetadataWriter
     {
         private readonly EmitBaseline _previousGeneration;
         private readonly Guid _encId;
@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.Emit
             return ImmutableArray.Create(sizes);
         }
 
-        internal EmitBaseline GetDelta(EmitBaseline baseline, Compilation compilation, Guid encId, MetadataSizes metadataSizes)
+        public EmitBaseline GetDelta(EmitBaseline baseline, Compilation compilation, Guid encId, MetadataSizes metadataSizes)
         {
             var moduleBuilder = (CommonPEModuleBuilder)this.module;
 

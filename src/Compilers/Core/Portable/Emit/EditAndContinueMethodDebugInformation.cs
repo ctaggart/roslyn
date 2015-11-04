@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Immutable;
@@ -15,10 +15,10 @@ namespace Microsoft.CodeAnalysis.Emit
     /// </summary>
     public struct EditAndContinueMethodDebugInformation
     {
-        internal readonly int MethodOrdinal;
-        internal readonly ImmutableArray<LocalSlotDebugInfo> LocalSlots;
-        internal readonly ImmutableArray<LambdaDebugInfo> Lambdas;
-        internal readonly ImmutableArray<ClosureDebugInfo> Closures;
+        public readonly int MethodOrdinal;
+        public readonly ImmutableArray<LocalSlotDebugInfo> LocalSlots;
+        public readonly ImmutableArray<LambdaDebugInfo> Lambdas;
+        public readonly ImmutableArray<ClosureDebugInfo> Closures;
 
         internal EditAndContinueMethodDebugInformation(int methodOrdinal, ImmutableArray<LocalSlotDebugInfo> localSlots, ImmutableArray<ClosureDebugInfo> closures, ImmutableArray<LambdaDebugInfo> lambdas)
         {
@@ -121,7 +121,7 @@ namespace Microsoft.CodeAnalysis.Emit
             return mapBuilder.ToImmutableAndFree();
         }
 
-        internal void SerializeLocalSlots(Cci.BlobBuilder writer)
+        public void SerializeLocalSlots(Cci.BlobBuilder writer)
         {
             int syntaxOffsetBaseline = -1;
             foreach (LocalSlotDebugInfo localSlot in this.LocalSlots)
@@ -237,7 +237,7 @@ namespace Microsoft.CodeAnalysis.Emit
             lambdas = lambdasBuilder.ToImmutableAndFree();
         }
 
-        internal void SerializeLambdaMap(Cci.BlobBuilder writer)
+        public void SerializeLambdaMap(Cci.BlobBuilder writer)
         {
             Debug.Assert(this.MethodOrdinal >= -1);
             writer.WriteCompressedInteger((uint)(this.MethodOrdinal + 1));

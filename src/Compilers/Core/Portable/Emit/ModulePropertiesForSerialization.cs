@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Reflection.PortableExecutable;
@@ -8,7 +8,7 @@ namespace Microsoft.Cci
     /// <summary>
     /// This class is used to store the module serialization properties for a compilation.
     /// </summary>
-    internal sealed class ModulePropertiesForSerialization
+    public sealed class ModulePropertiesForSerialization
     {
         /// <summary>
         /// The alignment factor (in bytes) that is used to align the raw data of sections in the image file.
@@ -205,26 +205,26 @@ namespace Microsoft.Cci
         /// <summary>
         /// If set, the module must include a machine code stub that transfers control to the virtual execution system.
         /// </summary>
-        internal bool RequiresStartupStub => Machine == Machine.I386 || Machine == 0;
+        public bool RequiresStartupStub => Machine == Machine.I386 || Machine == 0;
 
         /// <summary>
         /// If set, the module contains instructions or assumptions that are specific to the AMD 64 bit instruction set. 
         /// </summary>
-        internal bool RequiresAmdInstructionSet => Machine == Machine.Amd64;
+        public bool RequiresAmdInstructionSet => Machine == Machine.Amd64;
 
         /// <summary>
         /// If set, the module contains instructions that assume a 32 bit instruction set. For example it may depend on an address being 32 bits.
         /// This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
         /// </summary>
-        internal bool Requires32bits => Machine == Machine.I386;
+        public bool Requires32bits => Machine == Machine.I386;
 
         /// <summary>
         /// If set, the module contains instructions that assume a 64 bit instruction set. For example it may depend on an address being 64 bits.
         /// This may be true even if the module contains only IL instructions because of PlatformInvoke and COM interop.
         /// </summary>
-        internal bool Requires64bits => Machine == Machine.Amd64 || Machine == Machine.IA64;
+        public bool Requires64bits => Machine == Machine.Amd64 || Machine == Machine.IA64;
 
-        internal CorFlags GetCorHeaderFlags()
+        public CorFlags GetCorHeaderFlags()
         {
             CorFlags result = 0;
             if (ILOnly)

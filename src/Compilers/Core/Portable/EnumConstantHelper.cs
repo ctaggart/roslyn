@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
@@ -6,16 +6,16 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal enum EnumOverflowKind { NoOverflow, OverflowReport, OverflowIgnore }
+    public enum EnumOverflowKind { NoOverflow, OverflowReport, OverflowIgnore }
 
-    internal static class EnumConstantHelper
+    public static class EnumConstantHelper
     {
         /// <summary>
         /// Generate a ConstantValue of the same integer type as the argument
         /// and offset by the given non-negative amount. Return ConstantValue.Bad
         /// if the generated constant would be outside the valid range of the type.
         /// </summary>
-        internal static EnumOverflowKind OffsetValue(ConstantValue constantValue, uint offset, out ConstantValue offsetValue)
+        public static EnumOverflowKind OffsetValue(ConstantValue constantValue, uint offset, out ConstantValue offsetValue)
         {
             Debug.Assert(!constantValue.IsBad);
             Debug.Assert(offset > 0);

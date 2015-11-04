@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.Cci
 {
-    internal unsafe static class BlobUtilities
+    public unsafe static class BlobUtilities
     {
         public static void WriteBytes(this byte[] buffer, int start, byte value, int count)
         {
@@ -186,7 +186,7 @@ namespace Microsoft.Cci
             }
         }
 
-        internal unsafe static int GetUTF8ByteCount(string str)
+        public unsafe static int GetUTF8ByteCount(string str)
         {
             fixed (char* ptr = str)
             {
@@ -194,13 +194,13 @@ namespace Microsoft.Cci
             }
         }
 
-        internal unsafe static int GetUTF8ByteCount(char* str, int charCount)
+        public unsafe static int GetUTF8ByteCount(char* str, int charCount)
         {
             char* remainder;
             return GetUTF8ByteCount(str, charCount, int.MaxValue, out remainder);
         }
 
-        internal static int GetUTF8ByteCount(char* str, int charCount, int byteLimit, out char* remainder)
+        public static int GetUTF8ByteCount(char* str, int charCount, int byteLimit, out char* remainder)
         {
             char* end = str + charCount;
 
@@ -242,22 +242,22 @@ namespace Microsoft.Cci
             return byteCount;
         }
 
-        internal static bool IsSurrogateChar(int c)
+        public static bool IsSurrogateChar(int c)
         {
             return unchecked((uint)(c - 0xD800)) <= 0xDFFF - 0xD800;
         }
 
-        internal static bool IsHighSurrogateChar(int c)
+        public static bool IsHighSurrogateChar(int c)
         {
             return unchecked((uint)(c - 0xD800)) <= 0xDBFF - 0xD800;
         }
 
-        internal static bool IsLowSurrogateChar(int c)
+        public static bool IsLowSurrogateChar(int c)
         {
             return unchecked((uint)(c - 0xDC00)) <= 0xDFFF - 0xDC00;
         }
 
-        internal static void ValidateRange(int bufferLength, int start, int byteCount)
+        public static void ValidateRange(int bufferLength, int start, int byteCount)
         {
             if (start < 0 || start > bufferLength)
             {

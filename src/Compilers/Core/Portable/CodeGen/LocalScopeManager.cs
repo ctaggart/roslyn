@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Cci = Microsoft.Cci;
 
 namespace Microsoft.CodeAnalysis.CodeGen
 {
-    internal partial class ILBuilder
+    public partial class ILBuilder
     {
         private sealed class LocalScopeManager
         {
@@ -27,7 +27,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
 
             private ScopeInfo CurrentScope => _scopes.Peek();
 
-            internal ScopeInfo OpenScope(ScopeType scopeType, Microsoft.Cci.ITypeReference exceptionType)
+            public ScopeInfo OpenScope(ScopeType scopeType, Microsoft.Cci.ITypeReference exceptionType)
             {
                 var scope = CurrentScope.OpenScope(scopeType, exceptionType, _enclosingExceptionHandler);
                 _scopes.Push(scope);
@@ -41,17 +41,17 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 return scope;
             }
 
-            internal void FinishFilterCondition(ILBuilder builder)
+            public void FinishFilterCondition(ILBuilder builder)
             {
                 CurrentScope.FinishFilterCondition(builder);
             }
 
-            internal void ClosingScope(ILBuilder builder)
+            public void ClosingScope(ILBuilder builder)
             {
                 CurrentScope.ClosingScope(builder);
             }
 
-            internal void CloseScope(ILBuilder builder)
+            public void CloseScope(ILBuilder builder)
             {
                 var scope = _scopes.Pop();
                 scope.CloseScope(builder);
@@ -64,7 +64,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 Debug.Assert(_enclosingExceptionHandler == GetEnclosingExceptionHandler());
             }
 
-            internal ExceptionHandlerScope EnclosingExceptionHandler => _enclosingExceptionHandler;
+            public ExceptionHandlerScope EnclosingExceptionHandler => _enclosingExceptionHandler;
 
             private ExceptionHandlerScope GetEnclosingExceptionHandler()
             {
@@ -83,25 +83,25 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 return null;
             }
 
-            internal BasicBlock CreateBlock(ILBuilder builder)
+            public BasicBlock CreateBlock(ILBuilder builder)
             {
                 var scope = (LocalScopeInfo)CurrentScope;
                 return scope.CreateBlock(builder);
             }
 
-            internal SwitchBlock CreateSwitchBlock(ILBuilder builder)
+            public SwitchBlock CreateSwitchBlock(ILBuilder builder)
             {
                 var scope = (LocalScopeInfo)CurrentScope;
                 return scope.CreateSwitchBlock(builder);
             }
 
-            internal void AddLocal(LocalDefinition variable)
+            public void AddLocal(LocalDefinition variable)
             {
                 var scope = (LocalScopeInfo)CurrentScope;
                 scope.AddLocal(variable);
             }
 
-            internal void AddLocalConstant(LocalConstantDefinition constant)
+            public void AddLocalConstant(LocalConstantDefinition constant)
             {
                 var scope = (LocalScopeInfo)CurrentScope;
                 scope.AddLocalConstant(constant);
@@ -110,7 +110,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Gets all scopes that contain variables.
             /// </summary>
-            internal ImmutableArray<Cci.LocalScope> GetAllScopesWithLocals()
+            public ImmutableArray<Cci.LocalScope> GetAllScopesWithLocals()
             {
                 var result = ArrayBuilder<Cci.LocalScope>.GetInstance();
                 ScopeBounds rootBounds = _rootScope.GetLocalScopes(result);
@@ -139,32 +139,32 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// beneath the root scope. Each ExceptionHandlerRegion indicates the type
             /// of clause (catch or finally) and the bounds of the try block and clause block.
             /// </summary>
-            internal ImmutableArray<Cci.ExceptionHandlerRegion> GetExceptionHandlerRegions()
+            public ImmutableArray<Cci.ExceptionHandlerRegion> GetExceptionHandlerRegions()
             {
                 var result = ArrayBuilder<Cci.ExceptionHandlerRegion>.GetInstance();
                 _rootScope.GetExceptionHandlerRegions(result);
                 return result.ToImmutableAndFree();
             }
 
-            internal ImmutableArray<Cci.StateMachineHoistedLocalScope> GetHoistedLocalScopes()
+            public ImmutableArray<Cci.StateMachineHoistedLocalScope> GetHoistedLocalScopes()
             {
                 var result = ArrayBuilder<Cci.StateMachineHoistedLocalScope>.GetInstance();
                 _rootScope.GetHoistedLocalScopes(result);
                 return result.ToImmutableAndFree();
             }
 
-            internal void AddUserHoistedLocal(int slotIndex)
+            public void AddUserHoistedLocal(int slotIndex)
             {
                 var scope = (LocalScopeInfo)CurrentScope;
                 scope.AddUserHoistedLocal(slotIndex);
             }
 
-            internal void FreeBasicBlocks()
+            public void FreeBasicBlocks()
             {
                 _rootScope.FreeBasicBlocks();
             }
 
-            internal bool PossiblyDefinedOutsideOfTry(LocalDefinition local)
+            public bool PossiblyDefinedOutsideOfTry(LocalDefinition local)
             {
                 foreach (var s in _scopes)
                 {
@@ -190,7 +190,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// scopes. A scope may represent a scope for variable declarations, an exception
         /// handler clause, or an entire exception handler (multiple clauses).
         /// </summary>
-        internal abstract class ScopeInfo
+        public abstract class ScopeInfo
         {
             public abstract ScopeType Type { get; }
 
@@ -240,13 +240,13 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal abstract void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions);
+            public abstract void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions);
 
             /// <summary>
             /// Recursively calculates the start and end of the given scope.
             /// Only scopes with locals are actually dumped to the list.
             /// </summary>
-            internal abstract ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> result);
+            public abstract ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> result);
 
             protected static ScopeBounds GetLocalScopes<TScopeInfo>(ArrayBuilder<Cci.LocalScope> result, ImmutableArray<TScopeInfo>.Builder scopes)
                 where TScopeInfo : ScopeInfo
@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// Recursively calculates the start and end of the given scope.
             /// Only scopes with locals are actually dumped to the list.
             /// </summary>
-            internal abstract ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result);
+            public abstract ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result);
 
             protected static ScopeBounds GetHoistedLocalScopes<TScopeInfo>(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result, ImmutableArray<TScopeInfo>.Builder scopes)
                 where TScopeInfo : ScopeInfo
@@ -295,14 +295,14 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// </summary>
             public abstract void FreeBasicBlocks();
 
-            internal virtual bool ContainsLocal(LocalDefinition local) => false;
+            public virtual bool ContainsLocal(LocalDefinition local) => false;
         }
 
         /// <summary>
         /// Class that collects content of the scope (blocks, nested scopes, variables etc).
         /// There is one for every opened scope.
         /// </summary>
-        internal class LocalScopeInfo : ScopeInfo
+        public class LocalScopeInfo : ScopeInfo
         {
             private ImmutableArray<LocalDefinition>.Builder _localVariables;
             private ImmutableArray<LocalConstantDefinition>.Builder _localConstants;
@@ -329,7 +329,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 return scope;
             }
 
-            internal void AddLocal(LocalDefinition variable)
+            public void AddLocal(LocalDefinition variable)
             {
                 if (_localVariables == null)
                 {
@@ -341,7 +341,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 _localVariables.Add(variable);
             }
 
-            internal void AddLocalConstant(LocalConstantDefinition constant)
+            public void AddLocalConstant(LocalConstantDefinition constant)
             {
                 if (_localConstants == null)
                 {
@@ -353,7 +353,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 _localConstants.Add(constant);
             }
 
-            internal void AddUserHoistedLocal(int slotIndex)
+            public void AddUserHoistedLocal(int slotIndex)
             {
                 if (_stateMachineUserHoistedLocalSlotIndices == null)
                 {
@@ -364,7 +364,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 _stateMachineUserHoistedLocalSlotIndices.Add(slotIndex);
             }
 
-            internal override bool ContainsLocal(LocalDefinition local)
+            public override bool ContainsLocal(LocalDefinition local)
             {
                 var locals = _localVariables;
                 return locals != null && locals.Contains(local);
@@ -405,7 +405,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 Blocks.Add(block);
             }
 
-            internal override void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions)
+            public override void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions)
             {
                 if (_nestedScopes != null)
                 {
@@ -416,7 +416,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal override ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> result)
+            public override ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> result)
             {
                 int begin = int.MaxValue;
                 int end = 0;
@@ -461,7 +461,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 return new ScopeBounds(begin, end);
             }
 
-            internal override ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result)
+            public override ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result)
             {
                 int begin = int.MaxValue;
                 int end = 0;
@@ -534,7 +534,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// A scope for a single try, catch, or finally clause. If the clause
         /// is a catch clause, ExceptionType will be set.
         /// </summary>
-        internal sealed class ExceptionHandlerScope : LocalScopeInfo
+        public sealed class ExceptionHandlerScope : LocalScopeInfo
         {
             private readonly ExceptionHandlerContainerScope _containingScope;
             private readonly ScopeType _type;
@@ -664,7 +664,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// nested scopes only, no IL blocks (although nested ExceptionHandlerScopes
         /// for the clauses will contain IL blocks).
         /// </summary>
-        internal sealed class ExceptionHandlerContainerScope : ScopeInfo
+        public sealed class ExceptionHandlerContainerScope : ScopeInfo
         {
             private readonly ImmutableArray<ExceptionHandlerScope>.Builder _handlers;
             private readonly object _endLabel;
@@ -735,7 +735,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal override void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions)
+            public override void GetExceptionHandlerRegions(ArrayBuilder<Cci.ExceptionHandlerRegion> regions)
             {
                 Debug.Assert(_handlers.Count > 1);
 
@@ -802,10 +802,10 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal override ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> scopesWithVariables)
+            public override ScopeBounds GetLocalScopes(ArrayBuilder<Cci.LocalScope> scopesWithVariables)
                 => GetLocalScopes(scopesWithVariables, _handlers);
 
-            internal override ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result)
+            public override ScopeBounds GetHoistedLocalScopes(ArrayBuilder<Cci.StateMachineHoistedLocalScope> result)
                 => GetHoistedLocalScopes(result, _handlers);
 
             private static ScopeBounds GetBounds(ExceptionHandlerScope scope)
@@ -826,7 +826,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
                 }
             }
 
-            internal bool FinallyOnly()
+            public bool FinallyOnly()
             {
                 var curScope = this;
                 do
@@ -848,10 +848,10 @@ namespace Microsoft.CodeAnalysis.CodeGen
             }
         }
 
-        internal struct ScopeBounds
+        public struct ScopeBounds
         {
-            internal readonly int Begin; // inclusive
-            internal readonly int End;   // exclusive
+            public readonly int Begin; // inclusive
+            public readonly int End;   // exclusive
 
             internal ScopeBounds(int begin, int end)
             {

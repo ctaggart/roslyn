@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract class AbstractSyntaxNavigator
+    public abstract class AbstractSyntaxNavigator
     {
         private const int None = 0;
 
@@ -23,32 +23,32 @@ namespace Microsoft.CodeAnalysis
             return predicate == null || ReferenceEquals(predicate, SyntaxToken.Any) || predicate(token);
         }
 
-        internal SyntaxToken GetFirstToken(SyntaxNode current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
+        public SyntaxToken GetFirstToken(SyntaxNode current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
         {
             return GetFirstToken(current, GetPredicateFunction(includeZeroWidth), GetStepIntoFunction(includeSkipped, includeDirectives, includeDocumentationComments));
         }
 
-        internal SyntaxToken GetLastToken(SyntaxNode current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
+        public SyntaxToken GetLastToken(SyntaxNode current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
         {
             return GetLastToken(current, GetPredicateFunction(includeZeroWidth), GetStepIntoFunction(includeSkipped, includeDirectives, includeDocumentationComments));
         }
 
-        internal SyntaxToken GetPreviousToken(SyntaxToken current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
+        public SyntaxToken GetPreviousToken(SyntaxToken current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
         {
             return GetPreviousToken(current, GetPredicateFunction(includeZeroWidth), GetStepIntoFunction(includeSkipped, includeDirectives, includeDocumentationComments));
         }
 
-        internal SyntaxToken GetNextToken(SyntaxToken current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
+        public SyntaxToken GetNextToken(SyntaxToken current, bool includeZeroWidth, bool includeSkipped, bool includeDirectives, bool includeDocumentationComments)
         {
             return GetNextToken(current, GetPredicateFunction(includeZeroWidth), GetStepIntoFunction(includeSkipped, includeDirectives, includeDocumentationComments));
         }
 
-        internal SyntaxToken GetPreviousToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
+        public SyntaxToken GetPreviousToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
         {
             return GetPreviousToken(current, predicate, stepInto != null, stepInto);
         }
 
-        internal SyntaxToken GetNextToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
+        public SyntaxToken GetNextToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
         {
             return GetNextToken(current, predicate, stepInto != null, stepInto);
         }
@@ -56,7 +56,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly ObjectPool<Stack<ChildSyntaxList.Enumerator>> s_childEnumeratorStackPool
             = new ObjectPool<Stack<ChildSyntaxList.Enumerator>>(() => new Stack<ChildSyntaxList.Enumerator>(), 10);
 
-        internal SyntaxToken GetFirstToken(SyntaxNode current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
+        public SyntaxToken GetFirstToken(SyntaxNode current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
         {
             var stack = s_childEnumeratorStackPool.Allocate();
             try
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly ObjectPool<Stack<ChildSyntaxList.Reversed.Enumerator>> s_childReversedEnumeratorStackPool
             = new ObjectPool<Stack<ChildSyntaxList.Reversed.Enumerator>>(() => new Stack<ChildSyntaxList.Reversed.Enumerator>(), 10);
 
-        internal SyntaxToken GetLastToken(SyntaxNode current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
+        public SyntaxToken GetLastToken(SyntaxNode current, Func<SyntaxToken, bool> predicate, Func<SyntaxTrivia, bool> stepInto)
         {
             var stack = s_childReversedEnumeratorStackPool.Allocate();
             try
@@ -271,7 +271,7 @@ namespace Microsoft.CodeAnalysis
             return default(SyntaxToken);
         }
 
-        internal SyntaxToken GetNextToken(
+        public SyntaxToken GetNextToken(
             SyntaxTrivia current,
             Func<SyntaxToken, bool> predicate,
             Func<SyntaxTrivia, bool> stepInto)
@@ -303,7 +303,7 @@ namespace Microsoft.CodeAnalysis
             return GetNextToken(current.Token, predicate, false, stepInto);
         }
 
-        internal SyntaxToken GetPreviousToken(
+        public SyntaxToken GetPreviousToken(
             SyntaxTrivia current,
             Func<SyntaxToken, bool> predicate,
             Func<SyntaxTrivia, bool> stepInto)
@@ -391,7 +391,7 @@ namespace Microsoft.CodeAnalysis
             return default(SyntaxToken);
         }
 
-        internal SyntaxToken GetNextToken(
+        public SyntaxToken GetNextToken(
             SyntaxNode node,
             Func<SyntaxToken, bool> predicate,
             Func<SyntaxTrivia, bool> stepInto)
@@ -440,7 +440,7 @@ namespace Microsoft.CodeAnalysis
             return default(SyntaxToken);
         }
 
-        internal SyntaxToken GetPreviousToken(
+        public SyntaxToken GetPreviousToken(
             SyntaxNode node,
             Func<SyntaxToken, bool> predicate,
             Func<SyntaxTrivia, bool> stepInto)
@@ -489,7 +489,7 @@ namespace Microsoft.CodeAnalysis
             return default(SyntaxToken);
         }
 
-        internal SyntaxToken GetNextToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, bool searchInsideCurrentTokenTrailingTrivia, Func<SyntaxTrivia, bool> stepInto)
+        public SyntaxToken GetNextToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, bool searchInsideCurrentTokenTrailingTrivia, Func<SyntaxTrivia, bool> stepInto)
         {
             Debug.Assert(searchInsideCurrentTokenTrailingTrivia == false || stepInto != null);
             if (current.Parent != null)
@@ -541,7 +541,7 @@ namespace Microsoft.CodeAnalysis
             return default(SyntaxToken);
         }
 
-        internal SyntaxToken GetPreviousToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, bool searchInsideCurrentTokenLeadingTrivia,
+        public SyntaxToken GetPreviousToken(SyntaxToken current, Func<SyntaxToken, bool> predicate, bool searchInsideCurrentTokenLeadingTrivia,
             Func<SyntaxTrivia, bool> stepInto)
         {
             Debug.Assert(searchInsideCurrentTokenLeadingTrivia == false || stepInto != null);

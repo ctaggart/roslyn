@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis
     /// If the size of the dictionary is known at creation and it is likely to contain more than 10 elements, 
     /// then regular Dictionary is a better choice.
     /// </summary>
-    internal sealed class SmallDictionary<K, V> : IEnumerable<KeyValuePair<K, V>>
+    public sealed class SmallDictionary<K, V> : IEnumerable<KeyValuePair<K, V>>
     {
         private AvlNode _root;
         private readonly IEqualityComparer<K> _comparer;
@@ -104,7 +104,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         [Conditional("DEBUG")]
-        internal void AssertBalanced()
+        public void AssertBalanced()
         {
 #if DEBUG
             AvlNode.AssertBalanced(_root);
@@ -486,7 +486,7 @@ namespace Microsoft.CodeAnalysis
 
         public KeyCollection Keys => new KeyCollection(this);
 
-        internal struct KeyCollection : IEnumerable<K>
+        public struct KeyCollection : IEnumerable<K>
         {
             private readonly SmallDictionary<K, V> _dict;
 
@@ -601,7 +601,7 @@ namespace Microsoft.CodeAnalysis
 
         public ValueCollection Values => new ValueCollection(this);
 
-        internal struct ValueCollection : IEnumerable<V>
+        public struct ValueCollection : IEnumerable<V>
         {
             private readonly SmallDictionary<K, V> _dict;
 

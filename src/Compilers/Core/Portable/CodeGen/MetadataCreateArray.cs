@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     /// <summary>
     /// An expression that creates an array instance in metadata. Only for use in custom attributes.
     /// </summary>
-    internal sealed class MetadataCreateArray : Cci.IMetadataCreateArray
+    public sealed class MetadataCreateArray : Cci.IMetadataCreateArray
     {
         private readonly Cci.IArrayTypeReference _arrayType;
         private readonly Cci.ITypeReference _elementType;

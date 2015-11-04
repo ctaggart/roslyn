@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.IO;
@@ -14,10 +14,10 @@ namespace Microsoft.CodeAnalysis
     /// </summary>
     public sealed class ResourceDescription : Cci.IFileReference
     {
-        internal readonly string ResourceName;
-        internal readonly string FileName; // null if embedded
-        internal readonly bool IsPublic;
-        internal readonly Func<Stream> DataProvider;
+        public readonly string ResourceName;
+        public readonly string FileName; // null if embedded
+        public readonly bool IsPublic;
+        public readonly Func<Stream> DataProvider;
         private readonly CryptographicHashProvider _hashes;
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Microsoft.CodeAnalysis
                 _resource = resource;
             }
 
-            internal override ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm)
+            public override ImmutableArray<byte> ComputeHash(HashAlgorithm algorithm)
             {
                 try
                 {
@@ -124,12 +124,12 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal bool IsEmbedded
+        public bool IsEmbedded
         {
             get { return FileName == null; }
         }
 
-        internal Cci.ManagedResource ToManagedResource(Cci.IModule moduleBeingBuilt)
+        public Cci.ManagedResource ToManagedResource(Cci.IModule moduleBeingBuilt)
         {
             return new Cci.ManagedResource(ResourceName, IsPublic, IsEmbedded ? DataProvider : null, IsEmbedded ? null : this, offset: 0);
         }

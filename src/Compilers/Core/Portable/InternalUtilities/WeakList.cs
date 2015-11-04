@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Roslyn.Utilities
     /// <summary>
     /// Represents an ordered sequence of weak references.
     /// </summary>
-    internal sealed class WeakList<T> : IEnumerable<T>
+    public sealed class WeakList<T> : IEnumerable<T>
         where T : class
     {
         private WeakReference<T>[] _items;
@@ -201,6 +201,6 @@ namespace Roslyn.Utilities
             return GetEnumerator();
         }
 
-        internal WeakReference<T>[] TestOnly_UnderlyingArray { get { return _items; } }
+        public WeakReference<T>[] TestOnly_UnderlyingArray { get { return _items; } }
     }
 }

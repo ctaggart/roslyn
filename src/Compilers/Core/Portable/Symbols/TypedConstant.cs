@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -98,7 +98,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal T DecodeValue<T>(SpecialType specialType)
+        public T DecodeValue<T>(SpecialType specialType)
         {
             if (_kind == TypedConstantKind.Error)
             {
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis
         /// TypedConstant isn't computing its own kind from the type symbol because it doesn't
         /// have a way to recognize the well-known type System.Type.
         /// </remarks>
-        internal static TypedConstantKind GetTypedConstantKind(ITypeSymbol type, Compilation compilation)
+        public static TypedConstantKind GetTypedConstantKind(ITypeSymbol type, Compilation compilation)
         {
             Debug.Assert(type != null);
 

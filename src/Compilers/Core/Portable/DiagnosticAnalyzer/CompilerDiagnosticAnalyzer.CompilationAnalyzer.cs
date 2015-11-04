@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Collections.Immutable;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal abstract partial class CompilerDiagnosticAnalyzer : DiagnosticAnalyzer
+    public abstract partial class CompilerDiagnosticAnalyzer : DiagnosticAnalyzer
     {
         private const string Origin = "Origin";
         private const string Syntactic = "Syntactic";
@@ -114,17 +114,17 @@ namespace Microsoft.CodeAnalysis.Diagnostics
                     return _original.Equals(obj);
                 }
 
-                internal override Diagnostic WithLocation(Location location)
+                public override Diagnostic WithLocation(Location location)
                 {
                     return new CompilerDiagnostic(_original.WithLocation(location), _properties);
                 }
 
-                internal override Diagnostic WithSeverity(DiagnosticSeverity severity)
+                public override Diagnostic WithSeverity(DiagnosticSeverity severity)
                 {
                     return new CompilerDiagnostic(_original.WithSeverity(severity), _properties);
                 }
 
-                internal override Diagnostic WithIsSuppressed(bool isSuppressed)
+                public override Diagnostic WithIsSuppressed(bool isSuppressed)
                 {
                     return new CompilerDiagnostic(_original.WithIsSuppressed(isSuppressed), _properties);
                 }

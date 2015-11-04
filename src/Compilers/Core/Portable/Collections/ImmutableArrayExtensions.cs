@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// The collection of extension methods for the <see cref="ImmutableArray{T}"/> type
     /// </summary>
-    internal static class ImmutableArrayExtensions
+    public static class ImmutableArrayExtensions
     {
         /// <summary>
         /// Converts a sequence to an immutable array.
@@ -351,7 +351,7 @@ namespace Microsoft.CodeAnalysis
             return result;
         }
 
-        internal static bool HasAnyErrors<T>(this ImmutableArray<T> diagnostics) where T : Diagnostic
+        public static bool HasAnyErrors<T>(this ImmutableArray<T> diagnostics) where T : Diagnostic
         {
             foreach (var diagnostic in diagnostics)
             {
@@ -366,7 +366,7 @@ namespace Microsoft.CodeAnalysis
 
         // Swap the first and last elements of a read-only array, yielding a new read only array.
         // Used in DEBUG to make sure that read-only array is not sorted.
-        internal static ImmutableArray<T> DeOrder<T>(this ImmutableArray<T> array)
+        public static ImmutableArray<T> DeOrder<T>(this ImmutableArray<T> array)
         {
             if (!array.IsDefault && array.Length >= 2)
             {
@@ -383,7 +383,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static ImmutableArray<TValue> Flatten<TKey, TValue>(
+        public static ImmutableArray<TValue> Flatten<TKey, TValue>(
             this Dictionary<TKey, ImmutableArray<TValue>> dictionary,
             IComparer<TValue> comparer = null)
         {
@@ -408,12 +408,12 @@ namespace Microsoft.CodeAnalysis
             return builder.ToImmutableAndFree();
         }
 
-        internal static ImmutableArray<T> Concat<T>(this ImmutableArray<T> first, ImmutableArray<T> second)
+        public static ImmutableArray<T> Concat<T>(this ImmutableArray<T> first, ImmutableArray<T> second)
         {
             return first.AddRange(second);
         }
 
-        internal static bool HasDuplicates<T>(this ImmutableArray<T> array, IEqualityComparer<T> comparer)
+        public static bool HasDuplicates<T>(this ImmutableArray<T> array, IEqualityComparer<T> comparer)
         {
             switch (array.Length)
             {

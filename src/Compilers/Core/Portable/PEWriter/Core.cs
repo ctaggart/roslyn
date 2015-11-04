@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Generic;
 using EmitContext = Microsoft.CodeAnalysis.Emit.EmitContext;
@@ -8,14 +8,14 @@ namespace Microsoft.Cci
     /// <summary>
     /// An object corresponding to a metadata entity such as a type or a field.
     /// </summary>
-    internal interface IDefinition : IReference
+    public interface IDefinition : IReference
     {
     }
 
     /// <summary>
     /// An object corresponding to reference to a metadata entity such as a type or a field.
     /// </summary>
-    internal interface IReference
+    public interface IReference
     {
         /// <summary>
         /// A collection of metadata custom attributes that are associated with this definition.

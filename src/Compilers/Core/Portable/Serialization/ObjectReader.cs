@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ namespace Roslyn.Utilities
     /// A class that reads both primitive values and non-cyclical object graphs from a stream that was constructed using 
     /// the ObjectWriter class.
     /// </summary>
-    internal sealed class ObjectReader : ObjectReaderWriterBase, IDisposable
+    public sealed class ObjectReader : ObjectReaderWriterBase, IDisposable
     {
         private readonly BinaryReader _reader;
         private readonly ObjectReaderData _dataMap;

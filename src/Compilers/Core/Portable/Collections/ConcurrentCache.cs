@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -13,15 +13,15 @@ namespace Microsoft.CodeAnalysis
 {
     // very simple cache with a specified size.
     // expiration policy is "new entry wins over old entry if hashed into the same bucket"
-    internal class ConcurrentCache<TKey, TValue> :
+    public class ConcurrentCache<TKey, TValue> :
         CachingBase<ConcurrentCache<TKey, TValue>.Entry> where TKey : IEquatable<TKey>
     {
         // class, to ensure atomic updates.
-        internal class Entry
+        public class Entry
         {
-            internal readonly int hash;
-            internal readonly TKey key;
-            internal readonly TValue value;
+            public readonly int hash;
+            public readonly TKey key;
+            public readonly TValue value;
 
             internal Entry(int hash, TKey key, TValue value)
             {

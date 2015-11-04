@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
+    public partial class CommonReferenceManager<TCompilation, TAssemblySymbol>
     {
         /// <summary>
         /// For the given set of AssemblyData objects, do the following:
@@ -441,7 +441,7 @@ namespace Microsoft.CodeAnalysis
             referenceBindings[0] = bindingsOfAssemblyBeingBuilt.ToArrayAndFree();
         }
 
-        internal AssemblyData ResolveMissingAssembly(
+        public AssemblyData ResolveMissingAssembly(
             AssemblyIdentity referenceIdentity,
             PortableExecutableReference peReference,
             MetadataImportOptions importOptions,
@@ -927,7 +927,7 @@ namespace Microsoft.CodeAnalysis
         /// access to assembly <paramref name="compilationName"/>. It does not make a conclusive
         /// determination of visibility because the compilation's strong name key is not supplied.
         /// </summary>
-        static internal bool InternalsMayBeVisibleToAssemblyBeingCompiled(string compilationName, PEAssembly assembly)
+        static public bool InternalsMayBeVisibleToAssemblyBeingCompiled(string compilationName, PEAssembly assembly)
         {
             return !assembly.GetInternalsVisibleToPublicKeys(compilationName).IsEmpty();
         }

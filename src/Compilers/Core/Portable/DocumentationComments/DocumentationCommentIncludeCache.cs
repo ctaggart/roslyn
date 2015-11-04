@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal sealed class DocumentationCommentIncludeCache : CachingFactory<string, KeyValuePair<string, XDocument>>
+    public sealed class DocumentationCommentIncludeCache : CachingFactory<string, KeyValuePair<string, XDocument>>
     {
         // TODO: tune
         private const int Size = 5;
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// WARN: This is a test hook - do not take a dependency on this.
         /// </summary>
-        internal static int CacheMissCount { get; private set; }
+        public static int CacheMissCount { get; private set; }
 
         public DocumentationCommentIncludeCache(XmlReferenceResolver resolver)
             : base(Size,

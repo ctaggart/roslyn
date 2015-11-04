@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -10,14 +10,14 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal abstract partial class CommonCompiler
+    public abstract partial class CommonCompiler
     {
         /// <summary>
         /// Looks for metadata references among the assembly file references given to the compilation when constructed.
         /// When scripts are included into a project we don't want #r's to reference other assemblies than those 
         /// specified explicitly in the project references.
         /// </summary>
-        internal sealed class ExistingReferencesResolver : MetadataReferenceResolver, IEquatable<ExistingReferencesResolver>
+        public sealed class ExistingReferencesResolver : MetadataReferenceResolver, IEquatable<ExistingReferencesResolver>
         {
             private readonly MetadataReferenceResolver _resolver;
             private readonly ImmutableArray<MetadataReference> _availableReferences;

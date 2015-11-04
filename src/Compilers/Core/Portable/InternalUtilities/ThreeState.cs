@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Diagnostics;
 
@@ -7,14 +7,14 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Represents an optional bool as a single byte.
     /// </summary>
-    internal enum ThreeState : byte
+    public enum ThreeState : byte
     {
         Unknown = 0,
         False = 1,
         True = 2,
     }
 
-    internal static class ThreeStateHelpers
+    public static class ThreeStateHelpers
     {
         public static ThreeState ToThreeState(this bool value)
         {

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using Word = System.UInt32;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal struct BitVector : IEquatable<BitVector>
+    public struct BitVector : IEquatable<BitVector>
     {
         // Cannot expose the following two field publicly because this structure is mutable
         // and might become not null/empty, unless we restrict access to it.
@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly BitVector s_emptyValue = new BitVector(0, s_emptyArray, 0);
 
         private const int Log2BitsPerWord = 5;
-        internal const int BitsPerWord = 1 << Log2BitsPerWord;
+        public const int BitsPerWord = 1 << Log2BitsPerWord;
         private const Word ZeroWord = 0;
 
         private Word _bits0;
@@ -95,7 +95,7 @@ namespace Microsoft.CodeAnalysis
             Check();
         }
 
-        internal IEnumerable<Word> Words()
+        public IEnumerable<Word> Words()
         {
             if (_bits0 != 0)
             {

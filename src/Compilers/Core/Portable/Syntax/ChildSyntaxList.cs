@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections;
@@ -32,7 +32,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static int CountNodes(GreenNode green)
+        public static int CountNodes(GreenNode green)
         {
             int n = 0;
 
@@ -72,7 +72,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal SyntaxNode Node
+        public SyntaxNode Node
         {
             get { return _node; }
         }
@@ -86,7 +86,7 @@ namespace Microsoft.CodeAnalysis
         /// internal indexer that does not verify index.
         /// Used when caller has already ensured that index is within bounds.
         /// </summary>
-        internal static SyntaxNodeOrToken ItemInternal(SyntaxNode node, int index)
+        public static SyntaxNodeOrToken ItemInternal(SyntaxNode node, int index)
         {
             GreenNode greenChild;
             var green = node.Green;
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis
         /// <remarks>
         /// Assumes that <paramref name="targetPosition"/> is within the span of <paramref name="node"/>.
         /// </remarks>
-        internal static SyntaxNodeOrToken ChildThatContainsPosition(SyntaxNode node, int targetPosition)
+        public static SyntaxNodeOrToken ChildThatContainsPosition(SyntaxNode node, int targetPosition)
         {
             // The targetPosition must already be within this node
             Debug.Assert(node.FullSpan.Contains(targetPosition));
@@ -249,7 +249,7 @@ namespace Microsoft.CodeAnalysis
         /// internal indexer that does not verify index.
         /// Used when caller has already ensured that index is within bounds.
         /// </summary>
-        internal static SyntaxNode ItemInternalAsNode(SyntaxNode node, int index)
+        public static SyntaxNode ItemInternalAsNode(SyntaxNode node, int index)
         {
             GreenNode greenChild;
             var green = node.Green;

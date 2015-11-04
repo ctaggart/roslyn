@@ -1,13 +1,13 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using Roslyn.Utilities;
 using System.Reflection.Metadata;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal static class MetadataTypeCodeExtensions
+    public static class MetadataTypeCodeExtensions
     {
-        internal static SpecialType ToSpecialType(this SignatureTypeCode typeCode)
+        public static SpecialType ToSpecialType(this SignatureTypeCode typeCode)
         {
             switch (typeCode)
             {
@@ -70,7 +70,7 @@ namespace Microsoft.CodeAnalysis
             }
         }
 
-        internal static bool HasShortFormSignatureEncoding(this SpecialType type)
+        public static bool HasShortFormSignatureEncoding(this SpecialType type)
         {
             // Spec II.23.2.16: Short form signatures:
             // The following table shows which short-forms should be used in place of each long-form item. 
@@ -122,7 +122,7 @@ namespace Microsoft.CodeAnalysis
             return false;
         }
 
-        internal static SerializationTypeCode ToSerializationType(this SpecialType specialType)
+        public static SerializationTypeCode ToSerializationType(this SpecialType specialType)
         {
             switch (specialType)
             {

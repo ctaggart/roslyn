@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Linq;
@@ -111,7 +111,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// Returns <see cref="MetadataReferenceProperties"/> with <see cref="HasRecursiveAliases"/> set to specified value.
         /// </summary>
-        internal MetadataReferenceProperties WithRecursiveAliases(bool value)
+        public MetadataReferenceProperties WithRecursiveAliases(bool value)
         {
             return new MetadataReferenceProperties(_kind, _aliases, _embedInteropTypes, value);
         }
@@ -153,7 +153,7 @@ namespace Microsoft.CodeAnalysis
         /// True to apply <see cref="Aliases"/> recursively on the target assembly and on all its transitive dependencies.
         /// False to apply <see cref="Aliases"/> only on the target assembly.
         /// </summary>
-        internal bool HasRecursiveAliases { get; private set; }
+        public bool HasRecursiveAliases { get; private set; }
 
         public override bool Equals(object obj)
         {

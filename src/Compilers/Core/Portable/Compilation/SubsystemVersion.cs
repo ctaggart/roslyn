@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -149,7 +149,7 @@ namespace Microsoft.CodeAnalysis
         /// <param name="outputKind">Output kind</param>
         /// <param name="platform">Platform</param>
         /// <returns>Subsystem version</returns>
-        internal static SubsystemVersion Default(OutputKind outputKind, Platform platform)
+        public static SubsystemVersion Default(OutputKind outputKind, Platform platform)
         {
             if (platform == Platform.Arm)
                 return Windows8;

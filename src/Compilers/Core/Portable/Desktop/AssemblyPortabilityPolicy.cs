@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.IO;
@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis
     /// <summary>
     /// Policy to be used when matching assembly reference to an assembly definition across platforms.
     /// </summary>
-    internal struct AssemblyPortabilityPolicy : IEquatable<AssemblyPortabilityPolicy>
+    public struct AssemblyPortabilityPolicy : IEquatable<AssemblyPortabilityPolicy>
     {
         // 7cec85d7bea7798e (System, System.Core)
         public readonly bool SuppressSilverlightPlatformAssembliesPortability;
@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis
 XmlReaderSettings.XmlResolver property to either null or an instance of XmlSecureResolver.
 However, the said XmlResolver property no longer exists in .NET portable framework (i.e. core framework) which means there is no way to set it.
 So we suppress this error until the reporting for CA3053 has been updated to account for .NET portable framework.")]
-        internal static AssemblyPortabilityPolicy LoadFromXml(Stream input)
+        public static AssemblyPortabilityPolicy LoadFromXml(Stream input)
         {
             // Note: Unlike Fusion XML reader the XmlReader doesn't allow whitespace in front of <?xml version=""1.0"" encoding=""utf-8"" ?>
 

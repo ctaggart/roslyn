@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -16,38 +16,38 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis
 {
-    internal class RESOURCE
+    public class RESOURCE
     {
-        internal RESOURCE_STRING pstringType;
-        internal RESOURCE_STRING pstringName;
+        public RESOURCE_STRING pstringType;
+        public RESOURCE_STRING pstringName;
 
-        internal DWORD DataSize;               // size of data without header
-        internal DWORD HeaderSize;     // Length of the header
+        public DWORD DataSize;               // size of data without header
+        public DWORD HeaderSize;     // Length of the header
         // [Ordinal or Name TYPE]
         // [Ordinal or Name NAME]
-        internal DWORD DataVersion;    // version of data struct
-        internal WORD MemoryFlags;    // state of the resource
-        internal WORD LanguageId;     // Unicode support for NLS
-        internal DWORD Version;        // Version of the resource data
-        internal DWORD Characteristics;        // Characteristics of the data
-        internal byte[] data;       //data
+        public DWORD DataVersion;    // version of data struct
+        public WORD MemoryFlags;    // state of the resource
+        public WORD LanguageId;     // Unicode support for NLS
+        public DWORD Version;        // Version of the resource data
+        public DWORD Characteristics;        // Characteristics of the data
+        public byte[] data;       //data
     };
 
-    internal class RESOURCE_STRING
+    public class RESOURCE_STRING
     {
-        internal WORD Ordinal;
-        internal string theString;
+        public WORD Ordinal;
+        public string theString;
     };
 
     /// <summary>
     /// Parses .RES a file into its constituent resource elements.
     /// Mostly translated from cvtres.cpp.
     /// </summary>
-    internal class CvtResFile
+    public class CvtResFile
     {
         private const WORD RT_DLGINCLUDE = 17;
 
-        static internal List<RESOURCE> ReadResFile(Stream stream)
+        static public List<RESOURCE> ReadResFile(Stream stream)
         {
             var reader = new BinaryReader(stream, Encoding.Unicode);
             var resourceNames = new List<RESOURCE>();
@@ -165,7 +165,7 @@ namespace Microsoft.CodeAnalysis
         }
     }
 
-    internal static class COFFResourceReader
+    public static class COFFResourceReader
     {
         private static void ConfirmSectionValues(SectionHeader hdr, long fileSize)
         {
@@ -173,7 +173,7 @@ namespace Microsoft.CodeAnalysis
                 throw new ResourceException(CodeAnalysisResources.CoffResourceInvalidSectionSize);
         }
 
-        static internal Microsoft.Cci.ResourceSection ReadWin32ResourcesFromCOFF(Stream stream)
+        static public Microsoft.Cci.ResourceSection ReadWin32ResourcesFromCOFF(Stream stream)
         {
             var peHeaders = new PEHeaders(stream);
             var rsrc1 = new SectionHeader();
@@ -297,21 +297,21 @@ namespace Microsoft.CodeAnalysis
         }
     }
 
-    internal static class Win32ResourceConversions
+    public static class Win32ResourceConversions
     {
         private struct ICONDIRENTRY
         {
-            internal BYTE bWidth;
-            internal BYTE bHeight;
-            internal BYTE bColorCount;
-            internal BYTE bReserved;
-            internal WORD wPlanes;
-            internal WORD wBitCount;
-            internal DWORD dwBytesInRes;
-            internal DWORD dwImageOffset;
+            public BYTE bWidth;
+            public BYTE bHeight;
+            public BYTE bColorCount;
+            public BYTE bReserved;
+            public WORD wPlanes;
+            public WORD wBitCount;
+            public DWORD dwBytesInRes;
+            public DWORD dwImageOffset;
         };
 
-        internal static void AppendIconToResourceStream(Stream resStream, Stream iconStream)
+        public static void AppendIconToResourceStream(Stream resStream, Stream iconStream)
         {
             var iconReader = new BinaryReader(iconStream);
 
@@ -496,7 +496,7 @@ namespace Microsoft.CodeAnalysis
                 }
                 */
 
-        internal static void AppendVersionToResourceStream(Stream resStream, bool isDll,
+        public static void AppendVersionToResourceStream(Stream resStream, bool isDll,
             string fileVersion, //should be [major.minor.build.rev] but doesn't have to be
             string originalFileName,
             string internalName,
@@ -548,7 +548,7 @@ namespace Microsoft.CodeAnalysis
             System.Diagnostics.Debug.Assert(resStream.Position - startPos == dataSize + headerSize);
         }
 
-        internal static void AppendManifestToResourceStream(Stream resStream, Stream manifestStream, bool isDll)
+        public static void AppendManifestToResourceStream(Stream resStream, Stream manifestStream, bool isDll)
         {
             resStream.Position = (resStream.Position + 3) & ~3;
             const WORD RT_MANIFEST = 24;
@@ -756,7 +756,7 @@ namespace Microsoft.CodeAnalysis
                 return sum;
             }
 
-            internal int GetDataSize()
+            public int GetDataSize()
             {
                 int sizeEXEVERRESOURCE = sizeof(WORD) * 3 * 5 + 2 * sizeof(WORD) + //five headers + two words for CP and lang
                     KEYBYTES(vsVersionInfoKey) +
@@ -769,7 +769,7 @@ namespace Microsoft.CodeAnalysis
                 return GetStringsSize() + sizeEXEVERRESOURCE;
             }
 
-            internal void WriteVerResource(BinaryWriter writer)
+            public void WriteVerResource(BinaryWriter writer)
             {
                 /*
                     must be assumed to start on a 32-bit boundary.

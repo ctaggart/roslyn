@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System.Collections.Immutable;
 using System.Reflection.Metadata;
@@ -12,7 +12,7 @@ using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Emit
 {
-    internal abstract class DefinitionMap
+    public abstract class DefinitionMap
     {
         protected struct MappedMethod
         {
@@ -73,21 +73,21 @@ namespace Microsoft.CodeAnalysis.Emit
             return mappedMethods;
         }
 
-        internal abstract Cci.IDefinition MapDefinition(Cci.IDefinition definition);
+        public abstract Cci.IDefinition MapDefinition(Cci.IDefinition definition);
 
-        internal bool DefinitionExists(Cci.IDefinition definition)
+        public bool DefinitionExists(Cci.IDefinition definition)
         {
             return MapDefinition(definition) != null;
         }
 
-        internal abstract bool TryGetTypeHandle(Cci.ITypeDefinition def, out TypeDefinitionHandle handle);
-        internal abstract bool TryGetEventHandle(Cci.IEventDefinition def, out EventDefinitionHandle handle);
-        internal abstract bool TryGetFieldHandle(Cci.IFieldDefinition def, out FieldDefinitionHandle handle);
-        internal abstract bool TryGetMethodHandle(Cci.IMethodDefinition def, out MethodDefinitionHandle handle);
-        internal abstract bool TryGetPropertyHandle(Cci.IPropertyDefinition def, out PropertyDefinitionHandle handle);
+        public abstract bool TryGetTypeHandle(Cci.ITypeDefinition def, out TypeDefinitionHandle handle);
+        public abstract bool TryGetEventHandle(Cci.IEventDefinition def, out EventDefinitionHandle handle);
+        public abstract bool TryGetFieldHandle(Cci.IFieldDefinition def, out FieldDefinitionHandle handle);
+        public abstract bool TryGetMethodHandle(Cci.IMethodDefinition def, out MethodDefinitionHandle handle);
+        public abstract bool TryGetPropertyHandle(Cci.IPropertyDefinition def, out PropertyDefinitionHandle handle);
     }
 
-    internal abstract class DefinitionMap<TSymbolMatcher> : DefinitionMap
+    public abstract class DefinitionMap<TSymbolMatcher> : DefinitionMap
         where TSymbolMatcher : SymbolMatcher
     {
         protected readonly TSymbolMatcher mapToMetadata;
@@ -102,7 +102,7 @@ namespace Microsoft.CodeAnalysis.Emit
             this.mapToPrevious = mapToPrevious ?? mapToMetadata;
         }
 
-        internal sealed override Cci.IDefinition MapDefinition(Cci.IDefinition definition)
+        public sealed override Cci.IDefinition MapDefinition(Cci.IDefinition definition)
         {
             return this.mapToPrevious.MapDefinition(definition) ??
                    (this.mapToMetadata != this.mapToPrevious ? this.mapToMetadata.MapDefinition(definition) : null);
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis.Emit
         protected abstract ImmutableArray<EncLocalInfo> TryGetLocalSlotMapFromMetadata(MethodDefinitionHandle handle, EditAndContinueMethodDebugInformation debugInfo);
         protected abstract ITypeSymbol TryGetStateMachineType(EntityHandle methodHandle);
 
-        internal VariableSlotAllocator TryCreateVariableSlotAllocator(EmitBaseline baseline, IMethodSymbol method, IMethodSymbol topLevelMethod)
+        public VariableSlotAllocator TryCreateVariableSlotAllocator(EmitBaseline baseline, IMethodSymbol method, IMethodSymbol topLevelMethod)
         {
             // Top-level methods are always included in the semantic edit list. Lambda methods are not.
             MappedMethod mappedMethod;

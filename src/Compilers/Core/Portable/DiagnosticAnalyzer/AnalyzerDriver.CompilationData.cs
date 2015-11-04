@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
 using System.Collections.Generic;
@@ -8,11 +8,11 @@ using System.Threading;
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal abstract partial class AnalyzerDriver : IDisposable
+    public abstract partial class AnalyzerDriver : IDisposable
     {
         protected static readonly ConditionalWeakTable<Compilation, CompilationData> s_compilationDataCache = new ConditionalWeakTable<Compilation, CompilationData>();
 
-        internal class CompilationData
+        public class CompilationData
         {
             /// <summary>
             /// Cached semantic model for the compilation trees.
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal class DeclarationAnalysisData
+        public class DeclarationAnalysisData
         {
             /// <summary>
             /// GetSyntax() for the given SyntaxReference.
@@ -144,12 +144,12 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal static CompilationData GetOrCreateCachedCompilationData(Compilation compilation)
+        public static CompilationData GetOrCreateCachedCompilationData(Compilation compilation)
         {
             return s_compilationDataCache.GetValue(compilation, c => new CompilationData(c));
         }
 
-        internal static bool RemoveCachedCompilationData(Compilation compilation)
+        public static bool RemoveCachedCompilationData(Compilation compilation)
         {
             return s_compilationDataCache.Remove(compilation);
         }

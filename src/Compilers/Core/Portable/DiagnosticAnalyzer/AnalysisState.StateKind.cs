@@ -1,8 +1,8 @@
-﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
+// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 namespace Microsoft.CodeAnalysis.Diagnostics
 {
-    internal partial class AnalysisState
+    public partial class AnalysisState
     {
         /// <summary>
         /// State kind of per-analyzer <see cref="AnalyzerStateData"/> tracking an analyzer's partial analysis state.
@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// 3. Partially processed by one or more older requests that was either completed or cancelled: <see cref="ReadyToProcess"/>
         /// 4. Fully processed: We don't need a state kind to represent fully processed state as the analysis state object is discarded once fully processed.
         /// </summary>
-        internal enum StateKind
+        public enum StateKind
         {
             /// <summary>
             /// Ready for processing.
