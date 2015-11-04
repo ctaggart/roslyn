@@ -25,7 +25,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DocumentationFile>bin\Debug\ConvertInternalsToPublic.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
-    <StartArguments>"..\..\..\roslyn\src\Compilers\Core\Portable\CodeAnalysis.csproj"</StartArguments>
+    <StartArguments>"..\..\..\roslyn\src\Compilers\Core\Portable\CodeAnalysis.csproj" "..\..\..\roslyn\src\Compilers\CSharp\Portable\CSharpCodeAnalysis.csproj"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
