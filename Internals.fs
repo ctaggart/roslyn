@@ -77,6 +77,12 @@ type ConvertInternalToPublic() =
         |> d.WithModifiers
         :> _
 
+    override x.VisitConstructorDeclaration d =
+        d.Modifiers
+        |> replaceInternalWithPublic
+        |> d.WithModifiers
+        :> _
+
 [<EntryPoint>]
 let main argv = 
     use ws = MSBuildWorkspace.Create()
