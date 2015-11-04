@@ -1,0 +1,10 @@
+os: Visual Studio 2015
+version: '{build}'
+clone_depth: 10
+build_script:
+  - ps: |
+      .\build.ps1
+      if ($lastexitcode -ne 0){ exit $lastexitcode }
+test: off
+artifacts:
+  - path: bin\*.nupkg
