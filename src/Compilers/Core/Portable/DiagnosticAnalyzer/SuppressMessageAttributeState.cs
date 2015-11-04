@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             }
         }
 
-        internal SuppressMessageAttributeState(Compilation compilation)
+        public SuppressMessageAttributeState(Compilation compilation)
         {
             _compilation = compilation;
             _localSuppressionsBySymbol = new ConcurrentDictionary<ISymbol, ImmutableDictionary<string, SuppressMessageInfo>>();

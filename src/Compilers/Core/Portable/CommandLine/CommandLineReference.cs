@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis
         private readonly string _reference;
         private readonly MetadataReferenceProperties _properties;
 
-        internal CommandLineReference(string reference, MetadataReferenceProperties properties)
+        public CommandLineReference(string reference, MetadataReferenceProperties properties)
         {
             Debug.Assert(!string.IsNullOrEmpty(reference));
             _reference = reference;

@@ -108,7 +108,7 @@ namespace Roslyn.Utilities
         {
             private readonly IEnumerator<KeyValuePair<T, byte>> _kvpEnumerator;
 
-            internal KeyEnumerator(IEnumerable<KeyValuePair<T, byte>> data)
+            public KeyEnumerator(IEnumerable<KeyValuePair<T, byte>> data)
             {
                 _kvpEnumerator = data.GetEnumerator();
             }

@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
     {
         private readonly DiagnosticAnalyzer _analyzer;
 
-        internal AnalyzerAction(DiagnosticAnalyzer analyzer)
+        public AnalyzerAction(DiagnosticAnalyzer analyzer)
         {
             _analyzer = analyzer;
         }

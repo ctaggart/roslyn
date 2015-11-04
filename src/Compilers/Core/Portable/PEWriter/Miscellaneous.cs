@@ -274,7 +274,7 @@ namespace Microsoft.Cci
 
     public class ResourceSection
     {
-        internal ResourceSection(byte[] sectionBytes, uint[] relocations)
+        public ResourceSection(byte[] sectionBytes, uint[] relocations)
         {
             Debug.Assert(sectionBytes != null);
             Debug.Assert(relocations != null);

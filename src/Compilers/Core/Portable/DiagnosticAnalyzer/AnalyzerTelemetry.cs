@@ -66,7 +66,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics.Telemetry
         /// </summary>
         public TimeSpan ExecutionTime { get; }
 
-        internal AnalyzerTelemetryInfo(AnalyzerActionCounts actionCounts, TimeSpan executionTime)
+        public AnalyzerTelemetryInfo(AnalyzerActionCounts actionCounts, TimeSpan executionTime)
         {
             _actionCounts = actionCounts;
             ExecutionTime = executionTime;

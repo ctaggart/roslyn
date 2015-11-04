@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private ImmutableArray<Cci.ITypeReference> _orderedProxyTypes;
         private readonly ConcurrentDictionary<uint, Cci.ITypeReference> _proxyTypes = new ConcurrentDictionary<uint, Cci.ITypeReference>();
 
-        internal PrivateImplementationDetails(
+        public PrivateImplementationDetails(
             Cci.IModule moduleBuilder,
             string moduleName,
             int submissionSlotIndex,
@@ -242,7 +242,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private readonly Cci.INamedTypeDefinition _containingType;
         private readonly Cci.ITypeReference _sysValueType;
 
-        internal ExplicitSizeStruct(uint size, PrivateImplementationDetails containingType, Cci.ITypeReference sysValueType)
+        public ExplicitSizeStruct(uint size, PrivateImplementationDetails containingType, Cci.ITypeReference sysValueType)
         {
             _size = size;
             _containingType = containingType;
@@ -290,7 +290,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private readonly ImmutableArray<byte> _block;
         private readonly string _name;
 
-        internal MappedField(string name, Cci.INamedTypeDefinition containingType, Cci.ITypeReference type, ImmutableArray<byte> block)
+        public MappedField(string name, Cci.INamedTypeDefinition containingType, Cci.ITypeReference type, ImmutableArray<byte> block)
         {
             Debug.Assert(name != null);
             Debug.Assert(containingType != null);

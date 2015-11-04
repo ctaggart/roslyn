@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
     {
         private readonly string _targetResourceId;
 
-        internal CodeAnalysisResourcesLocalizableErrorArgument(string targetResourceId)
+        public CodeAnalysisResourcesLocalizableErrorArgument(string targetResourceId)
         {
             Debug.Assert(targetResourceId != null);
             _targetResourceId = targetResourceId;

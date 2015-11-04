@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private readonly int _typeId;
         private readonly string _typeName;
 
-        internal Win32Resource(
+        public Win32Resource(
             byte[] data,
             DWORD codePage,
             DWORD languageId,

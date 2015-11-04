@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
     {
         public static readonly Func<SyntaxTrivia, bool> Any = t => true;
 
-        internal SyntaxTrivia(SyntaxToken token, GreenNode triviaNode, int position, int index)
+        public SyntaxTrivia(SyntaxToken token, GreenNode triviaNode, int position, int index)
         {
             Token = token;
             UnderlyingNode = triviaNode;

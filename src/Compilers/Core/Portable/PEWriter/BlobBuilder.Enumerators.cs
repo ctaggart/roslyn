@@ -16,7 +16,7 @@ namespace Microsoft.Cci
             private BlobBuilder _next;
             private BlobBuilder _currentOpt;
 
-            internal Chunks(BlobBuilder builder)
+            public Chunks(BlobBuilder builder)
             {
                 Debug.Assert(builder.IsHead);
 
@@ -64,7 +64,7 @@ namespace Microsoft.Cci
         {
             private Chunks _chunks;
 
-            internal Blobs(BlobBuilder builder)
+            public Blobs(BlobBuilder builder)
             {
                 _chunks = new Chunks(builder);
             }

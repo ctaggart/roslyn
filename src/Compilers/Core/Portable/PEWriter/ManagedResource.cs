@@ -22,7 +22,7 @@ namespace Microsoft.Cci
         /// <paramref name="streamProvider"/> streamProvider callers will dispose result after use.
         /// <paramref name="streamProvider"/> and <paramref name="fileReference"/> are mutually exclusive.
         /// </summary>
-        internal ManagedResource(string name, bool isPublic, Func<Stream> streamProvider, IFileReference fileReference, uint offset)
+        public ManagedResource(string name, bool isPublic, Func<Stream> streamProvider, IFileReference fileReference, uint offset)
         {
             Debug.Assert(streamProvider == null ^ fileReference == null);
 

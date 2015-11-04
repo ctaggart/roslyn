@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             // sorted case labels
             private readonly ImmutableArray<KeyValuePair<ConstantValue, object>> _allLabels;
 
-            internal SwitchBucket(ImmutableArray<KeyValuePair<ConstantValue, object>> allLabels, int index)
+            public SwitchBucket(ImmutableArray<KeyValuePair<ConstantValue, object>> allLabels, int index)
             {
                 _startLabelIndex = index;
                 _endLabelIndex = index;

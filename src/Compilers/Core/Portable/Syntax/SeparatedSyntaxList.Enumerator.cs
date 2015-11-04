@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis
             private readonly SeparatedSyntaxList<TNode> _list;
             private int _index;
 
-            internal Enumerator(SeparatedSyntaxList<TNode> list)
+            public Enumerator(SeparatedSyntaxList<TNode> list)
             {
                 _list = list;
                 _index = -1;
@@ -65,7 +65,7 @@ namespace Microsoft.CodeAnalysis
         {
             private Enumerator _e;
 
-            internal EnumeratorImpl(SeparatedSyntaxList<TNode> list)
+            public EnumeratorImpl(SeparatedSyntaxList<TNode> list)
             {
                 _e = new Enumerator(list);
             }

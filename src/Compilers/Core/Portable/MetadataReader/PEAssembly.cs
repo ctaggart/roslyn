@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis
         private Dictionary<string, List<ImmutableArray<byte>>> _lazyInternalsVisibleToMap;
 
         /// <exception cref="BadImageFormatException"/>
-        internal PEAssembly(AssemblyMetadata owner, ImmutableArray<PEModule> modules)
+        public PEAssembly(AssemblyMetadata owner, ImmutableArray<PEModule> modules)
         {
             Debug.Assert(!modules.IsDefault);
             Debug.Assert(modules.Length > 0);

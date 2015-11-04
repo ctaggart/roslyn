@@ -22,7 +22,7 @@ namespace Roslyn.Utilities
         private readonly RecordingObjectBinder _binder;
         private readonly CancellationToken _cancellationToken;
 
-        internal ObjectWriter(
+        public ObjectWriter(
             Stream stream,
             ObjectWriterData defaultData = null,
             RecordingObjectBinder binder = null,

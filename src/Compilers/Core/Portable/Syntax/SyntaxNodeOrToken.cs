@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis
         // For regular nodes it is set to -1 to distinguish from default(SyntaxToken)
         private readonly int _tokenIndex;
 
-        internal SyntaxNodeOrToken(SyntaxNode node)
+        public SyntaxNodeOrToken(SyntaxNode node)
             : this()
         {
             if (node != null)
@@ -50,7 +50,7 @@ namespace Microsoft.CodeAnalysis
             _tokenIndex = -1;
         }
 
-        internal SyntaxNodeOrToken(SyntaxNode parent, GreenNode token, int position, int index)
+        public SyntaxNodeOrToken(SyntaxNode parent, GreenNode token, int position, int index)
         {
             Debug.Assert(parent == null || !parent.Green.IsList, "parent cannot be a list");
             Debug.Assert(token != null || (parent == null && position == 0 && index == 0), "parts must form a token");

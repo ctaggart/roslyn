@@ -52,13 +52,13 @@ namespace Microsoft.CodeAnalysis
         {
         }
 
-        internal StrongNameKeys(Diagnostic diagnostic)
+        public StrongNameKeys(Diagnostic diagnostic)
         {
             Debug.Assert(diagnostic != null);
             this.DiagnosticOpt = diagnostic;
         }
 
-        internal StrongNameKeys(ImmutableArray<byte> keyPair, ImmutableArray<byte> publicKey, string keyContainerName, string keyFilePath)
+        public StrongNameKeys(ImmutableArray<byte> keyPair, ImmutableArray<byte> publicKey, string keyContainerName, string keyFilePath)
         {
             Debug.Assert(keyContainerName == null || keyPair.IsDefault);
             Debug.Assert(keyPair.IsDefault || keyFilePath != null);

@@ -53,7 +53,7 @@ namespace Microsoft.CodeAnalysis
         {
         }
 
-        internal ResourceDescription(string resourceName, string fileName, Func<Stream> dataProvider, bool isPublic, bool isEmbedded, bool checkArgs)
+        public ResourceDescription(string resourceName, string fileName, Func<Stream> dataProvider, bool isPublic, bool isEmbedded, bool checkArgs)
         {
             if (checkArgs)
             {

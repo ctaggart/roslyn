@@ -14,12 +14,12 @@ namespace Roslyn.Utilities
         private readonly Dictionary<object, int> _valueToIdMap = DictionaryPool.Allocate();
         private int _nextId;
 
-        internal ObjectWriterData(params object[] items)
+        public ObjectWriterData(params object[] items)
             : this((IEnumerable<object>)items)
         {
         }
 
-        internal ObjectWriterData(IEnumerable<object> items)
+        public ObjectWriterData(IEnumerable<object> items)
         {
             if (items != null)
             {
@@ -32,7 +32,7 @@ namespace Roslyn.Utilities
             _nextId = _valueToIdMap.Count;
         }
 
-        internal ObjectWriterData(ObjectWriterData baseData)
+        public ObjectWriterData(ObjectWriterData baseData)
         {
             _baseData = baseData;
             _nextId = baseData?._nextId ?? 0;

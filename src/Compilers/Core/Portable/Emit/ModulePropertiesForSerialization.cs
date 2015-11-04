@@ -135,7 +135,7 @@ namespace Microsoft.Cci
 
         public const ushort DefaultSectionAlignment = 0x2000;
 
-        internal ModulePropertiesForSerialization(
+        public ModulePropertiesForSerialization(
             Guid persistentIdentifier,
             int fileAlignment,
             int sectionAlignment,

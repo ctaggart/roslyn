@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis
         public readonly ImmutableArray<ModifierInfo<TypeSymbol>> CustomModifiers;
         public readonly LocalSlotConstraints Constraints;
 
-        internal LocalInfo(TypeSymbol type, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers, LocalSlotConstraints constraints, byte[] signatureOpt)
+        public LocalInfo(TypeSymbol type, ImmutableArray<ModifierInfo<TypeSymbol>> customModifiers, LocalSlotConstraints constraints, byte[] signatureOpt)
         {
             Debug.Assert(type != null);
 
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis
         // Identity of an assembly containing the module, or null if the module is a standalone module
         private readonly AssemblyIdentity _containingAssemblyIdentity;
 
-        internal MetadataDecoder(PEModule module, AssemblyIdentity containingAssemblyIdentity, SymbolFactory<ModuleSymbol, TypeSymbol> factory, ModuleSymbol moduleSymbol) :
+        public MetadataDecoder(PEModule module, AssemblyIdentity containingAssemblyIdentity, SymbolFactory<ModuleSymbol, TypeSymbol> factory, ModuleSymbol moduleSymbol) :
             base(factory, moduleSymbol)
         {
             Debug.Assert(module != null);

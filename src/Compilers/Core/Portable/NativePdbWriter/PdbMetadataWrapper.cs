@@ -14,7 +14,7 @@ namespace Microsoft.Cci
         public uint UlOffset;
 
         // Only here to shut up the warning about fields never being assigned to.
-        internal COR_FIELD_OFFSET(object dummy)
+        public COR_FIELD_OFFSET(object dummy)
         {
             this.RidOfField = 0;
             this.UlOffset = 0;
@@ -170,7 +170,7 @@ namespace Microsoft.Cci
         private uint _lastTypeDef;
         private string _lastTypeDefName;
 
-        internal PdbMetadataWrapper(MetadataWriter writer)
+        public PdbMetadataWrapper(MetadataWriter writer)
         {
             _writer = writer;
         }

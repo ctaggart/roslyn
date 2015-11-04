@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         private readonly byte[] _signature;
         private readonly int _slot;
 
-        internal SignatureOnlyLocalDefinition(byte[] signature, int slot)
+        public SignatureOnlyLocalDefinition(byte[] signature, int slot)
         {
             _signature = signature;
             _slot = slot;

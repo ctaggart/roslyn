@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         /// </summary>
         public AttributeData Attribute { get; }
 
-        internal SuppressionInfo(string id, AttributeData attribute)
+        public SuppressionInfo(string id, AttributeData attribute)
         {
             Id = id;
             Attribute = attribute;

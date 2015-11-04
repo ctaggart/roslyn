@@ -14,7 +14,7 @@ namespace Microsoft.Cci
         private readonly ITypeDefinition _inheritingType;
         private readonly IGenericTypeParameter _parentParameter;
 
-        internal InheritedTypeParameter(ushort index, ITypeDefinition inheritingType, IGenericTypeParameter parentParameter)
+        public InheritedTypeParameter(ushort index, ITypeDefinition inheritingType, IGenericTypeParameter parentParameter)
         {
             _index = index;
             _inheritingType = inheritingType;

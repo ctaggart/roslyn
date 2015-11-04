@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
             private readonly string _filePath;
             private Stream _streamToDispose;
 
-            internal CompilerEmitStreamProvider(CommonCompiler compiler, string filePath)
+            public CompilerEmitStreamProvider(CommonCompiler compiler, string filePath)
             {
                 _compiler = compiler;
                 _filePath = filePath;

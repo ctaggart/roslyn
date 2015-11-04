@@ -216,7 +216,7 @@ namespace Microsoft.CodeAnalysis
         protected readonly int mask;
         protected readonly TEntry[] entries;
 
-        internal CachingBase(int size)
+        public CachingBase(int size)
         {
             var alignedSize = AlignSize(size);
             this.mask = alignedSize - 1;

@@ -61,7 +61,7 @@ namespace Microsoft.CodeAnalysis.Emit
         public readonly bool IsDelegate;
         public readonly ImmutableArray<AnonymousTypeKeyField> Fields;
 
-        internal AnonymousTypeKey(ImmutableArray<AnonymousTypeKeyField> fields, bool isDelegate = false)
+        public AnonymousTypeKey(ImmutableArray<AnonymousTypeKeyField> fields, bool isDelegate = false)
         {
             this.IsDelegate = isDelegate;
             this.Fields = fields;

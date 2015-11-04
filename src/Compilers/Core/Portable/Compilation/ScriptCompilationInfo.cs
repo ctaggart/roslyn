@@ -9,7 +9,7 @@ namespace Microsoft.CodeAnalysis
         public Type ReturnType { get; }
         public Type GlobalsType { get; }
 
-        internal ScriptCompilationInfo(Type returnType, Type globalsType)
+        public ScriptCompilationInfo(Type returnType, Type globalsType)
         {
             ReturnType = returnType ?? typeof(object);
             GlobalsType = globalsType;

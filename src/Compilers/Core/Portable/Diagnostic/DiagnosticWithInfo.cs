@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis
         private readonly Location _location;
         private readonly bool _isSuppressed;
 
-        internal DiagnosticWithInfo(DiagnosticInfo info, Location location, bool isSuppressed = false)
+        public DiagnosticWithInfo(DiagnosticInfo info, Location location, bool isSuppressed = false)
         {
             Debug.Assert(info != null);
             Debug.Assert(location != null);

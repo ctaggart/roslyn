@@ -102,11 +102,11 @@ namespace Roslyn.Utilities
         }
 #endif      
 
-        internal ObjectPool(Factory factory)
+        public ObjectPool(Factory factory)
             : this(factory, Environment.ProcessorCount * 2)
         { }
 
-        internal ObjectPool(Factory factory, int size)
+        public ObjectPool(Factory factory, int size)
         {
             Debug.Assert(size >= 1);
             _factory = factory;

@@ -29,7 +29,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Used when we see a branch, but label is not yet marked.
             /// </summary>
-            internal LabelInfo(int stack, bool targetOfConditionalBranches)
+            public LabelInfo(int stack, bool targetOfConditionalBranches)
                 : this(null, stack, targetOfConditionalBranches)
             {
             }
@@ -37,7 +37,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             /// <summary>
             /// Used when label is marked to the code.
             /// </summary>
-            internal LabelInfo(BasicBlock bb, int stack, bool targetOfConditionalBranches)
+            public LabelInfo(BasicBlock bb, int stack, bool targetOfConditionalBranches)
             {
                 this.stack = stack;
                 this.bb = bb;

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis
         private readonly ImmutableArray<SyntaxNode> _executableCodeBlocks;
         private readonly ISymbol _declaredSymbol;
 
-        internal DeclarationInfo(SyntaxNode declaredNode, ImmutableArray<SyntaxNode> executableCodeBlocks, ISymbol declaredSymbol)
+        public DeclarationInfo(SyntaxNode declaredNode, ImmutableArray<SyntaxNode> executableCodeBlocks, ISymbol declaredSymbol)
         {
             Debug.Assert(declaredNode != null);
             Debug.Assert(!executableCodeBlocks.IsDefault);

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis
         private readonly string _entryPointName;            // null if unspecified, the name of the target method should be used
         private readonly Cci.PInvokeAttributes _flags;
 
-        internal DllImportData(string moduleName, string entryPointName, Cci.PInvokeAttributes flags)
+        public DllImportData(string moduleName, string entryPointName, Cci.PInvokeAttributes flags)
         {
             _moduleName = moduleName;
             _entryPointName = entryPointName;

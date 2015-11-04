@@ -48,7 +48,7 @@ namespace Microsoft.CodeAnalysis.Text
         // VB allows users to specify a 1-based line number of 0 when processing
         // externalsource directives, which get decremented during conversion to 0-based line numbers.
         // in this case the line number can be -1.
-        internal LinePosition(int character)
+        public LinePosition(int character)
         {
             if (character < 0)
             {

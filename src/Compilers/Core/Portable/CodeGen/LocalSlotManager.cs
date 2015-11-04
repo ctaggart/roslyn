@@ -35,7 +35,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             private readonly Cci.ITypeReference _type;
             private readonly LocalSlotConstraints _constraints;
 
-            internal LocalSignature(Cci.ITypeReference valType, LocalSlotConstraints constraints)
+            public LocalSignature(Cci.ITypeReference valType, LocalSlotConstraints constraints)
             {
                 _constraints = constraints;
                 _type = valType;

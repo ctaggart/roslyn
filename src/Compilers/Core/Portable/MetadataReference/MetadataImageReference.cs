@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis
         private readonly string _display;
         private readonly Metadata _metadata;
 
-        internal MetadataImageReference(Metadata metadata, MetadataReferenceProperties properties, DocumentationProvider documentation, string filePath, string display)
+        public MetadataImageReference(Metadata metadata, MetadataReferenceProperties properties, DocumentationProvider documentation, string filePath, string display)
             : base(properties, filePath, documentation ?? DocumentationProvider.Default)
         {
             _display = display;

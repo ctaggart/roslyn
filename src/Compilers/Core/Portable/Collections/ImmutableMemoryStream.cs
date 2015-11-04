@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis.Collections
         private readonly ImmutableArray<byte> _array;
         private int _position;
 
-        internal ImmutableMemoryStream(ImmutableArray<byte> array)
+        public ImmutableMemoryStream(ImmutableArray<byte> array)
         {
             Debug.Assert(!array.IsDefault);
             _array = array;

@@ -34,7 +34,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly ImmutableArray<string> s_compilerNonErrorCustomTags = ImmutableArray.Create(WellKnownDiagnosticTags.Compiler, WellKnownDiagnosticTags.Telemetry);
 
         // Only the compiler creates instances.
-        internal DiagnosticInfo(CommonMessageProvider messageProvider, int errorCode)
+        public DiagnosticInfo(CommonMessageProvider messageProvider, int errorCode)
         {
             _messageProvider = messageProvider;
             _errorCode = errorCode;
@@ -43,7 +43,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // Only the compiler creates instances.
-        internal DiagnosticInfo(CommonMessageProvider messageProvider, int errorCode, params object[] arguments)
+        public DiagnosticInfo(CommonMessageProvider messageProvider, int errorCode, params object[] arguments)
             : this(messageProvider, errorCode)
         {
             AssertMessageSerializable(arguments);
@@ -114,7 +114,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // Only the compiler creates instances.
-        internal DiagnosticInfo(CommonMessageProvider messageProvider, bool isWarningAsError, int errorCode, params object[] arguments)
+        public DiagnosticInfo(CommonMessageProvider messageProvider, bool isWarningAsError, int errorCode, params object[] arguments)
             : this(messageProvider, errorCode, arguments)
         {
             Debug.Assert(!isWarningAsError || _defaultSeverity == DiagnosticSeverity.Warning);

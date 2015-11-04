@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis
             private int _count;
             private int _childIndex;
 
-            internal Enumerator(SyntaxNode node, int count)
+            public Enumerator(SyntaxNode node, int count)
             {
                 _node = node;
                 _count = count;
@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis
         {
             private Enumerator _enumerator;
 
-            internal EnumeratorImpl(SyntaxNode node, int count)
+            public EnumeratorImpl(SyntaxNode node, int count)
             {
                 _enumerator = new Enumerator(node, count);
             }

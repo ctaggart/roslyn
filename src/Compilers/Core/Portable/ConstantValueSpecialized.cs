@@ -358,7 +358,7 @@ namespace Microsoft.CodeAnalysis
 
         private sealed class ConstantValueDecimalZero : ConstantValueDefault
         {
-            internal ConstantValueDecimalZero()
+            public ConstantValueDecimalZero()
                 : base(ConstantValueTypeDiscriminator.Decimal)
             {
             }
@@ -381,7 +381,7 @@ namespace Microsoft.CodeAnalysis
 
         private sealed class ConstantValueDoubleZero : ConstantValueDefault
         {
-            internal ConstantValueDoubleZero()
+            public ConstantValueDoubleZero()
                 : base(ConstantValueTypeDiscriminator.Double)
             {
             }
@@ -404,7 +404,7 @@ namespace Microsoft.CodeAnalysis
 
         private sealed class ConstantValueSingleZero : ConstantValueDefault
         {
-            internal ConstantValueSingleZero()
+            public ConstantValueSingleZero()
                 : base(ConstantValueTypeDiscriminator.Single)
             {
             }
@@ -507,7 +507,7 @@ namespace Microsoft.CodeAnalysis
 
         private sealed class ConstantValueDecimalOne : ConstantValueOne
         {
-            internal ConstantValueDecimalOne()
+            public ConstantValueDecimalOne()
                 : base(ConstantValueTypeDiscriminator.Decimal)
             {
             }

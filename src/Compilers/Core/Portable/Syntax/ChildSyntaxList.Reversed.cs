@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis
             private readonly SyntaxNode _node;
             private readonly int _count;
 
-            internal Reversed(SyntaxNode node, int count)
+            public Reversed(SyntaxNode node, int count)
             {
                 _node = node;
                 _count = count;
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis
                 private readonly int _count;
                 private int _childIndex;
 
-                internal Enumerator(SyntaxNode node, int count)
+                public Enumerator(SyntaxNode node, int count)
                 {
                     _node = node;
                     _count = count;
@@ -101,7 +101,7 @@ namespace Microsoft.CodeAnalysis
             {
                 private Enumerator _enumerator;
 
-                internal EnumeratorImpl(SyntaxNode node, int count)
+                public EnumeratorImpl(SyntaxNode node, int count)
                 {
                     _enumerator = new Enumerator(node, count);
                 }

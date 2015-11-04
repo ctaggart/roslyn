@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis
         private readonly ITypeSymbol _type;
         private readonly object _value;
 
-        internal TypedConstant(ITypeSymbol type, TypedConstantKind kind, object value)
+        public TypedConstant(ITypeSymbol type, TypedConstantKind kind, object value)
         {
             Debug.Assert(kind == TypedConstantKind.Array || !(value is ImmutableArray<TypedConstant>));
             _kind = kind;
@@ -28,7 +28,7 @@ namespace Microsoft.CodeAnalysis
             _value = value;
         }
 
-        internal TypedConstant(ITypeSymbol type, ImmutableArray<TypedConstant> array)
+        public TypedConstant(ITypeSymbol type, ImmutableArray<TypedConstant> array)
             : this(type, TypedConstantKind.Array, array.IsDefault ? null : (object)array)
         {
         }

@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Emit
         public readonly ImmutableArray<LambdaDebugInfo> Lambdas;
         public readonly ImmutableArray<ClosureDebugInfo> Closures;
 
-        internal EditAndContinueMethodDebugInformation(int methodOrdinal, ImmutableArray<LocalSlotDebugInfo> localSlots, ImmutableArray<ClosureDebugInfo> closures, ImmutableArray<LambdaDebugInfo> lambdas)
+        public EditAndContinueMethodDebugInformation(int methodOrdinal, ImmutableArray<LocalSlotDebugInfo> localSlots, ImmutableArray<ClosureDebugInfo> closures, ImmutableArray<LambdaDebugInfo> lambdas)
         {
             Debug.Assert(methodOrdinal >= -1);
 

@@ -80,14 +80,14 @@ namespace Microsoft.CodeAnalysis
             // Leave lazyPublishedModules unset. Published modules will be set and copied as needed.
         }
 
-        internal AssemblyMetadata(ImmutableArray<ModuleMetadata> modules)
+        public AssemblyMetadata(ImmutableArray<ModuleMetadata> modules)
             : base(isImageOwner: true)
         {
             Debug.Assert(!modules.IsDefaultOrEmpty);
             _initialModules = modules;
         }
 
-        internal AssemblyMetadata(ModuleMetadata manifestModule, Func<string, ModuleMetadata> moduleFactory)
+        public AssemblyMetadata(ModuleMetadata manifestModule, Func<string, ModuleMetadata> moduleFactory)
             : base(isImageOwner: true)
         {
             Debug.Assert(manifestModule != null);

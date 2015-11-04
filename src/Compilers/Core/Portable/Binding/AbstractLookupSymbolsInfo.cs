@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis
             private const int resetValue = -1;
             private const int reachedEndValue = int.MaxValue;
 
-            internal ArityEnumerator(int bitVector, HashSet<int> arities)
+            public ArityEnumerator(int bitVector, HashSet<int> arities)
             {
                 _current = resetValue;
                 _low32bits = bitVector;

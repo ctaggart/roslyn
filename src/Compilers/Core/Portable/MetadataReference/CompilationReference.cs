@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis
         public Compilation Compilation { get { return CompilationCore; } }
         public abstract Compilation CompilationCore { get; }
 
-        internal CompilationReference(MetadataReferenceProperties properties)
+        public CompilationReference(MetadataReferenceProperties properties)
             : base(properties)
         {
             Debug.Assert(properties.Kind != MetadataImageKind.Module);

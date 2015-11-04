@@ -15,7 +15,7 @@ namespace Microsoft.Cci
         protected bool typeReferenceNeedsToken;
         protected IModule module;
 
-        internal ReferenceIndexerBase(EmitContext context)
+        public ReferenceIndexerBase(EmitContext context)
             : base(context)
         {
         }

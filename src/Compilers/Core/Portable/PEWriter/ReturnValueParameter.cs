@@ -8,7 +8,7 @@ namespace Microsoft.Cci
 {
     public class ReturnValueParameter : IParameterDefinition
     {
-        internal ReturnValueParameter(IMethodDefinition containingMethod)
+        public ReturnValueParameter(IMethodDefinition containingMethod)
         {
             _containingMethod = containingMethod;
         }

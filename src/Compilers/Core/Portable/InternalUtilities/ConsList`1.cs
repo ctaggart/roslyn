@@ -23,7 +23,7 @@ namespace Roslyn.Utilities
             private T _current;
             private ConsList<T> _tail;
 
-            internal Enumerator(ConsList<T> list)
+            public Enumerator(ConsList<T> list)
             {
                 _current = default(T);
                 _tail = list;

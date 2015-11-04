@@ -128,7 +128,7 @@ namespace Microsoft.CodeAnalysis
                 private Enumerator _enumerator;
 
                 // SyntaxTriviaList is a relatively big struct so is passed as ref
-                internal ReversedEnumeratorImpl(ref SyntaxTriviaList list)
+                public ReversedEnumeratorImpl(ref SyntaxTriviaList list)
                 {
                     _enumerator = new Enumerator(ref list);
                 }

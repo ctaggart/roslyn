@@ -66,7 +66,7 @@ namespace Roslyn.Utilities
         // same as above but for users that go directly with unbuffered shared cache.
         private static int s_sharedRandom = Environment.TickCount;
 
-        internal StringTable() :
+        public StringTable() :
             this(null)
         {
         }

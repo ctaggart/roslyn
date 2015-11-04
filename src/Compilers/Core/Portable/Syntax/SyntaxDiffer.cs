@@ -511,7 +511,7 @@ namespace Microsoft.CodeAnalysis
             public readonly Stack<SyntaxNodeOrToken> OldNodes;
             public readonly Stack<SyntaxNodeOrToken> NewNodes;
 
-            internal ChangeRecord(TextChangeRange range, Stack<SyntaxNodeOrToken> oldNodes, Stack<SyntaxNodeOrToken> newNodes)
+            public ChangeRecord(TextChangeRange range, Stack<SyntaxNodeOrToken> oldNodes, Stack<SyntaxNodeOrToken> newNodes)
             {
                 this.Range = range;
                 this.OldNodes = oldNodes;

@@ -30,7 +30,7 @@ namespace Microsoft.CodeAnalysis {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CodeAnalysisResources() {
+        public CodeAnalysisResources() {
         }
         
         /// <summary>

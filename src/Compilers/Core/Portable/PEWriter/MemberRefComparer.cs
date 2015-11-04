@@ -9,7 +9,7 @@ namespace Microsoft.Cci
     {
         private readonly MetadataWriter _metadataWriter;
 
-        internal MemberRefComparer(MetadataWriter metadataWriter)
+        public MemberRefComparer(MetadataWriter metadataWriter)
         {
             _metadataWriter = metadataWriter;
         }

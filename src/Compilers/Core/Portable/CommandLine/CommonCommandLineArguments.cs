@@ -248,7 +248,7 @@ namespace Microsoft.CodeAnalysis
 
         public Guid SqmSessionGuid { get; set; }
 
-        internal CommandLineArguments()
+        public CommandLineArguments()
         {
         }
 

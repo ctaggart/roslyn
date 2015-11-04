@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis
         private readonly SyntaxNode _parent;
         public SyntaxTree _syntaxTree;
 
-        internal SyntaxNode(GreenNode green, SyntaxNode parent, int position)
+        public SyntaxNode(GreenNode green, SyntaxNode parent, int position)
         {
             Debug.Assert(position >= 0, "position cannot be negative");
             Debug.Assert(parent?.Green.IsList != true, "list cannot be a parent");
@@ -38,7 +38,7 @@ namespace Microsoft.CodeAnalysis
         /// Used by structured trivia which has "parent == null", and therefore must know its
         /// SyntaxTree explicitly when created.
         /// </summary>
-        internal SyntaxNode(GreenNode green, int position, SyntaxTree syntaxTree)
+        public SyntaxNode(GreenNode green, int position, SyntaxTree syntaxTree)
             : this(green, null, position)
         {
             this._syntaxTree = syntaxTree;

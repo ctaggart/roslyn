@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis
         private readonly SyntaxNode _node;
         private readonly int _count;
 
-        internal ChildSyntaxList(SyntaxNode node)
+        public ChildSyntaxList(SyntaxNode node)
         {
             _node = node;
             _count = CountNodes(node.Green);

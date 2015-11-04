@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         // created, in particular for leader blocks in exception handlers.
         private bool _pendingBlockCreate;
 
-        internal ILBuilder(ITokenDeferral module, LocalSlotManager localSlotManager, OptimizationLevel optimizations)
+        public ILBuilder(ITokenDeferral module, LocalSlotManager localSlotManager, OptimizationLevel optimizations)
         {
             Debug.Assert(BitConverter.IsLittleEndian);
 

@@ -10,7 +10,7 @@ namespace Microsoft.CodeAnalysis
         public readonly ManifestResourceAttributes Attributes;
         public readonly string Name;
 
-        internal EmbeddedResource(uint offset, ManifestResourceAttributes attributes, string name)
+        public EmbeddedResource(uint offset, ManifestResourceAttributes attributes, string name)
         {
             this.Offset = offset;
             this.Attributes = attributes;

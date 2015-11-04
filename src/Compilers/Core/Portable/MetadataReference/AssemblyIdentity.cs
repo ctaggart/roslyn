@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // asserting constructor used by SourceAssemblySymbol:
-        internal AssemblyIdentity(
+        public AssemblyIdentity(
             string name,
             Version version,
             string cultureName,
@@ -151,7 +151,7 @@ namespace Microsoft.CodeAnalysis
         }
 
         // constructor used by metadata reader:
-        internal AssemblyIdentity(
+        public AssemblyIdentity(
             string name,
             Version version,
             string cultureName,

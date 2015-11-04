@@ -6,7 +6,7 @@ namespace Microsoft.CodeAnalysis
 {
     public sealed class ResourceException : Exception
     {
-        internal ResourceException(string name, Exception inner = null)
+        public ResourceException(string name, Exception inner = null)
             : base(name, inner)
         {
         }

@@ -16,7 +16,7 @@ namespace Roslyn.Utilities
         {
             private readonly ReaderWriterLockSlim _lock;
 
-            internal ReadLockExiter(ReaderWriterLockSlim @lock)
+            public ReadLockExiter(ReaderWriterLockSlim @lock)
             {
                 _lock = @lock;
                 @lock.EnterReadLock();
@@ -37,7 +37,7 @@ namespace Roslyn.Utilities
         {
             private readonly ReaderWriterLockSlim _lock;
 
-            internal WriteLockExiter(ReaderWriterLockSlim @lock)
+            public WriteLockExiter(ReaderWriterLockSlim @lock)
             {
                 _lock = @lock;
                 @lock.EnterWriteLock();

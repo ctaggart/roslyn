@@ -125,7 +125,7 @@ namespace Microsoft.CodeAnalysis
         {
         }
 
-        internal DiagnosticDescriptor(
+        public DiagnosticDescriptor(
             string id,
             LocalizableString title,
             LocalizableString messageFormat,

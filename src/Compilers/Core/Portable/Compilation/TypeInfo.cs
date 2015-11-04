@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public ITypeSymbol ConvertedType { get; }
 
-        internal TypeInfo(ITypeSymbol type, ITypeSymbol convertedType)
+        public TypeInfo(ITypeSymbol type, ITypeSymbol convertedType)
             : this()
         {
             this.Type = type;

@@ -721,7 +721,7 @@ namespace Microsoft.Cci
             public ushort NumberOfIdEntries;
             public readonly List<object> Entries;
 
-            internal Directory(string name, int id)
+            public Directory(string name, int id)
             {
                 this.Name = name;
                 this.ID = id;

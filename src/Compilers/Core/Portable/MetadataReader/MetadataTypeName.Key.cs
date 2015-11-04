@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis
             private readonly byte _useCLSCompliantNameArityEncoding; // Using byte instead of bool for denser packing and smaller structure size
             private readonly short _forcedArity;
 
-            internal Key(MetadataTypeName mdTypeName)
+            public Key(MetadataTypeName mdTypeName)
             {
                 if (mdTypeName.IsNull)
                 {

@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             private readonly Stack<ScopeInfo> _scopes;
             private ExceptionHandlerScope _enclosingExceptionHandler;
 
-            internal LocalScopeManager()
+            public LocalScopeManager()
             {
                 _rootScope = new LocalScopeInfo();
                 _scopes = new Stack<ScopeInfo>(1);
@@ -853,7 +853,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
             public readonly int Begin; // inclusive
             public readonly int End;   // exclusive
 
-            internal ScopeBounds(int begin, int end)
+            public ScopeBounds(int begin, int end)
             {
                 Debug.Assert(begin >= 0 && end >= 0);
                 this.Begin = begin;

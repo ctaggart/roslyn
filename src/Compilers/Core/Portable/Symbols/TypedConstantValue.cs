@@ -18,13 +18,13 @@ namespace Microsoft.CodeAnalysis
         // Null array is represented by a null reference.
         private readonly object _value;
 
-        internal TypedConstantValue(object value)
+        public TypedConstantValue(object value)
         {
             Debug.Assert(value == null || value is string || value.GetType().GetTypeInfo().IsEnum || (value.GetType().GetTypeInfo().IsPrimitive && !(value is System.IntPtr) && !(value is System.UIntPtr)) || value is ITypeSymbol);
             _value = value;
         }
 
-        internal TypedConstantValue(ImmutableArray<TypedConstant> array)
+        public TypedConstantValue(ImmutableArray<TypedConstant> array)
         {
             _value = array.IsDefault ? null : (object)array;
         }

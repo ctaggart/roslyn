@@ -21,7 +21,7 @@ namespace Microsoft.Cci
         // index in _stringIndexToHeapPositionMap
         public readonly int MapIndex;
 
-        internal StringIdx(int mapIndex)
+        public StringIdx(int mapIndex)
         {
             MapIndex = mapIndex;
         }
@@ -61,7 +61,7 @@ namespace Microsoft.Cci
         // In EnC deltas this value is not the same as the value stored in blob token.
         public readonly int HeapPosition;
 
-        internal BlobIdx(int heapPosition)
+        public BlobIdx(int heapPosition)
         {
             HeapPosition = heapPosition;
         }

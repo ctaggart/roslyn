@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis
         /// <value><c>true</c> if documentation comments are parsed, <c>false</c> otherwise.</value>
         public DocumentationMode DocumentationMode { get; protected set; }
 
-        internal ParseOptions(SourceCodeKind kind, DocumentationMode documentationMode)
+        public ParseOptions(SourceCodeKind kind, DocumentationMode documentationMode)
         {
             this.Kind = kind;
             this.DocumentationMode = documentationMode;

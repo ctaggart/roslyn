@@ -15,12 +15,12 @@ namespace Roslyn.Utilities
         private readonly List<object> _values = ListPool.Allocate();
         private readonly int _baseDataCount;
 
-        internal ObjectReaderData(params object[] items)
+        public ObjectReaderData(params object[] items)
             : this((IEnumerable<object>)items)
         {
         }
 
-        internal ObjectReaderData(IEnumerable<object> items)
+        public ObjectReaderData(IEnumerable<object> items)
         {
             if (items != null)
             {
@@ -31,7 +31,7 @@ namespace Roslyn.Utilities
             }
         }
 
-        internal ObjectReaderData(ObjectReaderData baseData)
+        public ObjectReaderData(ObjectReaderData baseData)
         {
             Debug.Assert(baseData?._baseData == null, "Should be <= 1 level deep");
             _baseData = baseData;

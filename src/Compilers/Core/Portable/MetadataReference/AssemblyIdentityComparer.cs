@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis
             get { return StringComparer.OrdinalIgnoreCase; }
         }
 
-        internal AssemblyIdentityComparer()
+        public AssemblyIdentityComparer()
         {
         }
 

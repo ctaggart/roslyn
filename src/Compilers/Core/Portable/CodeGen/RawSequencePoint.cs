@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         // Special text span indicating a hidden sequence point.
         public static readonly TextSpan HiddenSequencePointSpan = new TextSpan(0x7FFFFFFF, 0);
 
-        internal RawSequencePoint(SyntaxTree syntaxTree, int ilMarker, TextSpan span)
+        public RawSequencePoint(SyntaxTree syntaxTree, int ilMarker, TextSpan span)
         {
             this.SyntaxTree = syntaxTree;
             this.ILMarker = ilMarker;

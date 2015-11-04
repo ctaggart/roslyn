@@ -88,7 +88,7 @@ namespace Roslyn.Utilities
         // TODO: consider whether a counter is random enough
         private Random _random;
 
-        internal TextKeyedCache() :
+        public TextKeyedCache() :
             this(null)
         {
         }

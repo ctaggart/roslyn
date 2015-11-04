@@ -42,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         // is the same for linear and binary search.
         private const int LinearSearchThreshold = 3;
 
-        internal SwitchIntegralJumpTableEmitter(
+        public SwitchIntegralJumpTableEmitter(
             ILBuilder builder,
             KeyValuePair<ConstantValue, object>[] caseLabels,
             object fallThroughLabel,

@@ -270,7 +270,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
     {
         private readonly Cci.IArrayTypeReference _arrayType;
 
-        internal ArraySetValueParameterInfo(ushort index, Cci.IArrayTypeReference arrayType)
+        public ArraySetValueParameterInfo(ushort index, Cci.IArrayTypeReference arrayType)
             : base(index)
         {
             _arrayType = arrayType;

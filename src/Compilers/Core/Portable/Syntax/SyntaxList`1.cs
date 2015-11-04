@@ -18,7 +18,7 @@ namespace Microsoft.CodeAnalysis
     {
         private readonly SyntaxNode _node;
 
-        internal SyntaxList(SyntaxNode node)
+        public SyntaxList(SyntaxNode node)
         {
             _node = node;
         }

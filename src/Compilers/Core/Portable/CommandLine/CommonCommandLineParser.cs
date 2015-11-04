@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis
         public readonly bool IsScriptRunner;
         private static readonly char[] s_searchPatternTrimChars = new char[] { '\t', '\n', '\v', '\f', '\r', ' ', '\x0085', '\x00a0' };
 
-        internal CommandLineParser(CommonMessageProvider messageProvider, bool isScriptRunner)
+        public CommandLineParser(CommonMessageProvider messageProvider, bool isScriptRunner)
         {
             Debug.Assert(messageProvider != null);
             _messageProvider = messageProvider;

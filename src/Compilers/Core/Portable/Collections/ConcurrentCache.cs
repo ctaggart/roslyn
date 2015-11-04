@@ -23,7 +23,7 @@ namespace Microsoft.CodeAnalysis
             public readonly TKey key;
             public readonly TValue value;
 
-            internal Entry(int hash, TKey key, TValue value)
+            public Entry(int hash, TKey key, TValue value)
             {
                 this.hash = hash;
                 this.key = key;

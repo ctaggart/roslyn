@@ -76,7 +76,7 @@ namespace Microsoft.CodeAnalysis
         private static readonly AttributeValueExtractor<ObsoleteAttributeData> s_attributeObsoleteDataExtractor = CrackObsoleteAttributeData;
         private static readonly AttributeValueExtractor<ObsoleteAttributeData> s_attributeDeprecatedDataExtractor = CrackDeprecatedAttributeData;
 
-        internal PEModule(PEReader peReader, IntPtr metadataOpt, int metadataSizeOpt, bool includeEmbeddedInteropTypes = false)
+        public PEModule(PEReader peReader, IntPtr metadataOpt, int metadataSizeOpt, bool includeEmbeddedInteropTypes = false)
         {
             // shall not throw
 
@@ -550,7 +550,7 @@ namespace Microsoft.CodeAnalysis
             public readonly TypeDefinitionHandle TypeDef;
             public readonly NamespaceDefinitionHandle NamespaceHandle;
 
-            internal TypeDefToNamespace(TypeDefinitionHandle typeDef, NamespaceDefinitionHandle namespaceHandle)
+            public TypeDefToNamespace(TypeDefinitionHandle typeDef, NamespaceDefinitionHandle namespaceHandle)
             {
                 TypeDef = typeDef;
                 NamespaceHandle = namespaceHandle;

@@ -14,7 +14,7 @@ namespace Microsoft.CodeAnalysis
         private readonly SymbolFactory<ModuleSymbol, TypeSymbol> _factory;
         protected readonly ModuleSymbol moduleSymbol;
 
-        internal TypeNameDecoder(SymbolFactory<ModuleSymbol, TypeSymbol> factory, ModuleSymbol moduleSymbol)
+        public TypeNameDecoder(SymbolFactory<ModuleSymbol, TypeSymbol> factory, ModuleSymbol moduleSymbol)
         {
             _factory = factory;
             this.moduleSymbol = moduleSymbol;

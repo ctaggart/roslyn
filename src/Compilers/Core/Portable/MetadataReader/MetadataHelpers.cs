@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis
             public readonly int[] ArrayRanks;
             public readonly string AssemblyName;
 
-            internal AssemblyQualifiedTypeName(
+            public AssemblyQualifiedTypeName(
                 string topLevelType,
                 string[] nestedTypes,
                 AssemblyQualifiedTypeName[] typeArguments,
@@ -71,7 +71,7 @@ namespace Microsoft.CodeAnalysis
             private readonly string _input;
             private int _offset;
 
-            internal SerializedTypeDecoder(string s)
+            public SerializedTypeDecoder(string s)
             {
                 _input = s;
                 _offset = 0;

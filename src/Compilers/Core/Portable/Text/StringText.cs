@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.Text
         private readonly string _source;
         private readonly Encoding _encodingOpt;
 
-        internal StringText(string source, Encoding encodingOpt, ImmutableArray<byte> checksum = default(ImmutableArray<byte>), SourceHashAlgorithm checksumAlgorithm = SourceHashAlgorithm.Sha1)
+        public StringText(string source, Encoding encodingOpt, ImmutableArray<byte> checksum = default(ImmutableArray<byte>), SourceHashAlgorithm checksumAlgorithm = SourceHashAlgorithm.Sha1)
             : base(checksum, checksumAlgorithm)
         {
             Debug.Assert(source != null);

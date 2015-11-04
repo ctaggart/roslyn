@@ -18,7 +18,7 @@ namespace Roslyn.Utilities
         private readonly ObjectReaderData _dataMap;
         private readonly ObjectBinder _binder;
 
-        internal ObjectReader(
+        public ObjectReader(
             Stream stream,
             ObjectReaderData defaultData = null,
             ObjectBinder binder = null)

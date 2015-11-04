@@ -29,7 +29,7 @@ namespace Microsoft.Cci
     /// </summary>
     public sealed class PdbWritingException : Exception
     {
-        internal PdbWritingException(Exception inner) :
+        public PdbWritingException(Exception inner) :
             base(inner.Message, inner)
         {
         }
@@ -52,7 +52,7 @@ namespace Microsoft.Cci
         private const int bufferFlushLimit = 64 * 1024;
         private readonly HashAlgorithm _hashAlgorithm;
 
-        internal PdbLogger(bool logging)
+        public PdbLogger(bool logging)
         {
             _logging = logging;
             if (logging)

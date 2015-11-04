@@ -10,7 +10,7 @@ namespace Microsoft.Cci
         private readonly int _start;
         private readonly int _length;
 
-        internal Blob(byte[] buffer, int start, int length)
+        public Blob(byte[] buffer, int start, int length)
         {
             _buffer = buffer;
             _start = start;

@@ -12,7 +12,7 @@ namespace Microsoft.CodeAnalysis
     {
         public readonly bool IsImageOwner;
 
-        internal Metadata(bool isImageOwner)
+        public Metadata(bool isImageOwner)
         {
             this.IsImageOwner = isImageOwner;
         }

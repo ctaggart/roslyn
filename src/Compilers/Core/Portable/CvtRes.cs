@@ -593,7 +593,7 @@ namespace Microsoft.CodeAnalysis
             private const ushort sizeVS_FIXEDFILEINFO = sizeof(DWORD) * 13;
             private readonly bool _isDll;
 
-            internal VersionResourceSerializer(bool isDll, string comments, string companyName, string fileDescription, string fileVersion,
+            public VersionResourceSerializer(bool isDll, string comments, string companyName, string fileDescription, string fileVersion,
                 string internalName, string legalCopyright, string legalTrademark, string originalFileName, string productName, string productVersion,
                 Version assemblyVersion)
             {

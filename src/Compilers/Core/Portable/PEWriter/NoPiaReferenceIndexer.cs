@@ -12,7 +12,7 @@ namespace Microsoft.Cci
     /// </summary>
     public sealed class NoPiaReferenceIndexer : ReferenceIndexerBase
     {
-        internal NoPiaReferenceIndexer(EmitContext context)
+        public NoPiaReferenceIndexer(EmitContext context)
             : base(context)
         {
             this.module = context.Module;

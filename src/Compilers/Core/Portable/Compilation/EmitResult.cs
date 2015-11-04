@@ -24,7 +24,7 @@ namespace Microsoft.CodeAnalysis.Emit
         /// </summary>
         public ImmutableArray<Diagnostic> Diagnostics { get; }
 
-        internal EmitResult(bool success, ImmutableArray<Diagnostic> diagnostics)
+        public EmitResult(bool success, ImmutableArray<Diagnostic> diagnostics)
         {
             Success = success;
             Diagnostics = diagnostics;

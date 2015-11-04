@@ -55,7 +55,7 @@ namespace Microsoft.CodeAnalysis
         public ScriptCompilationInfo ScriptCompilationInfo => CommonScriptCompilationInfo;
         public abstract ScriptCompilationInfo CommonScriptCompilationInfo { get; }
 
-        internal Compilation(
+        public Compilation(
             string name,
             ImmutableArray<MetadataReference> references,
             IReadOnlyDictionary<string, string> features,

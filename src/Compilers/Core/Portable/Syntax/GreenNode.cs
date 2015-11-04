@@ -356,7 +356,7 @@ namespace Microsoft.CodeAnalysis
         // use high-bit on Kind to identify serialization of extra info
         private const UInt16 ExtendedSerializationInfoMask = unchecked((UInt16)(1u << 15));
 
-        internal GreenNode(ObjectReader reader)
+        public GreenNode(ObjectReader reader)
         {
             var kindBits = reader.ReadUInt16();
             _kind = (ushort)(kindBits & ~ExtendedSerializationInfoMask);

@@ -45,7 +45,7 @@ namespace Microsoft.CodeAnalysis
         {
             private readonly Stream _stream;
 
-            internal SimpleEmitStreamProvider(Stream stream)
+            public SimpleEmitStreamProvider(Stream stream)
             {
                 Debug.Assert(stream != null);
                 _stream = stream;

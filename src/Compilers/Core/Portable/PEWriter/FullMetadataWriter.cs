@@ -299,7 +299,7 @@ namespace Microsoft.Cci
 
         private sealed class FullReferenceIndexer : ReferenceIndexer
         {
-            internal FullReferenceIndexer(MetadataWriter metadataWriter)
+            public FullReferenceIndexer(MetadataWriter metadataWriter)
                 : base(metadataWriter)
             {
             }

@@ -15,7 +15,7 @@ namespace Microsoft.CodeAnalysis
         private readonly ISymbol _symbol;
         private readonly SymbolDisplayFormat _symbolDisplayFormat;
 
-        internal FormattedSymbol(ISymbol symbol, SymbolDisplayFormat symbolDisplayFormat)
+        public FormattedSymbol(ISymbol symbol, SymbolDisplayFormat symbolDisplayFormat)
         {
             Debug.Assert(symbol != null && symbolDisplayFormat != null);
 

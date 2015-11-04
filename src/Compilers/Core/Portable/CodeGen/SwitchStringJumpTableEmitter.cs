@@ -59,7 +59,7 @@ namespace Microsoft.CodeAnalysis.CodeGen
         /// </summary>
         private readonly LocalDefinition _keyHash;
 
-        internal SwitchStringJumpTableEmitter(
+        public SwitchStringJumpTableEmitter(
             ILBuilder builder,
             LocalOrParameter key,
             KeyValuePair<ConstantValue, object>[] caseLabels,

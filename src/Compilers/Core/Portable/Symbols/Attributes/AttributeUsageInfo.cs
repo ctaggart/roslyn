@@ -51,7 +51,7 @@ namespace Microsoft.CodeAnalysis
 
         static public readonly AttributeUsageInfo Null = default(AttributeUsageInfo);
 
-        internal AttributeUsageInfo(AttributeTargets validTargets, bool allowMultiple, bool inherited)
+        public AttributeUsageInfo(AttributeTargets validTargets, bool allowMultiple, bool inherited)
         {
             // NOTE: VB allows AttributeUsageAttribute with no valid target, i.e. <AttributeUsageAttribute(0)>, and doesn't generate any diagnostics.
             // We use PackedAttributeUsage.Initialized field to differentiate between uninitialized AttributeUsageInfo and initialized AttributeUsageInfo with no valid targets.
@@ -168,7 +168,7 @@ namespace Microsoft.CodeAnalysis
         {
             private readonly string[] _targetResourceIds;
 
-            internal ValidTargetsStringLocalizableErrorArgument(string[] targetResourceIds)
+            public ValidTargetsStringLocalizableErrorArgument(string[] targetResourceIds)
             {
                 Debug.Assert(targetResourceIds != null);
                 _targetResourceIds = targetResourceIds;

@@ -228,7 +228,7 @@ namespace Microsoft.CodeAnalysis
         private readonly Lazy<ImmutableArray<Diagnostic>> _lazyErrors;
 
         // Expects correct arguments.
-        internal CompilationOptions(
+        public CompilationOptions(
             OutputKind outputKind,
             bool reportSuppressedDiagnostics,
             string moduleName,

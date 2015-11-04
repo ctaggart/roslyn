@@ -372,7 +372,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>
         /// This version also accepts <see cref="SymbolDisplayCompilerInternalOptions"/>.
         /// </summary>
-        internal SymbolDisplayFormat(
+        public SymbolDisplayFormat(
             SymbolDisplayCompilerInternalOptions compilerInternalOptions,
             SymbolDisplayGlobalNamespaceStyle globalNamespaceStyle = default(SymbolDisplayGlobalNamespaceStyle),
             SymbolDisplayTypeQualificationStyle typeQualificationStyle = default(SymbolDisplayTypeQualificationStyle),

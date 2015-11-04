@@ -20,7 +20,7 @@ namespace Microsoft.CodeAnalysis.Emit
     // sufficient to track a pair of implementing method and index.
     public struct MethodImplKey : IEquatable<MethodImplKey>
     {
-        internal MethodImplKey(int implementingMethod, int index)
+        public MethodImplKey(int implementingMethod, int index)
         {
             Debug.Assert(implementingMethod > 0);
             Debug.Assert(index > 0);

@@ -19,7 +19,7 @@ namespace Microsoft.CodeAnalysis
         /// </summary>
         public bool IsDefined { get; }
 
-        internal PreprocessingSymbolInfo(IPreprocessingSymbol symbol, bool isDefined)
+        public PreprocessingSymbolInfo(IPreprocessingSymbol symbol, bool isDefined)
             : this()
         {
             this.Symbol = symbol;

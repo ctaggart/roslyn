@@ -130,7 +130,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
         private readonly DiagnosticAnalyzer _analyzer;
         private readonly HostCodeBlockStartAnalysisScope<TLanguageKindEnum> _scope;
 
-        internal AnalyzerCodeBlockStartAnalysisContext(DiagnosticAnalyzer analyzer,
+        public AnalyzerCodeBlockStartAnalysisContext(DiagnosticAnalyzer analyzer,
                                                        HostCodeBlockStartAnalysisScope<TLanguageKindEnum> scope,
                                                        SyntaxNode codeBlock,
                                                        ISymbol owningSymbol,
@@ -285,7 +285,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
             get { return _syntaxNodeActions; }
         }
 
-        internal HostCodeBlockStartAnalysisScope()
+        public HostCodeBlockStartAnalysisScope()
         {
         }
 
@@ -478,7 +478,7 @@ namespace Microsoft.CodeAnalysis.Diagnostics
 
         public static readonly AnalyzerActions Empty = new AnalyzerActions();
 
-        internal AnalyzerActions()
+        public AnalyzerActions()
         {
         }
 

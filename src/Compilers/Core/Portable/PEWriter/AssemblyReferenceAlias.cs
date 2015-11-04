@@ -19,7 +19,7 @@ namespace Microsoft.Cci
         /// </summary>
         public readonly IAssemblyReference Assembly;
 
-        internal AssemblyReferenceAlias(string name, IAssemblyReference assembly)
+        public AssemblyReferenceAlias(string name, IAssemblyReference assembly)
         {
             Debug.Assert(name != null);
             Debug.Assert(assembly != null);

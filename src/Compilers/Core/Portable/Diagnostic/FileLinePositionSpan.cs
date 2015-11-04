@@ -85,7 +85,7 @@ namespace Microsoft.CodeAnalysis
             _hasMappedPath = false;
         }
 
-        internal FileLinePositionSpan(string path, LinePositionSpan span, bool hasMappedPath)
+        public FileLinePositionSpan(string path, LinePositionSpan span, bool hasMappedPath)
         {
             _path = path;
             _span = span;

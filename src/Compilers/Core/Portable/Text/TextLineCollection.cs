@@ -92,7 +92,7 @@ namespace Microsoft.CodeAnalysis.Text
             private readonly TextLineCollection _lines;
             private int _index;
 
-            internal Enumerator(TextLineCollection lines, int index = -1)
+            public Enumerator(TextLineCollection lines, int index = -1)
             {
                 _lines = lines;
                 _index = index;
