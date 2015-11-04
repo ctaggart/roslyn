@@ -1,0 +1,6 @@
+﻿
+/packages
+.vs/
+/paket.exe
+bin/
+obj/
