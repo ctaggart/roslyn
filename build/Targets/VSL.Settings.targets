@@ -60,7 +60,7 @@
 
     <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 
-    <SignAssembly Condition="'$(SignAssembly)' == ''">true</SignAssembly>
+    <SignAssembly Condition="'$(SignAssembly)' == ''">false</SignAssembly>
 
     <UseRoslynAnalyzers Condition="'$(UseRoslynAnalyzers)' == ''">true</UseRoslynAnalyzers>
 
@@ -234,7 +234,7 @@
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
       </PropertyGroup>
       <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-        <DebugType>pdbonly</DebugType>
+        <DebugType>portable</DebugType>
         <DefineConstants>TRACE</DefineConstants>
         <Optimize>true</Optimize>
       </PropertyGroup>
